@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <!-- تحديث ميتا فيو بورت لمنع التكبير/التصغير (zoom) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="description" content="3ALearning - ShadowWrite AI™ | Master English through intelligent shadow writing. Real-time feedback, pronunciation, gamified learning.">
+    <meta name="theme-color" content="#0F2C3D">
+    <title>3ALearning | ShadowWrite AI™ — Modern English Mastery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* منع التحديد (نسخ) لكل العناصر عدا حقول الإدخال */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* السماح بالنسخ واللصق داخل حقول الكتابة فقط */
+        input, textarea, .writing-area input, #userInput, [contenteditable="true"] {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+        /* باقي التصميم كما هو مع الحفاظ على كل التفاصيل */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-dark: #0F2C3D;
+            --primary-light: #1C4E6E;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --emerald: #10b981;
+            --error-red: #ef4444;
+            --bg-soft: #F8FAFE;
+            --glass-bg: rgba(255,255,255,0.85);
+            --card-shadow: 0 25px 45px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.3);
+            --footer-bg: #0a1c26;
+            --footer-text: #cbd5e6;
+            --footer-heading: #f1f5f9;
+            --btn-gradient: linear-gradient(105deg, #1e2a3a, #0f172a);
+            --btn-hover-glow: 0 10px 25px -5px rgba(6,182,212,0.4);
+        }
+        body {
+            background: radial-gradient(circle at 10% 20%, rgba(15,44,61,0.08) 0%, rgba(6,182,212,0.03) 100%),
+                        linear-gradient(135deg, #f5f7fc 0%, #eef2f8 100%);
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+        /* LOADER */
+        .loader-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(12px);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-overlay.hidden { opacity: 0; visibility: hidden; }
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(6,182,212,0.2);
+            border-top: 4px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader-site-name { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #0F2C3D, #1C4E6E, #06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; margin-top: 20px; letter-spacing: -0.5px; }
+
+        /* MODERN HEADER */
+        .professional-header {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            z-index: 100;
+            width: 100%;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            min-height: 70px;
+        }
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: default;
+            flex-shrink: 0;
+        }
+        .logo-icon {
+            background: linear-gradient(145deg, var(--primary-dark), #2c6280);
+            width: 44px;
+            height: 44px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #0F2C3D, #1C4E6E);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+            letter-spacing: -0.3px;
+        }
+        .menu-toggle {
+            display: none;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(203,213,225,0.6);
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .menu-toggle:hover {
+            background: white;
+            transform: scale(0.96);
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .lang-selector, .header-btn {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(203,213,225,0.5);
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+        .lang-selector:hover, .header-btn:hover {
+            background: white;
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+        }
+        #signupBtn {
+            background: #0a0a0a !important;
+            color: white !important;
+            border: none !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        #signupBtn:hover {
+            background: #1f1f1f !important;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.25);
+        }
+        @media (max-width: 768px) {
+            .header-container { padding: 0 16px; flex-wrap: nowrap; }
+            .logo-text { font-size: 0.9rem; white-space: normal; }
+            .menu-toggle { display: flex; }
+            .header-actions {
+                position: fixed; top: 70px; left: 0; right: 0;
+                background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+                flex-direction: column; align-items: stretch; padding: 20px; gap: 12px;
+                border-bottom: 1px solid rgba(0,0,0,0.08);
+                transform: translateY(-120%); opacity: 0; visibility: hidden;
+                transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.2s;
+                z-index: 99; border-radius: 0 0 28px 28px;
+                box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+            }
+            .header-actions.open { transform: translateY(0); opacity: 1; visibility: visible; }
+            .lang-selector, .header-btn { justify-content: center; width: 100%; padding: 12px; }
+        }
+
+        /* STATS & MAIN CARD */
+        .stats-mini {
+            background: rgba(15,44,61,0.08);
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 80px;
+            display: inline-flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .stat-item {
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0f172a;
+        }
+        .main-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .app-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 56px;
+            padding: 40px 36px 52px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255,255,255,0.7);
+            transition: transform 0.2s ease;
+        }
+        @media (max-width: 640px) {
+            .app-card { padding: 28px 20px 36px; border-radius: 40px; }
+            .stats-mini { gap: 14px; padding: 6px 16px; }
+        }
+        .sentence-word {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: rgba(255,255,255,0.8);
+            padding: 18px 32px;
+            border-radius: 100px;
+            display: inline-block;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+            border: 1px solid rgba(255,255,255,0.9);
+            line-height: 1.4;
+            word-break: break-word;
+            max-width: 100%;
+            font-family: 'Cairo', monospace;
+        }
+        @media (max-width: 560px) {
+            .sentence-word { font-size: 1.3rem; padding: 14px 22px; }
+        }
+        .sentence-translation {
+            margin: 18px auto 12px;
+            background: rgba(224, 232, 255, 0.6);
+            backdrop-filter: blur(4px);
+            padding: 10px 28px;
+            border-radius: 60px;
+            width: fit-content;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .writing-area input {
+            width: 100%;
+            padding: 18px 28px;
+            font-size: 1rem;
+            border-radius: 100px;
+            border: 2px solid rgba(203,213,225,0.6);
+            transition: all 0.2s;
+            background: white;
+            font-weight: 500;
+            font-family: monospace;
+            letter-spacing: 0.3px;
+        }
+        .writing-area input:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 3px rgba(6,182,212,0.2);
+            outline: none;
+        }
+        .char-feedback-box {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 24px;
+            margin-top: 28px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            font-family: monospace;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .green-char { background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 30px; display: inline-block; margin: 0 2px; }
+        .red-char { background: #fee2e2; color: #b91c1c; padding: 4px 8px; border-radius: 30px; margin: 0 2px; }
+        .pending-char { opacity: 0.6; color: #334155; margin: 0 2px; display: inline-block; }
+        .word-correct { background: #10b981; color: white; padding: 4px 14px; border-radius: 40px; margin: 0 4px; display: inline-block; font-weight: 800; }
+        .action-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+        .glass-btn {
+            background: linear-gradient(105deg, #1e2a3a, #0f172a);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 60px;
+            color: white;
+            font-weight: 700;
+            display: inline-flex;
+            gap: 12px;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+        .glass-btn:hover {
+            background: linear-gradient(105deg, #2c3e4e, #1a2535);
+            transform: translateY(-3px);
+            box-shadow: var(--btn-hover-glow);
+        }
+        .speak-btn {
+            background: linear-gradient(105deg, #1e293b, #0f172a);
+            position: relative;
+            overflow: hidden;
+        }
+        .speak-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .speak-btn:hover::before { left: 100%; }
+        .speed-control {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            padding: 6px 20px;
+            border-radius: 100px;
+            margin-top: 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #0f172a;
+            border: 1px solid rgba(203,213,225,0.4);
+        }
+        .speed-control input {
+            width: 150px;
+            cursor: pointer;
+            accent-color: var(--accent-cyan);
+        }
+        .speed-value {
+            background: #0f172a;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-family: monospace;
+            font-weight: 700;
+            min-width: 55px;
+        }
+        @media (max-width: 560px) {
+            .speed-control { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+            .speed-control input { flex: 1; }
+        }
+
+        /* FOOTER */
+        .professional-footer {
+            background: linear-gradient(135deg, #0a1c26 0%, #0F2C3D 100%);
+            border-radius: 48px 48px 0 0;
+            margin-top: 80px;
+            padding: 60px 32px 32px;
+            color: var(--footer-text);
+            position: relative;
+            box-shadow: 0 -12px 30px rgba(0,0,0,0.08);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-col h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--footer-heading);
+            position: relative;
+            display: inline-block;
+        }
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+        .footer-links a {
+            color: #cbd5e6;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        .social-icons a {
+            background: rgba(255,255,255,0.08);
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+            margin-right: 10px;
+        }
+        .social-icons a:hover {
+            background: var(--accent-cyan);
+            transform: translateY(-4px);
+            color: #0F2C3D;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+        }
+        @media (max-width: 768px) {
+            .footer-grid { gap: 32px; text-align: center; }
+            .footer-col h4:after { left: 50%; transform: translateX(-50%); width: 50px; }
+            .footer-col h4 { display: block; }
+        }
+
+        /* MODALS & MISC */
+        .modal-bg {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+            display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 16px;
+        }
+        .modal-card {
+            background: white; border-radius: 48px; padding: 32px 28px; max-width: 460px; width: 100%;
+            max-height: 85vh; overflow-y: auto; box-shadow: 0 30px 50px rgba(0,0,0,0.2);
+        }
+        .modal-card h3 { margin-bottom: 24px; color: var(--primary-dark); font-weight: 800; }
+        .modal-card input { width: 100%; padding: 14px 18px; margin: 8px 0 16px; border: 1px solid #cbd5e1; border-radius: 60px; font-size: 0.9rem; transition: 0.2s; }
+        .modal-card input:focus { border-color: var(--accent-cyan); outline: none; box-shadow: 0 0 0 3px rgba(6,182,212,0.2); }
+        .auth-error { color: #dc2626; font-size: 0.75rem; margin-top: -8px; margin-bottom: 12px; }
+        .social-divider { display: flex; align-items: center; margin: 20px 0; color: #64748b; font-size: 0.8rem; }
+        .social-divider::before, .social-divider::after { content: ""; flex: 1; border-bottom: 1px solid #e2e8f0; }
+        .social-divider span { margin: 0 12px; }
+        .social-btn {
+            background: white; border: 1px solid #e2e8f0; border-radius: 60px; padding: 12px;
+            font-weight: 600; cursor: pointer; width: 100%; margin-bottom: 12px; display: flex;
+            align-items: center; justify-content: center; gap: 12px; transition: all 0.2s;
+        }
+        .social-btn.google { border-color: #db4437; color: #db4437; }
+        .social-btn.facebook { border-color: #4267B2; color: #4267B2; }
+        .social-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.05); background: #fafcff; }
+        .vocab-item { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; margin: 8px 0; padding: 14px; border-radius: 40px; flex-wrap: wrap; gap: 12px; }
+        .delete-vocab { background: #fee2e2; border: none; border-radius: 40px; padding: 6px 16px; cursor: pointer; color: #b91c1c; font-weight: 600; transition: 0.1s; }
+        .delete-vocab:hover { background: #fecaca; transform: scale(0.98); }
+        .float-msg {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #0F2C3D; color: white; padding: 14px 28px; border-radius: 100px;
+            font-weight: 700; z-index: 3000; opacity: 0; transition: 0.2s; pointer-events: none;
+            font-size: 0.9rem; text-align: center; backdrop-filter: blur(8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+        .float-msg.show { opacity: 1; animation: fadeOutMsg 1.2s forwards; }
+        @keyframes fadeOutMsg { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        .privacy-policy { max-width: 1000px; margin: 40px auto; background: white; border-radius: 48px; padding: 48px; box-shadow: var(--card-shadow); }
+        .shake { animation: shakeAnim 0.25s ease-in-out; }
+        @keyframes shakeAnim { 0%,100%{ transform: translateX(0); } 25%{ transform: translateX(-5px); } 75%{ transform: translateX(5px); } }
+        .auth-visible { display: inline-flex; }
+        .auth-hidden { display: none !important; }
+        button, .glass-btn, .header-btn { cursor: pointer; }
+    </style>
+</head>
+<body>
+<div id="loaderOverlay" class="loader-overlay"><div class="spinner"></div><div class="loader-site-name">3ALearning</div><div>ShadowWrite AI™</div></div>
+
+<header class="professional-header">
+    <div class="header-container">
+        <div class="logo-wrapper"><div class="logo-icon">3A</div><div class="logo-text">3ALearning | ShadowWrite AI™</div></div>
+        <div class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></div>
+        <div class="header-actions" id="headerActions">
+            <select id="globalLangSelect" class="lang-selector auth-visible"></select>
+            <button id="openVocabBtn" class="header-btn auth-visible"><i class="fas fa-book-open"></i> <span data-i18n="vocabBtn">Words</span></button>
+            <button id="privacyBtn" class="header-btn auth-visible"><i class="fas fa-shield-alt"></i> Privacy</button>
+            <button id="signupBtn" class="header-btn auth-action"><i class="fas fa-user-plus"></i> <span data-i18n="createAccount">Create Account</span></button>
+            <button id="loginBtn" class="header-btn auth-action"><i class="fas fa-sign-in-alt"></i> <span data-i18n="loginBtn">Login</span></button>
+            <button id="logoutBtn" class="header-btn auth-hidden"><i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">Logout</span></button>
+        </div>
+    </div>
+</header>
+
+<div class="main-container" id="mainContent">
+    <div class="app-card">
+        <div style="display: flex; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
+            <div class="stats-mini">
+                <div class="stat-item"><i class="fas fa-star" style="color:#fbbf24;"></i> <span id="xpDisplay">0 XP</span></div>
+                <div class="stat-item"><i class="fas fa-fire" style="color:#f59e0b;"></i> <span id="streakDisplay">0</span> <span data-i18n="streakLabel">day streak</span></div>
+                <div class="stat-item"><i class="fas fa-chart-line"></i> <span id="levelDisplay">Lv.1</span></div>
+            </div>
+        </div>
+        <div style="text-align:center; margin-bottom:12px;">
+            <div class="sentence-word" id="sentenceDisplay"></div>
+            <div class="sentence-translation"><i class="fas fa-language"></i> <span id="translationSpan"></span></div>
+            <button id="speakMainBtn" class="glass-btn speak-btn" style="margin-top: 12px;"><i class="fas fa-volume-up"></i> <span data-i18n="listenBtn">Listen</span></button>
+            <div class="speed-control">
+                <label><i class="fas fa-tachometer-alt"></i> <span data-i18n="speedLabel">Speed</span></label>
+                <input type="range" id="speedSlider" min="0.3" max="1.5" step="0.02" value="0.9">
+                <span id="speedValue" class="speed-value">0.90</span>
+            </div>
+        </div>
+        <div class="writing-area">
+            <label><i class="fas fa-keyboard"></i> <span data-i18n="typingLabel">Type exactly as shown (spaces allowed, no punctuation)</span></label>
+            <input type="text" id="userInput" autocomplete="off" placeholder="Start typing with spaces, no punctuation..." inputmode="text">
+        </div>
+        <div id="charFeedbackPanel" class="char-feedback-box">✨ Ready — start typing to see intelligent feedback</div>
+        <div class="action-buttons">
+            <button id="prevBtn" class="glass-btn"><i class="fas fa-arrow-left"></i> <span data-i18n="prevBtn">Prev</span></button>
+            <button id="nextBtn" class="glass-btn"><span data-i18n="nextBtn">Next</span> <i class="fas fa-arrow-right"></i></button>
+            <button id="resetBtn" class="glass-btn"><i class="fas fa-undo-alt"></i> <span data-i18n="resetBtn">Reset</span></button>
+        </div>
+    </div>
+</div>
+
+<div id="privacySection" class="privacy-policy" style="display: none;">
+    <h2>Privacy Policy for 3ALearning</h2>
+    <p>Effective date: 2025</p>
+    <p>At 3ALearning, accessible from www.3alearning.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by 3ALearning and how we use it.</p>
+    <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
+    <h3>Log Files</h3>
+    <p>3ALearning follows a standard procedure of using log files. These files log visitors when they use the platform. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.</p>
+    <h3>Children's Information</h3>
+    <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity. 3ALearning does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
+    <h3>Consent</h3>
+    <p>By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.</p>
+    <button id="closePrivacyBtn" class="glass-btn" style="margin-top: 20px;">Back to Learning</button>
+</div>
+
+<footer class="professional-footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>ShadowWrite AI™</h4>
+            <p data-i18n="footerDesc">Revolutionary neural shadow writing, real-time feedback & AI gamification</p>
+            <div class="social-icons">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4 data-i18n="resources">Resources</h4>
+            <ul class="footer-links">
+                <li><a href="#" data-i18n="learningPath"><i class="fas fa-graduation-cap"></i> Learning Path</a></li>
+                <li><a href="#" data-i18n="gamify"><i class="fas fa-gamepad"></i> Gamification</a></li>
+                <li><a href="#" data-i18n="stories"><i class="fas fa-chalkboard-user"></i> Success Stories</a></li>
+                <li><a href="#" id="privacyFooterLink"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4 data-i18n="legal">Legal</h4>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                <li><a href="#"><i class="fas fa-universal-access"></i> Accessibility</a></li>
+                <li><a href="#"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-envelope"></i> hello@3alearning.com</a></li>
+                <li><a href="#"><i class="fas fa-headset"></i> Support Center</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 3ALearning — Global English Mastery Platform. All rights reserved.</p>
+    </div>
+</footer>
+<div id="floatMsg" class="float-msg"></div>
+
+<script>
+    // ==================== FULL ORIGINAL LOGIC PRESERVED ====================
+    const LEXICON = {
+        en: { nouns: ["cat","dog","house","car","book","sun","moon","tree","flower","bird","teacher","student"], adjectives: ["beautiful","big","fast","bright","kind","new","clean","happy"], verbs: ["run","jump","read","write","sing","dance","help","build"], places: ["park","school","market","library"], family: ["mother","father","brother","sister"] },
+        ar: { nouns: ["قطة","كلب","منزل","سيارة","كتاب","شمس","قمر","شجرة","زهرة","طائر","معلم","طالب"], adjectives: ["جميل","كبير","سريع","مشرق","لطيف","جديد","نظيف","سعيد"], verbs: ["يركض","يقفز","يقرأ","يكتب","يغني","يرقص","يساعد","يبني"], places: ["حديقة","مدرسة","سوق","مكتبة"], family: ["أم","أب","أخ","أخت"] },
+        fr: { nouns: ["chat","chien","maison","voiture","livre","soleil","lune","arbre","fleur","oiseau","professeur","élève"], adjectives: ["beau","grand","rapide","brillant","gentil","neuf","propre","heureux"], verbs: ["courir","sauter","lire","écrire","chanter","danser","aider","construire"], places: ["parc","école","marché","bibliothèque"], family: ["mère","père","frère","soeur"] },
+        es: { nouns: ["gato","perro","casa","coche","libro","sol","luna","árbol","flor","pájaro","maestro","estudiante"], adjectives: ["hermoso","grande","rápido","brillante","amable","nuevo","limpio","feliz"], verbs: ["correr","saltar","leer","escribir","cantar","bailar","ayudar","construir"], places: ["parque","escuela","mercado","biblioteca"], family: ["madre","padre","hermano","hermana"] },
+        de: { nouns: ["Katze","Hund","Haus","Auto","Buch","Sonne","Mond","Baum","Blume","Vogel","Lehrer","Schüler"], adjectives: ["schön","groß","schnell","hell","freundlich","neu","sauber","glücklich"], verbs: ["rennen","springen","lesen","schreiben","singen","tanzen","helfen","bauen"], places: ["Park","Schule","Markt","Bibliothek"], family: ["Mutter","Vater","Bruder","Schwester"] }
+    };
+    const PATTERNS = {
+        en: ["The {noun} is {adj}.","I see a {adj} {noun}.","My {family} can {verb}.","Let's go to the {place}.","She likes the {noun}.","He {verb}s every day."],
+        ar: ["{noun} {adj} .", "أرى {noun} {adj} .", "{family} يستطيع {verb} .", "لنذهب إلى {place} .", "هي تحب {noun} .", "هو {verb} كل يوم."],
+        fr: ["Le {noun} est {adj}.","Je vois un {adj} {noun}.","Mon {family} peut {verb}.","Allons au {place}.","Elle aime le {noun}.","Il {verb} chaque jour."],
+        es: ["El {noun} es {adj}.","Veo un {adj} {noun}.","Mi {family} puede {verb}.","Vamos al {place}.","A ella le gusta el {noun}.","Él {verb} cada día."],
+        de: ["Der {noun} ist {adj}.","Ich sehe ein {adj} {noun}.","Mein {family} kann {verb}.","Gehen wir zum {place}.","Sie mag den {noun}.","Er {verb} jeden Tag."]
+    };
+    function buildSentence(lang, tpl, noun, adj, verb, place, family) {
+        let s = tpl.replace(/{noun}/g, noun).replace(/{adj}/g, adj).replace(/{verb}/g, verb).replace(/{place}/g, place).replace(/{family}/g, family);
+        if (lang === 'ar') s = s.replace(/\s+/g, ' ').trim();
+        return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+    function removePunctuationKeepSpaces(str) { return str.replace(/[.,!?;:]/g, ''); }
+    const SUPPORTED_LANGS = ['en','ar','fr','es','de'];
+    const SENTENCES_DB = [];
+    for (let i = 0; i < 2500; i++) {
+        let entry = {};
+        for (let lang of SUPPORTED_LANGS) {
+            let lex = LEXICON[lang] || LEXICON.en;
+            let patterns = PATTERNS[lang] || PATTERNS.en;
+            let tpl = patterns[i % patterns.length];
+            let noun = lex.nouns[i % lex.nouns.length];
+            let adj = lex.adjectives[i % lex.adjectives.length];
+            let verb = lex.verbs[i % lex.verbs.length];
+            let place = lex.places[i % lex.places.length];
+            let family = lex.family[i % lex.family.length];
+            let original = buildSentence(lang, tpl, noun, adj, verb, place, family);
+            entry[lang] = original;
+        }
+        SENTENCES_DB.push({
+            en: entry.en,
+            en_display: removePunctuationKeepSpaces(entry.en),
+            ar: entry.ar,
+            fr: entry.fr,
+            es: entry.es,
+            de: entry.de
+        });
+    }
+
+    const UI_TEXTS = {
+        en: { vocabBtn:"Words", loginBtn:"Login", streakLabel:"day streak", listenBtn:"Listen", typingLabel:"Type exactly as shown (spaces allowed, no punctuation)", prevBtn:"Prev", nextBtn:"Next", resetBtn:"Reset", footerDesc:"Revolutionary neural shadow writing, real-time feedback & AI gamification", resources:"Resources", gamify:"Gamification", stories:"Success Stories", legal:"Legal", learningPath:"Learning Path", createAccount:"Create Account", logout:"Logout", speedLabel:"Speed" },
+        ar: { vocabBtn:"المفردات", loginBtn:"تسجيل الدخول", streakLabel:"أيام متتالية", listenBtn:"استمع", typingLabel:"اكتب بالضبط كما هو موضح (مسافات مسموحة، بدون علامات ترقيم)", prevBtn:"السابق", nextBtn:"التالي", resetBtn:"إعادة تعيين", footerDesc:"الكتابة الظلية العصبية الثورية، تغذية راجعة فورية وتعلم بالألعاب", resources:"الموارد", gamify:"الألعاب", stories:"قصص النجاح", legal:"قانوني", learningPath:"مسار التعلم", createAccount:"إنشاء حساب", logout:"تسجيل خروج", speedLabel:"السرعة" },
+        fr: { vocabBtn:"Mots", loginBtn:"Connexion", streakLabel:"séquence", listenBtn:"Écouter", typingLabel:"Tapez exactement comme indiqué (espaces autorisés, pas de ponctuation)", prevBtn:"Préc", nextBtn:"Suiv", resetBtn:"Réinitialiser", footerDesc:"Shadow writing neuronal révolutionnaire, retour en temps réel et ludification", resources:"Ressources", gamify:"Ludification", stories:"Réussites", legal:"Juridique", learningPath:"Parcours", createAccount:"Créer un compte", logout:"Déconnexion", speedLabel:"Vitesse" },
+        es: { vocabBtn:"Palabras", loginBtn:"Iniciar sesión", streakLabel:"racha", listenBtn:"Escuchar", typingLabel:"Escriba exactamente como se muestra (espacios permitidos, sin puntuación)", prevBtn:"Antes", nextBtn:"Siguiente", resetBtn:"Reiniciar", footerDesc:"Sombra neuronal revolucionaria, retroalimentación en tiempo real y gamificación", resources:"Recursos", gamify:"Gamificación", stories:"Historias", legal:"Legal", learningPath:"Ruta", createAccount:"Crear cuenta", logout:"Cerrar sesión", speedLabel:"Velocidad" },
+        de: { vocabBtn:"Wörter", loginBtn:"Anmelden", streakLabel:"Serie", listenBtn:"Hören", typingLabel:"Tippen Sie genau wie gezeigt (Leerzeichen erlaubt, keine Satzzeichen)", prevBtn:"Zurück", nextBtn:"Weiter", resetBtn:"Zurücksetzen", footerDesc:"Revolutionäres neuronales Schatten-Schreiben, Echtzeit-Feedback & Gamification", resources:"Ressourcen", gamify:"Spielmechanik", stories:"Erfolgsgeschichten", legal:"Rechtliches", learningPath:"Lernpfad", createAccount:"Konto erstellen", logout:"Abmelden", speedLabel:"Geschwindigkeit" }
+    };
+    
+    let currentLangUI = "en";
+    function applyUITexts() {
+        const texts = UI_TEXTS[currentLangUI] || UI_TEXTS.en;
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (texts[key]) el.innerText = texts[key];
+        });
+        document.getElementById("userInput").placeholder = currentLangUI === 'ar' ? 'اكتب مع مسافات، بدون علامات ترقيم...' : (currentLangUI === 'fr' ? 'Tapez avec espaces, sans ponctuation...' : (currentLangUI === 'es' ? 'Escriba con espacios, sin puntuación...' : (currentLangUI === 'de' ? 'Mit Leerzeichen, ohne Satzzeichen tippen...' : 'Type with spaces, no punctuation...')));
+    }
+
+    let xp = 0, streak = 0, lastCompletionDate = "";
+    let currentIndex = 0, currentSentence = SENTENCES_DB[0], isCompletedMode = false;
+    let userVocabulary = [];
+    let speechSpeed = 0.9;
+    let currentLangSent = "en";
+    let audioCtx = null;
+    let lastTypedLen = 0;
+    
+    // Auth (exact same logic)
+    function getUsers() { return JSON.parse(localStorage.getItem("shadowwrite_users") || "[]"); }
+    function saveUsers(users) { localStorage.setItem("shadowwrite_users", JSON.stringify(users)); }
+    function setCurrentUser(email) { if(email) localStorage.setItem("shadowwrite_current_user", email); else localStorage.removeItem("shadowwrite_current_user"); }
+    function getCurrentUser() { return localStorage.getItem("shadowwrite_current_user"); }
+    function updateHeaderByAuth() {
+        const loggedIn = !!getCurrentUser();
+        document.querySelectorAll('.auth-visible').forEach(el => { if(loggedIn) el.classList.remove('auth-hidden'); else el.classList.add('auth-hidden'); });
+        document.querySelectorAll('.auth-action').forEach(el => { if(!loggedIn) el.classList.remove('auth-hidden'); else el.classList.add('auth-hidden'); });
+        const logoutBtn = document.getElementById('logoutBtn');
+        if(logoutBtn) { if(loggedIn) logoutBtn.classList.remove('auth-hidden'); else logoutBtn.classList.add('auth-hidden'); }
+    }
+    function createUserAndLogin(email, displayName) {
+        const users = getUsers();
+        if(!users.find(u => u.email === email)) { users.push({ email, password: "social_mock" }); saveUsers(users); }
+        setCurrentUser(email);
+        updateHeaderByAuth();
+        showFloatMessage(`🎉 Welcome ${displayName || email}!`);
+    }
+    function showModal(title, fieldsHtml, onSubmit) {
+        let modalDiv = document.createElement("div"); modalDiv.className = "modal-bg";
+        modalDiv.innerHTML = `<div class="modal-card"><h3>${title}</h3>${fieldsHtml}<div class="auth-error" id="modalError"></div><button id="modalSubmitBtn" class="glass-btn">Submit</button><button id="modalCloseBtn" class="glass-btn" style="background:#475569; margin-top:8px;">Cancel</button></div>`;
+        document.body.appendChild(modalDiv);
+        const submitBtn = modalDiv.querySelector("#modalSubmitBtn");
+        const closeBtn = modalDiv.querySelector("#modalCloseBtn");
+        const errorDiv = modalDiv.querySelector("#modalError");
+        submitBtn.addEventListener("click", () => { const result = onSubmit(modalDiv); if (result === true) modalDiv.remove(); else if (result) errorDiv.innerText = result; });
+        closeBtn.addEventListener("click", () => modalDiv.remove());
+        modalDiv.addEventListener("click", (e) => { if(e.target === modalDiv) modalDiv.remove(); });
+    }
+    function handleSignupClick() {
+        showModal("Create Account", `
+            <input type="email" id="signupEmail" placeholder="Email address">
+            <input type="password" id="signupPassword" placeholder="Password (min 6)">
+            <input type="password" id="signupConfirm" placeholder="Confirm password">
+            <div class="social-divider"><span>OR</span></div>
+            <button type="button" id="socialGoogleBtn" class="social-btn google"><i class="fab fa-google"></i> Continue with Google</button>
+            <button type="button" id="socialFacebookBtn" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+        `, (modal) => {
+            const email = modal.querySelector("#signupEmail").value.trim();
+            const pwd = modal.querySelector("#signupPassword").value;
+            const confirm = modal.querySelector("#signupConfirm").value;
+            if(!email || !pwd || !confirm) return "All fields required.";
+            if(!email.includes("@") || !email.includes(".")) return "Valid email required.";
+            if(pwd.length < 6) return "Password min 6 chars.";
+            if(pwd !== confirm) return "Passwords do not match.";
+            const users = getUsers();
+            if(users.find(u => u.email === email)) return "Email already registered.";
+            users.push({ email, password: pwd });
+            saveUsers(users);
+            setCurrentUser(email);
+            updateHeaderByAuth();
+            showFloatMessage(`✅ Welcome ${email}!`);
+            return true;
+        });
+        setTimeout(() => {
+            const g = document.querySelector("#socialGoogleBtn"); if(g) g.onclick = () => { createUserAndLogin(`google_${Date.now()}@social.com`, "Google User"); document.querySelector(".modal-bg")?.remove(); };
+            const f = document.querySelector("#socialFacebookBtn"); if(f) f.onclick = () => { createUserAndLogin(`fb_${Date.now()}@social.com`, "Facebook User"); document.querySelector(".modal-bg")?.remove(); };
+        }, 10);
+    }
+    function handleLoginClick() {
+        showModal("Login", `<input type="email" id="loginEmail" placeholder="Email"><input type="password" id="loginPassword" placeholder="Password"><div class="social-divider"><span>OR</span></div><button type="button" id="socialLoginGoogle" class="social-btn google"><i class="fab fa-google"></i> Sign in with Google</button><button type="button" id="socialLoginFacebook" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Sign in with Facebook</button>`, (modal) => {
+            const email = modal.querySelector("#loginEmail").value.trim();
+            const pwd = modal.querySelector("#loginPassword").value;
+            if(!email || !pwd) return "Email and password required.";
+            const user = getUsers().find(u => u.email === email && u.password === pwd);
+            if(!user) return "Invalid credentials.";
+            setCurrentUser(email); updateHeaderByAuth(); showFloatMessage(`🔓 Welcome back, ${email}!`); return true;
+        });
+        setTimeout(() => {
+            const gl = document.querySelector("#socialLoginGoogle"); if(gl) gl.onclick = () => { createUserAndLogin("demo_google@social.com", "Google User"); document.querySelector(".modal-bg")?.remove(); };
+            const fl = document.querySelector("#socialLoginFacebook"); if(fl) fl.onclick = () => { createUserAndLogin("demo_fb@social.com", "Facebook User"); document.querySelector(".modal-bg")?.remove(); };
+        }, 10);
+    }
+    function handleLogout() { setCurrentUser(null); updateHeaderByAuth(); showFloatMessage("👋 Logged out."); }
+    function initAuth() { updateHeaderByAuth(); }
+    
+    // Game & feedback (unchanged)
+    function updateUIwithProgress() { document.getElementById("xpDisplay").innerHTML = `${xp} XP`; document.getElementById("streakDisplay").innerText = streak; document.getElementById("levelDisplay").innerText = `Lv.${Math.floor(xp/100)+1}`; }
+    function showFloatMessage(msg) { let el=document.getElementById("floatMsg"); el.innerText=msg; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1500); }
+    function playTyping() { try{ if(!audioCtx) audioCtx=new (AudioContext||webkitAudioContext)(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.frequency.value=1400; g.gain.value=0.04; o.start(); g.gain.exponentialRampToValueAtTime(0.00001,audioCtx.currentTime+0.08); o.stop(audioCtx.currentTime+0.08); if(audioCtx.state==='suspended') audioCtx.resume(); }catch(e){} }
+    function playError() { try{ if(!audioCtx) audioCtx=new AudioContext(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.frequency.value=880; g.gain.value=0.1; o.start(); g.gain.exponentialRampToValueAtTime(0.00001,audioCtx.currentTime+0.2); o.stop(audioCtx.currentTime+0.2); }catch(e){} }
+    function playSuccess() { try{ if(!audioCtx) audioCtx=new AudioContext(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.frequency.value=1250; g.gain.value=0.08; o.start(); g.gain.exponentialRampToValueAtTime(0.00001,audioCtx.currentTime+0.3); o.stop(audioCtx.currentTime+0.3); }catch(e){} }
+    function shakeInput() { document.getElementById("userInput").classList.add('shake'); setTimeout(()=>document.getElementById("userInput").classList.remove('shake'),280); playError(); }
+    function addXP(amount) { xp += amount; updateUIwithProgress(); saveProgress(); showFloatMessage(`🎉 +${amount} XP!`); }
+    function updateStreakOnCompletion() { const today = new Date().toDateString(); if (lastCompletionDate !== today) { if (lastCompletionDate && new Date(lastCompletionDate).getTime() === new Date(today).getTime() - 86400000) streak++; else streak = 1; lastCompletionDate = today; showFloatMessage(`🔥 ${streak} day streak!`); updateUIwithProgress(); saveProgress(); } }
+    function extractImportantWords(sentenceEn) { let words = sentenceEn.toLowerCase().split(/\s+/).filter(w=>w.length>2 && !["the","a","an","and","of","to","is","are","be","i","you","he","she","it","we","they"].includes(w)); [...new Set(words)].slice(0,2).forEach(w=>{ if(!userVocabulary.some(v=>v.word===w)) userVocabulary.push({word:w, context:sentenceEn.slice(0,70), date:Date.now()}); }); saveProgress(); }
+    function escapeHtml(str){ return str.replace(/[&<>]/g, m=> m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'); }
+    function renderFeedback(typed) {
+        const target = currentSentence.en_display;
+        if(typed.length===0){ document.getElementById("charFeedbackPanel").innerHTML="✨ Intelligent Shadow Feedback will appear here"; return; }
+        let html = `<div><i class="fas fa-microchip"></i> Character-by-character (spaces matter, no punctuation)</div><div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;">`;
+        for(let i=0; i<target.length; i++){
+            let tchar = i<typed.length ? typed[i] : null;
+            if(tchar === target[i]) html+=`<span class="green-char">${escapeHtml(target[i])}</span>`;
+            else if(tchar && tchar !== target[i]) html+=`<span class="red-char">${escapeHtml(tchar)}</span>`;
+            else html+=`<span class="pending-char">${escapeHtml(target[i])}</span>`;
+        }
+        if(typed.length > target.length) for(let ch of typed.substring(target.length)) html+=`<span class="red-char" style="background:#ffdddd;">${escapeHtml(ch)}</span>`;
+        html+=`</div>`;
+        document.getElementById("charFeedbackPanel").innerHTML = html;
+        if(typed === target && !isCompletedMode){
+            isCompletedMode=true; playSuccess(); addXP(25); updateStreakOnCompletion(); extractImportantWords(currentSentence.en);
+            showFloatMessage(`🏆 Perfect! +25 XP! 🏆`);
+            speakText(currentSentence.en, ()=>{ setTimeout(()=>{ goToNextSentenceAuto(); },400); });
+            document.getElementById("userInput").disabled=true;
+        }
+    }
+    function speakText(text, onEnd=null){ if(!window.speechSynthesis) return; window.speechSynthesis.cancel(); let utterance = new SpeechSynthesisUtterance(text); utterance.lang="en-US"; utterance.rate = speechSpeed; if(onEnd) utterance.onend=onEnd; window.speechSynthesis.speak(utterance); }
+    function loadCurrentSentence() { currentSentence = SENTENCES_DB[currentIndex]; document.getElementById("sentenceDisplay").innerText = currentSentence.en_display; document.getElementById("translationSpan").innerText = currentSentence[currentLangSent] || currentSentence.en; document.getElementById("userInput").value = ""; isCompletedMode = false; document.getElementById("userInput").disabled = false; document.getElementById("userInput").focus(); renderFeedback(""); speakText(currentSentence.en); }
+    function goToNextSentenceAuto() { currentIndex = (currentIndex+1) % SENTENCES_DB.length; loadCurrentSentence(); saveProgress(); }
+    function prevSentence() { if(isCompletedMode) return; currentIndex = (currentIndex-1+SENTENCES_DB.length)%SENTENCES_DB.length; loadCurrentSentence(); saveProgress(); }
+    function nextSentence() { if(isCompletedMode) return; currentIndex = (currentIndex+1)%SENTENCES_DB.length; loadCurrentSentence(); saveProgress(); }
+    function resetCurrent() { if(isCompletedMode) return; document.getElementById("userInput").value=""; renderFeedback(""); document.getElementById("userInput").focus(); }
+    function onInputChange() { if(isCompletedMode) return; let typed = document.getElementById("userInput").value; let cleaned = typed.replace(/[.,!?;:]/g, ''); if(cleaned !== typed) { document.getElementById("userInput").value = cleaned; typed = cleaned; } if(typed.length > lastTypedLen && typed[typed.length-1] !== currentSentence.en_display[typed.length-1]) shakeInput(); else playTyping(); lastTypedLen = typed.length; renderFeedback(typed); }
+    function saveProgress() { localStorage.setItem("shadowwrite_data", JSON.stringify({ xp, streak, lastCompletionDate, currentIndex, vocabulary:userVocabulary, langSent:currentLangSent, speechSpeed })); }
+    function loadProgress() { let r = localStorage.getItem("shadowwrite_data"); if(r){ let p=JSON.parse(r); xp=p.xp||0; streak=p.streak||0; lastCompletionDate=p.lastCompletionDate||""; currentIndex=p.currentIndex||0; userVocabulary=p.vocabulary||[]; currentLangSent=p.langSent||"en"; speechSpeed=p.speechSpeed!==undefined?p.speechSpeed:0.9; document.getElementById("globalLangSelect").value=currentLangSent; document.getElementById("speedSlider").value = speechSpeed; document.getElementById("speedValue").innerText = speechSpeed.toFixed(2); updateUIwithProgress(); } else updateUIwithProgress(); loadCurrentSentence(); }
+    function openVocabularyModal(){ let modalDiv = document.createElement("div"); modalDiv.className="modal-bg"; modalDiv.innerHTML = `<div class="modal-card"><h3><i class="fas fa-book"></i> 📘 Vocabulary Notebook</h3><input type="text" id="vocabSearch" placeholder="🔍 Search word" style="width:100%; padding:10px; margin:12px 0; border-radius:40px;"><div id="vocabListContainer"></div><button id="closeVocabModal" class="glass-btn" style="margin-top:16px;">Close</button></div>`; document.body.appendChild(modalDiv); function renderVocabList(search=""){ let filtered = userVocabulary.filter(v=>v.word.toLowerCase().includes(search.toLowerCase())); let container = modalDiv.querySelector("#vocabListContainer"); if(filtered.length===0) { container.innerHTML="<div style='padding:20px;text-align:center'>✨ No words saved. Complete sentences to build vocabulary.</div>"; return; } container.innerHTML = filtered.map(v=>`<div class="vocab-item"><span><strong>${escapeHtml(v.word)}</strong><br><small>${escapeHtml(v.context)}</small></span><button class="delete-vocab" data-word="${v.word}">🗑️ Delete</button></div>`).join(""); modalDiv.querySelectorAll(".delete-vocab").forEach(btn=>btn.addEventListener("click",(e)=>{ let word = btn.getAttribute("data-word"); userVocabulary = userVocabulary.filter(w=>w.word!==word); renderVocabList(modalDiv.querySelector("#vocabSearch").value); saveProgress(); showFloatMessage(`Removed "${word}"`); })); } let searchInput = modalDiv.querySelector("#vocabSearch"); searchInput.addEventListener("input",()=>renderVocabList(searchInput.value)); renderVocabList(""); modalDiv.querySelector("#closeVocabModal").addEventListener("click",()=>modalDiv.remove()); }
+    function initLangSelector() { let select = document.getElementById("globalLangSelect"); select.innerHTML = `<option value="en">🇬🇧 English</option><option value="ar">🇸🇦 العربية</option><option value="fr">🇫🇷 Français</option><option value="es">🇪🇸 Español</option><option value="de">🇩🇪 Deutsch</option>`; select.value = currentLangSent; select.addEventListener("change",(e)=>{ currentLangSent = e.target.value; currentLangUI = currentLangSent; applyUITexts(); document.getElementById("translationSpan").innerText = currentSentence[currentLangSent] || currentSentence.en; saveProgress(); }); }
+    function initMobileMenu() { const toggle = document.getElementById('menuToggle'); const actions = document.getElementById('headerActions'); if(toggle && actions){ toggle.addEventListener('click', (e) => { e.stopPropagation(); actions.classList.toggle('open'); const icon = toggle.querySelector('i'); icon.className = actions.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars'; }); document.addEventListener('click', (e) => { if(!actions.contains(e.target) && !toggle.contains(e.target) && actions.classList.contains('open')){ actions.classList.remove('open'); toggle.querySelector('i').className = 'fas fa-bars'; } }); } }
+    function showPrivacy() { document.getElementById('mainContent').style.display = 'none'; document.getElementById('privacySection').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function hidePrivacy() { document.getElementById('mainContent').style.display = 'block'; document.getElementById('privacySection').style.display = 'none'; loadCurrentSentence(); }
+    function initSpeedControl() { const slider = document.getElementById('speedSlider'); const speedVal = document.getElementById('speedValue'); slider.addEventListener('input', (e) => { speechSpeed = parseFloat(e.target.value); speedVal.innerText = speechSpeed.toFixed(2); saveProgress(); }); }
+    
+    // ========== منع النسخ ومنع قائمة السياق (context menu) مع السماح بحقول الإدخال ==========
+    document.addEventListener('contextmenu', function(e) {
+        // السماح بقائمة السياق فقط داخل حقول الإدخال والنص (للكتابة واللصق)
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+        }
+    });
+    // منع عمليات السحب والنسخ غير المرغوب فيها
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+        }
+    });
+    // منع اختيار النص بشكل عام (تم بالفعل عبر CSS) ولكن نؤكد
+    document.addEventListener('selectstart', function(e) {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+        }
+    });
+    
+    window.addEventListener("load", () => {
+        setTimeout(()=>{ document.getElementById("loaderOverlay").classList.add("hidden"); }, 400);
+        initAuth(); initLangSelector(); applyUITexts(); loadProgress(); initMobileMenu(); initSpeedControl();
+        document.getElementById("speakMainBtn").addEventListener("click",()=>{ speakText(currentSentence.en); });
+        document.getElementById("prevBtn").addEventListener("click",prevSentence);
+        document.getElementById("nextBtn").addEventListener("click",nextSentence);
+        document.getElementById("resetBtn").addEventListener("click",resetCurrent);
+        document.getElementById("userInput").addEventListener("input",onInputChange);
+        document.getElementById("openVocabBtn").addEventListener("click",openVocabularyModal);
+        document.getElementById("loginBtn").addEventListener("click", handleLoginClick);
+        document.getElementById("signupBtn").addEventListener("click", handleSignupClick);
+        document.getElementById("logoutBtn").addEventListener("click", handleLogout);
+        document.getElementById("privacyBtn").addEventListener("click", showPrivacy);
+        document.getElementById("privacyFooterLink").addEventListener("click", (e) => { e.preventDefault(); showPrivacy(); });
+        document.getElementById("closePrivacyBtn").addEventListener("click", hidePrivacy);
+    });
+</script>
+</body>
+</html>
