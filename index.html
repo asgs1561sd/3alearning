@@ -2,842 +2,1390 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <!-- تحديث ميتا فيو بورت لمنع التكبير/التصغير (zoom) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="description" content="3ALearning - ShadowWrite AI™ | Master English through intelligent shadow writing. Real-time feedback, pronunciation, gamified learning.">
-    <meta name="theme-color" content="#0F2C3D">
-    <title>3ALearning | ShadowWrite AI™ — Modern English Mastery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="description" content="3Alearning | Professional English Shadow Writing with Vocabulary Notebook & Auto-Speech">
+    <meta name="theme-color" content="#ffffff">
+    <title>3Alearning | Vocabulary Notebook & Shadow Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* منع التحديد (نسخ) لكل العناصر عدا حقول الإدخال */
-        * {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        /* السماح بالنسخ واللصق داخل حقول الكتابة فقط */
-        input, textarea, .writing-area input, #userInput, [contenteditable="true"] {
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            user-select: text !important;
-        }
-        /* باقي التصميم كما هو مع الحفاظ على كل التفاصيل */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-        :root {
-            --primary-dark: #0F2C3D;
-            --primary-light: #1C4E6E;
-            --accent-cyan: #06b6d4;
-            --accent-purple: #8b5cf6;
-            --emerald: #10b981;
-            --error-red: #ef4444;
-            --bg-soft: #F8FAFE;
-            --glass-bg: rgba(255,255,255,0.85);
-            --card-shadow: 0 25px 45px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.3);
-            --footer-bg: #0a1c26;
-            --footer-text: #cbd5e6;
-            --footer-heading: #f1f5f9;
-            --btn-gradient: linear-gradient(105deg, #1e2a3a, #0f172a);
-            --btn-hover-glow: 0 10px 25px -5px rgba(6,182,212,0.4);
-        }
+
         body {
-            background: radial-gradient(circle at 10% 20%, rgba(15,44,61,0.08) 0%, rgba(6,182,212,0.03) 100%),
-                        linear-gradient(135deg, #f5f7fc 0%, #eef2f8 100%);
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
             min-height: 100vh;
-            scroll-behavior: smooth;
-        }
-        /* LOADER */
-        .loader-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(255,255,255,0.97);
-            backdrop-filter: blur(12px);
-            z-index: 10000;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease;
+            color: #111;
+            touch-action: pan-x pan-y;
         }
-        .loader-overlay.hidden { opacity: 0; visibility: hidden; }
-        .spinner {
-            width: 70px;
-            height: 70px;
-            border: 4px solid rgba(6,182,212,0.2);
-            border-top: 4px solid var(--accent-cyan);
-            border-radius: 50%;
-            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .loader-site-name { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #0F2C3D, #1C4E6E, #06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; margin-top: 20px; letter-spacing: -0.5px; }
 
-        /* MODERN HEADER */
-        .professional-header {
+        .site-header {
+            background: #ffffff;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #f0f0f0;
             position: sticky;
             top: 0;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
             z-index: 100;
-            width: 100%;
         }
+
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0.6rem 1.5rem;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 20px;
+            align-items: center;
             flex-wrap: wrap;
-            min-height: 70px;
+            gap: 1rem;
         }
-        .logo-wrapper {
+
+        .brand-area {
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: default;
-            flex-shrink: 0;
         }
-        .logo-icon {
-            background: linear-gradient(145deg, var(--primary-dark), #2c6280);
-            width: 44px;
-            height: 44px;
-            border-radius: 18px;
+        .brand-icon {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             color: white;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        .logo-text {
+        .brand-text h1 {
+            font-size: 1.3rem;
             font-weight: 800;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, #0F2C3D, #1C4E6E);
+            background: linear-gradient(135deg, #0f2027, #2c5364);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            white-space: nowrap;
-            letter-spacing: -0.3px;
         }
-        .menu-toggle {
-            display: none;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(203,213,225,0.6);
-            border-radius: 40px;
-            padding: 8px 16px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .menu-toggle:hover {
-            background: white;
-            transform: scale(0.96);
-        }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .lang-selector, .header-btn {
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(203,213,225,0.5);
-            border-radius: 60px;
-            padding: 8px 20px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            font-family: inherit;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-        }
-        .lang-selector:hover, .header-btn:hover {
-            background: white;
-            border-color: var(--accent-cyan);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-        }
-        #signupBtn {
-            background: #0a0a0a !important;
-            color: white !important;
-            border: none !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        #signupBtn:hover {
-            background: #1f1f1f !important;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.25);
-        }
-        @media (max-width: 768px) {
-            .header-container { padding: 0 16px; flex-wrap: nowrap; }
-            .logo-text { font-size: 0.9rem; white-space: normal; }
-            .menu-toggle { display: flex; }
-            .header-actions {
-                position: fixed; top: 70px; left: 0; right: 0;
-                background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
-                flex-direction: column; align-items: stretch; padding: 20px; gap: 12px;
-                border-bottom: 1px solid rgba(0,0,0,0.08);
-                transform: translateY(-120%); opacity: 0; visibility: hidden;
-                transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.2s;
-                z-index: 99; border-radius: 0 0 28px 28px;
-                box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-            }
-            .header-actions.open { transform: translateY(0); opacity: 1; visibility: visible; }
-            .lang-selector, .header-btn { justify-content: center; width: 100%; padding: 12px; }
+        .brand-text p {
+            font-size: 0.65rem;
+            color: #6c757d;
         }
 
-        /* STATS & MAIN CARD */
-        .stats-mini {
-            background: rgba(15,44,61,0.08);
-            backdrop-filter: blur(4px);
-            padding: 8px 20px;
-            border-radius: 80px;
-            display: inline-flex;
-            align-items: center;
-            gap: 24px;
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-            justify-content: center;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        .stat-item {
-            font-size: 0.9rem;
-            font-weight: 700;
+        .desktop-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: #0f172a;
-        }
-        .main-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .app-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            border-radius: 56px;
-            padding: 40px 36px 52px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255,255,255,0.7);
-            transition: transform 0.2s ease;
-        }
-        @media (max-width: 640px) {
-            .app-card { padding: 28px 20px 36px; border-radius: 40px; }
-            .stats-mini { gap: 14px; padding: 6px 16px; }
-        }
-        .sentence-word {
-            font-size: 1.9rem;
-            font-weight: 800;
-            background: rgba(255,255,255,0.8);
-            padding: 18px 32px;
-            border-radius: 100px;
-            display: inline-block;
-            letter-spacing: 1px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
-            border: 1px solid rgba(255,255,255,0.9);
-            line-height: 1.4;
-            word-break: break-word;
-            max-width: 100%;
-            font-family: 'Cairo', monospace;
-        }
-        @media (max-width: 560px) {
-            .sentence-word { font-size: 1.3rem; padding: 14px 22px; }
-        }
-        .sentence-translation {
-            margin: 18px auto 12px;
-            background: rgba(224, 232, 255, 0.6);
-            backdrop-filter: blur(4px);
-            padding: 10px 28px;
-            border-radius: 60px;
-            width: fit-content;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-        .writing-area input {
-            width: 100%;
-            padding: 18px 28px;
-            font-size: 1rem;
-            border-radius: 100px;
-            border: 2px solid rgba(203,213,225,0.6);
-            transition: all 0.2s;
-            background: white;
-            font-weight: 500;
-            font-family: monospace;
-            letter-spacing: 0.3px;
-        }
-        .writing-area input:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 0 3px rgba(6,182,212,0.2);
-            outline: none;
-        }
-        .char-feedback-box {
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            padding: 24px;
-            margin-top: 28px;
-            overflow-x: auto;
-            font-size: 0.9rem;
-            font-family: monospace;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        .green-char { background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 30px; display: inline-block; margin: 0 2px; }
-        .red-char { background: #fee2e2; color: #b91c1c; padding: 4px 8px; border-radius: 30px; margin: 0 2px; }
-        .pending-char { opacity: 0.6; color: #334155; margin: 0 2px; display: inline-block; }
-        .word-correct { background: #10b981; color: white; padding: 4px 14px; border-radius: 40px; margin: 0 4px; display: inline-block; font-weight: 800; }
-        .action-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
-        .glass-btn {
-            background: linear-gradient(105deg, #1e2a3a, #0f172a);
-            border: none;
-            padding: 12px 32px;
-            border-radius: 60px;
-            color: white;
-            font-weight: 700;
-            display: inline-flex;
-            gap: 12px;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            font-size: 0.95rem;
-            letter-spacing: 0.3px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-        }
-        .glass-btn:hover {
-            background: linear-gradient(105deg, #2c3e4e, #1a2535);
-            transform: translateY(-3px);
-            box-shadow: var(--btn-hover-glow);
-        }
-        .speak-btn {
-            background: linear-gradient(105deg, #1e293b, #0f172a);
-            position: relative;
-            overflow: hidden;
-        }
-        .speak-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        .speak-btn:hover::before { left: 100%; }
-        .speed-control {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(8px);
-            padding: 6px 20px;
-            border-radius: 100px;
-            margin-top: 14px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #0f172a;
-            border: 1px solid rgba(203,213,225,0.4);
-        }
-        .speed-control input {
-            width: 150px;
-            cursor: pointer;
-            accent-color: var(--accent-cyan);
-        }
-        .speed-value {
-            background: #0f172a;
-            color: white;
-            padding: 2px 12px;
-            border-radius: 40px;
-            font-family: monospace;
-            font-weight: 700;
-            min-width: 55px;
-        }
-        @media (max-width: 560px) {
-            .speed-control { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-            .speed-control input { flex: 1; }
+            gap: 1rem;
         }
 
-        /* FOOTER */
-        .professional-footer {
-            background: linear-gradient(135deg, #0a1c26 0%, #0F2C3D 100%);
-            border-radius: 48px 48px 0 0;
-            margin-top: 80px;
-            padding: 60px 32px 32px;
-            color: var(--footer-text);
-            position: relative;
-            box-shadow: 0 -12px 30px rgba(0,0,0,0.08);
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 48px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .footer-col h4 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--footer-heading);
-            position: relative;
-            display: inline-block;
-        }
-        .footer-col h4:after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--accent-cyan);
-            border-radius: 4px;
-        }
-        .footer-links a {
-            color: #cbd5e6;
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-        .social-icons a {
-            background: rgba(255,255,255,0.08);
+        .notebook-icon-btn {
+            background: #f8f9fa;
+            border: 1px solid #eef2f6;
             width: 42px;
             height: 42px;
-            display: inline-flex;
+            border-radius: 60px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            color: white;
+            cursor: pointer;
             font-size: 1.2rem;
-            transition: all 0.2s;
-            margin-right: 10px;
+            color: #1a1a1a;
+            transition: all 0.2s ease;
         }
-        .social-icons a:hover {
-            background: var(--accent-cyan);
-            transform: translateY(-4px);
-            color: #0F2C3D;
+        .notebook-icon-btn:hover {
+            background: #111;
+            color: white;
+            border-color: #111;
         }
-        .footer-bottom {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 28px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.75rem;
-        }
-        @media (max-width: 768px) {
-            .footer-grid { gap: 32px; text-align: center; }
-            .footer-col h4:after { left: 50%; transform: translateX(-50%); width: 50px; }
-            .footer-col h4 { display: block; }
+        .notebook-icon-btn.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f8f9fa;
         }
 
-        /* MODALS & MISC */
-        .modal-bg {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
-            display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 16px;
+        .lang-selector-modern {
+            background: #f8f9fa;
+            border-radius: 100px;
+            padding: 0.3rem 1rem 0.3rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #eef2f6;
         }
-        .modal-card {
-            background: white; border-radius: 48px; padding: 32px 28px; max-width: 460px; width: 100%;
-            max-height: 85vh; overflow-y: auto; box-shadow: 0 30px 50px rgba(0,0,0,0.2);
+        .lang-select-modern {
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            color: #111;
         }
-        .modal-card h3 { margin-bottom: 24px; color: var(--primary-dark); font-weight: 800; }
-        .modal-card input { width: 100%; padding: 14px 18px; margin: 8px 0 16px; border: 1px solid #cbd5e1; border-radius: 60px; font-size: 0.9rem; transition: 0.2s; }
-        .modal-card input:focus { border-color: var(--accent-cyan); outline: none; box-shadow: 0 0 0 3px rgba(6,182,212,0.2); }
-        .auth-error { color: #dc2626; font-size: 0.75rem; margin-top: -8px; margin-bottom: 12px; }
-        .social-divider { display: flex; align-items: center; margin: 20px 0; color: #64748b; font-size: 0.8rem; }
-        .social-divider::before, .social-divider::after { content: ""; flex: 1; border-bottom: 1px solid #e2e8f0; }
-        .social-divider span { margin: 0 12px; }
-        .social-btn {
-            background: white; border: 1px solid #e2e8f0; border-radius: 60px; padding: 12px;
-            font-weight: 600; cursor: pointer; width: 100%; margin-bottom: 12px; display: flex;
-            align-items: center; justify-content: center; gap: 12px; transition: all 0.2s;
+        
+        .auth-buttons-desktop {
+            display: flex;
+            gap: 8px;
         }
-        .social-btn.google { border-color: #db4437; color: #db4437; }
-        .social-btn.facebook { border-color: #4267B2; color: #4267B2; }
-        .social-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.05); background: #fafcff; }
-        .vocab-item { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; margin: 8px 0; padding: 14px; border-radius: 40px; flex-wrap: wrap; gap: 12px; }
-        .delete-vocab { background: #fee2e2; border: none; border-radius: 40px; padding: 6px 16px; cursor: pointer; color: #b91c1c; font-weight: 600; transition: 0.1s; }
-        .delete-vocab:hover { background: #fecaca; transform: scale(0.98); }
-        .float-msg {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: #0F2C3D; color: white; padding: 14px 28px; border-radius: 100px;
-            font-weight: 700; z-index: 3000; opacity: 0; transition: 0.2s; pointer-events: none;
-            font-size: 0.9rem; text-align: center; backdrop-filter: blur(8px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        .btn-login-desktop {
+            background: transparent;
+            border: 1px solid #eef2f6;
+            padding: 0.45rem 1.2rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: #111;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .float-msg.show { opacity: 1; animation: fadeOutMsg 1.2s forwards; }
-        @keyframes fadeOutMsg { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-        .privacy-policy { max-width: 1000px; margin: 40px auto; background: white; border-radius: 48px; padding: 48px; box-shadow: var(--card-shadow); }
-        .shake { animation: shakeAnim 0.25s ease-in-out; }
-        @keyframes shakeAnim { 0%,100%{ transform: translateX(0); } 25%{ transform: translateX(-5px); } 75%{ transform: translateX(5px); } }
-        .auth-visible { display: inline-flex; }
-        .auth-hidden { display: none !important; }
-        button, .glass-btn, .header-btn { cursor: pointer; }
+        .btn-login-desktop:hover {
+            background: #f5f5f5;
+            border-color: #2c5364;
+        }
+        .btn-register-desktop {
+            background: linear-gradient(135deg, #0f2027, #2c5364);
+            border: none;
+            padding: 0.45rem 1.2rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn-register-desktop:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* تنسيق منطقة المستخدم على سطح المكتب (مشابه للهاتف) */
+        .user-area-desktop {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fafafa;
+            padding: 0.2rem 0.8rem 0.2rem 0.5rem;
+            border-radius: 40px;
+            border: 1px solid #eef2f6;
+        }
+        .avatar-desktop {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #0f2027, #2c5364);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .user-info-desktop {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .user-name-desktop {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #111;
+        }
+        .user-email-desktop {
+            font-size: 0.7rem;
+            color: #6c757d;
+        }
+        .logout-btn-desktop {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 30px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+        .logout-btn-desktop:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+            background: linear-gradient(135deg, #c82333, #bd2130);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: #f8f9fa;
+            border: 1px solid #eef2f6;
+            width: 42px;
+            height: 42px;
+            border-radius: 60px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            transition: all 0.2s ease;
+        }
+        .menu-toggle:hover {
+            background: #2c5364;
+            color: white;
+            border-color: #2c5364;
+        }
+
+        .side-menu-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.08);
+            z-index: 200;
+            transition: right 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .side-menu-panel.open {
+            right: 0;
+        }
+        .menu-header-side {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 0.5rem;
+        }
+        .menu-header-side h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0f2027, #2c5364);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .close-side-menu {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6c757d;
+            padding: 0 8px;
+        }
+        .close-side-menu:hover {
+            color: #c5221f;
+        }
+        .side-menu-item {
+            padding: 0.8rem 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: 0.2s;
+        }
+        .side-menu-item:hover {
+            background: #f8f9fa;
+            padding-left: 1rem;
+        }
+        .side-menu-item i {
+            width: 28px;
+            color: #2c5364;
+            font-size: 1.1rem;
+        }
+        .side-menu-divider {
+            height: 1px;
+            background: #eef2f6;
+            margin: 0.5rem 0;
+        }
+        .auth-buttons-side {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+        .side-login-btn, .side-register-btn {
+            padding: 0.7rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+        .side-login-btn {
+            background: transparent;
+            border: 1.5px solid #eef2f6;
+            color: #111;
+        }
+        .side-login-btn:hover {
+            background: #f5f5f5;
+            border-color: #2c5364;
+        }
+        .side-register-btn {
+            background: linear-gradient(135deg, #0f2027, #2c5364);
+            border: none;
+            color: white;
+        }
+        .side-register-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .side-user-info {
+            background: #f8f9fa;
+            border-radius: 1rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .side-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 199;
+            display: none;
+        }
+        .side-overlay.show {
+            display: block;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .shadow-card {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+        }
+
+        .sentence-hero { text-align: center; margin: 0.5rem 0 0.8rem; }
+        .main-sentence {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111;
+            background: #ffffff;
+            display: inline-block;
+            padding: 0.9rem 1.6rem;
+            border-radius: 1.5rem;
+            border: 1px solid #eef2f6;
+        }
+        .translation-bubble {
+            background: #f8f9fa;
+            display: inline-block;
+            padding: 0.4rem 1.6rem;
+            border-radius: 50px;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .audio-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+        .btn-listen {
+            background: linear-gradient(135deg, #0f2027, #2c5364);
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-listen:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .speed-controller {
+            background: #f8f9fa;
+            border-radius: 60px;
+            padding: 0.2rem 1.4rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #eef2f6;
+        }
+        input[type="range"] { width: 130px; height: 4px; background: #dee2e6; border-radius: 10px; }
+
+        #userSentenceInput {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            border: 2px solid #eef2f6;
+            border-radius: 80px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        #userSentenceInput:focus {
+            outline: none;
+            border-color: #2c5364;
+        }
+
+        .feedback-area {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            border: 1px solid #f0f0f0;
+            text-align: center;
+        }
+        
+        /* تنسيق الكلمات - الحروف الصحيحة فقط باللون الأخضر، بدون أي لون للخطأ */
+        .word-feedback-summary {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .word-chip {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.15s ease;
+            font-family: 'Inter', monospace;
+            background: #f1f3f4;
+            color: #5f6368;
+        }
+        /* فقط الكلمة الصحيحة يكون لونها أخضر */
+        .word-correct { 
+            background: #e6f4ea; 
+            color: #137333; 
+        }
+        /* الكلمة الخاطئة تظهر باللون الرمادي العادي (بدون أحمر ولا خط) */
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: #eef2f6;
+            border-radius: 10px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #137333, #2e7d32);
+            border-radius: 10px;
+            transition: width 0.2s ease;
+            width: 0%;
+        }
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: white;
+            border: 1px solid #eef2f6;
+            padding: 0.65rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #f8f9fa;
+            border-color: #2c5364;
+        }
+        /* حالة النجاح لزر Next (بوردر أخضر وأيقونة صح خضراء) */
+        .nav-btn.success-next {
+            border: 2px solid #2e7d32;
+            background: #e8f5e9;
+            color: #1b5e20;
+            box-shadow: 0 2px 8px rgba(46,125,50,0.2);
+        }
+        .nav-btn.success-next i {
+            color: #2e7d32;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: opacity 0.3s ease;
+        }
+        .loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .spinner-container {
+            text-align: center;
+        }
+        .loading-spinner {
+            width: 70px;
+            height: 70px;
+            border: 4px solid #eef2f6;
+            border-top: 4px solid #2c5364;
+            border-right: 4px solid #0f2027;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-text {
+            font-size: 1rem;
+            color: #2c5364;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .notebook-modal, .auth-modal {
+            background: white;
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 1.8rem;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+        }
+        .vocab-item {
+            background: #fefefe;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid #2c5364;
+        }
+        .vocab-word { font-weight: 800; font-size: 1.1rem; }
+        .vocab-translation { color: #6c757d; font-size: 0.85rem; }
+        .vocab-sentence { font-size: 0.8rem; color: #495057; margin-top: 5px; }
+        .close-modal { float: right; font-size: 1.5rem; cursor: pointer; transition: 0.2s; padding: 0 8px; }
+        .close-modal:hover { color: #c5221f; }
+        
+        .auth-modal h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, #0f2027, #2c5364);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .auth-modal .input-group {
+            margin-bottom: 1rem;
+        }
+        .auth-modal input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border-radius: 60px;
+            border: 1.5px solid #eef2f6;
+            background: white;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+        }
+        .auth-modal input:focus {
+            outline: none;
+            border-color: #2c5364;
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 1.2rem;
+            flex-direction: column;
+        }
+        .auth-primary-btn {
+            background: linear-gradient(135deg, #0f2027, #2c5364);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 60px;
+            width: 100%;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .auth-primary-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .auth-secondary-btn {
+            background: transparent;
+            border: 1px solid #e0e4e9;
+            padding: 0.7rem;
+            border-radius: 60px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: 500;
+            color: #555;
+            transition: 0.2s;
+        }
+        .auth-secondary-btn:hover {
+            background: #f8f9fa;
+            border-color: #2c5364;
+        }
+        
+        .social-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0 1rem;
+        }
+        .social-divider::before,
+        .social-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #eef2f6;
+        }
+        .social-divider span {
+            padding: 0 10px;
+            color: #6c757d;
+            font-size: 0.75rem;
+        }
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 0.5rem;
+            flex-direction: column;
+        }
+        .btn-google, .btn-facebook {
+            background: white;
+            border: 1.5px solid #eef2f6;
+            padding: 0.55rem;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+        .btn-google:hover {
+            background: #f8f9fa;
+            border-color: #db4437;
+        }
+        .btn-google i { color: #db4437; font-size: 1.1rem; }
+        .btn-facebook:hover {
+            background: #f8f9fa;
+            border-color: #4267B2;
+        }
+        .btn-facebook i { color: #4267B2; font-size: 1.1rem; }
+        
+        .site-footer {
+            background: #ffffff;
+            border-top: 1px solid #f0f0f0;
+            color: #6c757d;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.7rem;
+        }
+        .toast-notify {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            color: white;
+            padding: 0.5rem 1.4rem;
+            border-radius: 50px;
+            opacity: 0;
+            transition: 0.2s;
+            pointer-events: none;
+            z-index: 1100;
+            font-size: 0.85rem;
+        }
+        .toast-notify.show { opacity: 1; animation: fadeOut 2s forwards; }
+        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        .shake-effect { animation: shakeInput 0.12s ease-in-out 0s 2; border-color: #c5221f !important; }
+        @keyframes shakeInput { 0% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } 100% { transform: translateX(0); } }
+
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none !important;
+            }
+            .side-menu-panel, .side-overlay {
+                display: none !important;
+            }
+            .auth-buttons-desktop {
+                display: flex !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-controls .lang-selector-modern,
+            .desktop-controls .notebook-icon-btn {
+                display: none;
+            }
+            .auth-buttons-desktop {
+                display: none !important;
+            }
+            .menu-toggle {
+                display: flex !important;
+            }
+            .main-sentence { font-size: 1.6rem; }
+            #userSentenceInput { font-size: 1.1rem; }
+            .shadow-card { padding: 1.2rem; }
+            .word-chip { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
+        }
     </style>
 </head>
 <body>
-<div id="loaderOverlay" class="loader-overlay"><div class="spinner"></div><div class="loader-site-name">3ALearning</div><div>ShadowWrite AI™</div></div>
 
-<header class="professional-header">
+<header class="site-header">
     <div class="header-container">
-        <div class="logo-wrapper"><div class="logo-icon">3A</div><div class="logo-text">3ALearning | ShadowWrite AI™</div></div>
-        <div class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></div>
-        <div class="header-actions" id="headerActions">
-            <select id="globalLangSelect" class="lang-selector auth-visible"></select>
-            <button id="openVocabBtn" class="header-btn auth-visible"><i class="fas fa-book-open"></i> <span data-i18n="vocabBtn">Words</span></button>
-            <button id="privacyBtn" class="header-btn auth-visible"><i class="fas fa-shield-alt"></i> Privacy</button>
-            <button id="signupBtn" class="header-btn auth-action"><i class="fas fa-user-plus"></i> <span data-i18n="createAccount">Create Account</span></button>
-            <button id="loginBtn" class="header-btn auth-action"><i class="fas fa-sign-in-alt"></i> <span data-i18n="loginBtn">Login</span></button>
-            <button id="logoutBtn" class="header-btn auth-hidden"><i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">Logout</span></button>
+        <div class="brand-area">
+            <div class="brand-text">
+                <h1>3Alearning</h1>
+                <p>Notebook • Auto-Speech</p>
+            </div>
         </div>
+        
+        <div class="desktop-controls">
+            <div class="lang-selector-modern">
+                <i class="fas fa-globe"></i>
+                <select id="headerLangSelect" class="lang-select-modern">
+                    <option value="ar">العربية</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
+            <div id="desktopNotebookIcon" class="notebook-icon-btn locked" title="Vocabulary Notebook (login required)">
+                <i class="fas fa-book-open"></i>
+            </div>
+            
+            <div id="authButtonsDesktop" class="auth-buttons-desktop">
+                <button id="desktopLoginBtn" class="btn-login-desktop"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                <button id="desktopRegisterBtn" class="btn-register-desktop"><i class="fas fa-user-plus"></i> Register</button>
+            </div>
+            
+            <div id="userAreaDesktop" class="user-area-desktop" style="display: none;">
+                <div id="userAvatarDesktop" class="avatar-desktop">U</div>
+                <div class="user-info-desktop">
+                    <span id="userNameDesktop" class="user-name-desktop"></span>
+                    <span id="userEmailDesktop" class="user-email-desktop"></span>
+                </div>
+                <button id="logoutBtnDesktop" class="logout-btn-desktop" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i> Exit
+                </button>
+            </div>
+        </div>
+        
+        <button id="menuToggleBtn" class="menu-toggle"><i class="fas fa-bars"></i></button>
     </div>
 </header>
 
-<div class="main-container" id="mainContent">
-    <div class="app-card">
-        <div style="display: flex; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
-            <div class="stats-mini">
-                <div class="stat-item"><i class="fas fa-star" style="color:#fbbf24;"></i> <span id="xpDisplay">0 XP</span></div>
-                <div class="stat-item"><i class="fas fa-fire" style="color:#f59e0b;"></i> <span id="streakDisplay">0</span> <span data-i18n="streakLabel">day streak</span></div>
-                <div class="stat-item"><i class="fas fa-chart-line"></i> <span id="levelDisplay">Lv.1</span></div>
-            </div>
+<div class="side-menu-panel" id="sideMenuPanel">
+    <div class="menu-header-side">
+        <h3><i class="fas fa-graduation-cap"></i> 3Alearning</h3>
+        <button class="close-side-menu" id="closeSideMenuBtn"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <div id="sideMenuUserSection"></div>
+    
+    <div class="side-menu-item" id="sideNotebookBtn">
+        <i class="fas fa-book-open"></i> Vocabulary Notebook
+    </div>
+    
+    <div class="side-menu-item" id="sideLangItem">
+        <i class="fas fa-language"></i>
+        <select id="sideLangSelect" style="background:transparent; border:none; font-weight:600; flex:1;">
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </div>
+    
+    <div class="side-menu-divider"></div>
+    
+    <div id="sideAuthButtons" class="auth-buttons-side">
+        <button id="sideLoginBtn" class="side-login-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+        <button id="sideRegisterBtn" class="side-register-btn"><i class="fas fa-user-plus"></i> Create Account</button>
+    </div>
+</div>
+<div class="side-overlay" id="sideOverlay"></div>
+
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner-container">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">3Alearning<span class="loading-dots">...</span></div>
+    </div>
+</div>
+
+<main class="main-container">
+    <div class="shadow-card">
+        <div class="sentence-hero">
+            <div class="main-sentence" id="sentenceDisplay">The art of language shapes reality.</div>
         </div>
-        <div style="text-align:center; margin-bottom:12px;">
-            <div class="sentence-word" id="sentenceDisplay"></div>
-            <div class="sentence-translation"><i class="fas fa-language"></i> <span id="translationSpan"></span></div>
-            <button id="speakMainBtn" class="glass-btn speak-btn" style="margin-top: 12px;"><i class="fas fa-volume-up"></i> <span data-i18n="listenBtn">Listen</span></button>
-            <div class="speed-control">
-                <label><i class="fas fa-tachometer-alt"></i> <span data-i18n="speedLabel">Speed</span></label>
-                <input type="range" id="speedSlider" min="0.3" max="1.5" step="0.02" value="0.9">
+        <div class="translation-panel" style="text-align:center; margin-top:0.6rem;">
+            <div class="translation-bubble" id="translationDisplay">🎨 فن اللغة يشكل الواقع</div>
+        </div>
+        <div class="audio-bar">
+            <button id="listenBtn" class="btn-listen"><i class="fas fa-headphones"></i> Listen</button>
+            <div class="speed-controller">
+                <i class="fas fa-tachometer-alt"></i> <label>Speed</label>
+                <input type="range" id="speedSlider" min="0.4" max="1.4" step="0.02" value="0.9">
                 <span id="speedValue" class="speed-value">0.90</span>
             </div>
         </div>
-        <div class="writing-area">
-            <label><i class="fas fa-keyboard"></i> <span data-i18n="typingLabel">Type exactly as shown (spaces allowed, no punctuation)</span></label>
-            <input type="text" id="userInput" autocomplete="off" placeholder="Start typing with spaces, no punctuation..." inputmode="text">
+        <div class="input-group">
+            <input type="text" id="userSentenceInput" placeholder="Type the sentence exactly..." autocomplete="off">
         </div>
-        <div id="charFeedbackPanel" class="char-feedback-box">✨ Ready — start typing to see intelligent feedback</div>
-        <div class="action-buttons">
-            <button id="prevBtn" class="glass-btn"><i class="fas fa-arrow-left"></i> <span data-i18n="prevBtn">Prev</span></button>
-            <button id="nextBtn" class="glass-btn"><span data-i18n="nextBtn">Next</span> <i class="fas fa-arrow-right"></i></button>
-            <button id="resetBtn" class="glass-btn"><i class="fas fa-undo-alt"></i> <span data-i18n="resetBtn">Reset</span></button>
-        </div>
-    </div>
-</div>
-
-<div id="privacySection" class="privacy-policy" style="display: none;">
-    <h2>Privacy Policy for 3ALearning</h2>
-    <p>Effective date: 2025</p>
-    <p>At 3ALearning, accessible from www.3alearning.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by 3ALearning and how we use it.</p>
-    <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
-    <h3>Log Files</h3>
-    <p>3ALearning follows a standard procedure of using log files. These files log visitors when they use the platform. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.</p>
-    <h3>Children's Information</h3>
-    <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity. 3ALearning does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
-    <h3>Consent</h3>
-    <p>By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.</p>
-    <button id="closePrivacyBtn" class="glass-btn" style="margin-top: 20px;">Back to Learning</button>
-</div>
-
-<footer class="professional-footer">
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4>ShadowWrite AI™</h4>
-            <p data-i18n="footerDesc">Revolutionary neural shadow writing, real-time feedback & AI gamification</p>
-            <div class="social-icons">
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <div class="feedback-area" id="feedbackPanel">
+            <div id="wordSummaryContainer" class="word-feedback-summary">
+                <span style="color:#6c757d;">✨ Start typing — correct words turn green ✨</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="stats-row">
+                <span id="correctWordsCount">✅ 0</span>
+                <span id="totalWordsCount">📝 0 words</span>
+                <span id="accuracyDisplay">🎯 0%</span>
             </div>
         </div>
-        <div class="footer-col">
-            <h4 data-i18n="resources">Resources</h4>
-            <ul class="footer-links">
-                <li><a href="#" data-i18n="learningPath"><i class="fas fa-graduation-cap"></i> Learning Path</a></li>
-                <li><a href="#" data-i18n="gamify"><i class="fas fa-gamepad"></i> Gamification</a></li>
-                <li><a href="#" data-i18n="stories"><i class="fas fa-chalkboard-user"></i> Success Stories</a></li>
-                <li><a href="#" id="privacyFooterLink"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4 data-i18n="legal">Legal</h4>
-            <ul class="footer-links">
-                <li><a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
-                <li><a href="#"><i class="fas fa-universal-access"></i> Accessibility</a></li>
-                <li><a href="#"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Contact</h4>
-            <ul class="footer-links">
-                <li><a href="#"><i class="fas fa-envelope"></i> hello@3alearning.com</a></li>
-                <li><a href="#"><i class="fas fa-headset"></i> Support Center</a></li>
-            </ul>
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn"><i class="fas fa-chevron-left"></i> Previous</button>
+            <button id="resetBtn" class="nav-btn"><i class="fas fa-sync-alt"></i> Reset</button>
+            <button id="nextBtn" class="nav-btn">Next <i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>© 2025 3ALearning — Global English Mastery Platform. All rights reserved.</p>
-    </div>
-</footer>
-<div id="floatMsg" class="float-msg"></div>
+</main>
+<footer class="site-footer"><div>© 2025 3Alearning — Vocabulary Notebook • Auto-Speech Mastery</div></footer>
+<div id="toastMessage" class="toast-notify"></div>
 
 <script>
-    // ==================== FULL ORIGINAL LOGIC PRESERVED ====================
-    const LEXICON = {
-        en: { nouns: ["cat","dog","house","car","book","sun","moon","tree","flower","bird","teacher","student"], adjectives: ["beautiful","big","fast","bright","kind","new","clean","happy"], verbs: ["run","jump","read","write","sing","dance","help","build"], places: ["park","school","market","library"], family: ["mother","father","brother","sister"] },
-        ar: { nouns: ["قطة","كلب","منزل","سيارة","كتاب","شمس","قمر","شجرة","زهرة","طائر","معلم","طالب"], adjectives: ["جميل","كبير","سريع","مشرق","لطيف","جديد","نظيف","سعيد"], verbs: ["يركض","يقفز","يقرأ","يكتب","يغني","يرقص","يساعد","يبني"], places: ["حديقة","مدرسة","سوق","مكتبة"], family: ["أم","أب","أخ","أخت"] },
-        fr: { nouns: ["chat","chien","maison","voiture","livre","soleil","lune","arbre","fleur","oiseau","professeur","élève"], adjectives: ["beau","grand","rapide","brillant","gentil","neuf","propre","heureux"], verbs: ["courir","sauter","lire","écrire","chanter","danser","aider","construire"], places: ["parc","école","marché","bibliothèque"], family: ["mère","père","frère","soeur"] },
-        es: { nouns: ["gato","perro","casa","coche","libro","sol","luna","árbol","flor","pájaro","maestro","estudiante"], adjectives: ["hermoso","grande","rápido","brillante","amable","nuevo","limpio","feliz"], verbs: ["correr","saltar","leer","escribir","cantar","bailar","ayudar","construir"], places: ["parque","escuela","mercado","biblioteca"], family: ["madre","padre","hermano","hermana"] },
-        de: { nouns: ["Katze","Hund","Haus","Auto","Buch","Sonne","Mond","Baum","Blume","Vogel","Lehrer","Schüler"], adjectives: ["schön","groß","schnell","hell","freundlich","neu","sauber","glücklich"], verbs: ["rennen","springen","lesen","schreiben","singen","tanzen","helfen","bauen"], places: ["Park","Schule","Markt","Bibliothek"], family: ["Mutter","Vater","Bruder","Schwester"] }
-    };
-    const PATTERNS = {
-        en: ["The {noun} is {adj}.","I see a {adj} {noun}.","My {family} can {verb}.","Let's go to the {place}.","She likes the {noun}.","He {verb}s every day."],
-        ar: ["{noun} {adj} .", "أرى {noun} {adj} .", "{family} يستطيع {verb} .", "لنذهب إلى {place} .", "هي تحب {noun} .", "هو {verb} كل يوم."],
-        fr: ["Le {noun} est {adj}.","Je vois un {adj} {noun}.","Mon {family} peut {verb}.","Allons au {place}.","Elle aime le {noun}.","Il {verb} chaque jour."],
-        es: ["El {noun} es {adj}.","Veo un {adj} {noun}.","Mi {family} puede {verb}.","Vamos al {place}.","A ella le gusta el {noun}.","Él {verb} cada día."],
-        de: ["Der {noun} ist {adj}.","Ich sehe ein {adj} {noun}.","Mein {family} kann {verb}.","Gehen wir zum {place}.","Sie mag den {noun}.","Er {verb} jeden Tag."]
-    };
-    function buildSentence(lang, tpl, noun, adj, verb, place, family) {
-        let s = tpl.replace(/{noun}/g, noun).replace(/{adj}/g, adj).replace(/{verb}/g, verb).replace(/{place}/g, place).replace(/{family}/g, family);
-        if (lang === 'ar') s = s.replace(/\s+/g, ' ').trim();
-        return s.charAt(0).toUpperCase() + s.slice(1);
-    }
-    function removePunctuationKeepSpaces(str) { return str.replace(/[.,!?;:]/g, ''); }
-    const SUPPORTED_LANGS = ['en','ar','fr','es','de'];
-    const SENTENCES_DB = [];
-    for (let i = 0; i < 2500; i++) {
-        let entry = {};
-        for (let lang of SUPPORTED_LANGS) {
-            let lex = LEXICON[lang] || LEXICON.en;
-            let patterns = PATTERNS[lang] || PATTERNS.en;
-            let tpl = patterns[i % patterns.length];
-            let noun = lex.nouns[i % lex.nouns.length];
-            let adj = lex.adjectives[i % lex.adjectives.length];
-            let verb = lex.verbs[i % lex.verbs.length];
-            let place = lex.places[i % lex.places.length];
-            let family = lex.family[i % lex.family.length];
-            let original = buildSentence(lang, tpl, noun, adj, verb, place, family);
-            entry[lang] = original;
+    const SENTENCE_DB = [
+        { en: "The art of language shapes reality.", translations: { ar: "فن اللغة يشكل الواقع", fr: "L'art du langage façonne la réalité", es: "El arte del lenguaje da forma a la realidad", de: "Die Kunst der Sprache formt die Realität" } },
+        { en: "Every sunrise brings a new opportunity.", translations: { ar: "كل شروق شمس يجلب فرصة جديدة", fr: "Chaque lever de soleil apporte une nouvelle opportunité", es: "Cada amanecer trae una nueva oportunidad", de: "Jeder Sonnenaufgang bringt eine neue Gelegenheit" } },
+        { en: "Knowledge grows when shared generously.", translations: { ar: "المعرفة تنمو عندما تشارك بسخاء", fr: "La connaissance grandit quand elle est partagée généreusement", es: "El conocimiento crece cuando se comparte generosamente", de: "Wissen wächst, wenn es großzügig geteilt wird" } },
+        { en: "Curiosity is the engine of achievement.", translations: { ar: "الفضول هو محرك الإنجاز", fr: "La curiosité est le moteur de la réussite", es: "La curiosidad es el motor del logro", de: "Neugier ist der Motor des Erfolgs" } },
+        { en: "Small steps lead to remarkable journeys.", translations: { ar: "الخطوات الصغيرة تؤدي إلى رحلات رائعة", fr: "Les petits pas mènent à des voyages remarquables", es: "Los pequeños pasos conducen a viajes notables", de: "Kleine Schritte führen zu bemerkenswerten Reisen" } },
+        { en: "Consistency transforms potential into excellence.", translations: { ar: "الاتساق يحول الإمكانات إلى تفوق", fr: "La constance transforme le potentiel en excellence", es: "La constancia transforma el potencial en excelencia", de: "Beständigkeit verwandelt Potenzial in Exzellenz" } }
+    ];
+
+    let currentIndex = 0, currentSentence = SENTENCE_DB[0], isCompleted = false, speechRate = 0.9, currentLang = 'ar';
+    let activeUser = JSON.parse(localStorage.getItem("3Alearning_user")) || null;
+    let vocabulary = JSON.parse(localStorage.getItem("3Alearning_vocab") || "[]");
+    let isFirstLoad = true;
+
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const userInput = document.getElementById('userSentenceInput');
+    const wordSummaryContainer = document.getElementById('wordSummaryContainer');
+    const progressBar = document.getElementById('progressBar');
+    const correctWordsCountSpan = document.getElementById('correctWordsCount');
+    const totalWordsCountSpan = document.getElementById('totalWordsCount');
+    const accuracyDisplaySpan = document.getElementById('accuracyDisplay');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    const desktopLoginBtn = document.getElementById('desktopLoginBtn');
+    const desktopRegisterBtn = document.getElementById('desktopRegisterBtn');
+    const userAreaDesktop = document.getElementById('userAreaDesktop');
+    const userAvatarDesktop = document.getElementById('userAvatarDesktop');
+    const userNameDesktop = document.getElementById('userNameDesktop');
+    const userEmailDesktop = document.getElementById('userEmailDesktop');
+    const logoutBtnDesktop = document.getElementById('logoutBtnDesktop');
+    
+    const sideMenuPanel = document.getElementById('sideMenuPanel');
+    const sideOverlay = document.getElementById('sideOverlay');
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+    const closeSideMenuBtn = document.getElementById('closeSideMenuBtn');
+    const sideNotebookBtn = document.getElementById('sideNotebookBtn');
+    const sideLangSelect = document.getElementById('sideLangSelect');
+    const sideLoginBtn = document.getElementById('sideLoginBtn');
+    const sideRegisterBtn = document.getElementById('sideRegisterBtn');
+    const sideMenuUserSection = document.getElementById('sideMenuUserSection');
+    const sideAuthButtons = document.getElementById('sideAuthButtons');
+    
+    function toggleSideMenu(show) {
+        if (show) {
+            sideMenuPanel.classList.add('open');
+            sideOverlay.classList.add('show');
+        } else {
+            sideMenuPanel.classList.remove('open');
+            sideOverlay.classList.remove('show');
         }
-        SENTENCES_DB.push({
-            en: entry.en,
-            en_display: removePunctuationKeepSpaces(entry.en),
-            ar: entry.ar,
-            fr: entry.fr,
-            es: entry.es,
-            de: entry.de
-        });
+    }
+    
+    menuToggleBtn.addEventListener('click', () => toggleSideMenu(true));
+    closeSideMenuBtn.addEventListener('click', () => toggleSideMenu(false));
+    sideOverlay.addEventListener('click', () => toggleSideMenu(false));
+    
+    function showToast(msg) { 
+        const toastMsg = document.getElementById('toastMessage');
+        toastMsg.innerText = msg; 
+        toastMsg.classList.add('show'); 
+        setTimeout(() => toastMsg.classList.remove('show'), 2200); 
+    }
+    
+    // تحديث حالة زر Next بناءً على إتمام الجملة
+    function updateNextButtonSuccessState() {
+        if (isCompleted) {
+            nextBtn.classList.add('success-next');
+            // إضافة أيقونة صح إذا لم تكن موجودة بالفعل (نظافة)
+            if (!nextBtn.querySelector('.fa-check-circle')) {
+                const checkIcon = document.createElement('i');
+                checkIcon.className = 'fas fa-check-circle';
+                checkIcon.style.marginLeft = '6px';
+                // إزالة أيقونة chevron-right القديمة واستبدالها بالصح، أو نضيف صح بجانب السهم 
+                // أفضل طريقة: الحفاظ على السهم وإضافة الصح بعده
+                const existingChevron = nextBtn.querySelector('.fa-chevron-right');
+                if (existingChevron) {
+                    // نضيف الأيقونة قبل السهم أو بعد النص
+                    const checkClone = document.createElement('i');
+                    checkClone.className = 'fas fa-check-circle';
+                    checkClone.style.marginLeft = '5px';
+                    existingChevron.parentNode.insertBefore(checkClone, existingChevron);
+                } else {
+                    nextBtn.appendChild(checkIcon);
+                }
+            }
+        } else {
+            nextBtn.classList.remove('success-next');
+            // إزالة أيقونة الصح الإضافية إن وجدت
+            const extraCheck = nextBtn.querySelector('.fa-check-circle');
+            if (extraCheck) extraCheck.remove();
+        }
+    }
+    
+    // دالة عرض الكلمات - فقط الكلمات الصحيحة باللون الأخضر، بدون أي تمييز للخطأ
+    function renderWordSummary(typed) {
+        const target = currentSentence.en;
+        if (!target) return;
+        
+        const targetWords = target.split(/\s+/);
+        const typedWords = typed ? typed.trim().split(/\s+/) : [];
+        const totalWords = targetWords.length;
+        
+        let correctCount = 0;
+        let wordChips = '';
+        
+        for (let i = 0; i < targetWords.length; i++) {
+            const targetWord = targetWords[i];
+            const typedWord = i < typedWords.length ? typedWords[i] : null;
+            
+            if (typedWord === null) {
+                wordChips += `<span class="word-chip">${escapeHtml(targetWord)}</span>`;
+            } else if (typedWord.toLowerCase() === targetWord.toLowerCase()) {
+                wordChips += `<span class="word-chip word-correct">${escapeHtml(targetWord)}</span>`;
+                correctCount++;
+            } else {
+                wordChips += `<span class="word-chip">${escapeHtml(typedWord)}</span>`;
+            }
+        }
+        
+        if (typedWords.length > targetWords.length) {
+            for (let i = targetWords.length; i < typedWords.length; i++) {
+                wordChips += `<span class="word-chip">${escapeHtml(typedWords[i])}</span>`;
+            }
+        }
+        
+        wordSummaryContainer.innerHTML = wordChips;
+        
+        const progressPercent = (correctCount / totalWords) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+        correctWordsCountSpan.innerHTML = `✅ ${correctCount}`;
+        totalWordsCountSpan.innerHTML = `📝 ${totalWords} words`;
+        const accuracy = totalWords > 0 ? Math.round((correctCount / totalWords) * 100) : 0;
+        accuracyDisplaySpan.innerHTML = `🎯 ${accuracy}%`;
+        
+        return { correctCount, totalWords };
     }
 
-    const UI_TEXTS = {
-        en: { vocabBtn:"Words", loginBtn:"Login", streakLabel:"day streak", listenBtn:"Listen", typingLabel:"Type exactly as shown (spaces allowed, no punctuation)", prevBtn:"Prev", nextBtn:"Next", resetBtn:"Reset", footerDesc:"Revolutionary neural shadow writing, real-time feedback & AI gamification", resources:"Resources", gamify:"Gamification", stories:"Success Stories", legal:"Legal", learningPath:"Learning Path", createAccount:"Create Account", logout:"Logout", speedLabel:"Speed" },
-        ar: { vocabBtn:"المفردات", loginBtn:"تسجيل الدخول", streakLabel:"أيام متتالية", listenBtn:"استمع", typingLabel:"اكتب بالضبط كما هو موضح (مسافات مسموحة، بدون علامات ترقيم)", prevBtn:"السابق", nextBtn:"التالي", resetBtn:"إعادة تعيين", footerDesc:"الكتابة الظلية العصبية الثورية، تغذية راجعة فورية وتعلم بالألعاب", resources:"الموارد", gamify:"الألعاب", stories:"قصص النجاح", legal:"قانوني", learningPath:"مسار التعلم", createAccount:"إنشاء حساب", logout:"تسجيل خروج", speedLabel:"السرعة" },
-        fr: { vocabBtn:"Mots", loginBtn:"Connexion", streakLabel:"séquence", listenBtn:"Écouter", typingLabel:"Tapez exactement comme indiqué (espaces autorisés, pas de ponctuation)", prevBtn:"Préc", nextBtn:"Suiv", resetBtn:"Réinitialiser", footerDesc:"Shadow writing neuronal révolutionnaire, retour en temps réel et ludification", resources:"Ressources", gamify:"Ludification", stories:"Réussites", legal:"Juridique", learningPath:"Parcours", createAccount:"Créer un compte", logout:"Déconnexion", speedLabel:"Vitesse" },
-        es: { vocabBtn:"Palabras", loginBtn:"Iniciar sesión", streakLabel:"racha", listenBtn:"Escuchar", typingLabel:"Escriba exactamente como se muestra (espacios permitidos, sin puntuación)", prevBtn:"Antes", nextBtn:"Siguiente", resetBtn:"Reiniciar", footerDesc:"Sombra neuronal revolucionaria, retroalimentación en tiempo real y gamificación", resources:"Recursos", gamify:"Gamificación", stories:"Historias", legal:"Legal", learningPath:"Ruta", createAccount:"Crear cuenta", logout:"Cerrar sesión", speedLabel:"Velocidad" },
-        de: { vocabBtn:"Wörter", loginBtn:"Anmelden", streakLabel:"Serie", listenBtn:"Hören", typingLabel:"Tippen Sie genau wie gezeigt (Leerzeichen erlaubt, keine Satzzeichen)", prevBtn:"Zurück", nextBtn:"Weiter", resetBtn:"Zurücksetzen", footerDesc:"Revolutionäres neuronales Schatten-Schreiben, Echtzeit-Feedback & Gamification", resources:"Ressourcen", gamify:"Spielmechanik", stories:"Erfolgsgeschichten", legal:"Rechtliches", learningPath:"Lernpfad", createAccount:"Konto erstellen", logout:"Abmelden", speedLabel:"Geschwindigkeit" }
-    };
-    
-    let currentLangUI = "en";
-    function applyUITexts() {
-        const texts = UI_TEXTS[currentLangUI] || UI_TEXTS.en;
-        document.querySelectorAll("[data-i18n]").forEach(el => {
-            const key = el.getAttribute("data-i18n");
-            if (texts[key]) el.innerText = texts[key];
-        });
-        document.getElementById("userInput").placeholder = currentLangUI === 'ar' ? 'اكتب مع مسافات، بدون علامات ترقيم...' : (currentLangUI === 'fr' ? 'Tapez avec espaces, sans ponctuation...' : (currentLangUI === 'es' ? 'Escriba con espacios, sin puntuación...' : (currentLangUI === 'de' ? 'Mit Leerzeichen, ohne Satzzeichen tippen...' : 'Type with spaces, no punctuation...')));
+    function addWordsFromSentence(sentence, translationLang) {
+        if (!activeUser) return;
+        const words = sentence.en.toLowerCase().split(/\s+/).filter(w => w.length > 3 && !['the','and','for','are','with','this','that','from','have','will'].includes(w));
+        const uniqueWords = [...new Set(words)];
+        let added = false;
+        for (let word of uniqueWords) {
+            if (!vocabulary.some(v => v.word === word)) {
+                let translation = word;
+                if (translationLang === 'ar') translation = word + " (ترجمة تجريبية)";
+                else if (translationLang === 'fr') translation = word + " (traduction)";
+                else if (translationLang === 'es') translation = word + " (traducción)";
+                else translation = word + " (translation)";
+                vocabulary.push({ word, translation, sentence: sentence.en });
+                added = true;
+            }
+        }
+        if (added) {
+            localStorage.setItem("3Alearning_vocab", JSON.stringify(vocabulary));
+            showToast(`📚 New words added to your notebook!`);
+        }
     }
 
-    let xp = 0, streak = 0, lastCompletionDate = "";
-    let currentIndex = 0, currentSentence = SENTENCES_DB[0], isCompletedMode = false;
-    let userVocabulary = [];
-    let speechSpeed = 0.9;
-    let currentLangSent = "en";
-    let audioCtx = null;
-    let lastTypedLen = 0;
-    
-    // Auth (exact same logic)
-    function getUsers() { return JSON.parse(localStorage.getItem("shadowwrite_users") || "[]"); }
-    function saveUsers(users) { localStorage.setItem("shadowwrite_users", JSON.stringify(users)); }
-    function setCurrentUser(email) { if(email) localStorage.setItem("shadowwrite_current_user", email); else localStorage.removeItem("shadowwrite_current_user"); }
-    function getCurrentUser() { return localStorage.getItem("shadowwrite_current_user"); }
-    function updateHeaderByAuth() {
-        const loggedIn = !!getCurrentUser();
-        document.querySelectorAll('.auth-visible').forEach(el => { if(loggedIn) el.classList.remove('auth-hidden'); else el.classList.add('auth-hidden'); });
-        document.querySelectorAll('.auth-action').forEach(el => { if(!loggedIn) el.classList.remove('auth-hidden'); else el.classList.add('auth-hidden'); });
-        const logoutBtn = document.getElementById('logoutBtn');
-        if(logoutBtn) { if(loggedIn) logoutBtn.classList.remove('auth-hidden'); else logoutBtn.classList.add('auth-hidden'); }
+    function onSentenceMastered() {
+        addWordsFromSentence(currentSentence, currentLang);
+        if(activeUser) { showToast(`🎉 Perfect! Words saved to your notebook.`); }
+        else { showToast(`🎉 Perfect! Sign in to save words.`); }
+        // تحديث زر next للحالة الخضراء
+        updateNextButtonSuccessState();
     }
-    function createUserAndLogin(email, displayName) {
-        const users = getUsers();
-        if(!users.find(u => u.email === email)) { users.push({ email, password: "social_mock" }); saveUsers(users); }
-        setCurrentUser(email);
-        updateHeaderByAuth();
-        showFloatMessage(`🎉 Welcome ${displayName || email}!`);
+
+    const sentenceDisplay = document.getElementById('sentenceDisplay');
+    const translationDisplay = document.getElementById('translationDisplay');
+    const listenBtn = document.getElementById('listenBtn');
+    const speedSlider = document.getElementById('speedSlider');
+    const speedValueSpan = document.getElementById('speedValue');
+    const prevBtn = document.getElementById('prevBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const headerLangSelect = document.getElementById('headerLangSelect');
+    const desktopNotebookIcon = document.getElementById('desktopNotebookIcon');
+
+    function openNotebook() {
+        if (!activeUser) { showToast("🔒 Please sign in to access Vocabulary Notebook"); openAuthModal('login'); return; }
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        let vocabHtml = `<div class="notebook-modal"><div class="close-modal">&times;</div><h3 style="margin-bottom:1rem;"><i class="fas fa-book-open"></i> My Vocabulary Notebook</h3>`;
+        if (vocabulary.length === 0) vocabHtml += '<p style="color:#6c757d;">✨ Complete sentences while logged in to save words here!</p>';
+        else { for (let v of vocabulary) vocabHtml += `<div class="vocab-item"><div class="vocab-word">📖 ${escapeHtml(v.word)}</div><div class="vocab-translation">🔤 ${escapeHtml(v.translation)}</div><div class="vocab-sentence">“${escapeHtml(v.sentence)}”</div></div>`; }
+        vocabHtml += '<button id="clearNotebookBtn" style="margin-top:1rem; background:linear-gradient(135deg, #0f2027, #2c5364); color:white; border:none; padding:0.5rem 1rem; border-radius:50px; cursor:pointer; width:100%;">Clear Notebook</button></div>';
+        modal.innerHTML = vocabHtml;
+        document.body.appendChild(modal);
+        modal.querySelector('.close-modal').addEventListener('click', () => modal.remove());
+        modal.addEventListener('click', (e) => { if(e.target === modal) modal.remove(); });
+        modal.querySelector('#clearNotebookBtn')?.addEventListener('click', () => { vocabulary = []; localStorage.setItem("3Alearning_vocab", JSON.stringify(vocabulary)); showToast("Notebook cleared"); modal.remove(); openNotebook(); });
     }
-    function showModal(title, fieldsHtml, onSubmit) {
-        let modalDiv = document.createElement("div"); modalDiv.className = "modal-bg";
-        modalDiv.innerHTML = `<div class="modal-card"><h3>${title}</h3>${fieldsHtml}<div class="auth-error" id="modalError"></div><button id="modalSubmitBtn" class="glass-btn">Submit</button><button id="modalCloseBtn" class="glass-btn" style="background:#475569; margin-top:8px;">Cancel</button></div>`;
+
+    function updateUIByUser() {
+        if (activeUser) {
+            const displayName = activeUser.name || activeUser.email.split('@')[0];
+            const userEmail = activeUser.email || '';
+            if (desktopLoginBtn) desktopLoginBtn.style.display = 'none';
+            if (desktopRegisterBtn) desktopRegisterBtn.style.display = 'none';
+            userAreaDesktop.style.display = 'flex';
+            userAvatarDesktop.innerText = displayName.charAt(0).toUpperCase();
+            userNameDesktop.innerText = displayName;
+            userEmailDesktop.innerText = userEmail;
+            desktopNotebookIcon.classList.remove('locked');
+            desktopNotebookIcon.title = "Open Vocabulary Notebook";
+            sideAuthButtons.style.display = 'none';
+            sideMenuUserSection.innerHTML = `
+                <div class="side-user-info">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="avatar-small" style="width:40px; height:40px; background:linear-gradient(135deg,#0f2027,#2c5364); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${displayName.charAt(0).toUpperCase()}</div>
+                        <div>
+                            <strong>${escapeHtml(displayName)}</strong>
+                            <div style="font-size:0.7rem; color:#6c757d;">${activeUser.email || ''}</div>
+                        </div>
+                    </div>
+                    <button id="sideLogoutBtn" style="background:linear-gradient(135deg, #dc3545, #c82333); color:white; border:none; padding:0.4rem 1rem; border-radius:40px; cursor:pointer;">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            `;
+            document.getElementById('sideLogoutBtn')?.addEventListener('click', () => { logoutUser(); toggleSideMenu(false); });
+        } else {
+            if (desktopLoginBtn) desktopLoginBtn.style.display = 'flex';
+            if (desktopRegisterBtn) desktopRegisterBtn.style.display = 'flex';
+            userAreaDesktop.style.display = 'none';
+            desktopNotebookIcon.classList.add('locked');
+            desktopNotebookIcon.title = "Sign in to access Vocabulary Notebook";
+            sideAuthButtons.style.display = 'flex';
+            sideMenuUserSection.innerHTML = '';
+        }
+        if (activeUser) { vocabulary = JSON.parse(localStorage.getItem("3Alearning_vocab") || "[]"); }
+    }
+
+    function openAuthModal(mode = 'login') {
+        const modalDiv = document.createElement('div');
+        modalDiv.className = 'modal-overlay';
+        const isLoginMode = (mode === 'login');
+        
+        modalDiv.innerHTML = `
+            <div class="auth-modal">
+                <div class="close-modal" style="float:right; cursor:pointer;">&times;</div>
+                <h3><i class="fas fa-graduation-cap"></i> ${isLoginMode ? 'Welcome Back' : 'Create Account'}</h3>
+                <div class="social-buttons">
+                    <button id="googleLoginBtn" class="btn-google"><i class="fab fa-google"></i> Continue with Google</button>
+                    <button id="facebookLoginBtn" class="btn-facebook"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+                </div>
+                <div class="social-divider"><span>OR continue with email</span></div>
+                <div class="input-group" id="nameFieldGroup" style="${isLoginMode ? 'display:none' : 'display:block'}">
+                    <input type="text" id="authName" placeholder="Full Name" autocomplete="off">
+                </div>
+                <div class="input-group"><input type="email" id="authEmail" placeholder="Email address" autocomplete="off"></div>
+                <div class="input-group"><input type="password" id="authPassword" placeholder="Password"></div>
+                <div class="auth-buttons">
+                    <button id="submitAuthBtn" class="auth-primary-btn">${isLoginMode ? '<i class="fas fa-sign-in-alt"></i> Sign In' : '<i class="fas fa-user-plus"></i> Create Account'}</button>
+                    <button id="switchAuthBtn" class="auth-secondary-btn">${isLoginMode ? 'New here? Create account →' : '← Back to Sign In'}</button>
+                </div>
+            </div>
+        `;
         document.body.appendChild(modalDiv);
-        const submitBtn = modalDiv.querySelector("#modalSubmitBtn");
-        const closeBtn = modalDiv.querySelector("#modalCloseBtn");
-        const errorDiv = modalDiv.querySelector("#modalError");
-        submitBtn.addEventListener("click", () => { const result = onSubmit(modalDiv); if (result === true) modalDiv.remove(); else if (result) errorDiv.innerText = result; });
-        closeBtn.addEventListener("click", () => modalDiv.remove());
-        modalDiv.addEventListener("click", (e) => { if(e.target === modalDiv) modalDiv.remove(); });
+        
+        let currentIsLogin = isLoginMode;
+        const emailInp = modalDiv.querySelector('#authEmail');
+        const pwdInp = modalDiv.querySelector('#authPassword');
+        const nameInp = modalDiv.querySelector('#authName');
+        const nameFieldGroup = modalDiv.querySelector('#nameFieldGroup');
+        const submitBtn = modalDiv.querySelector('#submitAuthBtn');
+        const switchBtn = modalDiv.querySelector('#switchAuthBtn');
+        const titleH3 = modalDiv.querySelector('h3');
+        
+        function updateModalMode() {
+            if(currentIsLogin) {
+                titleH3.innerHTML = '<i class="fas fa-graduation-cap"></i> Welcome Back';
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+                switchBtn.innerText = 'New here? Create account →';
+                if(nameFieldGroup) nameFieldGroup.style.display = 'none';
+            } else {
+                titleH3.innerHTML = '<i class="fas fa-graduation-cap"></i> Create Account';
+                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+                switchBtn.innerText = '← Back to Sign In';
+                if(nameFieldGroup) nameFieldGroup.style.display = 'block';
+            }
+        }
+        
+        modalDiv.querySelector('#googleLoginBtn').addEventListener('click', () => { showToast("Google login - Add Firebase to enable"); modalDiv.remove(); });
+        modalDiv.querySelector('#facebookLoginBtn').addEventListener('click', () => { showToast("Facebook login - Add Firebase to enable"); modalDiv.remove(); });
+        
+        function handleSubmit() {
+            const email = emailInp.value.trim();
+            const password = pwdInp.value;
+            if (!email || !password) { showToast("Please enter email and password"); return; }
+            const users = JSON.parse(localStorage.getItem("3Alearning_users") || "[]");
+            if (currentIsLogin) {
+                const user = users.find(u => u.email === email && u.password === password);
+                if (user) { 
+                    activeUser = { email, name: user.name, xp: user.xp || 0 }; 
+                    localStorage.setItem("3Alearning_user", JSON.stringify(activeUser)); 
+                    updateUIByUser();
+                    showToast(`Welcome back ${activeUser.name}`); 
+                    refreshSentence(); 
+                    modalDiv.remove(); 
+                } else { 
+                    showToast("Invalid email or password"); 
+                }
+            } else {
+                if (users.find(u => u.email === email)) { showToast("Email already exists. Please sign in."); return; }
+                let userName = nameInp ? nameInp.value.trim() : '';
+                if (!userName) userName = email.split('@')[0];
+                const newUser = { email, password, name: userName, xp: 0 };
+                users.push(newUser);
+                localStorage.setItem("3Alearning_users", JSON.stringify(users));
+                activeUser = { email, name: userName, xp: 0 };
+                localStorage.setItem("3Alearning_user", JSON.stringify(activeUser));
+                updateUIByUser();
+                showToast(`✨ Welcome ${userName}! Start shadowing.`);
+                refreshSentence();
+                modalDiv.remove();
+            }
+        }
+        
+        modalDiv.querySelector('.close-modal').addEventListener('click', () => modalDiv.remove());
+        switchBtn.addEventListener('click', () => { currentIsLogin = !currentIsLogin; updateModalMode(); });
+        submitBtn.addEventListener('click', handleSubmit);
+        updateModalMode();
     }
-    function handleSignupClick() {
-        showModal("Create Account", `
-            <input type="email" id="signupEmail" placeholder="Email address">
-            <input type="password" id="signupPassword" placeholder="Password (min 6)">
-            <input type="password" id="signupConfirm" placeholder="Confirm password">
-            <div class="social-divider"><span>OR</span></div>
-            <button type="button" id="socialGoogleBtn" class="social-btn google"><i class="fab fa-google"></i> Continue with Google</button>
-            <button type="button" id="socialFacebookBtn" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
-        `, (modal) => {
-            const email = modal.querySelector("#signupEmail").value.trim();
-            const pwd = modal.querySelector("#signupPassword").value;
-            const confirm = modal.querySelector("#signupConfirm").value;
-            if(!email || !pwd || !confirm) return "All fields required.";
-            if(!email.includes("@") || !email.includes(".")) return "Valid email required.";
-            if(pwd.length < 6) return "Password min 6 chars.";
-            if(pwd !== confirm) return "Passwords do not match.";
-            const users = getUsers();
-            if(users.find(u => u.email === email)) return "Email already registered.";
-            users.push({ email, password: pwd });
-            saveUsers(users);
-            setCurrentUser(email);
-            updateHeaderByAuth();
-            showFloatMessage(`✅ Welcome ${email}!`);
-            return true;
-        });
-        setTimeout(() => {
-            const g = document.querySelector("#socialGoogleBtn"); if(g) g.onclick = () => { createUserAndLogin(`google_${Date.now()}@social.com`, "Google User"); document.querySelector(".modal-bg")?.remove(); };
-            const f = document.querySelector("#socialFacebookBtn"); if(f) f.onclick = () => { createUserAndLogin(`fb_${Date.now()}@social.com`, "Facebook User"); document.querySelector(".modal-bg")?.remove(); };
-        }, 10);
-    }
-    function handleLoginClick() {
-        showModal("Login", `<input type="email" id="loginEmail" placeholder="Email"><input type="password" id="loginPassword" placeholder="Password"><div class="social-divider"><span>OR</span></div><button type="button" id="socialLoginGoogle" class="social-btn google"><i class="fab fa-google"></i> Sign in with Google</button><button type="button" id="socialLoginFacebook" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Sign in with Facebook</button>`, (modal) => {
-            const email = modal.querySelector("#loginEmail").value.trim();
-            const pwd = modal.querySelector("#loginPassword").value;
-            if(!email || !pwd) return "Email and password required.";
-            const user = getUsers().find(u => u.email === email && u.password === pwd);
-            if(!user) return "Invalid credentials.";
-            setCurrentUser(email); updateHeaderByAuth(); showFloatMessage(`🔓 Welcome back, ${email}!`); return true;
-        });
-        setTimeout(() => {
-            const gl = document.querySelector("#socialLoginGoogle"); if(gl) gl.onclick = () => { createUserAndLogin("demo_google@social.com", "Google User"); document.querySelector(".modal-bg")?.remove(); };
-            const fl = document.querySelector("#socialLoginFacebook"); if(fl) fl.onclick = () => { createUserAndLogin("demo_fb@social.com", "Facebook User"); document.querySelector(".modal-bg")?.remove(); };
-        }, 10);
-    }
-    function handleLogout() { setCurrentUser(null); updateHeaderByAuth(); showFloatMessage("👋 Logged out."); }
-    function initAuth() { updateHeaderByAuth(); }
     
-    // Game & feedback (unchanged)
-    function updateUIwithProgress() { document.getElementById("xpDisplay").innerHTML = `${xp} XP`; document.getElementById("streakDisplay").innerText = streak; document.getElementById("levelDisplay").innerText = `Lv.${Math.floor(xp/100)+1}`; }
-    function showFloatMessage(msg) { let el=document.getElementById("floatMsg"); el.innerText=msg; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1500); }
-    function playTyping() { try{ if(!audioCtx) audioCtx=new (AudioContext||webkitAudioContext)(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.frequency.value=1400; g.gain.value=0.04; o.start(); g.gain.exponentialRampToValueAtTime(0.00001,audioCtx.currentTime+0.08); o.stop(audioCtx.currentTime+0.08); if(audioCtx.state==='suspended') audioCtx.resume(); }catch(e){} }
-    function playError() { try{ if(!audioCtx) audioCtx=new AudioContext(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.frequency.value=880; g.gain.value=0.1; o.start(); g.gain.exponentialRampToValueAtTime(0.00001,audioCtx.currentTime+0.2); o.stop(audioCtx.currentTime+0.2); }catch(e){} }
-    function playSuccess() { try{ if(!audioCtx) audioCtx=new AudioContext(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.frequency.value=1250; g.gain.value=0.08; o.start(); g.gain.exponentialRampToValueAtTime(0.00001,audioCtx.currentTime+0.3); o.stop(audioCtx.currentTime+0.3); }catch(e){} }
-    function shakeInput() { document.getElementById("userInput").classList.add('shake'); setTimeout(()=>document.getElementById("userInput").classList.remove('shake'),280); playError(); }
-    function addXP(amount) { xp += amount; updateUIwithProgress(); saveProgress(); showFloatMessage(`🎉 +${amount} XP!`); }
-    function updateStreakOnCompletion() { const today = new Date().toDateString(); if (lastCompletionDate !== today) { if (lastCompletionDate && new Date(lastCompletionDate).getTime() === new Date(today).getTime() - 86400000) streak++; else streak = 1; lastCompletionDate = today; showFloatMessage(`🔥 ${streak} day streak!`); updateUIwithProgress(); saveProgress(); } }
-    function extractImportantWords(sentenceEn) { let words = sentenceEn.toLowerCase().split(/\s+/).filter(w=>w.length>2 && !["the","a","an","and","of","to","is","are","be","i","you","he","she","it","we","they"].includes(w)); [...new Set(words)].slice(0,2).forEach(w=>{ if(!userVocabulary.some(v=>v.word===w)) userVocabulary.push({word:w, context:sentenceEn.slice(0,70), date:Date.now()}); }); saveProgress(); }
-    function escapeHtml(str){ return str.replace(/[&<>]/g, m=> m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'); }
-    function renderFeedback(typed) {
-        const target = currentSentence.en_display;
-        if(typed.length===0){ document.getElementById("charFeedbackPanel").innerHTML="✨ Intelligent Shadow Feedback will appear here"; return; }
-        let html = `<div><i class="fas fa-microchip"></i> Character-by-character (spaces matter, no punctuation)</div><div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;">`;
-        for(let i=0; i<target.length; i++){
-            let tchar = i<typed.length ? typed[i] : null;
-            if(tchar === target[i]) html+=`<span class="green-char">${escapeHtml(target[i])}</span>`;
-            else if(tchar && tchar !== target[i]) html+=`<span class="red-char">${escapeHtml(tchar)}</span>`;
-            else html+=`<span class="pending-char">${escapeHtml(target[i])}</span>`;
+    function logoutUser() {
+        activeUser = null;
+        localStorage.removeItem("3Alearning_user");
+        updateUIByUser();
+        showToast("Logged out successfully");
+        currentIndex = 0;
+        refreshSentence();
+    }
+
+    function escapeHtml(str) { return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
+
+    function playSuccessSound() { try { let ctx = new (AudioContext || webkitAudioContext)(); let o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = 880; g.gain.value = 0.08; o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25); o.stop(ctx.currentTime + 0.2); if(ctx.state === 'suspended') ctx.resume(); } catch(e){} }
+    function playErrorBeep() { try { let ctx = new (AudioContext || webkitAudioContext)(); let o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = 540; g.gain.value = 0.05; o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.1); o.stop(ctx.currentTime + 0.09); if(ctx.state === 'suspended') ctx.resume(); } catch(e){} }
+
+    function autoSpeak() {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(currentSentence.en);
+        utterance.lang = 'en-US';
+        utterance.rate = speechRate;
+        window.speechSynthesis.speak(utterance);
+    }
+    
+    async function initialAutoSpeak() {
+        loadingOverlay.classList.remove('hidden');
+        await new Promise(resolve => setTimeout(resolve, 500));
+        autoSpeak();
+        setTimeout(() => loadingOverlay.classList.add('hidden'), 300);
+    }
+
+    function handleTyping() {
+        if (isCompleted) return;
+        const typed = userInput.value;
+        const target = currentSentence.en;
+        const targetWords = target.split(/\s+/);
+        const typedWords = typed.trim().split(/\s+/);
+        
+        renderWordSummary(typed);
+        
+        // التحقق من إكمال الجملة بنجاح
+        if (typed === target && !isCompleted) {
+            isCompleted = true;
+            userInput.disabled = true;
+            playSuccessSound();
+            autoSpeak();
+            onSentenceMastered();
+            wordSummaryContainer.innerHTML = '<div style="background:#e6f4ea; padding:0.6rem; border-radius:50px; color:#137333; width:100%;">✅ Amazing! Words saved to notebook ✅</div>';
+            showToast("🎉 Perfect! You've mastered this sentence!");
+            updateNextButtonSuccessState(); // تحديث الزر بعد الإتمام
         }
-        if(typed.length > target.length) for(let ch of typed.substring(target.length)) html+=`<span class="red-char" style="background:#ffdddd;">${escapeHtml(ch)}</span>`;
-        html+=`</div>`;
-        document.getElementById("charFeedbackPanel").innerHTML = html;
-        if(typed === target && !isCompletedMode){
-            isCompletedMode=true; playSuccess(); addXP(25); updateStreakOnCompletion(); extractImportantWords(currentSentence.en);
-            showFloatMessage(`🏆 Perfect! +25 XP! 🏆`);
-            speakText(currentSentence.en, ()=>{ setTimeout(()=>{ goToNextSentenceAuto(); },400); });
-            document.getElementById("userInput").disabled=true;
+        
+        // اهتزاز عند كتابة حرف خاطئ
+        if (typed.length && typed.length <= target.length && typed[typed.length-1] !== target[typed.length-1]) {
+            userInput.classList.add('shake-effect');
+            setTimeout(() => userInput.classList.remove('shake-effect'), 200);
+            playErrorBeep();
         }
     }
-    function speakText(text, onEnd=null){ if(!window.speechSynthesis) return; window.speechSynthesis.cancel(); let utterance = new SpeechSynthesisUtterance(text); utterance.lang="en-US"; utterance.rate = speechSpeed; if(onEnd) utterance.onend=onEnd; window.speechSynthesis.speak(utterance); }
-    function loadCurrentSentence() { currentSentence = SENTENCES_DB[currentIndex]; document.getElementById("sentenceDisplay").innerText = currentSentence.en_display; document.getElementById("translationSpan").innerText = currentSentence[currentLangSent] || currentSentence.en; document.getElementById("userInput").value = ""; isCompletedMode = false; document.getElementById("userInput").disabled = false; document.getElementById("userInput").focus(); renderFeedback(""); speakText(currentSentence.en); }
-    function goToNextSentenceAuto() { currentIndex = (currentIndex+1) % SENTENCES_DB.length; loadCurrentSentence(); saveProgress(); }
-    function prevSentence() { if(isCompletedMode) return; currentIndex = (currentIndex-1+SENTENCES_DB.length)%SENTENCES_DB.length; loadCurrentSentence(); saveProgress(); }
-    function nextSentence() { if(isCompletedMode) return; currentIndex = (currentIndex+1)%SENTENCES_DB.length; loadCurrentSentence(); saveProgress(); }
-    function resetCurrent() { if(isCompletedMode) return; document.getElementById("userInput").value=""; renderFeedback(""); document.getElementById("userInput").focus(); }
-    function onInputChange() { if(isCompletedMode) return; let typed = document.getElementById("userInput").value; let cleaned = typed.replace(/[.,!?;:]/g, ''); if(cleaned !== typed) { document.getElementById("userInput").value = cleaned; typed = cleaned; } if(typed.length > lastTypedLen && typed[typed.length-1] !== currentSentence.en_display[typed.length-1]) shakeInput(); else playTyping(); lastTypedLen = typed.length; renderFeedback(typed); }
-    function saveProgress() { localStorage.setItem("shadowwrite_data", JSON.stringify({ xp, streak, lastCompletionDate, currentIndex, vocabulary:userVocabulary, langSent:currentLangSent, speechSpeed })); }
-    function loadProgress() { let r = localStorage.getItem("shadowwrite_data"); if(r){ let p=JSON.parse(r); xp=p.xp||0; streak=p.streak||0; lastCompletionDate=p.lastCompletionDate||""; currentIndex=p.currentIndex||0; userVocabulary=p.vocabulary||[]; currentLangSent=p.langSent||"en"; speechSpeed=p.speechSpeed!==undefined?p.speechSpeed:0.9; document.getElementById("globalLangSelect").value=currentLangSent; document.getElementById("speedSlider").value = speechSpeed; document.getElementById("speedValue").innerText = speechSpeed.toFixed(2); updateUIwithProgress(); } else updateUIwithProgress(); loadCurrentSentence(); }
-    function openVocabularyModal(){ let modalDiv = document.createElement("div"); modalDiv.className="modal-bg"; modalDiv.innerHTML = `<div class="modal-card"><h3><i class="fas fa-book"></i> 📘 Vocabulary Notebook</h3><input type="text" id="vocabSearch" placeholder="🔍 Search word" style="width:100%; padding:10px; margin:12px 0; border-radius:40px;"><div id="vocabListContainer"></div><button id="closeVocabModal" class="glass-btn" style="margin-top:16px;">Close</button></div>`; document.body.appendChild(modalDiv); function renderVocabList(search=""){ let filtered = userVocabulary.filter(v=>v.word.toLowerCase().includes(search.toLowerCase())); let container = modalDiv.querySelector("#vocabListContainer"); if(filtered.length===0) { container.innerHTML="<div style='padding:20px;text-align:center'>✨ No words saved. Complete sentences to build vocabulary.</div>"; return; } container.innerHTML = filtered.map(v=>`<div class="vocab-item"><span><strong>${escapeHtml(v.word)}</strong><br><small>${escapeHtml(v.context)}</small></span><button class="delete-vocab" data-word="${v.word}">🗑️ Delete</button></div>`).join(""); modalDiv.querySelectorAll(".delete-vocab").forEach(btn=>btn.addEventListener("click",(e)=>{ let word = btn.getAttribute("data-word"); userVocabulary = userVocabulary.filter(w=>w.word!==word); renderVocabList(modalDiv.querySelector("#vocabSearch").value); saveProgress(); showFloatMessage(`Removed "${word}"`); })); } let searchInput = modalDiv.querySelector("#vocabSearch"); searchInput.addEventListener("input",()=>renderVocabList(searchInput.value)); renderVocabList(""); modalDiv.querySelector("#closeVocabModal").addEventListener("click",()=>modalDiv.remove()); }
-    function initLangSelector() { let select = document.getElementById("globalLangSelect"); select.innerHTML = `<option value="en">🇬🇧 English</option><option value="ar">🇸🇦 العربية</option><option value="fr">🇫🇷 Français</option><option value="es">🇪🇸 Español</option><option value="de">🇩🇪 Deutsch</option>`; select.value = currentLangSent; select.addEventListener("change",(e)=>{ currentLangSent = e.target.value; currentLangUI = currentLangSent; applyUITexts(); document.getElementById("translationSpan").innerText = currentSentence[currentLangSent] || currentSentence.en; saveProgress(); }); }
-    function initMobileMenu() { const toggle = document.getElementById('menuToggle'); const actions = document.getElementById('headerActions'); if(toggle && actions){ toggle.addEventListener('click', (e) => { e.stopPropagation(); actions.classList.toggle('open'); const icon = toggle.querySelector('i'); icon.className = actions.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars'; }); document.addEventListener('click', (e) => { if(!actions.contains(e.target) && !toggle.contains(e.target) && actions.classList.contains('open')){ actions.classList.remove('open'); toggle.querySelector('i').className = 'fas fa-bars'; } }); } }
-    function showPrivacy() { document.getElementById('mainContent').style.display = 'none'; document.getElementById('privacySection').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    function hidePrivacy() { document.getElementById('mainContent').style.display = 'block'; document.getElementById('privacySection').style.display = 'none'; loadCurrentSentence(); }
-    function initSpeedControl() { const slider = document.getElementById('speedSlider'); const speedVal = document.getElementById('speedValue'); slider.addEventListener('input', (e) => { speechSpeed = parseFloat(e.target.value); speedVal.innerText = speechSpeed.toFixed(2); saveProgress(); }); }
+
+    function refreshSentence() {
+        currentSentence = SENTENCE_DB[currentIndex];
+        sentenceDisplay.innerText = currentSentence.en;
+        translationDisplay.innerText = currentSentence.translations[currentLang] || currentSentence.translations.ar;
+        userInput.value = '';
+        isCompleted = false;
+        userInput.disabled = false;
+        renderWordSummary('');
+        updateNextButtonSuccessState(); // إزالة حالة النجاح من زر next عند تغيير الجملة
+        if (!isFirstLoad) { autoSpeak(); } 
+        else { initialAutoSpeak(); isFirstLoad = false; }
+    }
     
-    // ========== منع النسخ ومنع قائمة السياق (context menu) مع السماح بحقول الإدخال ==========
-    document.addEventListener('contextmenu', function(e) {
-        // السماح بقائمة السياق فقط داخل حقول الإدخال والنص (للكتابة واللصق)
-        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-            e.preventDefault();
-        }
-    });
-    // منع عمليات السحب والنسخ غير المرغوب فيها
-    document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-            e.preventDefault();
-        }
-    });
-    // منع اختيار النص بشكل عام (تم بالفعل عبر CSS) ولكن نؤكد
-    document.addEventListener('selectstart', function(e) {
-        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-            e.preventDefault();
-        }
-    });
+    function nextSentence() { 
+        currentIndex = (currentIndex + 1) % SENTENCE_DB.length; 
+        refreshSentence(); 
+        window.speechSynthesis.cancel(); 
+        showToast("Next sentence"); 
+    }
+    function prevSentence() { 
+        currentIndex = (currentIndex - 1 + SENTENCE_DB.length) % SENTENCE_DB.length; 
+        refreshSentence(); 
+        window.speechSynthesis.cancel(); 
+        showToast("Previous sentence"); 
+    }
+    function resetCurrent() { 
+        userInput.value = ''; 
+        renderWordSummary(''); 
+        isCompleted = false; 
+        userInput.disabled = false; 
+        userInput.focus(); 
+        showToast("Reset"); 
+        autoSpeak();
+        updateNextButtonSuccessState();
+    }
+    function changeTranslation() { 
+        currentLang = headerLangSelect.value; 
+        translationDisplay.innerText = currentSentence.translations[currentLang] || currentSentence.translations.ar; 
+        if(sideLangSelect) sideLangSelect.value = currentLang; 
+    }
+    function sideChangeLang() { 
+        if(sideLangSelect) { 
+            currentLang = sideLangSelect.value; 
+            translationDisplay.innerText = currentSentence.translations[currentLang] || currentSentence.translations.ar; 
+            headerLangSelect.value = currentLang; 
+        } 
+    }
+
+    // Event Listeners
+    sideNotebookBtn.addEventListener('click', () => { toggleSideMenu(false); openNotebook(); });
+    if(sideLangSelect) sideLangSelect.addEventListener('change', sideChangeLang);
+    sideLoginBtn.addEventListener('click', () => { toggleSideMenu(false); openAuthModal('login'); });
+    sideRegisterBtn.addEventListener('click', () => { toggleSideMenu(false); openAuthModal('register'); });
     
-    window.addEventListener("load", () => {
-        setTimeout(()=>{ document.getElementById("loaderOverlay").classList.add("hidden"); }, 400);
-        initAuth(); initLangSelector(); applyUITexts(); loadProgress(); initMobileMenu(); initSpeedControl();
-        document.getElementById("speakMainBtn").addEventListener("click",()=>{ speakText(currentSentence.en); });
-        document.getElementById("prevBtn").addEventListener("click",prevSentence);
-        document.getElementById("nextBtn").addEventListener("click",nextSentence);
-        document.getElementById("resetBtn").addEventListener("click",resetCurrent);
-        document.getElementById("userInput").addEventListener("input",onInputChange);
-        document.getElementById("openVocabBtn").addEventListener("click",openVocabularyModal);
-        document.getElementById("loginBtn").addEventListener("click", handleLoginClick);
-        document.getElementById("signupBtn").addEventListener("click", handleSignupClick);
-        document.getElementById("logoutBtn").addEventListener("click", handleLogout);
-        document.getElementById("privacyBtn").addEventListener("click", showPrivacy);
-        document.getElementById("privacyFooterLink").addEventListener("click", (e) => { e.preventDefault(); showPrivacy(); });
-        document.getElementById("closePrivacyBtn").addEventListener("click", hidePrivacy);
-    });
+    if(desktopLoginBtn) desktopLoginBtn.addEventListener('click', () => openAuthModal('login'));
+    if(desktopRegisterBtn) desktopRegisterBtn.addEventListener('click', () => openAuthModal('register'));
+    if(logoutBtnDesktop) logoutBtnDesktop.addEventListener('click', logoutUser);
+    
+    desktopNotebookIcon.addEventListener('click', openNotebook);
+    userInput.addEventListener('input', handleTyping);
+    listenBtn.addEventListener('click', () => { autoSpeak(); showToast("🔊 Playing audio"); });
+    speedSlider.addEventListener('input', () => { speechRate = parseFloat(speedSlider.value); speedValueSpan.innerText = speechRate.toFixed(2); });
+    prevBtn.addEventListener('click', prevSentence);
+    nextBtn.addEventListener('click', nextSentence);
+    resetBtn.addEventListener('click', resetCurrent);
+    headerLangSelect.addEventListener('change', changeTranslation);
+    
+    function init() { refreshSentence(); userInput.focus(); updateUIByUser(); }
+    init();
 </script>
 </body>
 </html>
