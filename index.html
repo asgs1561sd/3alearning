@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>3Alearning | Shadowing - تدريب الظل الذكي</title>
     <meta name="description" content="منصة متخصصة في تدريب الظل الذكي (Shadowing) لتعلم اللغة الإنجليزية بطلاقة">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -48,12 +48,15 @@
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
+            width: 100%;
+            position: relative;
         }
         
         #appContent {
             flex: 1;
             display: flex;
             flex-direction: column;
+            width: 100%;
         }
         
         .main-content {
@@ -299,6 +302,7 @@
             top: 0;
             z-index: 100;
             box-shadow: var(--shadow-sm);
+            width: 100%;
         }
         
         .header-container {
@@ -310,6 +314,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
+            width: 100%;
         }
         
         .menu-btn {
@@ -322,23 +327,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #000000 !important;
+            color: #000000;
             font-size: 1.6rem;
             box-shadow: var(--shadow-sm);
         }
         
         .menu-btn i {
-            color: #000000 !important;
+            color: #000000;
         }
         
         .menu-btn:hover {
             background: #eef2f6;
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
-        }
-        
-        .menu-btn:hover i {
-            color: #333333 !important;
         }
         
         .logo-area h1 {
@@ -768,6 +769,7 @@
             box-shadow: var(--shadow-sm);
         }
         
+        /* تحسينات الجوال الثابتة - لا تكبير ولا تصغير ولا حذف */
         @media (min-width: 769px) {
             .menu-btn { display: none; }
             .sidebar-overlay { display: none; }
@@ -781,35 +783,45 @@
             .user-info { display: none !important; }
             .header-stats { display: none !important; }
             .header-container { 
-                padding: 10px 20px; 
-                gap: 12px;
+                padding: 10px 16px; 
+                gap: 8px;
                 justify-content: space-between;
             }
             .logo-area h1 { font-size: 1.3rem; }
-            .main-content { padding: 0 16px 24px; margin: 16px auto; }
-            .lesson-body { padding: 20px 16px; }
-            .text-card { padding: 24px 16px; margin-bottom: 20px; }
-            .english-sentence { font-size: 1.5rem; }
-            .speed-section { padding: 8px 16px; margin-bottom: 20px; }
-            .speed-control { gap: 8px; font-size: 0.8rem; }
-            .speed-control input[type="range"] { max-width: 120px; }
-            .listen-btn { width: 42px; height: 42px; }
+            .main-content { padding: 0 12px 24px; margin: 12px auto; }
+            .lesson-body { padding: 16px 12px; }
+            .text-card { padding: 20px 12px; margin-bottom: 16px; }
+            .english-sentence { font-size: 1.4rem; }
+            .arabic-translation { font-size: 1rem; margin-top: 12px; padding-top: 10px; }
+            .speed-section { padding: 6px 12px; margin-bottom: 18px; flex-wrap: wrap; gap: 8px; justify-content: center; }
+            .speed-control { gap: 6px; font-size: 0.75rem; padding: 4px 12px; }
+            .speed-control input[type="range"] { width: 100px; }
+            .listen-btn { width: 40px; height: 40px; }
             .listen-btn i { font-size: 1rem; }
-            .modern-textarea { height: 48px; padding: 10px 18px; font-size: 0.9rem; }
-            .nav-buttons { gap: 12px; }
-            .btn-nav { padding: 12px; font-size: 0.9rem; }
+            .modern-textarea { height: 50px; padding: 10px 16px; font-size: 0.9rem; }
+            .nav-buttons { gap: 10px; }
+            .btn-nav { padding: 10px; font-size: 0.85rem; }
             .auth-card { padding: 48px 20px 28px; }
             .auth-card h2 { font-size: 1.6rem; }
             .close-auth-btn { top: 12px; left: 12px; width: 32px; height: 32px; font-size: 1rem; }
-            .ad-container { margin: 15px auto; }
-            .social-buttons { flex-direction: column; }
-            .btn-social { padding: 10px; }
+            .ad-container { margin: 12px auto; }
+            .social-buttons { flex-direction: row; gap: 8px; }
+            .btn-social { padding: 8px; font-size: 0.8rem; }
+            .professional-footer { padding: 32px 20px 20px; margin-top: 32px; }
+            .footer-container { flex-direction: column; gap: 24px; }
+            .footer-section { text-align: center; }
+            .footer-section h4::after { right: 50%; transform: translateX(50%); }
+            .footer-links a { justify-content: center; }
+            .social-icons { justify-content: center; }
         }
         
         @media (max-width: 480px) {
-            .header-container { padding: 8px 16px; }
+            .header-container { padding: 6px 12px; }
             .logo-area h1 { font-size: 1.2rem; }
-            .english-sentence { font-size: 1.3rem; }
+            .english-sentence { font-size: 1.2rem; }
+            .arabic-translation { font-size: 0.9rem; }
+            .speed-control input[type="range"] { max-width: 90px; }
+            .btn-nav { padding: 8px; font-size: 0.8rem; gap: 6px; }
         }
         
         .lesson-card {
@@ -824,7 +836,7 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
         }
         
-        .lesson-body { padding: 32px 28px; }
+        .lesson-body { padding: 28px 24px; }
         
         .info-wrapper {
             display: flex;
@@ -848,9 +860,9 @@
         .text-card {
             background: #FAFCFD;
             border-radius: 24px;
-            padding: 32px 24px;
+            padding: 28px 20px;
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             box-shadow: var(--shadow-sm);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -861,7 +873,7 @@
         }
         
         .english-sentence {
-            font-size: 2.1rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--text-dark);
             line-height: 1.4;
@@ -871,11 +883,11 @@
         }
 
         .arabic-translation {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 500;
             color: var(--primary-dark);
-            margin-top: 16px;
-            padding-top: 16px;
+            margin-top: 14px;
+            padding-top: 14px;
             border-top: 1px dashed var(--border);
             direction: rtl;
             font-family: 'Tajawal', sans-serif;
@@ -884,13 +896,14 @@
         .speed-section {
             background: #F8FAFE;
             border-radius: 48px;
-            padding: 10px 20px;
-            margin-bottom: 28px;
+            padding: 8px 20px;
+            margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 12px;
             box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
         }
         
         .speed-control {
@@ -992,7 +1005,7 @@
         }
         
         .write-area {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
         
         .modern-textarea {
@@ -1001,7 +1014,7 @@
             padding: 14px 24px;
             font-size: 1rem;
             font-family: 'Tajawal', monospace;
-            border-radius: 60px !important;
+            border-radius: 60px;
             background: #fafbfc;
             transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             resize: none;
@@ -1115,6 +1128,7 @@
             margin-top: 48px;
             direction: rtl;
             box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.02);
+            width: 100%;
         }
         
         .footer-container {
@@ -1409,7 +1423,6 @@
     
     // ================= دالة إزالة علامات الترقيم =================
     function removePunctuation(text) {
-        // إزالة جميع علامات الترقيم: . ، , ! ? ; : " ' ( ) [ ] { } < > / \ | ` ~ @ # $ % ^ & * - _ = +
         return text.replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim();
     }
     
@@ -1448,7 +1461,6 @@
         if (!stats.dailyStats[today]) {
             stats.dailyStats[today] = { minutes: 0, sentences: 0 };
         }
-        
         const elapsedMinutes = Math.floor((Date.now() - sessionStartTime) / 60000);
         stats.dailyStats[today].minutes = elapsedMinutes;
         saveUserStats(stats);
@@ -1471,28 +1483,21 @@
     function calculateTotalDays() {
         if (!currentUser) return 0;
         const stats = loadUserStats();
-        const days = Object.keys(stats.dailyStats).length;
-        return days;
+        return Object.keys(stats.dailyStats).length;
     }
     
     function getTodayMinutes() {
         if (!currentUser) return 0;
         const stats = loadUserStats();
         const today = getTodayKey();
-        if (stats.dailyStats[today]) {
-            return stats.dailyStats[today].minutes;
-        }
-        return 0;
+        return stats.dailyStats[today] ? stats.dailyStats[today].minutes : 0;
     }
     
     function getTodaySentences() {
         if (!currentUser) return 0;
         const stats = loadUserStats();
         const today = getTodayKey();
-        if (stats.dailyStats[today]) {
-            return stats.dailyStats[today].sentences;
-        }
-        return 0;
+        return stats.dailyStats[today] ? stats.dailyStats[today].sentences : 0;
     }
     
     function updateStatsDisplay() {
@@ -1603,12 +1608,10 @@
         } 
     }
     
-    // الحصول على النص الأصلي بدون علامات ترقيم للمقارنة
     function getCurrentCorrectTextClean() {
         return removePunctuation(sentenceLibrary[currentIndex].english);
     }
     
-    // الحصول على النص الأصلي مع علامات الترقيم للعرض فقط
     function getCurrentCorrectTextOriginal() {
         return sentenceLibrary[currentIndex].english;
     }
@@ -1635,7 +1638,6 @@
             } else inp.style.color='#1f2937'; 
         }
         else { 
-            // التحقق من البادئة (بداية الجملة)
             let prefix = correctText.toLowerCase().startsWith(removePunctuation(userText).toLowerCase());
             if(!prefix && lastState!==false){ 
                 playErrorSound(); 
@@ -1835,7 +1837,6 @@
                 window.speechSynthesis.cancel();
                 let btn = document.getElementById('speakBtn');
                 if (btn && !btn.classList.contains('loading')) {
-                    // استخدام النص الأصلي للتشغيل (مع علامات الترقيم للنطق الصحيح)
                     let utterance = new SpeechSynthesisUtterance(getCurrentCorrectTextOriginal());
                     utterance.lang = 'en-US';
                     utterance.rate = currentSpeed;
@@ -1849,7 +1850,6 @@
     }
     
     function updateDisplay(){ 
-        // عرض النص الأصلي بدون علامات ترقيم
         document.getElementById('originalText').innerText = getCurrentCorrectTextClean();
         document.getElementById('arabicTranslation').innerText = sentenceLibrary[currentIndex].arabic;
         let inp=document.getElementById('userInput'); inp.value=''; inp.classList.remove('error-mode','text-error'); inp.style.color='#1f2937'; lastState=null; updateNextButtonStatus(false); inp.focus(); 
@@ -1907,23 +1907,6 @@
         }, stepTime);
     }
     
-    let lastWidth = window.innerWidth;
-    let refreshTimeout = null;
-    
-    function handleResponsiveRefresh() {
-        let currentWidth = window.innerWidth;
-        let wasMobile = lastWidth <= 768;
-        let isMobile = currentWidth <= 768;
-        
-        if (wasMobile !== isMobile) {
-            if (refreshTimeout) clearTimeout(refreshTimeout);
-            refreshTimeout = setTimeout(() => {
-                window.location.reload();
-            }, 300);
-        }
-        lastWidth = currentWidth;
-    }
-    
     window.addEventListener('load',()=>{ 
         startLoadingProgress(); 
         let saved=localStorage.getItem('3alearning_currentUser'); 
@@ -1950,8 +1933,6 @@
         document.getElementById('menuBtn').addEventListener('click', openSidebar);
         document.getElementById('closeSidebarBtn').addEventListener('click', closeSidebar);
         document.getElementById('sidebarOverlay').addEventListener('click', (e) => { if (e.target === document.getElementById('sidebarOverlay')) closeSidebar(); });
-        
-        window.addEventListener('resize', handleResponsiveRefresh);
     });
 </script>
 </body>
