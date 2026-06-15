@@ -728,6 +728,7 @@
         
         .sidebar-auth-btn:active { transform: scale(0.97); }
         
+        /* ===== إعلانات متجاوبة بالكامل ===== */
         .ad-container {
             text-align: center;
             margin: 20px auto;
@@ -737,6 +738,11 @@
             border: 1px solid var(--ad-border);
             padding: 12px;
             box-shadow: var(--shadow-sm);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .ad-container-top {
@@ -759,6 +765,40 @@
             text-transform: uppercase;
         }
         
+        /* حاوية الإعلان المتجاوبة - 100% عرض مع حدود قصوى */
+        .responsive-ad-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        /* إعلانات متجاوبة لجميع الشاشات */
+        .responsive-ad {
+            display: inline-block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            min-height: 60px;
+        }
+        
+        /* تنسيق خاص لأكواد الإعلانات */
+        ins.adsbymuslim {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+            background: transparent;
+            text-align: center;
+        }
+        
+        /* تحسين ظهور الإعلانات في حالة عدم وجود محتوى */
+        .ad-container:empty {
+            display: none;
+        }
+        
         .footer-ad {
             max-width: 880px;
             margin: 0 auto 24px auto;
@@ -767,6 +807,7 @@
             border-radius: 20px;
             text-align: center;
             box-shadow: var(--shadow-sm);
+            width: 100%;
         }
         
         /* تحسينات الجوال الثابتة - لا تكبير ولا تصغير ولا حذف */
@@ -775,6 +816,11 @@
             .sidebar-overlay { display: none; }
             .header-buttons { display: flex; }
             .header-stats { display: flex; }
+            /* تثبيت حجم الإعلانات على الشاشات الكبيرة */
+            .responsive-ad {
+                max-width: 728px;
+                min-width: 320px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -804,7 +850,6 @@
             .auth-card { padding: 48px 20px 28px; }
             .auth-card h2 { font-size: 1.6rem; }
             .close-auth-btn { top: 12px; left: 12px; width: 32px; height: 32px; font-size: 1rem; }
-            .ad-container { margin: 12px auto; }
             .social-buttons { flex-direction: row; gap: 8px; }
             .btn-social { padding: 8px; font-size: 0.8rem; }
             .professional-footer { padding: 32px 20px 20px; margin-top: 32px; }
@@ -813,6 +858,23 @@
             .footer-section h4::after { right: 50%; transform: translateX(50%); }
             .footer-links a { justify-content: center; }
             .social-icons { justify-content: center; }
+            
+            /* الإعلانات على الجوال - عرض كامل مع حدود قصوى */
+            .ad-container {
+                margin: 12px auto;
+                padding: 8px;
+            }
+            
+            .responsive-ad {
+                width: 100%;
+                max-width: 100%;
+                min-width: unset;
+            }
+            
+            ins.adsbymuslim {
+                width: 100% !important;
+                min-width: unset !important;
+            }
         }
         
         @media (max-width: 480px) {
@@ -822,6 +884,16 @@
             .arabic-translation { font-size: 0.9rem; }
             .speed-control input[type="range"] { max-width: 90px; }
             .btn-nav { padding: 8px; font-size: 0.8rem; gap: 6px; }
+            
+            /* إعلانات صغيرة جداً */
+            .ad-container {
+                padding: 6px;
+                border-radius: 16px;
+            }
+            
+            .ad-label {
+                font-size: 0.6rem;
+            }
         }
         
         .lesson-card {
@@ -1304,9 +1376,17 @@
         </div>
     </div>
 
+    <!-- إعلان علوي متجاوب -->
     <div class="ad-container ad-container-top">
         <div class="ad-label">إعلان</div>
-        <ins class="adsbymuslim" style="display:inline-block;width:728px;height:90px" data-ad-client="YOUR_PUBLISHER_ID" data-ad-slot="YOUR_SLOT_ID" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+        <div class="responsive-ad-wrapper">
+            <ins class="adsbymuslim responsive-ad" 
+                  style="display:block;width:100%;max-width:728px;min-width:250px;height:auto;min-height:90px;" 
+                  data-ad-client="YOUR_PUBLISHER_ID" 
+                  data-ad-slot="YOUR_SLOT_ID" 
+                  data-ad-format="horizontal" 
+                  data-full-width-responsive="true"></ins>
+        </div>
         <script>(adsbymuslim = window.adsbymuslim || []).push({});</script>
     </div>
 
@@ -1343,9 +1423,17 @@
         </div>
     </div>
     
+    <!-- إعلان سفلي متجاوب -->
     <div class="ad-container ad-container-bottom">
         <div class="ad-label">إعلانات</div>
-        <ins class="adsbymuslim" style="display:inline-block;width:728px;height:90px" data-ad-client="YOUR_PUBLISHER_ID" data-ad-slot="YOUR_SLOT_ID_2" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+        <div class="responsive-ad-wrapper">
+            <ins class="adsbymuslim responsive-ad" 
+                  style="display:block;width:100%;max-width:728px;min-width:250px;height:auto;min-height:90px;" 
+                  data-ad-client="YOUR_PUBLISHER_ID" 
+                  data-ad-slot="YOUR_SLOT_ID_2" 
+                  data-ad-format="horizontal" 
+                  data-full-width-responsive="true"></ins>
+        </div>
         <script>(adsbymuslim = window.adsbymuslim || []).push({});</script>
     </div>
     
@@ -1378,9 +1466,16 @@
             </div>
         </div>
         <div class="footer-bottom">
+            <!-- إعلان التذييل متجاوب -->
             <div class="footer-ad">
                 <div class="ad-label">إعلان</div>
-                <ins class="adsbymuslim" style="display:inline-block;width:468px;height:60px" data-ad-client="YOUR_PUBLISHER_ID" data-ad-slot="YOUR_SLOT_ID_FOOTER" data-ad-format="horizontal"></ins>
+                <div class="responsive-ad-wrapper">
+                    <ins class="adsbymuslim responsive-ad" 
+                          style="display:block;width:100%;max-width:468px;min-width:200px;height:auto;min-height:60px;" 
+                          data-ad-client="YOUR_PUBLISHER_ID" 
+                          data-ad-slot="YOUR_SLOT_ID_FOOTER" 
+                          data-ad-format="horizontal"></ins>
+                </div>
                 <script>(adsbymuslim = window.adsbymuslim || []).push({});</script>
             </div>
             <p>2026 3Alearning | جميع الحقوق محفوظة</p>
