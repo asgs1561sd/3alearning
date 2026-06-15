@@ -839,14 +839,6 @@
             .text-card { padding: 20px 12px; margin-bottom: 16px; }
             .english-sentence { font-size: 1.4rem; }
             .arabic-translation { font-size: 1rem; margin-top: 12px; padding-top: 10px; }
-            .speed-section { padding: 6px 12px; margin-bottom: 18px; flex-wrap: wrap; gap: 8px; justify-content: center; }
-            .speed-control { gap: 6px; font-size: 0.75rem; padding: 4px 12px; }
-            .speed-control input[type="range"] { width: 100px; }
-            .listen-btn { width: 40px; height: 40px; }
-            .listen-btn i { font-size: 1rem; }
-            .modern-textarea { height: 50px; padding: 10px 16px; font-size: 0.9rem; }
-            .nav-buttons { gap: 10px; }
-            .btn-nav { padding: 10px; font-size: 0.85rem; }
             .auth-card { padding: 48px 20px 28px; }
             .auth-card h2 { font-size: 1.6rem; }
             .close-auth-btn { top: 12px; left: 12px; width: 32px; height: 32px; font-size: 1rem; }
@@ -882,8 +874,6 @@
             .logo-area h1 { font-size: 1.2rem; }
             .english-sentence { font-size: 1.2rem; }
             .arabic-translation { font-size: 0.9rem; }
-            .speed-control input[type="range"] { max-width: 90px; }
-            .btn-nav { padding: 8px; font-size: 0.8rem; gap: 6px; }
             
             /* إعلانات صغيرة جداً */
             .ad-container {
@@ -965,15 +955,16 @@
             font-family: 'Tajawal', sans-serif;
         }
         
+        /* ===== قسم السرعة المبسط ===== */
         .speed-section {
             background: #F8FAFE;
             border-radius: 48px;
-            padding: 8px 20px;
+            padding: 8px 16px;
             margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             box-shadow: var(--shadow-sm);
             flex-wrap: wrap;
         }
@@ -981,29 +972,28 @@
         .speed-control {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             flex: 1;
-            color: var(--text-muted);
             background: #FFFFFF;
-            padding: 4px 12px 4px 16px;
+            padding: 4px 12px;
             border-radius: 40px;
             box-shadow: var(--shadow-sm);
         }
         
         .speed-control i {
             color: var(--warning);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         
         .speed-control span {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
             color: var(--text-dark);
         }
         
         input[type="range"] { 
-            width: 140px; 
-            height: 4px; 
+            width: 120px; 
+            height: 3px; 
             border-radius: 10px; 
             background: #E2E8F0;
             -webkit-appearance: none;
@@ -1015,8 +1005,8 @@
         
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
@@ -1027,20 +1017,20 @@
         .speed-value-badge {
             background: var(--primary);
             color: white;
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: 40px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             letter-spacing: 0.3px;
-            min-width: 58px;
+            min-width: 50px;
             text-align: center;
             box-shadow: var(--shadow-sm);
         }
         
         .listen-btn {
             background: var(--secondary);
-            width: 46px;
-            height: 46px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1052,7 +1042,7 @@
         }
         
         .listen-btn:active { transform: scale(0.94); background: var(--secondary-dark); box-shadow: var(--shadow-sm);}
-        .listen-btn i { font-size: 1.2rem; color: var(--white); }
+        .listen-btn i { font-size: 1rem; color: var(--white); }
         
         .listen-btn.loading {
             pointer-events: none;
@@ -1186,6 +1176,10 @@
         
         @media (max-width: 500px) {
             .trial-toast { white-space: normal; width: 90%; text-align: center; font-size: 0.75rem; }
+            .speed-control input[type="range"] { max-width: 80px; }
+            .speed-value-badge { padding: 2px 8px; font-size: 0.65rem; min-width: 45px; }
+            .listen-btn { width: 34px; height: 34px; }
+            .listen-btn i { font-size: 0.9rem; }
         }
         
         .trial-toast.show {
