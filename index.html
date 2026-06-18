@@ -67,59 +67,6 @@
             width: 100%;
         }
         
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.4s ease;
-            flex-direction: column;
-            gap: 28px;
-        }
-        
-        .loading-logo {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary);
-            font-family: 'Cairo', sans-serif;
-            animation: pulse 0.5s ease;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        .progress-bar-container {
-            width: 340px;
-            max-width: 70vw;
-            background: #e5e7eb;
-            border-radius: 60px;
-            height: 4px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: var(--primary);
-            border-radius: 60px;
-            transition: width 0.05s linear;
-        }
-        
-        .loading-percentage {
-            font-family: 'Tajawal', monospace;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: var(--primary);
-        }
-        
         .auth-overlay {
             position: fixed;
             top: 0;
@@ -146,6 +93,8 @@
             border: 1px solid var(--border);
             position: relative;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            max-height: 95vh;
+            overflow-y: auto;
         }
         
         .auth-card:hover {
@@ -197,7 +146,8 @@
             text-align: right;
         }
         
-        .input-group input {
+        .input-group input,
+        .input-group select {
             width: 100%;
             padding: 14px 20px;
             border: 1.5px solid var(--border);
@@ -207,12 +157,37 @@
             background: var(--white);
             transition: 0.2s;
             box-shadow: var(--shadow-sm);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        
+        .input-group select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237E8C8D' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            padding-left: 44px;
+        }
+        
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(28, 176, 246, 0.05), var(--shadow-sm);
         }
         
         .input-group input:focus {
             outline: none;
             border-color: var(--secondary);
             box-shadow: 0 0 0 3px rgba(28, 176, 246, 0.05), var(--shadow-sm);
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-align: right;
         }
         
         .btn-auth {
@@ -688,9 +663,42 @@
             font-size: 1.1rem;
         }
         
-        .sidebar-links a:hover {
-            background: #eef2f6;
-            color: var(--primary);
+        /* إزالة الهوفر في وضع الهاتف فقط */
+        @media (max-width: 768px) {
+            .sidebar-links a:hover {
+                background: transparent;
+                color: var(--text-dark);
+            }
+            .sidebar-links a:active {
+                background: #eef2f6;
+                color: var(--primary);
+            }
+            .sidebar-logout-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+            .sidebar-logout-button:active {
+                background: rgba(255, 255, 255, 0.35);
+            }
+            .close-sidebar:hover {
+                background: none;
+                color: var(--text-muted);
+                transform: none;
+            }
+            .close-sidebar:active {
+                background: #f3f4f6;
+                color: var(--primary);
+                transform: rotate(90deg);
+            }
+            .menu-btn:hover {
+                background: none;
+                transform: none;
+                box-shadow: var(--shadow-sm);
+            }
+            .menu-btn:active {
+                background: #eef2f6;
+                transform: translateY(-1px);
+                box-shadow: var(--shadow-md);
+            }
         }
         
         .sidebar-auth-buttons {
@@ -727,6 +735,24 @@
         }
         
         .sidebar-auth-btn:active { transform: scale(0.97); }
+        
+        @media (max-width: 768px) {
+            .sidebar-auth-btn:hover {
+                background: inherit;
+                color: inherit;
+            }
+            .sidebar-login-btn:hover {
+                background: transparent;
+                color: var(--secondary);
+            }
+            .sidebar-signup-btn:hover {
+                background: var(--primary);
+                color: white;
+            }
+            .sidebar-auth-btn:active {
+                transform: scale(0.97);
+            }
+        }
         
         /* ===== إعلانات متجاوبة بالكامل ===== */
         .ad-container {
@@ -1109,7 +1135,7 @@
             75% { transform: translateX(4px); }
         }
         
-        .modern-textarea.text-error { color: var(--error); }
+        .modern-textarea.text-error { color: #c62828; }
         
         .nav-buttons {
             display: flex;
@@ -1152,6 +1178,14 @@
         
         .btn-nav-next-success i.fa-check-circle {
             display: inline-block !important;
+        }
+        
+        /* زر التالي في حالة الخطأ - لون أحمر */
+        .btn-nav-error {
+            background: var(--error) !important;
+            border-color: var(--error) !important;
+            color: white !important;
+            box-shadow: var(--shadow-sm);
         }
         
         .trial-toast {
@@ -1312,19 +1346,95 @@
             color: #9ca3af;
             text-decoration: none;
         }
+        
+        /* لغة الترجمة */
+        .language-selector-wrapper {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+        
+        .language-selector-wrapper label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        
+        .language-selector-wrapper select {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1.5px solid var(--border);
+            border-radius: 60px;
+            font-size: 1rem;
+            font-family: 'Tajawal', sans-serif;
+            background: var(--white);
+            transition: 0.2s;
+            box-shadow: var(--shadow-sm);
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237E8C8D' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            padding-left: 44px;
+            cursor: pointer;
+        }
+        
+        .language-selector-wrapper select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(28, 176, 246, 0.05), var(--shadow-sm);
+        }
+        
+        /* لون خلفية الترجمة حسب اللغة */
+        .translation-ar { color: var(--primary-dark) !important; }
+        .translation-en { color: #1CB0F6 !important; }
+        .translation-fr { color: #FF6B6B !important; }
+        .translation-es { color: #FF9600 !important; }
+        .translation-de { color: #4A90D9 !important; }
+        .translation-it { color: #27AE60 !important; }
+        .translation-pt { color: #9B59B6 !important; }
+        .translation-ru { color: #E74C3C !important; }
+        .translation-zh { color: #E67E22 !important; }
+        .translation-ja { color: #1ABC9C !important; }
+        .translation-ko { color: #3498DB !important; }
+        .translation-tr { color: #2ECC71 !important; }
+        .translation-fa { color: #F1C40F !important; }
+        .translation-ur { color: #2ECC71 !important; }
+        .translation-hi { color: #E67E22 !important; }
+        .translation-id { color: #E74C3C !important; }
+        .translation-sw { color: #27AE60 !important; }
+        .translation-he { color: #1CB0F6 !important; }
+        .translation-el { color: #3498DB !important; }
+        .translation-nl { color: #FF6B6B !important; }
+        
+        /* مؤشر اللغة المختارة */
+        .lang-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: #f8fafc;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            justify-content: center;
+        }
+        
+        .lang-indicator i {
+            color: var(--primary);
+        }
+        
+        .lang-indicator .lang-name {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
     </style>
     
     <script async src="https://muslimadnetwork.com/ads/loader.js"></script>
 </head>
 <body>
-
-<div class="loading-screen" id="loadingScreen">
-    <div class="loading-logo">3Alearning</div>
-    <div class="progress-bar-container">
-        <div class="progress-fill" id="progressFill"></div>
-    </div>
-    <div class="loading-percentage" id="loadingPercent">0%</div>
-</div>
 
 <div id="appContent">
     <div class="duolingo-header">
@@ -1393,6 +1503,12 @@
                 <div class="text-card">
                     <div class="english-sentence" id="originalText"></div>
                     <div class="arabic-translation" id="arabicTranslation"></div>
+                    <!-- مؤشر اللغة المختارة -->
+                    <div class="lang-indicator" id="langIndicator">
+                        <i class="fas fa-language"></i>
+                        <span>لغة الترجمة: </span>
+                        <span class="lang-name" id="currentLangName">العربية</span>
+                    </div>
                 </div>
                 
                 <div class="speed-section">
@@ -1478,9 +1594,193 @@
 </div>
 
 <script>
+    // ================= قائمة اللغات =================
+    const languages = [
+        { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl' },
+        { code: 'en', name: 'English', flag: '🇬🇧', dir: 'ltr' },
+        { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr' },
+        { code: 'es', name: 'Español', flag: '🇪🇸', dir: 'ltr' },
+        { code: 'de', name: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
+        { code: 'it', name: 'Italiano', flag: '🇮🇹', dir: 'ltr' },
+        { code: 'pt', name: 'Português', flag: '🇵🇹', dir: 'ltr' },
+        { code: 'ru', name: 'Русский', flag: '🇷🇺', dir: 'ltr' },
+        { code: 'zh', name: '中文', flag: '🇨🇳', dir: 'ltr' },
+        { code: 'ja', name: '日本語', flag: '🇯🇵', dir: 'ltr' },
+        { code: 'ko', name: '한국어', flag: '🇰🇷', dir: 'ltr' },
+        { code: 'tr', name: 'Türkçe', flag: '🇹🇷', dir: 'ltr' },
+        { code: 'fa', name: 'فارسی', flag: '🇮🇷', dir: 'rtl' },
+        { code: 'ur', name: 'اردو', flag: '🇵🇰', dir: 'rtl' },
+        { code: 'hi', name: 'हिन्दी', flag: '🇮🇳', dir: 'ltr' },
+        { code: 'id', name: 'Bahasa Indonesia', flag: '🇮🇩', dir: 'ltr' },
+        { code: 'sw', name: 'Kiswahili', flag: '🇹🇿', dir: 'ltr' },
+        { code: 'he', name: 'עברית', flag: '🇮🇱', dir: 'rtl' },
+        { code: 'el', name: 'Ελληνικά', flag: '🇬🇷', dir: 'ltr' },
+        { code: 'nl', name: 'Nederlands', flag: '🇳🇱', dir: 'ltr' }
+    ];
+    
+    // ================= لغة الترجمة الحالية =================
+    let currentTranslationLang = 'ar';
+    let userPreferredLang = 'ar';
+    
+    // ================= قاموس الترجمة =================
+    const translationCache = {};
+    
+    // دالة لتوليد ترجمة عشوائية بلغة معينة (للمحاكاة)
+    function generateTranslation(englishText, langCode) {
+        const langNames = {
+            'ar': 'العربية',
+            'en': 'English',
+            'fr': 'Français',
+            'es': 'Español',
+            'de': 'Deutsch',
+            'it': 'Italiano',
+            'pt': 'Português',
+            'ru': 'Русский',
+            'zh': '中文',
+            'ja': '日本語',
+            'ko': '한국어',
+            'tr': 'Türkçe',
+            'fa': 'فارسی',
+            'ur': 'اردو',
+            'hi': 'हिन्दी',
+            'id': 'Bahasa Indonesia',
+            'sw': 'Kiswahili',
+            'he': 'עברית',
+            'el': 'Ελληνικά',
+            'nl': 'Nederlands'
+        };
+        
+        const translations = {
+            'ar': {
+                'We must abolish outdated laws': 'يجب علينا إلغاء القوانين القديمة',
+                'Abortion is a controversial topic': 'الإجهاض موضوع مثير للجدل',
+                'His absence was noted by the manager': 'لاحظ المدير غيابه'
+            },
+            'en': {
+                'We must abolish outdated laws': 'We must abolish outdated laws',
+                'Abortion is a controversial topic': 'Abortion is a controversial topic',
+                'His absence was noted by the manager': 'His absence was noted by the manager'
+            },
+            'fr': {
+                'We must abolish outdated laws': 'Nous devons abolir les lois obsolètes',
+                'Abortion is a controversial topic': "L'avortement est un sujet controversé",
+                'His absence was noted by the manager': "Son absence a été remarquée par le directeur"
+            },
+            'es': {
+                'We must abolish outdated laws': 'Debemos abolir las leyes obsoletas',
+                'Abortion is a controversial topic': 'El aborto es un tema controvertido',
+                'His absence was noted by the manager': 'El director notó su ausencia'
+            },
+            'de': {
+                'We must abolish outdated laws': 'Wir müssen veraltete Gesetze abschaffen',
+                'Abortion is a controversial topic': 'Abtreibung ist ein kontroverses Thema',
+                'His absence was noted by the manager': 'Seine Abwesenheit wurde vom Manager bemerkt'
+            },
+            'it': {
+                'We must abolish outdated laws': 'Dobbiamo abolire leggi obsolete',
+                'Abortion is a controversial topic': "L'aborto è un argomento controverso",
+                'His absence was noted by the manager': "La sua assenza è stata notata dal manager"
+            },
+            'pt': {
+                'We must abolish outdated laws': 'Devemos abolir leis obsoletas',
+                'Abortion is a controversial topic': 'O aborto é um tópico controverso',
+                'His absence was noted by the manager': 'Sua ausência foi notada pelo gerente'
+            },
+            'ru': {
+                'We must abolish outdated laws': 'Мы должны отменить устаревшие законы',
+                'Abortion is a controversial topic': 'Аборт - спорная тема',
+                'His absence was noted by the manager': 'Его отсутствие было отмечено менеджером'
+            },
+            'zh': {
+                'We must abolish outdated laws': '我们必须废除过时的法律',
+                'Abortion is a controversial topic': '堕胎是一个有争议的话题',
+                'His absence was noted by the manager': '经理注意到了他的缺席'
+            },
+            'ja': {
+                'We must abolish outdated laws': '時代遅れの法律を廃止しなければならない',
+                'Abortion is a controversial topic': '中絶は議論の的となる話題です',
+                'His absence was noted by the manager': '彼の欠席はマネージャーに注意された'
+            },
+            'ko': {
+                'We must abolish outdated laws': '우리는 구식 법률을 폐지해야 합니다',
+                'Abortion is a controversial topic': '낙태는 논란이 되는 주제입니다',
+                'His absence was noted by the manager': '그의 결석은 관리자가 주목했습니다'
+            },
+            'tr': {
+                'We must abolish outdated laws': 'Eski yasaları yürürlükten kaldırmalıyız',
+                'Abortion is a controversial topic': 'Kürtaj tartışmalı bir konudur',
+                'His absence was noted by the manager': 'Yönetici onun yokluğunu fark etti'
+            },
+            'fa': {
+                'We must abolish outdated laws': 'ما باید قوانین منسوخ را لغو کنیم',
+                'Abortion is a controversial topic': 'سقط جنین موضوعی جنجالی است',
+                'His absence was noted by the manager': 'غیبت او توسط مدیر یادداشت شد'
+            },
+            'ur': {
+                'We must abolish outdated laws': 'ہمیں پرانے قوانین کو منسوخ کرنا چاہیے',
+                'Abortion is a controversial topic': 'اسقاط حمل ایک متنازعہ موضوع ہے',
+                'His absence was noted by the manager': 'اس کی غیر حاضری منیجر نے نوٹ کی'
+            },
+            'hi': {
+                'We must abolish outdated laws': 'हमें पुराने कानूनों को समाप्त करना चाहिए',
+                'Abortion is a controversial topic': 'गर्भपात एक विवादास्पद विषय है',
+                'His absence was noted by the manager': 'प्रबंधक ने उसकी अनुपस्थिति पर ध्यान दिया'
+            },
+            'id': {
+                'We must abolish outdated laws': 'Kita harus menghapus undang-undang yang ketinggalan zaman',
+                'Abortion is a controversial topic': 'Aborsi adalah topik yang kontroversial',
+                'His absence was noted by the manager': 'Ketidakhadirannya diperhatikan oleh manajer'
+            },
+            'sw': {
+                'We must abolish outdated laws': 'Lazima tufute sheria zilizopitwa na wakati',
+                'Abortion is a controversial topic': 'Utoaji mimini ni mada yenye utata',
+                'His absence was noted by the manager': 'Kutokuwepo kwake kuligunduliwa na meneja'
+            },
+            'he': {
+                'We must abolish outdated laws': 'עלינו לבטל חוקים מיושנים',
+                'Abortion is a controversial topic': 'הפלה היא נושא שנוי במחלוקת',
+                'His absence was noted by the manager': 'היעדרותו צוינה על ידי המנהל'
+            },
+            'el': {
+                'We must abolish outdated laws': 'Πρέπει να καταργήσουμε τους ξεπερασμένους νόμους',
+                'Abortion is a controversial topic': 'Η άμβλωση είναι ένα αμφιλεγόμενο θέμα',
+                'His absence was noted by the manager': 'Η απουσία του σημειώθηκε από τον διευθυντή'
+            },
+            'nl': {
+                'We must abolish outdated laws': 'We moeten verouderde wetten afschaffen',
+                'Abortion is a controversial topic': 'Abortus is een controversieel onderwerp',
+                'His absence was noted by the manager': 'Zijn afwezigheid werd opgemerkt door de manager'
+            }
+        };
+        
+        if (translations[langCode] && translations[langCode][englishText]) {
+            return translations[langCode][englishText];
+        }
+        
+        const langName = langNames[langCode] || langCode;
+        return `[${langName}] ${englishText}`;
+    }
+    
+    // دالة الحصول على الترجمة بلغة معينة
+    function getTranslation(englishText, langCode) {
+        const cacheKey = `${englishText}_${langCode}`;
+        if (translationCache[cacheKey]) {
+            return translationCache[cacheKey];
+        }
+        const translation = generateTranslation(englishText, langCode);
+        translationCache[cacheKey] = translation;
+        return translation;
+    }
+    
     // ================= مكتبة الجمل =================
     const sentenceLibrary = [];
-    function addPair(eng, ar) { sentenceLibrary.push({ english: eng, arabic: ar }); }
+    function addPair(eng, ar) { 
+        sentenceLibrary.push({ 
+            english: eng, 
+            arabic: ar,
+            translations: {}
+        }); 
+    }
 
     const oxfordPairs = [
         ["We must abolish outdated laws", "يجب علينا إلغاء القوانين القديمة"],
@@ -1533,7 +1833,8 @@
         return {
             firstDay: getTodayKey(),
             dailyStats: {},
-            totalCompletedSentences: 0
+            totalCompletedSentences: 0,
+            preferredLang: 'ar'
         };
     }
     
@@ -1633,6 +1934,13 @@
                             </div>
                             <div class="sidebar-stat-number">${getTodayMinutes()}</div>
                         </div>
+                        <div class="sidebar-stat-row">
+                            <div class="sidebar-stat-label">
+                                <i class="fas fa-language"></i>
+                                <span>لغة الترجمة</span>
+                            </div>
+                            <div class="sidebar-stat-number" style="font-size:0.8rem;">${getLangName(currentTranslationLang)}</div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1647,6 +1955,43 @@
                 updateDailyTime();
             }
         }, 60000);
+    }
+    
+    // ================= دوال اللغة =================
+    function getLangName(code) {
+        const lang = languages.find(l => l.code === code);
+        return lang ? lang.name : code;
+    }
+    
+    function getLangFlag(code) {
+        const lang = languages.find(l => l.code === code);
+        return lang ? lang.flag : '🌐';
+    }
+    
+    function updateTranslationDisplay() {
+        const englishText = sentenceLibrary[currentIndex].english;
+        const translation = getTranslation(englishText, currentTranslationLang);
+        const translationEl = document.getElementById('arabicTranslation');
+        translationEl.innerText = translation;
+        
+        translationEl.className = `arabic-translation translation-${currentTranslationLang}`;
+        
+        const langNameEl = document.getElementById('currentLangName');
+        const flag = getLangFlag(currentTranslationLang);
+        langNameEl.innerText = `${flag} ${getLangName(currentTranslationLang)}`;
+        
+        const lang = languages.find(l => l.code === currentTranslationLang);
+        if (lang) {
+            translationEl.dir = lang.dir;
+        }
+        
+        if (currentUser) {
+            const stats = loadUserStats();
+            if (stats) {
+                stats.preferredLang = currentTranslationLang;
+                saveUserStats(stats);
+            }
+        }
     }
     
     // ================= المتغيرات الأساسية =================
@@ -1687,13 +2032,17 @@
     let nextButton = document.getElementById('nextBtnNav'), checkIcon = nextButton?.querySelector('.fa-check-circle');
     function updateNextButtonStatus(match){ 
         if(nextButton){ 
-            if(match){ 
+            // إزالة كل الأوضاع السابقة
+            nextButton.classList.remove('btn-nav-next-success', 'btn-nav-error');
+            if(match === true){ 
                 nextButton.classList.add('btn-nav-next-success'); 
                 if(checkIcon) checkIcon.style.display='inline-block'; 
-            } else { 
-                nextButton.classList.remove('btn-nav-next-success'); 
-                if(checkIcon) checkIcon.style.display='none'; 
-            } 
+            } else if(match === false) {
+                nextButton.classList.add('btn-nav-error');
+                if(checkIcon) checkIcon.style.display='none';
+            } else {
+                if(checkIcon) checkIcon.style.display='none';
+            }
         } 
     }
     
@@ -1727,34 +2076,62 @@
             } else inp.style.color='#1f2937'; 
         }
         else { 
-            let prefix = correctText.toLowerCase().startsWith(removePunctuation(userText).toLowerCase());
-            if(!prefix && lastState!==false){ 
-                playErrorSound(); 
-                inp.classList.add('error-mode'); 
-                inp.style.color='#c62828'; 
-                inp.classList.add('text-error'); 
-                lastState=false; 
-                if(errTimeout) clearTimeout(errTimeout); 
-                errTimeout=setTimeout(()=>{ if(inp && document.activeElement===inp) inp.classList.remove('error-mode'); },600); 
+            // التحقق مما إذا كان النص المدخل هو بادئة صحيحة أم لا
+            let userClean = removePunctuation(userText).toLowerCase();
+            let correctClean = correctText.toLowerCase();
+            let prefix = correctClean.startsWith(userClean) && userClean.length > 0;
+            
+            // إذا كان المستخدم قد بدأ الكتابة ولكن ليس بشكل صحيح
+            if(userClean.length > 0 && !prefix) {
+                // خطأ - إظهار الأنيميشن واللون الأحمر
+                inp.classList.add('error-mode', 'text-error');
+                inp.style.color = '#c62828';
+                
+                // تشغيل صوت الخطأ مع كل حرف خاطئ جديد
+                if(lastState !== false) {
+                    playErrorSound();
+                    lastState = false;
+                }
+                
+                // تحديث زر التالي إلى حالة الخطأ
+                updateNextButtonStatus(false);
+                
+                // إعادة تعيين المؤقت لإزالة الأنيميشن بعد فترة
+                if(errTimeout) clearTimeout(errTimeout);
+                errTimeout = setTimeout(() => { 
+                    if(inp && document.activeElement === inp) {
+                        inp.classList.remove('error-mode');
+                    }
+                }, 600);
             }
-            else if(prefix && !exact){ 
-                if(lastState===false){ 
-                    inp.classList.remove('error-mode','text-error'); 
-                    inp.style.color='#1f2937'; 
-                    lastState=null; 
-                } 
+            else if(prefix && !exact && userClean.length > 0) {
+                // بادئة صحيحة - إزالة حالة الخطأ
+                inp.classList.remove('error-mode', 'text-error');
+                inp.style.color = '#1f2937';
+                if(lastState === false) {
+                    // إذا كان سابقاً في حالة خطأ، قم بتشغيل صوت صحيح خفيف
+                    playCorrectSound();
+                }
+                lastState = null;
+                updateNextButtonStatus(null);
             }
-            else if(!prefix && lastState!==false){ 
-                if(!inp.classList.contains('error-mode')) inp.classList.add('error-mode'); 
-                inp.style.color='#c62828'; 
-                lastState=false; 
+            else if(userClean.length === 0) {
+                // حقل فارغ - إعادة تعيين
+                inp.classList.remove('error-mode', 'text-error');
+                inp.style.color = '#1f2937';
+                lastState = null;
+                updateNextButtonStatus(null);
+                if(errTimeout) clearTimeout(errTimeout);
             }
         }
-        if(userText.length===0 && lastState!==null){ 
-            inp.classList.remove('error-mode','text-error'); 
-            inp.style.color='#1f2937'; 
-            lastState=null; 
-            if(errTimeout) clearTimeout(errTimeout); 
+        
+        // تحديث حالة زر التالي بشكل نهائي
+        if(userText.length > 0 && !exact) {
+            let userClean = removePunctuation(userText).toLowerCase();
+            let correctClean = correctText.toLowerCase();
+            if(!correctClean.startsWith(userClean)) {
+                updateNextButtonStatus(false);
+            }
         }
     }
     
@@ -1794,6 +2171,7 @@
                 </div>
                 <div id="sidebarStats"></div>
                 <ul class="sidebar-links">
+                    <li><a href="#" id="sidebarLangBtn"><i class="fas fa-language"></i> تغيير لغة الترجمة</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> الإعدادات</a></li>
                     <li><a href="#"><i class="fas fa-question-circle"></i> المساعدة</a></li>
                 </ul>
@@ -1802,6 +2180,11 @@
                 e.preventDefault();
                 closeSidebar();
                 logout();
+            });
+            document.getElementById('sidebarLangBtn')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeSidebar();
+                showLanguageSelector();
             });
             updateSidebarStats();
         } else {
@@ -1814,6 +2197,55 @@
             document.getElementById('sidebarLoginBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showAuthModal('login'); });
             document.getElementById('sidebarSignupBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showAuthModal('signup'); });
         }
+    }
+    
+    // ===== نافذة اختيار اللغة =====
+    function showLanguageSelector() {
+        let existing = document.querySelector('.auth-overlay'); 
+        if(existing) existing.remove();
+        
+        let modal = document.createElement('div');
+        modal.className = 'auth-overlay';
+        
+        let langOptions = '';
+        languages.forEach(lang => {
+            const selected = lang.code === currentTranslationLang ? 'selected' : '';
+            langOptions += `<option value="${lang.code}" ${selected}>${lang.flag} ${lang.name}</option>`;
+        });
+        
+        modal.innerHTML = `
+            <div class="auth-card">
+                <button class="close-auth-btn" id="closeLangBtn"><i class="fas fa-times"></i></button>
+                <h2>🌐 اختر لغة الترجمة</h2>
+                <div class="auth-subtitle">اختر اللغة التي تريد ترجمة الجمل إليها</div>
+                <div class="language-selector-wrapper">
+                    <label for="langSelect">اللغة</label>
+                    <select id="langSelect">
+                        ${langOptions}
+                    </select>
+                </div>
+                <button class="btn-auth btn-auth-primary" id="applyLangBtn">تطبيق التغيير</button>
+                <div class="auth-footer" style="margin-top:12px;font-size:0.8rem;color:var(--text-muted);">
+                    <i class="fas fa-info-circle"></i> سيتم حفظ تفضيل اللغة في حسابك
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        document.getElementById('closeLangBtn').onclick = () => closeAuthModal(modal);
+        modal.onclick = (e) => { if(e.target === modal) closeAuthModal(modal); };
+        
+        document.getElementById('applyLangBtn').onclick = () => {
+            const selectedLang = document.getElementById('langSelect').value;
+            if (selectedLang) {
+                currentTranslationLang = selectedLang;
+                updateTranslationDisplay();
+                updateSidebarStats();
+                closeAuthModal(modal);
+                showMsg(`تم تغيير لغة الترجمة إلى ${getLangName(selectedLang)}`);
+            }
+        };
     }
     
     function updateHeaderUI() {
@@ -1829,6 +2261,13 @@
                 if (avatar) avatar.textContent = currentUser.name.charAt(0).toUpperCase();
                 if (nameDisplay) nameDisplay.textContent = currentUser.name;
             }
+            
+            const stats = loadUserStats();
+            if (stats && stats.preferredLang) {
+                currentTranslationLang = stats.preferredLang;
+                updateTranslationDisplay();
+            }
+            
             updateStatsDisplay();
             startTimeTracking();
         } else {
@@ -1873,10 +2312,24 @@
     function showAuthModal(type = 'login'){ 
         let existing=document.querySelector('.auth-overlay'); if(existing) existing.remove(); 
         let modal=document.createElement('div'); modal.className='auth-overlay'; 
+        
+        let langOptions = '';
+        languages.forEach(lang => {
+            langOptions += `<option value="${lang.code}">${lang.flag} ${lang.name}</option>`;
+        });
+        
         if (type === 'login') {
             modal.innerHTML=`<div class="auth-card"><button class="close-auth-btn" id="closeAuthBtn"><i class="fas fa-times"></i></button><h2>3Alearning</h2><div class="auth-subtitle">مرحباً بك في منصة تدريب الظل الذكي</div><div id="authError" style="background:#fef2f2; border-radius:60px; padding:6px; margin-bottom:12px; display:none;"></div><div class="social-buttons"><button class="btn-social facebook" id="facebookLoginBtn"><i class="fab fa-facebook-f"></i> فيسبوك</button><button class="btn-social google" id="googleLoginBtn"><i class="fab fa-google"></i> Google</button></div><div class="divider"><span>أو</span></div><div><div class="input-group"><input type="email" id="loginEmail" placeholder="البريد الإلكتروني"></div><div class="input-group"><input type="password" id="loginPassword" placeholder="كلمة المرور"></div><button class="btn-auth btn-auth-primary" id="doLoginBtn">تسجيل الدخول</button></div><div class="auth-footer">ليس لديك حساب؟ <a id="showSignupFromLoginBtn">إنشاء حساب مجاني</a></div></div>`; 
         } else {
-            modal.innerHTML=`<div class="auth-card"><button class="close-auth-btn" id="closeAuthBtn"><i class="fas fa-times"></i></button><h2>انضم الآن</h2><div class="auth-subtitle">أنشئ حسابك وابدأ رحلة التعلم</div><div id="authError" style="background:#fef2f2; border-radius:60px; padding:6px; margin-bottom:12px; display:none;"></div><div class="social-buttons"><button class="btn-social facebook" id="facebookSignupBtn"><i class="fab fa-facebook-f"></i> فيسبوك</button><button class="btn-social google" id="googleSignupBtn"><i class="fab fa-google"></i> Google</button></div><div class="divider"><span>أو</span></div><div class="input-group"><input type="text" id="signupName" placeholder="الاسم الكامل"></div><div class="input-group"><input type="email" id="signupEmail" placeholder="البريد الإلكتروني"></div><div class="input-group"><input type="password" id="signupPassword" placeholder="كلمة المرور"></div><button class="btn-auth btn-auth-primary" id="doSignupBtn">إنشاء حساب</button><div class="auth-footer">لديك حساب؟ <a id="showLoginFromSignupBtn">تسجيل الدخول</a></div></div>`;
+            modal.innerHTML=`<div class="auth-card"><button class="close-auth-btn" id="closeAuthBtn"><i class="fas fa-times"></i></button><h2>انضم الآن</h2><div class="auth-subtitle">أنشئ حسابك وابدأ رحلة التعلم</div><div id="authError" style="background:#fef2f2; border-radius:60px; padding:6px; margin-bottom:12px; display:none;"></div><div class="social-buttons"><button class="btn-social facebook" id="facebookSignupBtn"><i class="fab fa-facebook-f"></i> فيسبوك</button><button class="btn-social google" id="googleSignupBtn"><i class="fab fa-google"></i> Google</button></div><div class="divider"><span>أو</span></div><div class="input-group"><input type="text" id="signupName" placeholder="الاسم الكامل"></div><div class="input-group"><input type="email" id="signupEmail" placeholder="البريد الإلكتروني"></div><div class="input-group"><input type="password" id="signupPassword" placeholder="كلمة المرور"></div>
+            <div class="language-selector-wrapper">
+                <label for="signupLangSelect">🌐 لغة الترجمة المفضلة</label>
+                <select id="signupLangSelect">
+                    ${langOptions}
+                </select>
+            </div>
+            <button class="btn-auth btn-auth-primary" id="doSignupBtn">إنشاء حساب</button>
+            <div class="auth-footer">لديك حساب؟ <a id="showLoginFromSignupBtn">تسجيل الدخول</a></div></div>`;
         }
         document.body.appendChild(modal); 
         document.getElementById('closeAuthBtn').onclick = () => closeAuthModal(modal);
@@ -1911,10 +2364,16 @@
             document.getElementById('facebookSignupBtn')?.addEventListener('click', handleFacebookMock);
             document.getElementById('googleSignupBtn')?.addEventListener('click', handleGoogleMock);
             document.getElementById('doSignupBtn').onclick = () => {
-                let n=document.getElementById('signupName').value.trim(), e=document.getElementById('signupEmail').value.trim(), p=document.getElementById('signupPassword').value, errDiv=document.getElementById('authError'); 
+                let n=document.getElementById('signupName').value.trim(), e=document.getElementById('signupEmail').value.trim(), p=document.getElementById('signupPassword').value, errDiv=document.getElementById('authError');
+                const selectedLang = document.getElementById('signupLangSelect')?.value || 'ar';
                 if(!n||!e||!p){ errDiv.style.display='block'; errDiv.innerText='جميع الحقول مطلوبة'; return; } 
                 if(users.find(u=>u.email===e)){ errDiv.style.display='block'; errDiv.innerText='البريد مسجل مسبقاً'; return; } 
-                let nu={id:Date.now(),name:n,email:e,password:p,provider:'email'}; users.push(nu); saveUsers(); currentUser=nu; saveCurrentUser(); updateHeaderUI(); modal.remove(); showMsg(`أهلا ${n}! ابدأ التدريب الآن`); 
+                let nu={id:Date.now(),name:n,email:e,password:p,provider:'email'}; 
+                users.push(nu); saveUsers(); currentUser=nu; saveCurrentUser(); 
+                currentTranslationLang = selectedLang;
+                updateTranslationDisplay();
+                updateHeaderUI(); 
+                modal.remove(); showMsg(`أهلا ${n}! ابدأ التدريب الآن`); 
             };
             document.getElementById('showLoginFromSignupBtn').onclick = () => { modal.remove(); showAuthModal('login'); };
         }
@@ -1940,21 +2399,79 @@
     
     function updateDisplay(){ 
         document.getElementById('originalText').innerText = getCurrentCorrectTextClean();
-        document.getElementById('arabicTranslation').innerText = sentenceLibrary[currentIndex].arabic;
-        let inp=document.getElementById('userInput'); inp.value=''; inp.classList.remove('error-mode','text-error'); inp.style.color='#1f2937'; lastState=null; updateNextButtonStatus(false); inp.focus(); 
+        updateTranslationDisplay();
+        let inp=document.getElementById('userInput'); inp.value=''; inp.classList.remove('error-mode','text-error'); inp.style.color='#1f2937'; lastState=null; 
+        // إعادة تعيين زر التالي إلى الحالة المحايدة
+        updateNextButtonStatus(null);
+        inp.focus(); 
         autoSpeak();
     }
     
     function nextSentence(){ 
-        let inp=document.getElementById('userInput'), cur=inp.value, cor=getCurrentCorrectTextClean(); 
-        if(removePunctuation(cur) !== cor && !currentUser){ if(trialCount>=MAX_TRIAL){ showMsg('الرجاء تسجيل الدخول للمتابعة', true); showAuthModal(); return; } } 
-        if(!currentUser){ if(trialCount>=MAX_TRIAL){ showMsg('الرجاء تسجيل الدخول للمتابعة', true); showAuthModal(); return; } trialCount++; if(trialCount===MAX_TRIAL) showMsg('تنبيه: هذه آخر جملة تجريبية، سجل لتواصل التدريب', true); else showMsg(`جملة تجريبية ${trialCount}/${MAX_TRIAL}`); }
+        let inp=document.getElementById('userInput');
+        let curText = inp.value.trim();
+        let correctText = getCurrentCorrectTextClean();
+        let isCorrect = (removePunctuation(curText) === correctText);
+        
+        // ✅ منع التخطي إذا لم تكن الإجابة صحيحة
+        if(!isCorrect) {
+            // إظهار حالة الخطأ
+            inp.classList.add('error-mode', 'text-error');
+            inp.style.color = '#c62828';
+            playErrorSound();
+            updateNextButtonStatus(false);
+            
+            // إظهار رسالة للمستخدم
+            showMsg('⚠️ يرجى كتابة الجملة بشكل صحيح قبل التالي', true);
+            
+            // إزالة حالة الخطأ بعد 0.6 ثانية
+            if(errTimeout) clearTimeout(errTimeout);
+            errTimeout = setTimeout(() => { 
+                if(inp && document.activeElement === inp) {
+                    inp.classList.remove('error-mode');
+                }
+            }, 600);
+            return;
+        }
+        
+        // ✅ إذا كانت الإجابة صحيحة وليس المستخدم مسجل
+        if(!currentUser){ 
+            if(trialCount>=MAX_TRIAL){ 
+                showMsg('الرجاء تسجيل الدخول للمتابعة', true); 
+                showAuthModal(); 
+                return; 
+            } 
+            trialCount++; 
+            if(trialCount===MAX_TRIAL) 
+                showMsg('تنبيه: هذه آخر جملة تجريبية، سجل لتواصل التدريب', true); 
+            else 
+                showMsg(`جملة تجريبية ${trialCount}/${MAX_TRIAL}`); 
+        }
+        
+        // ✅ الانتقال للجملة التالية
         currentIndex=(currentIndex+1)%sentenceLibrary.length; 
         updateDisplay(); 
     }
     
     function prevSentence(){ 
-        if(!currentUser){ if(trialCount>=MAX_TRIAL){ showMsg('الرجاء تسجيل الدخول للمتابعة', true); showAuthModal(); return; } if(trialCount===0){ trialCount++; showMsg(`جملة تجريبية 1/${MAX_TRIAL}`); } else if(trialCount<MAX_TRIAL){ trialCount++; showMsg(`جملة تجريبية ${trialCount}/${MAX_TRIAL}`); } else { showMsg('الرجاء تسجيل الدخول للمتابعة', true); showAuthModal(); return; } }
+        if(!currentUser){ 
+            if(trialCount>=MAX_TRIAL){ 
+                showMsg('الرجاء تسجيل الدخول للمتابعة', true); 
+                showAuthModal(); 
+                return; 
+            } 
+            if(trialCount===0){ 
+                trialCount++; 
+                showMsg(`جملة تجريبية 1/${MAX_TRIAL}`); 
+            } else if(trialCount<MAX_TRIAL){ 
+                trialCount++; 
+                showMsg(`جملة تجريبية ${trialCount}/${MAX_TRIAL}`); 
+            } else { 
+                showMsg('الرجاء تسجيل الدخول للمتابعة', true); 
+                showAuthModal(); 
+                return; 
+            } 
+        }
         currentIndex=(currentIndex-1+sentenceLibrary.length)%sentenceLibrary.length; 
         updateDisplay(); 
     }
@@ -1966,38 +2483,7 @@
     
     function updateSpeed(){ currentSpeed=parseFloat(document.getElementById('speedSlider').value); document.getElementById('speedValue').innerText=currentSpeed.toFixed(2)+'x'; }
     
-    function startLoadingProgress(){ 
-        let fill=document.getElementById('progressFill'), percent=document.getElementById('loadingPercent'); 
-        if(!fill || !percent) return;
-        let p = 0;
-        let stepTime = 8;
-        let increment = 15;
-        let interval = setInterval(() => {
-            p += increment;
-            if (p >= 100) {
-                p = 100;
-                if (fill) fill.style.width = '100%';
-                if (percent) percent.innerText = '100%';
-                clearInterval(interval);
-                setTimeout(() => {
-                    let loadingScreen = document.getElementById('loadingScreen');
-                    if (loadingScreen) {
-                        loadingScreen.style.opacity = '0';
-                        setTimeout(() => {
-                            if (loadingScreen && loadingScreen.remove) loadingScreen.remove();
-                            autoSpeak();
-                        }, 200);
-                    }
-                }, 50);
-            } else {
-                if (fill) fill.style.width = p + '%';
-                if (percent) percent.innerText = p + '%';
-            }
-        }, stepTime);
-    }
-    
     window.addEventListener('load',()=>{ 
-        startLoadingProgress(); 
         let saved=localStorage.getItem('3alearning_currentUser'); 
         if(saved){ let u=JSON.parse(saved); if(users.find(x=>x.id===u.id)) currentUser=u; } 
         updateHeaderUI();
@@ -2022,6 +2508,17 @@
         document.getElementById('menuBtn').addEventListener('click', openSidebar);
         document.getElementById('closeSidebarBtn').addEventListener('click', closeSidebar);
         document.getElementById('sidebarOverlay').addEventListener('click', (e) => { if (e.target === document.getElementById('sidebarOverlay')) closeSidebar(); });
+        
+        setTimeout(() => {
+            const langBtn = document.getElementById('sidebarLangBtn');
+            if (langBtn) {
+                langBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    closeSidebar();
+                    showLanguageSelector();
+                });
+            }
+        }, 500);
     });
 </script>
 </body>
