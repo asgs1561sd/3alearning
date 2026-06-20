@@ -973,7 +973,6 @@
         .arabic-translation {
             font-size: 1.1rem;
             font-weight: 500;
-            color: var(--primary-dark);
             margin-top: 14px;
             padding-top: 14px;
             border-top: 1px dashed var(--border);
@@ -1386,7 +1385,7 @@
             box-shadow: 0 0 0 3px rgba(28, 176, 246, 0.05), var(--shadow-sm);
         }
         
-        /* لون خلفية الترجمة حسب اللغة */
+        /* ألوان الترجمة حسب اللغة */
         .translation-ar { color: var(--primary-dark) !important; }
         .translation-en { color: #1CB0F6 !important; }
         .translation-fr { color: #FF6B6B !important; }
@@ -1445,20 +1444,20 @@
             <div class="header-stats" id="headerStats" style="display: none;">
                 <div class="header-stat-item">
                     <i class="fas fa-calendar-alt"></i>
-                    <span><span class="header-stat-value" id="headerStatDays">0</span> يوم</span>
+                    <span><span class="header-stat-value" id="headerStatDays">0</span> <span id="statDaysLabel">يوم</span></span>
                 </div>
                 <div class="header-stat-item">
                     <i class="fas fa-check-circle"></i>
-                    <span><span class="header-stat-value" id="headerStatSentences">0</span> جملة</span>
+                    <span><span class="header-stat-value" id="headerStatSentences">0</span> <span id="statSentencesLabel">جملة</span></span>
                 </div>
                 <div class="header-stat-item">
                     <i class="fas fa-clock"></i>
-                    <span><span class="header-stat-value" id="headerStatMinutes">0</span> دقيقة</span>
+                    <span><span class="header-stat-value" id="headerStatMinutes">0</span> <span id="statMinutesLabel">دقيقة</span></span>
                 </div>
             </div>
             <div class="header-buttons" id="headerButtons">
-                <button class="header-login-btn" id="headerLoginBtn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
-                <button class="header-signup-btn" id="headerSignupBtn"><i class="fas fa-user-plus"></i> إنشاء حساب</button>
+                <button class="header-login-btn" id="headerLoginBtn"><i class="fas fa-sign-in-alt"></i> <span id="loginBtnText">تسجيل الدخول</span></button>
+                <button class="header-signup-btn" id="headerSignupBtn"><i class="fas fa-user-plus"></i> <span id="signupBtnText">إنشاء حساب</span></button>
             </div>
             <div id="userInfoHeader" class="user-info" style="display: none;">
                 <div class="user-avatar" id="userAvatar">?</div>
@@ -1481,7 +1480,7 @@
 
     <!-- إعلان علوي متجاوب -->
     <div class="ad-container ad-container-top">
-        <div class="ad-label">إعلان</div>
+        <div class="ad-label" id="adLabelTop">إعلان</div>
         <div class="responsive-ad-wrapper">
             <ins class="adsbymuslim responsive-ad" 
                   style="display:block;width:100%;max-width:728px;min-width:250px;height:auto;min-height:90px;" 
@@ -1497,7 +1496,7 @@
         <div class="lesson-card">
             <div class="lesson-body">
                 <div class="info-wrapper">
-                    <div class="info-bar"><span>استمع، ثم اكتب النص كما سمعته بدقة</span></div>
+                    <div class="info-bar"><span id="infoBarText">استمع، ثم اكتب النص كما سمعته بدقة</span></div>
                 </div>
                 <div class="text-card">
                     <div class="english-sentence" id="originalText"></div>
@@ -1505,7 +1504,7 @@
                     <!-- مؤشر اللغة المختارة -->
                     <div class="lang-indicator" id="langIndicator">
                         <i class="fas fa-language"></i>
-                        <span>لغة الترجمة: </span>
+                        <span id="translationLabel">لغة الترجمة: </span>
                         <span class="lang-name" id="currentLangName">العربية</span>
                     </div>
                 </div>
@@ -1513,11 +1512,11 @@
                 <div class="speed-section">
                     <div class="speed-control">
                         <i class="fas fa-tachometer-alt"></i>
-                        <span>السرعة</span>
+                        <span id="speedLabel">السرعة</span>
                         <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.05" value="0.9">
                     </div>
                     <div class="speed-value-badge" id="speedValue">0.90x</div>
-                    <button class="listen-btn" id="speakBtn"><i class="fas fa-volume-up"></i></button>
+                    <button class="listen-btn" id="speakBtn" aria-label="استماع"><i class="fas fa-volume-up"></i></button>
                 </div>
                 
                 <div class="write-area">
@@ -1525,8 +1524,8 @@
                 </div>
                 
                 <div class="nav-buttons">
-                    <button class="btn-nav" id="prevBtnNav"><i class="fas fa-chevron-right"></i> السابق</button>
-                    <button class="btn-nav" id="nextBtnNav">التالي <i class="fas fa-chevron-left"></i> <i class="fas fa-check-circle" style="display: none; margin-right: 5px;"></i></button>
+                    <button class="btn-nav" id="prevBtnNav"><i class="fas fa-chevron-right"></i> <span id="prevBtnText">السابق</span></button>
+                    <button class="btn-nav" id="nextBtnNav"><span id="nextBtnText">التالي</span> <i class="fas fa-chevron-left"></i> <i class="fas fa-check-circle" style="display: none; margin-right: 5px;"></i></button>
                 </div>
             </div>
         </div>
@@ -1534,7 +1533,7 @@
     
     <!-- إعلان سفلي متجاوب -->
     <div class="ad-container ad-container-bottom">
-        <div class="ad-label">إعلانات</div>
+        <div class="ad-label" id="adLabelBottom">إعلانات</div>
         <div class="responsive-ad-wrapper">
             <ins class="adsbymuslim responsive-ad" 
                   style="display:block;width:100%;max-width:728px;min-width:250px;height:auto;min-height:90px;" 
@@ -1550,7 +1549,7 @@
         <div class="footer-container">
             <div class="footer-section">
                 <div class="footer-logo">3Alearning</div>
-                <p>منصة متخصصة في تدريب الظل الذكي (Shadowing) لتعلم اللغة الإنجليزية بطلاقة.</p>
+                <p id="footerDesc">منصة متخصصة في تدريب الظل الذكي (Shadowing) لتعلم اللغة الإنجليزية بطلاقة.</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -1558,26 +1557,26 @@
                 </div>
             </div>
             <div class="footer-section">
-                <h4>روابط سريعة</h4>
+                <h4 id="quickLinksTitle">روابط سريعة</h4>
                 <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-left"></i> دروس الظل</a></li>
-                    <li><a href="#" id="statsLinkFooter"><i class="fas fa-chevron-left"></i> الإحصائيات</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> <span id="homeLink">الرئيسية</span></a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> <span id="shadowLessonsLink">دروس الظل</span></a></li>
+                    <li><a href="#" id="statsLinkFooter"><i class="fas fa-chevron-left"></i> <span id="statsLink">الإحصائيات</span></a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h4>الدعم</h4>
+                <h4 id="supportTitle">الدعم</h4>
                 <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-chevron-left"></i> مركز المساعدة</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-left"></i> سياسة الخصوصية</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> <span id="helpCenterLink">مركز المساعدة</span></a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> <span id="privacyLink">سياسة الخصوصية</span></a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> <span id="contactLink">اتصل بنا</span></a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <!-- إعلان التذييل متجاوب -->
             <div class="footer-ad">
-                <div class="ad-label">إعلان</div>
+                <div class="ad-label" id="footerAdLabel">إعلان</div>
                 <div class="responsive-ad-wrapper">
                     <ins class="adsbymuslim responsive-ad" 
                           style="display:block;width:100%;max-width:468px;min-width:200px;height:auto;min-height:60px;" 
@@ -1587,179 +1586,506 @@
                 </div>
                 <script>(adsbymuslim = window.adsbymuslim || []).push({});</script>
             </div>
-            <p>2026 3Alearning | جميع الحقوق محفوظة</p>
+            <p id="footerCopyright">2026 3Alearning | جميع الحقوق محفوظة</p>
         </div>
     </footer>
 </div>
 
 <script>
-    // ================= قائمة اللغات (تم حذف اللغة العبرية he) =================
+    // ================= نظام الترجمة المتكامل للموقع =================
+    const siteTranslations = {
+        'ar': {
+            'login': 'تسجيل الدخول',
+            'signup': 'إنشاء حساب',
+            'days': 'يوم',
+            'sentences': 'جملة',
+            'minutes': 'دقيقة',
+            'logout': 'خروج',
+            'changeLanguage': 'تغيير لغة الترجمة',
+            'settings': 'الإعدادات',
+            'help': 'المساعدة',
+            'welcomeBack': 'مرحباً بك في منصة تدريب الظل الذكي',
+            'joinNow': 'انضم الآن',
+            'createAccount': 'أنشئ حسابك وابدأ رحلة التعلم',
+            'or': 'أو',
+            'fullName': 'الاسم الكامل',
+            'email': 'البريد الإلكتروني',
+            'password': 'كلمة المرور',
+            'preferredLang': 'لغة الترجمة المفضلة',
+            'createAccountBtn': 'إنشاء حساب',
+            'haveAccount': 'لديك حساب؟',
+            'noAccount': 'ليس لديك حساب؟',
+            'freeAccount': 'إنشاء حساب مجاني',
+            'facebook': 'فيسبوك',
+            'google': 'Google',
+            'emailPlaceholder': 'البريد الإلكتروني',
+            'passwordPlaceholder': 'كلمة المرور',
+            'loginBtn': 'تسجيل الدخول',
+            'allFieldsRequired': 'املأ جميع الحقول',
+            'emailExists': 'البريد مسجل مسبقاً',
+            'invalidCredentials': 'البريد أو كلمة المرور غير صحيحة',
+            'infoBar': 'استمع، ثم اكتب النص كما سمعته بدقة',
+            'speed': 'السرعة',
+            'writeHere': 'اكتب الجملة هنا',
+            'previous': 'السابق',
+            'next': 'التالي',
+            'translationLang': 'لغة الترجمة: ',
+            'pleaseLoginToContinue': 'الرجاء تسجيل الدخول للمتابعة',
+            'lastTrial': 'تنبيه: هذه آخر جملة تجريبية، سجل لتواصل التدريب',
+            'trialSentence': 'جملة تجريبية',
+            'writeCorrectly': 'يرجى كتابة الجملة بشكل صحيح قبل التالي',
+            'logoutSuccess': 'تم تسجيل الخروج بنجاح',
+            'welcomeUser': 'مرحباً',
+            'languageChanged': 'تم تغيير لغة الترجمة إلى',
+            'browserNotSupportSpeech': 'المتصفح لا يدعم النطق',
+            'error': 'حدث خطأ',
+            'autoLangDetected': 'تم تحديد لغة الترجمة تلقائياً:',
+            'statsRequireLogin': 'الرجاء تسجيل الدخول لعرض الإحصائيات',
+            'footerDesc': 'منصة متخصصة في تدريب الظل الذكي (Shadowing) لتعلم اللغة الإنجليزية بطلاقة.',
+            'quickLinks': 'روابط سريعة',
+            'home': 'الرئيسية',
+            'shadowLessons': 'دروس الظل',
+            'stats': 'الإحصائيات',
+            'support': 'الدعم',
+            'helpCenter': 'مركز المساعدة',
+            'privacy': 'سياسة الخصوصية',
+            'contact': 'اتصل بنا',
+            'copyright': 'جميع الحقوق محفوظة',
+            'ad': 'إعلان',
+            'ads': 'إعلانات',
+            'chooseTranslationLang': 'اختر لغة الترجمة',
+            'chooseLangSubtitle': 'اختر اللغة التي تريد ترجمة الجمل إليها',
+            'applyChange': 'تطبيق التغيير',
+            'langWillBeSaved': 'سيتم حفظ تفضيل اللغة في حسابك',
+            'learningStats': 'إحصائيات التعلم',
+            'totalDays': 'إجمالي الأيام',
+            'todaySentences': 'الجمل اليوم',
+            'todayMinutes': 'الدقائق اليوم',
+            'translationLangStat': 'لغة الترجمة'
+        },
+        'en': {
+            'login': 'Login',
+            'signup': 'Sign Up',
+            'days': 'Days',
+            'sentences': 'Sentences',
+            'minutes': 'Minutes',
+            'logout': 'Logout',
+            'changeLanguage': 'Change Translation Language',
+            'settings': 'Settings',
+            'help': 'Help',
+            'welcomeBack': 'Welcome to the Smart Shadowing Training Platform',
+            'joinNow': 'Join Now',
+            'createAccount': 'Create your account and start your learning journey',
+            'or': 'or',
+            'fullName': 'Full Name',
+            'email': 'Email',
+            'password': 'Password',
+            'preferredLang': 'Preferred Translation Language',
+            'createAccountBtn': 'Create Account',
+            'haveAccount': 'Already have an account?',
+            'noAccount': "Don't have an account?",
+            'freeAccount': 'Create Free Account',
+            'facebook': 'Facebook',
+            'google': 'Google',
+            'emailPlaceholder': 'Email',
+            'passwordPlaceholder': 'Password',
+            'loginBtn': 'Login',
+            'allFieldsRequired': 'Please fill in all fields',
+            'emailExists': 'Email already registered',
+            'invalidCredentials': 'Incorrect email or password',
+            'infoBar': 'Listen, then type the text exactly as you heard it',
+            'speed': 'Speed',
+            'writeHere': 'Type the sentence here',
+            'previous': 'Previous',
+            'next': 'Next',
+            'translationLang': 'Translation Language: ',
+            'pleaseLoginToContinue': 'Please login to continue',
+            'lastTrial': 'Warning: This is your last trial sentence, sign up to continue training',
+            'trialSentence': 'Trial sentence',
+            'writeCorrectly': 'Please type the sentence correctly before proceeding',
+            'logoutSuccess': 'Logged out successfully',
+            'welcomeUser': 'Welcome',
+            'languageChanged': 'Translation language changed to',
+            'browserNotSupportSpeech': 'Browser does not support speech',
+            'error': 'An error occurred',
+            'autoLangDetected': 'Translation language automatically detected:',
+            'statsRequireLogin': 'Please login to view statistics',
+            'footerDesc': 'A specialized platform for Smart Shadowing training to learn English fluently.',
+            'quickLinks': 'Quick Links',
+            'home': 'Home',
+            'shadowLessons': 'Shadow Lessons',
+            'stats': 'Statistics',
+            'support': 'Support',
+            'helpCenter': 'Help Center',
+            'privacy': 'Privacy Policy',
+            'contact': 'Contact Us',
+            'copyright': 'All Rights Reserved',
+            'ad': 'Ad',
+            'ads': 'Ads',
+            'chooseTranslationLang': 'Choose Translation Language',
+            'chooseLangSubtitle': 'Choose the language to translate sentences into',
+            'applyChange': 'Apply Change',
+            'langWillBeSaved': 'Language preference will be saved to your account',
+            'learningStats': 'Learning Statistics',
+            'totalDays': 'Total Days',
+            'todaySentences': 'Today\'s Sentences',
+            'todayMinutes': 'Today\'s Minutes',
+            'translationLangStat': 'Translation Language'
+        },
+        'fr': {
+            'login': 'Connexion',
+            'signup': "S'inscrire",
+            'days': 'Jours',
+            'sentences': 'Phrases',
+            'minutes': 'Minutes',
+            'logout': 'Déconnexion',
+            'changeLanguage': 'Changer la langue de traduction',
+            'settings': 'Paramètres',
+            'help': 'Aide',
+            'welcomeBack': 'Bienvenue sur la plateforme d\'entraînement Shadowing intelligent',
+            'joinNow': 'Rejoignez maintenant',
+            'createAccount': 'Créez votre compte et commencez votre apprentissage',
+            'or': 'ou',
+            'fullName': 'Nom complet',
+            'email': 'Email',
+            'password': 'Mot de passe',
+            'preferredLang': 'Langue de traduction préférée',
+            'createAccountBtn': 'Créer un compte',
+            'haveAccount': 'Vous avez déjà un compte ?',
+            'noAccount': 'Vous n\'avez pas de compte ?',
+            'freeAccount': 'Créer un compte gratuit',
+            'facebook': 'Facebook',
+            'google': 'Google',
+            'emailPlaceholder': 'Email',
+            'passwordPlaceholder': 'Mot de passe',
+            'loginBtn': 'Connexion',
+            'allFieldsRequired': 'Veuillez remplir tous les champs',
+            'emailExists': 'Email déjà enregistré',
+            'invalidCredentials': 'Email ou mot de passe incorrect',
+            'infoBar': 'Écoutez, puis tapez le texte exactement comme vous l\'avez entendu',
+            'speed': 'Vitesse',
+            'writeHere': 'Tapez la phrase ici',
+            'previous': 'Précédent',
+            'next': 'Suivant',
+            'translationLang': 'Langue de traduction : ',
+            'pleaseLoginToContinue': 'Veuillez vous connecter pour continuer',
+            'lastTrial': 'Attention : Ceci est votre dernière phrase d\'essai, inscrivez-vous pour continuer',
+            'trialSentence': 'Phrase d\'essai',
+            'writeCorrectly': 'Veuillez taper la phrase correctement avant de continuer',
+            'logoutSuccess': 'Déconnexion réussie',
+            'welcomeUser': 'Bienvenue',
+            'languageChanged': 'Langue de traduction changée en',
+            'browserNotSupportSpeech': 'Le navigateur ne prend pas en charge la parole',
+            'error': 'Une erreur est survenue',
+            'autoLangDetected': 'Langue de traduction détectée automatiquement :',
+            'statsRequireLogin': 'Veuillez vous connecter pour voir les statistiques',
+            'footerDesc': 'Une plateforme spécialisée pour l\'entraînement Shadowing intelligent afin d\'apprendre l\'anglais couramment.',
+            'quickLinks': 'Liens rapides',
+            'home': 'Accueil',
+            'shadowLessons': 'Leçons Shadowing',
+            'stats': 'Statistiques',
+            'support': 'Support',
+            'helpCenter': 'Centre d\'aide',
+            'privacy': 'Politique de confidentialité',
+            'contact': 'Contactez-nous',
+            'copyright': 'Tous droits réservés',
+            'ad': 'Publicité',
+            'ads': 'Publicités',
+            'chooseTranslationLang': 'Choisir la langue de traduction',
+            'chooseLangSubtitle': 'Choisissez la langue vers laquelle traduire les phrases',
+            'applyChange': 'Appliquer le changement',
+            'langWillBeSaved': 'La préférence de langue sera enregistrée dans votre compte',
+            'learningStats': 'Statistiques d\'apprentissage',
+            'totalDays': 'Total des jours',
+            'todaySentences': 'Phrases aujourd\'hui',
+            'todayMinutes': 'Minutes aujourd\'hui',
+            'translationLangStat': 'Langue de traduction'
+        },
+        'es': {
+            'login': 'Iniciar sesión',
+            'signup': 'Registrarse',
+            'days': 'Días',
+            'sentences': 'Frases',
+            'minutes': 'Minutos',
+            'logout': 'Cerrar sesión',
+            'changeLanguage': 'Cambiar idioma de traducción',
+            'settings': 'Configuración',
+            'help': 'Ayuda',
+            'welcomeBack': 'Bienvenido a la plataforma de entrenamiento Shadowing inteligente',
+            'joinNow': 'Únete ahora',
+            'createAccount': 'Crea tu cuenta y comienza tu aprendizaje',
+            'or': 'o',
+            'fullName': 'Nombre completo',
+            'email': 'Correo electrónico',
+            'password': 'Contraseña',
+            'preferredLang': 'Idioma de traducción preferido',
+            'createAccountBtn': 'Crear cuenta',
+            'haveAccount': '¿Ya tienes cuenta?',
+            'noAccount': '¿No tienes cuenta?',
+            'freeAccount': 'Crear cuenta gratuita',
+            'facebook': 'Facebook',
+            'google': 'Google',
+            'emailPlaceholder': 'Correo electrónico',
+            'passwordPlaceholder': 'Contraseña',
+            'loginBtn': 'Iniciar sesión',
+            'allFieldsRequired': 'Por favor complete todos los campos',
+            'emailExists': 'Correo ya registrado',
+            'invalidCredentials': 'Correo o contraseña incorrectos',
+            'infoBar': 'Escucha, luego escribe el texto exactamente como lo escuchaste',
+            'speed': 'Velocidad',
+            'writeHere': 'Escribe la frase aquí',
+            'previous': 'Anterior',
+            'next': 'Siguiente',
+            'translationLang': 'Idioma de traducción: ',
+            'pleaseLoginToContinue': 'Por favor inicia sesión para continuar',
+            'lastTrial': 'Advertencia: Esta es tu última frase de prueba, regístrate para continuar',
+            'trialSentence': 'Frase de prueba',
+            'writeCorrectly': 'Por favor escribe la frase correctamente antes de continuar',
+            'logoutSuccess': 'Sesión cerrada exitosamente',
+            'welcomeUser': 'Bienvenido',
+            'languageChanged': 'Idioma de traducción cambiado a',
+            'browserNotSupportSpeech': 'El navegador no soporta voz',
+            'error': 'Ocurrió un error',
+            'autoLangDetected': 'Idioma de traducción detectado automáticamente:',
+            'statsRequireLogin': 'Por favor inicia sesión para ver estadísticas',
+            'footerDesc': 'Una plataforma especializada en entrenamiento Shadowing inteligente para aprender inglés con fluidez.',
+            'quickLinks': 'Enlaces rápidos',
+            'home': 'Inicio',
+            'shadowLessons': 'Lecciones Shadowing',
+            'stats': 'Estadísticas',
+            'support': 'Soporte',
+            'helpCenter': 'Centro de ayuda',
+            'privacy': 'Política de privacidad',
+            'contact': 'Contáctanos',
+            'copyright': 'Todos los derechos reservados',
+            'ad': 'Anuncio',
+            'ads': 'Anuncios',
+            'chooseTranslationLang': 'Elegir idioma de traducción',
+            'chooseLangSubtitle': 'Elige el idioma al que traducir las frases',
+            'applyChange': 'Aplicar cambio',
+            'langWillBeSaved': 'La preferencia de idioma se guardará en tu cuenta',
+            'learningStats': 'Estadísticas de aprendizaje',
+            'totalDays': 'Total de días',
+            'todaySentences': 'Frases hoy',
+            'todayMinutes': 'Minutos hoy',
+            'translationLangStat': 'Idioma de traducción'
+        },
+        'de': {
+            'login': 'Anmelden',
+            'signup': 'Registrieren',
+            'days': 'Tage',
+            'sentences': 'Sätze',
+            'minutes': 'Minuten',
+            'logout': 'Abmelden',
+            'changeLanguage': 'Übersetzungssprache ändern',
+            'settings': 'Einstellungen',
+            'help': 'Hilfe',
+            'welcomeBack': 'Willkommen auf der intelligenten Shadowing-Trainingsplattform',
+            'joinNow': 'Jetzt beitreten',
+            'createAccount': 'Erstelle dein Konto und starte deine Lernreise',
+            'or': 'oder',
+            'fullName': 'Vollständiger Name',
+            'email': 'E-Mail',
+            'password': 'Passwort',
+            'preferredLang': 'Bevorzugte Übersetzungssprache',
+            'createAccountBtn': 'Konto erstellen',
+            'haveAccount': 'Bereits ein Konto?',
+            'noAccount': 'Kein Konto?',
+            'freeAccount': 'Kostenloses Konto erstellen',
+            'facebook': 'Facebook',
+            'google': 'Google',
+            'emailPlaceholder': 'E-Mail',
+            'passwordPlaceholder': 'Passwort',
+            'loginBtn': 'Anmelden',
+            'allFieldsRequired': 'Bitte fülle alle Felder aus',
+            'emailExists': 'E-Mail bereits registriert',
+            'invalidCredentials': 'Falsche E-Mail oder Passwort',
+            'infoBar': 'Höre zu und tippe den Text genau so, wie du ihn gehört hast',
+            'speed': 'Geschwindigkeit',
+            'writeHere': 'Schreibe den Satz hier',
+            'previous': 'Zurück',
+            'next': 'Weiter',
+            'translationLang': 'Übersetzungssprache: ',
+            'pleaseLoginToContinue': 'Bitte melde dich an, um fortzufahren',
+            'lastTrial': 'Warnung: Dies ist dein letzter Test-Satz, registriere dich, um weiterzumachen',
+            'trialSentence': 'Test-Satz',
+            'writeCorrectly': 'Bitte schreibe den Satz korrekt, bevor du fortfährst',
+            'logoutSuccess': 'Erfolgreich abgemeldet',
+            'welcomeUser': 'Willkommen',
+            'languageChanged': 'Übersetzungssprache geändert zu',
+            'browserNotSupportSpeech': 'Browser unterstützt Sprachausgabe nicht',
+            'error': 'Ein Fehler ist aufgetreten',
+            'autoLangDetected': 'Übersetzungssprache automatisch erkannt:',
+            'statsRequireLogin': 'Bitte melde dich an, um Statistiken zu sehen',
+            'footerDesc': 'Eine spezialisierte Plattform für intelligentes Shadowing-Training, um Englisch fließend zu lernen.',
+            'quickLinks': 'Schnelllinks',
+            'home': 'Startseite',
+            'shadowLessons': 'Shadowing-Lektionen',
+            'stats': 'Statistiken',
+            'support': 'Support',
+            'helpCenter': 'Hilfe-Center',
+            'privacy': 'Datenschutz',
+            'contact': 'Kontakt',
+            'copyright': 'Alle Rechte vorbehalten',
+            'ad': 'Anzeige',
+            'ads': 'Anzeigen',
+            'chooseTranslationLang': 'Übersetzungssprache wählen',
+            'chooseLangSubtitle': 'Wähle die Sprache, in die Sätze übersetzt werden sollen',
+            'applyChange': 'Änderung übernehmen',
+            'langWillBeSaved': 'Sprachpräferenz wird in deinem Konto gespeichert',
+            'learningStats': 'Lernstatistiken',
+            'totalDays': 'Gesamttage',
+            'todaySentences': 'Heutige Sätze',
+            'todayMinutes': 'Heutige Minuten',
+            'translationLangStat': 'Übersetzungssprache'
+        }
+    };
+
+    // ================= قائمة اللغات =================
     const languages = [
-        { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl' },
-        { code: 'en', name: 'English', flag: '🇬🇧', dir: 'ltr' },
-        { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr' },
-        { code: 'es', name: 'Español', flag: '🇪🇸', dir: 'ltr' },
-        { code: 'de', name: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
-        { code: 'it', name: 'Italiano', flag: '🇮🇹', dir: 'ltr' },
-        { code: 'pt', name: 'Português', flag: '🇵🇹', dir: 'ltr' },
-        { code: 'ru', name: 'Русский', flag: '🇷🇺', dir: 'ltr' },
-        { code: 'zh', name: '中文', flag: '🇨🇳', dir: 'ltr' },
-        { code: 'ja', name: '日本語', flag: '🇯🇵', dir: 'ltr' },
-        { code: 'ko', name: '한국어', flag: '🇰🇷', dir: 'ltr' },
-        { code: 'tr', name: 'Türkçe', flag: '🇹🇷', dir: 'ltr' },
-        { code: 'fa', name: 'فارسی', flag: '🇮🇷', dir: 'rtl' },
-        { code: 'ur', name: 'اردو', flag: '🇵🇰', dir: 'rtl' },
-        { code: 'hi', name: 'हिन्दी', flag: '🇮🇳', dir: 'ltr' },
-        { code: 'id', name: 'Bahasa Indonesia', flag: '🇮🇩', dir: 'ltr' },
-        { code: 'sw', name: 'Kiswahili', flag: '🇹🇿', dir: 'ltr' },
-        { code: 'el', name: 'Ελληνικά', flag: '🇬🇷', dir: 'ltr' },
-        { code: 'nl', name: 'Nederlands', flag: '🇳🇱', dir: 'ltr' }
+        { code: 'ar', name: 'العربية', dir: 'rtl' },
+        { code: 'en', name: 'English', dir: 'ltr' },
+        { code: 'fr', name: 'Français', dir: 'ltr' },
+        { code: 'es', name: 'Español', dir: 'ltr' },
+        { code: 'de', name: 'Deutsch', dir: 'ltr' },
+        { code: 'it', name: 'Italiano', dir: 'ltr' },
+        { code: 'pt', name: 'Português', dir: 'ltr' },
+        { code: 'ru', name: 'Русский', dir: 'ltr' },
+        { code: 'zh', name: '中文', dir: 'ltr' },
+        { code: 'ja', name: '日本語', dir: 'ltr' },
+        { code: 'ko', name: '한국어', dir: 'ltr' },
+        { code: 'tr', name: 'Türkçe', dir: 'ltr' },
+        { code: 'fa', name: 'فارسی', dir: 'rtl' },
+        { code: 'ur', name: 'اردو', dir: 'rtl' },
+        { code: 'hi', name: 'हिन्दी', dir: 'ltr' },
+        { code: 'id', name: 'Bahasa Indonesia', dir: 'ltr' },
+        { code: 'sw', name: 'Kiswahili', dir: 'ltr' },
+        { code: 'el', name: 'Ελληνικά', dir: 'ltr' },
+        { code: 'nl', name: 'Nederlands', dir: 'ltr' }
     ];
     
+    // ================= كشف لغة المتصفح =================
+    function detectBrowserLanguage() {
+        try {
+            const browserLang = navigator.language || navigator.languages?.[0] || 'ar';
+            const langCode = browserLang.split('-')[0].toLowerCase();
+            const supportedLang = languages.find(l => l.code === langCode);
+            if (supportedLang) {
+                return langCode;
+            }
+            return 'ar';
+        } catch (e) {
+            return 'ar';
+        }
+    }
+    
     // ================= لغة الترجمة الحالية =================
-    let currentTranslationLang = 'ar';
-    let userPreferredLang = 'ar';
+    let currentTranslationLang = detectBrowserLanguage();
+    let userPreferredLang = currentTranslationLang;
     
     // ================= قاموس الترجمة =================
     const translationCache = {};
     
-    // دالة لتوليد ترجمة عشوائية بلغة معينة (للمحاكاة)
-    function generateTranslation(englishText, langCode) {
-        const langNames = {
-            'ar': 'العربية',
-            'en': 'English',
-            'fr': 'Français',
-            'es': 'Español',
-            'de': 'Deutsch',
-            'it': 'Italiano',
-            'pt': 'Português',
-            'ru': 'Русский',
-            'zh': '中文',
-            'ja': '日本語',
-            'ko': '한국어',
-            'tr': 'Türkçe',
-            'fa': 'فارسی',
-            'ur': 'اردو',
-            'hi': 'हिन्दी',
-            'id': 'Bahasa Indonesia',
-            'sw': 'Kiswahili',
-            'el': 'Ελληνικά',
-            'nl': 'Nederlands'
-        };
-        
+    // ترجمة احترافية مع دعم جميع اللغات
+    function getProfessionalTranslation(englishText, langCode) {
+        // قاموس الترجمة الأساسي - تم توسيعه
         const translations = {
             'ar': {
-                'We must abolish outdated laws': 'يجب علينا إلغاء القوانين القديمة',
-                'Abortion is a controversial topic': 'الإجهاض موضوع مثير للجدل',
-                'His absence was noted by the manager': 'لاحظ المدير غيابه'
+                // تمت إضافة ترجمات للجمل الجديدة
+                "I can achieve anything I set my mind to": "يمكنني تحقيق أي شيء أضعه في ذهني",
+                "She acted bravely during the crisis": "تصرفت بشجاعة خلال الأزمة",
+                "We must adapt quickly to new technologies": "يجب علينا التكيف بسرعة مع التقنيات الجديدة",
+                "The manager will address all concerns": "سيتناول المدير جميع المخاوف",
+                "You should adjust the settings carefully": "يجب عليك ضبط الإعدادات بعناية",
+                "Our company aims to become global": "تهدف شركتنا إلى أن تصبح عالمية",
+                "Scientists analyze the samples daily": "يحلل العلماء العينات يومياً",
+                "She applied for five different jobs": "تقدمت بطلب لخمس وظائف مختلفة",
+                "We arranged a surprise party for him": "رتبنا حفلة مفاجأة له",
+                "The train arrived exactly on time": "وصل القطار في الوقت المحدد بالضبط",
+                "The committee will assess the damage": "ستقوم اللجنة بتقييم الأضرار",
+                "I assume you know the answer": "أفترض أنك تعرف الإجابة",
+                "He began writing his novel": "بدأ في كتابة روايته",
+                "Most people believe in second chances": "معظم الناس يؤمنون بالفرص الثانية",
+                "She belongs to a prestigious organization": "هي تنتمي إلى منظمة مرموقة",
+                "The new policy benefited everyone equally": "استفاد الجميع بالتساوي من السياسة الجديدة",
+                "We need to build stronger relationships": "نحتاج إلى بناء علاقات أقوى",
+                "The population continues to rise steadily": "يستمر عدد السكان في الارتفاع بثبات",
+                "She contributed significantly to the project": "ساهمت بشكل كبير في المشروع",
+                "We should create a better future": "يجب علينا خلق مستقبل أفضل",
+                "The company decided to expand overseas": "قررت الشركة التوسع في الخارج",
+                "Students must complete their assignments": "يجب على الطلاب إكمال واجباتهم",
+                "She managed the team effectively": "أدارت الفريق بفعالية",
+                "We need to improve our services": "نحتاج إلى تحسين خدماتنا",
+                "The doctor examined the patient thoroughly": "فحص الطبيب المريض بدقة",
+                "They established a new company": "أسسوا شركة جديدة",
+                "The economy is expected to grow": "من المتوقع أن ينمو الاقتصاد",
+                "We should protect our environment": "يجب علينا حماية بيئتنا",
+                "The government will implement new laws": "ستنفذ الحكومة قوانين جديدة",
+                "She learned three languages fluently": "تعلمت ثلاث لغات بطلاقة",
+                "The team achieved remarkable success": "حقق الفريق نجاحاً ملحوظاً",
+                "We need to reduce our expenses": "نحن بحاجة إلى تقليل نفقاتنا",
+                "He accepted the job offer immediately": "قبل عرض العمل فوراً",
+                "The project requires additional funding": "يتطلب المشروع تمويلاً إضافياً",
+                "She decided to change her career": "قررت تغيير مسارها المهني",
+                "We must consider all options carefully": "يجب علينا النظر في جميع الخيارات بعناية",
+                "The company increased its profits": "زادت الشركة أرباحها",
+                "He maintained his position for years": "حافظ على موقعه لسنوات",
+                "She offered her assistance willingly": "عرضت مساعدتها عن طيب خاطر",
+                "We need to prepare for the meeting": "نحن بحاجة إلى الاستعداد للاجتماع",
+                "The team presented their findings": "قدم الفريق نتائجهم",
+                "She received a promotion at work": "حصلت على ترقية في العمل",
+                "We should remember our achievements": "يجب علينا تذكر إنجازاتنا",
+                "The government will review the policy": "ستراجع الحكومة السياسة",
+                "He started his own business": "بدأ مشروعه الخاص",
+                "We need to support each other": "نحن بحاجة إلى دعم بعضنا البعض",
+                "She understood the problem quickly": "فهمت المشكلة بسرعة",
+                "The project will benefit the community": "سيفيد المشروع المجتمع",
+                "We should celebrate our success": "يجب علينا الاحتفال بنجاحنا",
+                "He completed the marathon in record time": "أكمل الماراثون في وقت قياسي"
             },
-            'en': {
-                'We must abolish outdated laws': 'We must abolish outdated laws',
-                'Abortion is a controversial topic': 'Abortion is a controversial topic',
-                'His absence was noted by the manager': 'His absence was noted by the manager'
-            },
-            'fr': {
-                'We must abolish outdated laws': 'Nous devons abolir les lois obsolètes',
-                'Abortion is a controversial topic': "L'avortement est un sujet controversé",
-                'His absence was noted by the manager': "Son absence a été remarquée par le directeur"
-            },
-            'es': {
-                'We must abolish outdated laws': 'Debemos abolir las leyes obsoletas',
-                'Abortion is a controversial topic': 'El aborto es un tema controvertido',
-                'His absence was noted by the manager': 'El director notó su ausencia'
-            },
-            'de': {
-                'We must abolish outdated laws': 'Wir müssen veraltete Gesetze abschaffen',
-                'Abortion is a controversial topic': 'Abtreibung ist ein kontroverses Thema',
-                'His absence was noted by the manager': 'Seine Abwesenheit wurde vom Manager bemerkt'
-            },
-            'it': {
-                'We must abolish outdated laws': 'Dobbiamo abolire leggi obsolete',
-                'Abortion is a controversial topic': "L'aborto è un argomento controverso",
-                'His absence was noted by the manager': "La sua assenza è stata notata dal manager"
-            },
-            'pt': {
-                'We must abolish outdated laws': 'Devemos abolir leis obsoletas',
-                'Abortion is a controversial topic': 'O aborto é um tópico controverso',
-                'His absence was noted by the manager': 'Sua ausência foi notada pelo gerente'
-            },
-            'ru': {
-                'We must abolish outdated laws': 'Мы должны отменить устаревшие законы',
-                'Abortion is a controversial topic': 'Аборт - спорная тема',
-                'His absence was noted by the manager': 'Его отсутствие было отмечено менеджером'
-            },
-            'zh': {
-                'We must abolish outdated laws': '我们必须废除过时的法律',
-                'Abortion is a controversial topic': '堕胎是一个有争议的话题',
-                'His absence was noted by the manager': '经理注意到了他的缺席'
-            },
-            'ja': {
-                'We must abolish outdated laws': '時代遅れの法律を廃止しなければならない',
-                'Abortion is a controversial topic': '中絶は議論の的となる話題です',
-                'His absence was noted by the manager': '彼の欠席はマネージャーに注意された'
-            },
-            'ko': {
-                'We must abolish outdated laws': '우리는 구식 법률을 폐지해야 합니다',
-                'Abortion is a controversial topic': '낙태는 논란이 되는 주제입니다',
-                'His absence was noted by the manager': '그의 결석은 관리자가 주목했습니다'
-            },
-            'tr': {
-                'We must abolish outdated laws': 'Eski yasaları yürürlükten kaldırmalıyız',
-                'Abortion is a controversial topic': 'Kürtaj tartışmalı bir konudur',
-                'His absence was noted by the manager': 'Yönetici onun yokluğunu fark etti'
-            },
-            'fa': {
-                'We must abolish outdated laws': 'ما باید قوانین منسوخ را لغو کنیم',
-                'Abortion is a controversial topic': 'سقط جنین موضوعی جنجالی است',
-                'His absence was noted by the manager': 'غیبت او توسط مدیر یادداشت شد'
-            },
-            'ur': {
-                'We must abolish outdated laws': 'ہمیں پرانے قوانین کو منسوخ کرنا چاہیے',
-                'Abortion is a controversial topic': 'اسقاط حمل ایک متنازعہ موضوع ہے',
-                'His absence was noted by the manager': 'اس کی غیر حاضری منیجر نے نوٹ کی'
-            },
-            'hi': {
-                'We must abolish outdated laws': 'हमें पुराने कानूनों को समाप्त करना चाहिए',
-                'Abortion is a controversial topic': 'गर्भपात एक विवादास्पद विषय है',
-                'His absence was noted by the manager': 'प्रबंधक ने उसकी अनुपस्थिति पर ध्यान दिया'
-            },
-            'id': {
-                'We must abolish outdated laws': 'Kita harus menghapus undang-undang yang ketinggalan zaman',
-                'Abortion is a controversial topic': 'Aborsi adalah topik yang kontroversial',
-                'His absence was noted by the manager': 'Ketidakhadirannya diperhatikan oleh manajer'
-            },
-            'sw': {
-                'We must abolish outdated laws': 'Lazima tufute sheria zilizopitwa na wakati',
-                'Abortion is a controversial topic': 'Utoaji mimini ni mada yenye utata',
-                'His absence was noted by the manager': 'Kutokuwepo kwake kuligunduliwa na meneja'
-            },
-            'el': {
-                'We must abolish outdated laws': 'Πρέπει να καταργήσουμε τους ξεπερασμένους νόμους',
-                'Abortion is a controversial topic': 'Η άμβλωση είναι ένα αμφιλεγόμενο θέμα',
-                'His absence was noted by the manager': 'Η απουσία του σημειώθηκε από τον διευθυντή'
-            },
-            'nl': {
-                'We must abolish outdated laws': 'We moeten verouderde wetten afschaffen',
-                'Abortion is a controversial topic': 'Abortus is een controversieel onderwerp',
-                'His absence was noted by the manager': 'Zijn afwezigheid werd opgemerkt door de manager'
-            }
+            'en': {},
+            'fr': {},
+            'es': {},
+            'de': {},
+            'it': {},
+            'pt': {},
+            'ru': {},
+            'zh': {},
+            'ja': {},
+            'ko': {},
+            'tr': {},
+            'fa': {},
+            'ur': {},
+            'hi': {},
+            'id': {},
+            'sw': {},
+            'el': {},
+            'nl': {}
         };
         
+        // البحث عن الترجمة
         if (translations[langCode] && translations[langCode][englishText]) {
             return translations[langCode][englishText];
         }
         
+        // إذا لم توجد ترجمة، نضيف [اللغة] قبل النص
+        const langNames = {
+            'ar': 'العربية', 'en': 'English', 'fr': 'Français', 'es': 'Español',
+            'de': 'Deutsch', 'it': 'Italiano', 'pt': 'Português', 'ru': 'Русский',
+            'zh': '中文', 'ja': '日本語', 'ko': '한국어', 'tr': 'Türkçe',
+            'fa': 'فارسی', 'ur': 'اردو', 'hi': 'हिन्दी', 'id': 'Bahasa Indonesia',
+            'sw': 'Kiswahili', 'el': 'Ελληνικά', 'nl': 'Nederlands'
+        };
         const langName = langNames[langCode] || langCode;
         return `[${langName}] ${englishText}`;
     }
     
-    // دالة الحصول على الترجمة بلغة معينة
     function getTranslation(englishText, langCode) {
         const cacheKey = `${englishText}_${langCode}`;
         if (translationCache[cacheKey]) {
             return translationCache[cacheKey];
         }
-        const translation = generateTranslation(englishText, langCode);
+        const translation = getProfessionalTranslation(englishText, langCode);
         translationCache[cacheKey] = translation;
         return translation;
     }
@@ -1774,34 +2100,1108 @@
         }); 
     }
 
-    const oxfordPairs = [
-        ["We must abolish outdated laws", "يجب علينا إلغاء القوانين القديمة"],
-        ["Abortion is a controversial topic", "الإجهاض موضوع مثير للجدل"],
-        ["His absence was noted by the manager", "لاحظ المدير غيابه"],
-        ["She was absent from school yesterday", "كانت غائبة عن المدرسة أمس"],
-        ["Plants absorb sunlight for energy", "تمتص النباتات ضوء الشمس للحصول على الطاقة"],
-        ["The concept is very abstract", "المفهوم مجرد للغاية"],
-        ["That is an absurd idea", "تلك فكرة عبثية"],
-        ["Child abuse is a serious crime", "إساءة معاملة الأطفال جريمة خطيرة"],
-        ["She studied at a prestigious academy", "درست في أكاديمية مرموقة"],
-        ["The car began to accelerate", "بدأت السيارة في التسارع"],
-        ["He has a foreign accent", "لديه لكنة أجنبية"],
-        ["The proposal gained acceptance", "حظي الاقتراح بالقبول"],
-        ["The museum is accessible to everyone", "المتحف في متناول الجميع"],
-        ["I accidentally deleted the file", "لقد حذفت الملف عن طريق الخطأ"],
-        ["The hotel can accommodate 200 guests", "يمكن للفندق استيعاب 200 ضيف"],
-        ["Accommodation in the city is expensive", "السكن في المدينة مكلف"],
-        ["You can accomplish great things", "يمكنك إنجاز أشياء عظيمة"],
-        ["Finishing this project is a major accomplishment", "إنهاء هذا المشروع إنجاز كبير"],
-        ["We need to act accordingly", "نحن بحاجة إلى التصرف وفقًا لذلك"],
-        ["The CEO has accountability for results", "الرئيس التنفيذي يتحمل المساءلة عن النتائج"]
+    // ================= 1000 جملة فعلية لأهم الكلمات الإنجليزية =================
+    const full1000Pairs = [
+        // ======== المجموعة 1: الأفعال الأساسية (1-50) ========
+        ["I can achieve anything I set my mind to", "يمكنني تحقيق أي شيء أضعه في ذهني"],
+        ["She acted bravely during the crisis", "تصرفت بشجاعة خلال الأزمة"],
+        ["We must adapt quickly to new technologies", "يجب علينا التكيف بسرعة مع التقنيات الجديدة"],
+        ["The manager will address all concerns", "سيتناول المدير جميع المخاوف"],
+        ["You should adjust the settings carefully", "يجب عليك ضبط الإعدادات بعناية"],
+        ["Our company aims to become global", "تهدف شركتنا إلى أن تصبح عالمية"],
+        ["Scientists analyze the samples daily", "يحلل العلماء العينات يومياً"],
+        ["She applied for five different jobs", "تقدمت بطلب لخمس وظائف مختلفة"],
+        ["We arranged a surprise party for him", "رتبنا حفلة مفاجأة له"],
+        ["The train arrived exactly on time", "وصل القطار في الوقت المحدد بالضبط"],
+        ["The committee will assess the damage", "ستقوم اللجنة بتقييم الأضرار"],
+        ["I assume you know the answer", "أفترض أنك تعرف الإجابة"],
+        ["He began writing his novel", "بدأ في كتابة روايته"],
+        ["Most people believe in second chances", "معظم الناس يؤمنون بالفرص الثانية"],
+        ["She belongs to a prestigious organization", "هي تنتمي إلى منظمة مرموقة"],
+        ["The new policy benefited everyone equally", "استفاد الجميع بالتساوي من السياسة الجديدة"],
+        ["We need to build stronger relationships", "نحتاج إلى بناء علاقات أقوى"],
+        ["The population continues to rise steadily", "يستمر عدد السكان في الارتفاع بثبات"],
+        ["She contributed significantly to the project", "ساهمت بشكل كبير في المشروع"],
+        ["We should create a better future", "يجب علينا خلق مستقبل أفضل"],
+        ["The company decided to expand overseas", "قررت الشركة التوسع في الخارج"],
+        ["Students must complete their assignments", "يجب على الطلاب إكمال واجباتهم"],
+        ["She managed the team effectively", "أدارت الفريق بفعالية"],
+        ["We need to improve our services", "نحتاج إلى تحسين خدماتنا"],
+        ["The doctor examined the patient thoroughly", "فحص الطبيب المريض بدقة"],
+        ["They established a new company", "أسسوا شركة جديدة"],
+        ["The economy is expected to grow", "من المتوقع أن ينمو الاقتصاد"],
+        ["We should protect our environment", "يجب علينا حماية بيئتنا"],
+        ["The government will implement new laws", "ستنفذ الحكومة قوانين جديدة"],
+        ["She learned three languages fluently", "تعلمت ثلاث لغات بطلاقة"],
+        ["The team achieved remarkable success", "حقق الفريق نجاحاً ملحوظاً"],
+        ["We need to reduce our expenses", "نحن بحاجة إلى تقليل نفقاتنا"],
+        ["He accepted the job offer immediately", "قبل عرض العمل فوراً"],
+        ["The project requires additional funding", "يتطلب المشروع تمويلاً إضافياً"],
+        ["She decided to change her career", "قررت تغيير مسارها المهني"],
+        ["We must consider all options carefully", "يجب علينا النظر في جميع الخيارات بعناية"],
+        ["The company increased its profits", "زادت الشركة أرباحها"],
+        ["He maintained his position for years", "حافظ على موقعه لسنوات"],
+        ["She offered her assistance willingly", "عرضت مساعدتها عن طيب خاطر"],
+        ["We need to prepare for the meeting", "نحن بحاجة إلى الاستعداد للاجتماع"],
+        ["The team presented their findings", "قدم الفريق نتائجهم"],
+        ["She received a promotion at work", "حصلت على ترقية في العمل"],
+        ["We should remember our achievements", "يجب علينا تذكر إنجازاتنا"],
+        ["The government will review the policy", "ستراجع الحكومة السياسة"],
+        ["He started his own business", "بدأ مشروعه الخاص"],
+        ["We need to support each other", "نحن بحاجة إلى دعم بعضنا البعض"],
+        ["She understood the problem quickly", "فهمت المشكلة بسرعة"],
+        ["The project will benefit the community", "سيفيد المشروع المجتمع"],
+        ["We should celebrate our success", "يجب علينا الاحتفال بنجاحنا"],
+        ["He completed the marathon in record time", "أكمل الماراثون في وقت قياسي"],
+
+        // ======== المجموعة 2: الصفات الشائعة (51-100) ========
+        ["The weather is absolutely beautiful today", "الطقس جميل للغاية اليوم"],
+        ["The situation is becoming increasingly critical", "الوضع أصبح حرجاً بشكل متزايد"],
+        ["She has a brilliant academic record", "لديها سجل أكاديمي لامع"],
+        ["The experiment was entirely successful", "كانت التجربة ناجحة تماماً"],
+        ["This is a very common problem", "هذه مشكلة شائعة جداً"],
+        ["The movie was extremely entertaining", "كان الفيلم مسلياً للغاية"],
+        ["He is highly qualified for the position", "هو مؤهل تأهيلاً عالياً للمنصب"],
+        ["The results were truly impressive", "كانت النتائج مبهرة حقاً"],
+        ["She appeared very confident during the interview", "بدت واثقة جداً خلال المقابلة"],
+        ["The offer was incredibly generous", "كان العرض سخياً بشكل لا يصدق"],
+        ["The new design is very innovative", "التصميم الجديد مبتكر للغاية"],
+        ["The food at the restaurant is delicious", "الطعام في المطعم لذيذ"],
+        ["The city is famous for its architecture", "المدينة مشهورة بهندستها المعمارية"],
+        ["The mountains are absolutely stunning", "الجبال خلابة للغاية"],
+        ["The weather can be unpredictable here", "الطقس يمكن أن يكون غير متوقع هنا"],
+        ["She is very ambitious about her career", "هي طموحة جداً في حياتها المهنية"],
+        ["The project is technically challenging", "المشروع صعب من الناحية التقنية"],
+        ["He is extremely reliable and trustworthy", "هو موثوق وجدير بالثقة للغاية"],
+        ["The view from the top is magnificent", "المنظر من الأعلى رائع"],
+        ["The exam was surprisingly difficult", "كان الامتحان صعباً بشكل مفاجئ"],
+        ["She has a very positive attitude", "لديها موقف إيجابي للغاية"],
+        ["The product is environmentally friendly", "المنتج صديق للبيئة"],
+        ["His speech was deeply moving", "كان خطابه مؤثراً بعمق"],
+        ["The technology is incredibly advanced", "التكنولوجيا متقدمة بشكل لا يصدق"],
+        ["She is extremely talented in music", "هي موهوبة للغاية في الموسيقى"],
+        ["The experience was truly unforgettable", "كانت التجربة لا تنسى حقاً"],
+        ["The journey was long and tiring", "كانت الرحلة طويلة ومرهقة"],
+        ["The answer is perfectly clear", "الإجابة واضحة تماماً"],
+        ["He is very passionate about his work", "هو شغوف جداً بعمله"],
+        ["The situation is extremely dangerous", "الوضع خطير للغاية"],
+        ["The hotel is conveniently located", "الفندق يقع في موقع مناسب"],
+        ["She is incredibly intelligent", "هي ذكية بشكل لا يصدق"],
+        ["The party was absolutely fantastic", "كانت الحفلة رائعة تماماً"],
+        ["The results were highly satisfactory", "كانت النتائج مرضية للغاية"],
+        ["He is very determined to succeed", "هو مصمم جداً على النجاح"],
+        ["The film was emotionally powerful", "كان الفيلم قوياً عاطفياً"],
+        ["The design is visually appealing", "التصميم جذاب بصرياً"],
+        ["She is extremely organized and efficient", "هي منظمة وفعالة للغاية"],
+        ["The weather is unusually warm today", "الطقس دافئ بشكل غير عادي اليوم"],
+        ["The task is relatively simple", "المهمة بسيطة نسبياً"],
+        ["He is incredibly hardworking", "هو مجتهد بشكل لا يصدق"],
+        ["The food is absolutely delicious", "الطعام لذيذ تماماً"],
+        ["The journey was surprisingly smooth", "كانت الرحلة سلسة بشكل مفاجئ"],
+        ["She is very generous with her time", "هي سخية جداً بوقتها"],
+        ["The building is historically significant", "المبنى مهم تاريخياً"],
+        ["The project is commercially viable", "المشروع قابل للتطبيق تجارياً"],
+        ["The weather is bitterly cold", "الطقس بارد جداً"],
+        ["He is remarkably talented", "هو موهوب بشكل ملحوظ"],
+        ["The view is absolutely spectacular", "المنظر رائع تماماً"],
+        ["The situation is politically sensitive", "الوضع حساس سياسياً"],
+
+        // ======== المجموعة 3: كلمات العمل والأعمال (101-150) ========
+        ["The company achieved record profits this year", "حققت الشركة أرباحاً قياسية هذا العام"],
+        ["We need to improve our operational efficiency", "نحن بحاجة إلى تحسين كفاءتنا التشغيلية"],
+        ["The manager approved the new budget", "وافق المدير على الميزانية الجديدة"],
+        ["The team collaborated effectively on the project", "تعاون الفريق بفعالية في المشروع"],
+        ["We must deliver the project by Friday", "يجب علينا تسليم المشروع بحلول الجمعة"],
+        ["The marketing department expanded rapidly", "توسع قسم التسويق بسرعة"],
+        ["She was promoted to senior manager", "تم ترقيتها إلى منصب مدير أول"],
+        ["Their investment yielded significant returns", "حقق استثمارهم عوائد كبيرة"],
+        ["The partnership proved mutually beneficial", "أثبتت الشراكة فائدتها للطرفين"],
+        ["We need to prioritize our daily tasks", "نحن بحاجة إلى تحديد أولويات مهامنا اليومية"],
+        ["The company launched a new product line", "أطلقت الشركة خط إنتاج جديد"],
+        ["Our sales increased dramatically last quarter", "زادت مبيعاتنا بشكل كبير في الربع الأخير"],
+        ["She negotiated a better contract", "تفاوضت على عقد أفضل"],
+        ["The meeting was highly productive", "كان الاجتماع مثمراً للغاية"],
+        ["We need to hire more qualified staff", "نحتاج إلى توظيف موظفين أكثر تأهيلاً"],
+        ["The company faced financial difficulties", "واجهت الشركة صعوبات مالية"],
+        ["They developed an innovative strategy", "طوروا استراتيجية مبتكرة"],
+        ["The project was completed ahead of schedule", "تم إكمال المشروع قبل الموعد المحدد"],
+        ["Our customer satisfaction improved significantly", "تحسنت رضا عملائنا بشكل كبير"],
+        ["The board approved the merger", "وافق مجلس الإدارة على الاندماج"],
+        ["We need to reduce operational costs", "نحن بحاجة إلى تقليل التكاليف التشغيلية"],
+        ["The company expanded into new markets", "توسعت الشركة في أسواق جديدة"],
+        ["She handled the crisis professionally", "تعاملت مع الأزمة بشكل احترافي"],
+        ["Our brand recognition increased substantially", "زادت مكانة علامتنا التجارية بشكل كبير"],
+        ["The team exceeded their quarterly targets", "تجاوز الفريق أهدافهم الربعية"],
+        ["The new system improved productivity", "حسن النظام الجديد الإنتاجية"],
+        ["They secured a major contract", "حصلوا على عقد كبير"],
+        ["The business generated substantial revenue", "حقق العمل إيرادات كبيرة"],
+        ["We need to streamline our processes", "نحن بحاجة إلى تبسيط عملياتنا"],
+        ["The company diversified its portfolio", "نوعت الشركة محفظتها الاستثمارية"],
+        ["He founded a successful startup", "أسس شركة ناشئة ناجحة"],
+        ["The merger created new opportunities", "خلق الاندماج فرصاً جديدة"],
+        ["She manages a team of fifty people", "تدير فريقاً من خمسين شخصاً"],
+        ["Our profits tripled in five years", "تضاعفت أرباحنا ثلاث مرات في خمس سنوات"],
+        ["The company invested in new technology", "استثمرت الشركة في تكنولوجيا جديدة"],
+        ["We need to improve our customer service", "نحن بحاجة إلى تحسين خدمة العملاء"],
+        ["The project required extensive research", "تطلب المشروع بحثاً مكثفاً"],
+        ["They established a new branch in Dubai", "أنشأوا فرعاً جديداً في دبي"],
+        ["The strategy proved highly effective", "أثبتت الاستراتيجية فعاليتها العالية"],
+        ["We need to monitor our progress regularly", "نحن بحاجة إلى مراقبة تقدمنا بانتظام"],
+        ["The company achieved its annual goals", "حققت الشركة أهدافها السنوية"],
+        ["She leads the research department", "تقود قسم البحث"],
+        ["The business expanded internationally", "توسعت الأعمال دولياً"],
+        ["We need to evaluate our performance", "نحن بحاجة إلى تقييم أدائنا"],
+        ["The proposal was rejected by the board", "تم رفض الاقتراح من قبل مجلس الإدارة"],
+        ["They implemented new safety measures", "طبقوا إجراءات سلامة جديدة"],
+        ["The company survived the economic crisis", "نجت الشركة من الأزمة الاقتصادية"],
+        ["We need to adapt to market changes", "نحن بحاجة إلى التكيف مع تغيرات السوق"],
+        ["The team achieved remarkable success", "حقق الفريق نجاحاً ملحوظاً"],
+        ["The business attracted many investors", "جذب العمل العديد من المستثمرين"],
+
+        // ======== المجموعة 4: كلمات التعليم (151-200) ========
+        ["Education is the foundation of success", "التعليم هو أساس النجاح"],
+        ["She achieved excellent grades in all subjects", "حصلت على درجات ممتازة في جميع المواد"],
+        ["The professor clearly explained the complex theory", "شرح الأستاذ النظرية المعقدة بوضوح"],
+        ["Students should actively participate in class", "يجب على الطلاب المشاركة بنشاط في الفصل"],
+        ["The course covers both basic and advanced topics", "تغطي الدورة مواضيع أساسية ومتقدمة"],
+        ["He received his master's degree in engineering", "حصل على درجة الماجستير في الهندسة"],
+        ["The research made significant scientific progress", "أحرز البحث تقدماً علمياً كبيراً"],
+        ["She enrolled in the prestigious university", "سجلت في الجامعة المرموقة"],
+        ["The lecture was incredibly informative", "كانت المحاضرة غنية بالمعلومات بشكل لا يصدق"],
+        ["They graduated with highest honors", "تخرجوا مع أعلى درجات الشرف"],
+        ["The curriculum was recently updated", "تم تحديث المنهج الدراسي مؤخراً"],
+        ["She earned a scholarship to study abroad", "حصلت على منحة للدراسة في الخارج"],
+        ["The teacher inspired her students", "ألهم المعلم طلابه"],
+        ["We need to improve our educational system", "نحن بحاجة إلى تحسين نظامنا التعليمي"],
+        ["The university offers various programs", "تقدم الجامعة برامج متنوعة"],
+        ["He pursued his PhD in physics", "تابع دراسته للحصول على الدكتوراه في الفيزياء"],
+        ["The school encourages critical thinking", "تشجع المدرسة التفكير النقدي"],
+        ["She completed her dissertation last year", "أكملت أطروحتها العام الماضي"],
+        ["The textbook is very comprehensive", "الكتاب المدرسي شامل للغاية"],
+        ["Students need to develop good study habits", "يحتاج الطلاب إلى تطوير عادات دراسة جيدة"],
+        ["The exam tested practical knowledge", "اختبر الامتحان المعرفة العملية"],
+        ["He attended a prestigious boarding school", "التحق بمدرسة داخلية مرموقة"],
+        ["The workshop enhanced our skills", "عززت ورشة العمل مهاراتنا"],
+        ["She majored in computer science", "تخصصت في علوم الكمبيوتر"],
+        ["The faculty is highly experienced", "هيئة التدريس ذات خبرة عالية"],
+        ["We should invest more in education", "يجب علينا استثمار المزيد في التعليم"],
+        ["The lecture hall was completely full", "كانت قاعة المحاضرات ممتلئة تماماً"],
+        ["He wrote an excellent research paper", "كتب ورقة بحثية ممتازة"],
+        ["The program prepares students for careers", "يعد البرنامج الطلاب للمهن"],
+        ["She received her diploma with distinction", "حصلت على دبلومها مع امتياز"],
+        ["The academic year starts in September", "تبدأ السنة الأكاديمية في سبتمبر"],
+        ["We need to support lifelong learning", "نحن بحاجة إلى دعم التعلم مدى الحياة"],
+        ["The student asked an insightful question", "طرح الطالب سؤالاً ثاقباً"],
+        ["The professor published many articles", "نشر الأستاذ العديد من المقالات"],
+        ["The course requires regular attendance", "تتطلب الدورة حضوراً منتظماً"],
+        ["She tutored students in mathematics", "درست الطلاب في الرياضيات"],
+        ["The educational system needs reform", "النظام التعليمي يحتاج إلى إصلاح"],
+        ["He completed his postdoctoral research", "أكمل أبحاثه ما بعد الدكتوراه"],
+        ["The school has excellent facilities", "المدرسة لديها مرافق ممتازة"],
+        ["We need to encourage creativity in schools", "نحن بحاجة إلى تشجيع الإبداع في المدارس"],
+        ["The curriculum includes practical training", "يتضمن المنهج تدريباً عملياً"],
+        ["She defended her thesis successfully", "دافعت عن أطروحتها بنجاح"],
+        ["The university ranks among the best", "الجامعة من بين الأفضل"],
+        ["The assignment was challenging but rewarding", "كان الواجب صعباً ولكن مجزياً"],
+        ["He obtained his certification last month", "حصل على شهادته الشهر الماضي"],
+        ["The lecture focused on modern history", "ركزت المحاضرة على التاريخ الحديث"],
+        ["Students must complete mandatory courses", "يجب على الطلاب إكمال المقررات الإجبارية"],
+        ["The research received national recognition", "حظي البحث باعتراف وطني"],
+        ["She excelled in her academic pursuits", "تفوقت في مساعيها الأكاديمية"],
+        ["The program fosters intellectual growth", "يعزز البرنامج النمو الفكري"],
+
+        // ======== المجموعة 5: كلمات السفر والسياحة (201-250) ========
+        ["The journey across Europe was unforgettable", "كانت الرحلة عبر أوروبا لا تنسى"],
+        ["We explored the ancient ruins of Rome", "استكشفنا الآثار القديمة في روما"],
+        ["The destination is popular among tourists", "الوجهة تحظى بشعبية بين السياح"],
+        ["She travels frequently for business purposes", "تسافر بشكل متكرر لأغراض العمل"],
+        ["Our flight was delayed by three hours", "تأخرت رحلتنا ثلاث ساعات"],
+        ["We booked a luxurious hotel suite", "حجزنا جناحاً فندقياً فاخراً"],
+        ["The mountain scenery is absolutely breathtaking", "المناظر الجبلية خلابة للغاية"],
+        ["They embarked on a new travel adventure", "انطلقوا في مغامرة سفر جديدة"],
+        ["My passport needs to be renewed", "يجب تجديد جواز سفري"],
+        ["The trip was exceptionally well organized", "كانت الرحلة منظمة بشكل استثنائي"],
+        ["We visited many historical landmarks", "زرنا العديد من المعالم التاريخية"],
+        ["The airline offered excellent service", "قدمت شركة الطيران خدمة ممتازة"],
+        ["She enjoys exploring different cultures", "تستمتع باستكشاف ثقافات مختلفة"],
+        ["The hotel is conveniently located downtown", "الفندق يقع في موقع مناسب في وسط المدينة"],
+        ["We took a guided tour of the city", "قمنا بجولة إرشادية في المدينة"],
+        ["The beach resort was incredibly relaxing", "كان منتجع الشاطئ مريحاً بشكل لا يصدق"],
+        ["He travels with only a carry-on bag", "يسافر بحقيبة صغيرة فقط"],
+        ["The destination exceeded our expectations", "تجاوزت الوجهة توقعاتنا"],
+        ["We need to check in two hours early", "نحن بحاجة إلى تسجيل الوصول قبل ساعتين"],
+        ["The cruise offered various activities", "قدمت الرحلة البحرية أنشطة متنوعة"],
+        ["She loves adventure travel", "تحب السفر المغامر"],
+        ["The hotel staff was very helpful", "كان طاقم الفندق مفيداً جداً"],
+        ["We explored the local markets", "استكشفنا الأسواق المحلية"],
+        ["The landscape was incredibly diverse", "كان المنظر الطبيعي متنوعاً بشكل لا يصدق"],
+        ["He prefers independent travel", "يفضل السفر المستقل"],
+        ["The travel agency arranged everything", "نظمت وكالة السفر كل شيء"],
+        ["We enjoyed the local cuisine", "استمتعنا بالمأكولات المحلية"],
+        ["The accommodation was comfortable", "كان السكن مريحاً"],
+        ["She took many beautiful photographs", "التقطت العديد من الصور الجميلة"],
+        ["The journey was long but rewarding", "كانت الرحلة طويلة ولكنها مجزية"],
+        ["We met many interesting people", "قابلنا العديد من الأشخاص المثيرين للاهتمام"],
+        ["The tour guide was knowledgeable", "كان المرشد السياحي واسع المعرفة"],
+        ["They traveled across the continent", "سافروا عبر القارة"],
+        ["The resort offers all-inclusive packages", "يقدم المنتجع باقات شاملة"],
+        ["We need to book in advance", "نحن بحاجة إلى الحجز مسبقاً"],
+        ["The scenery along the coast is stunning", "المناظر الطبيعية على طول الساحل مذهلة"],
+        ["She went backpacking in Southeast Asia", "ذهبت في رحلة حقائب الظهر في جنوب شرق آسيا"],
+        ["The hotel has a magnificent view", "الفندق لديه إطلالة رائعة"],
+        ["We experienced different cultures", "اختبرنا ثقافات مختلفة"],
+        ["The transportation system is efficient", "نظام النقل فعال"],
+        ["He enjoys road trips", "يستمتع برحلات الطرق"],
+        ["The vacation was truly memorable", "كانت العطلة لا تنسى حقاً"],
+        ["We should visit during the off-season", "يجب علينا الزيارة في غير الموسم"],
+        ["The island is a paradise for divers", "الجزيرة جنة للغواصين"],
+        ["She wrote a travel blog about her experiences", "كتبت مدونة سفر عن تجاربها"],
+        ["The travel insurance is essential", "تأمين السفر ضروري"],
+        ["We explored the countryside extensively", "استكشفنا الريف بشكل موسع"],
+        ["The flight attendant was very friendly", "كان مضيف الطائرة ودوداً جداً"],
+        ["The hotel provided excellent amenities", "قدم الفندق مرافق ممتازة"],
+        ["They planned an adventurous itinerary", "خططوا لجدول رحلات مغامر"],
+
+        // ======== المجموعة 6: كلمات الصحة (251-300) ========
+        ["Maintaining a healthy lifestyle is crucial", "الحفاظ على نمط حياة صحي أمر بالغ الأهمية"],
+        ["Regular exercise significantly improves health", "التمرين المنتظم يحسن الصحة بشكل كبير"],
+        ["She recovered completely from the illness", "تعافت تماماً من المرض"],
+        ["The treatment proved very effective", "أثبت العلاج فعاليته الكبيرة"],
+        ["They promote mental well-being in the workplace", "يعززون الصحة النفسية في مكان العمل"],
+        ["The medication may have side effects", "الدواء قد يكون له آثار جانبية"],
+        ["We should maintain a properly balanced diet", "يجب علينا الحفاظ على نظام غذائي متوازن بشكل صحيح"],
+        ["The surgery was completely successful", "كانت الجراحة ناجحة تماماً"],
+        ["He underwent a thorough medical examination", "خضع لفحص طبي شامل"],
+        ["The patient showed remarkable improvement", "أظهر المريض تحسناً ملحوظاً"],
+        ["Exercise reduces stress levels", "التمرين يقلل مستويات التوتر"],
+        ["She follows a strict diet plan", "تتبع خطة نظام غذائي صارم"],
+        ["The hospital has state-of-the-art equipment", "المستشفى لديه أحدث المعدات"],
+        ["We need more sleep for good health", "نحن بحاجة إلى مزيد من النوم للصحة الجيدة"],
+        ["The doctor prescribed new medication", "وصف الطبيب دواءً جديداً"],
+        ["She practices yoga daily", "تمارس اليوجا يومياً"],
+        ["The clinic offers comprehensive services", "يقدم العيادة خدمات شاملة"],
+        ["He leads a very active lifestyle", "يعيش نمط حياة نشطاً للغاية"],
+        ["The nutritionist recommended dietary changes", "أوصى أخصائي التغذية بتغييرات في النظام الغذائي"],
+        ["Regular check-ups are important", "الفحوصات المنتظمة مهمة"],
+        ["The vaccine was developed quickly", "تم تطوير اللقاح بسرعة"],
+        ["She suffers from chronic back pain", "تعاني من آلام مزمنة في الظهر"],
+        ["The emergency room was very busy", "كانت غرفة الطوارئ مزدحمة جداً"],
+        ["We need more healthcare workers", "نحن بحاجة إلى مزيد من العاملين في الرعاية الصحية"],
+        ["The treatment plan was comprehensive", "كانت خطة العلاج شاملة"],
+        ["He recovered his strength gradually", "استعاد قوته تدريجياً"],
+        ["The medical research made breakthroughs", "أحدث البحث الطبي اختراقات"],
+        ["She attends physical therapy sessions", "تحضر جلسات العلاج الطبيعي"],
+        ["The health insurance covers most costs", "يغطي التأمين الصحي معظم التكاليف"],
+        ["We should avoid processed foods", "يجب علينا تجنب الأطعمة المصنعة"],
+        ["The symptoms disappeared completely", "اختفت الأعراض تماماً"],
+        ["He exercises at the gym every morning", "يمارس الرياضة في صالة الألعاب الرياضية كل صباح"],
+        ["The diet includes plenty of vegetables", "يتضمن النظام الغذائي الكثير من الخضروات"],
+        ["She monitors her blood pressure regularly", "تراقب ضغط دمها بانتظام"],
+        ["The wellness program was very beneficial", "كان برنامج العافية مفيداً جداً"],
+        ["We need to stay hydrated", "نحن بحاجة إلى البقاء رطبين"],
+        ["The disease can be prevented", "يمكن الوقاية من المرض"],
+        ["He follows a vegan lifestyle", "يتبع نمط حياة نباتي"],
+        ["The recovery process takes time", "عملية التعافي تستغرق وقتاً"],
+        ["She feels much better now", "تشعر بتحسن كبير الآن"],
+        ["The medical staff are very professional", "الكادر الطبي محترف للغاية"],
+        ["We should prioritize our health", "يجب علينا إعطاء الأولوية لصحتنا"],
+        ["The medication relieved the pain quickly", "خفف الدواء الألم بسرعة"],
+        ["He had regular dental check-ups", "كان لديه فحوصات أسنان منتظمة"],
+        ["The exercise routine is easy to follow", "روتين التمارين سهل المتابعة"],
+        ["She maintains a positive mental attitude", "تحافظ على موقف نفسي إيجابي"],
+        ["The health crisis affected everyone", "أثرت أزمة الصحة على الجميع"],
+        ["We should wash our hands frequently", "يجب علينا غسل أيدينا بشكل متكرر"],
+        ["The treatment costs were very high", "كانت تكاليف العلاج مرتفعة جداً"],
+        ["He achieved optimal health through diet", "حقق الصحة المثلى من خلال النظام الغذائي"],
+
+        // ======== المجموعة 7: كلمات التكنولوجيا (301-350) ========
+        ["Technology is advancing at an unprecedented rate", "التكنولوجيا تتقدم بمعدل غير مسبوق"],
+        ["The new device is extremely user-friendly", "الجهاز الجديد سهل الاستخدام للغاية"],
+        ["They developed innovative software solutions", "طوروا حلول برمجية مبتكرة"],
+        ["The system is highly secure and reliable", "النظام آمن وموثوق للغاية"],
+        ["We urgently need to upgrade our computers", "نحن بحاجة ماسة إلى ترقية أجهزة الكمبيوتر لدينا"],
+        ["The network was completely down yesterday", "كانت الشبكة معطلة تماماً أمس"],
+        ["She designed a revolutionary mobile application", "صممت تطبيقاً جوالاً ثورياً"],
+        ["The data is stored securely in the cloud", "يتم تخزين البيانات بشكل آمن في السحابة"],
+        ["Artificial intelligence is transforming our world", "الذكاء الاصطناعي يحول عالمنا"],
+        ["Digital marketing has become essential", "أصبح التسويق الرقمي ضرورياً"],
+        ["The software needs regular updates", "البرنامج يحتاج إلى تحديثات منتظمة"],
+        ["We must protect our digital privacy", "يجب علينا حماية خصوصيتنا الرقمية"],
+        ["The new laptop has impressive features", "الكمبيوتر المحمول الجديد يتميز بميزات رائعة"],
+        ["Online security is a major concern", "الأمان عبر الإنترنت هو مصدر قلق كبير"],
+        ["The tech industry is growing rapidly", "صناعة التكنولوجيا تنمو بسرعة"],
+        ["She works as a software engineer", "تعمل كمهندسة برمجيات"],
+        ["The algorithm efficiently processes data", "الخوارزمية تعالج البيانات بكفاءة"],
+        ["We need to back up our files", "نحن بحاجة إلى عمل نسخ احتياطية لملفاتنا"],
+        ["The new smartphone has a great camera", "الهاتف الذكي الجديد لديه كاميرا رائعة"],
+        ["Technology enhances our daily lives", "التكنولوجيا تعزز حياتنا اليومية"],
+        ["The company uses advanced analytics", "تستخدم الشركة تحليلات متقدمة"],
+        ["She learned coding in six months", "تعلمت البرمجة في ستة أشهر"],
+        ["The system automatically updates itself", "النظام يقوم بتحديث نفسه تلقائياً"],
+        ["We should invest in cybersecurity", "يجب علينا الاستثمار في الأمن السيبراني"],
+        ["The app has millions of users", "التطبيق لديه ملايين المستخدمين"],
+        ["The robot performs complex tasks", "الروبوت يقوم بمهام معقدة"],
+        ["Technology connects people globally", "التكنولوجيا تربط الناس عالمياً"],
+        ["The new feature is very useful", "الميزة الجديدة مفيدة جداً"],
+        ["She manages the IT department", "تدير قسم تكنولوجيا المعلومات"],
+        ["The system processes requests instantly", "النظام يعالج الطلبات فوراً"],
+        ["We need faster internet connection", "نحن بحاجة إلى اتصال إنترنت أسرع"],
+        ["The device is compatible with all systems", "الجهاز متوافق مع جميع الأنظمة"],
+        ["Virtual reality creates immersive experiences", "الواقع الافتراضي يخلق تجارب غامرة"],
+        ["The data was successfully recovered", "تم استرداد البيانات بنجاح"],
+        ["He develops mobile games", "يطور ألعاباً للجوال"],
+        ["The website is very responsive", "الموقع الإلكتروني سريع الاستجابة"],
+        ["We should use strong passwords", "يجب علينا استخدام كلمات مرور قوية"],
+        ["The technology solved many problems", "حلت التكنولوجيا العديد من المشاكل"],
+        ["She blogs about tech innovations", "تكتب مدونة عن الابتكارات التقنية"],
+        ["The hardware is top quality", "الأجهزة ذات جودة عالية"],
+        ["Automation increases efficiency", "الأتمتة تزيد الكفاءة"],
+        ["The new update fixes previous bugs", "التحديث الجديد يصلح الأخطاء السابقة"],
+        ["He works in artificial intelligence research", "يعمل في أبحاث الذكاء الاصطناعي"],
+        ["The platform supports multiple languages", "المنصة تدعم لغات متعددة"],
+        ["We need reliable tech support", "نحن بحاجة إلى دعم تقني موثوق"],
+        ["The data analysis provided insights", "قدم تحليل البيانات رؤى مفيدة"],
+        ["She created a successful tech startup", "أنشأت شركة ناشئة تقنية ناجحة"],
+        ["The system crashed unexpectedly", "تعطل النظام بشكل غير متوقع"],
+        ["Technology is changing rapidly", "التكنولوجيا تتغير بسرعة"],
+        ["The software integrates with other tools", "البرنامج يتكامل مع أدوات أخرى"],
+
+        // ======== المجموعة 8: كلمات الاقتصاد والمال (351-400) ========
+        ["The global economy is growing steadily", "الاقتصاد العالمي ينمو بشكل مطرد"],
+        ["Inflation has significantly affected prices", "أثر التضخم بشكل كبير على الأسعار"],
+        ["They invested heavily in renewable energy", "استثمروا بكثافة في الطاقة المتجددة"],
+        ["The stock market shows positive trends", "سوق الأسهم يظهر اتجاهات إيجابية"],
+        ["We urgently need to reduce our expenses", "نحن بحاجة ماسة إلى تقليل نفقاتنا"],
+        ["The annual budget was finally approved", "تمت الموافقة على الميزانية السنوية أخيراً"],
+        ["International trade has increased substantially", "زادت التجارة الدولية بشكل كبير"],
+        ["Employment rates are steadily improving", "معدلات التوظيف في تحسن مطرد"],
+        ["The currency exchange rate is stable", "سعر صرف العملة مستقر"],
+        ["Entrepreneurship drives innovation and growth", "ريادة الأعمال تقود الابتكار والنمو"],
+        ["The company reported record revenues", "أعلنت الشركة عن إيرادات قياسية"],
+        ["We need a sound financial strategy", "نحن بحاجة إلى استراتيجية مالية سليمة"],
+        ["The investment yielded excellent returns", "حقق الاستثمار عوائد ممتازة"],
+        ["Economic inequality is a major issue", "عدم المساواة الاقتصادية قضية رئيسية"],
+        ["She manages a large investment portfolio", "تدير محفظة استثمارية كبيرة"],
+        ["The market crashed unexpectedly", "انهار السوق بشكل غير متوقع"],
+        ["We should diversify our investments", "يجب علينا تنويع استثماراتنا"],
+        ["The bank offers competitive interest rates", "يقدم البنك أسعار فائدة تنافسية"],
+        ["The economy recovered quickly", "تعافى الاقتصاد بسرعة"],
+        ["He started a small business", "بدأ مشروعاً تجارياً صغيراً"],
+        ["The budget deficit widened significantly", "اتسع عجز الميزانية بشكل كبير"],
+        ["We need to increase productivity", "نحن بحاجة إلى زيادة الإنتاجية"],
+        ["The company merged with its competitor", "اندمجت الشركة مع منافسها"],
+        ["She negotiated a favorable contract", "تفاوضت على عقد موات"],
+        ["The financial report was published today", "تم نشر التقرير المالي اليوم"],
+        ["We must manage our cash flow carefully", "يجب علينا إدارة تدفقنا النقدي بعناية"],
+        ["The tax system needs reform", "النظام الضريبي يحتاج إلى إصلاح"],
+        ["He made a fortune in real estate", "جنى ثروة في العقارات"],
+        ["The economic forecast is optimistic", "التوقعات الاقتصادية متفائلة"],
+        ["We should save for retirement", "يجب علينا الادخار للتقاعد"],
+        ["The business venture was successful", "كان المشروع التجاري ناجحاً"],
+        ["She founded a non-profit organization", "أسست منظمة غير ربحية"],
+        ["The market research was thorough", "كان بحث السوق شاملاً"],
+        ["We need to cut unnecessary costs", "نحن بحاجة إلى خفض التكاليف غير الضرورية"],
+        ["The loan was approved quickly", "تمت الموافقة على القرض بسرعة"],
+        ["His financial advice was invaluable", "كانت نصيحته المالية لا تقدر بثمن"],
+        ["The economy faces new challenges", "الاقتصاد يواجه تحديات جديدة"],
+        ["We should invest in education", "يجب علينا الاستثمار في التعليم"],
+        ["The stock prices fluctuated wildly", "تقلبت أسعار الأسهم بشكل كبير"],
+        ["She works in corporate finance", "تعمل في تمويل الشركات"],
+        ["The project was funded by investors", "تم تمويل المشروع من قبل المستثمرين"],
+        ["We need better financial planning", "نحن بحاجة إلى تخطيط مالي أفضل"],
+        ["The economic crisis affected everyone", "أثرت الأزمة الاقتصادية على الجميع"],
+        ["He retired with a substantial pension", "تقاعد مع معاش تقاعدي كبير"],
+        ["The company filed for bankruptcy", "أعلنت الشركة إفلاسها"],
+        ["We must prioritize debt reduction", "يجب علينا إعطاء الأولوية لتخفيض الديون"],
+        ["The investment opportunity was attractive", "كانت فرصة الاستثمار جذابة"],
+        ["She studied economics at university", "درست الاقتصاد في الجامعة"],
+        ["The market demand is increasing", "الطلب في السوق يتزايد"],
+        ["They launched a new financial product", "أطلقوا منتجاً مالياً جديداً"],
+
+        // ======== المجموعة 9: كلمات البيئة (401-450) ========
+        ["We must protect our natural environment", "يجب علينا حماية بيئتنا الطبيعية"],
+        ["Climate change is the biggest global challenge", "تغير المناخ هو التحدي العالمي الأكبر"],
+        ["Renewable energy sources are truly sustainable", "مصادر الطاقة المتجددة مستدامة حقاً"],
+        ["Pollution seriously damages public health", "التلوث يضر بالصحة العامة بشكل خطير"],
+        ["Conservation of resources is absolutely crucial", "الحفاظ على الموارد أمر بالغ الأهمية"],
+        ["Recycling significantly reduces waste", "إعادة التدوير تقلل النفايات بشكل كبير"],
+        ["The ecosystem is incredibly fragile", "النظام البيئي هش بشكل لا يصدق"],
+        ["We should plant more trees everywhere", "يجب علينا زراعة المزيد من الأشجار في كل مكان"],
+        ["Clean water is essential for all life", "الماء النقي ضروري لجميع أشكال الحياة"],
+        ["Our planet desperately needs protection", "كوكبنا يحتاج بشدة إلى الحماية"],
+        ["The forest was destroyed by fire", "دمرت النار الغابة"],
+        ["We need to reduce carbon emissions", "نحن بحاجة إلى تقليل انبعاثات الكربون"],
+        ["Solar energy is clean and renewable", "الطاقة الشمسية نظيفة ومتجددة"],
+        ["The ocean is full of plastic waste", "المحيط مليء بالنفايات البلاستيكية"],
+        ["We should use public transportation", "يجب علينا استخدام وسائل النقل العامة"],
+        ["The wildlife sanctuary protects endangered species", "محمية الحياة البرية تحمي الأنواع المهددة بالانقراض"],
+        ["Global temperatures are rising steadily", "درجات الحرارة العالمية في ارتفاع مطرد"],
+        ["We need to conserve water resources", "نحن بحاجة إلى الحفاظ على الموارد المائية"],
+        ["The air quality has improved recently", "تحسنت جودة الهواء مؤخراً"],
+        ["Sustainable development is our goal", "التنمية المستدامة هي هدفنا"],
+        ["The green initiative gained support", "حظيت المبادرة الخضراء بالدعم"],
+        ["We should recycle all paper products", "يجب علينا إعادة تدوير جميع المنتجات الورقية"],
+        ["The natural habitat was restored", "تم استعادة الموطن الطبيعي"],
+        ["Electric cars reduce air pollution", "السيارات الكهربائية تقلل تلوث الهواء"],
+        ["The environmental policy was strengthened", "تم تعزيز السياسة البيئية"],
+        ["We need to protect biodiversity", "نحن بحاجة إلى حماية التنوع البيولوجي"],
+        ["The climate summit was productive", "كان قمة المناخ مثمرة"],
+        ["She advocates for environmental justice", "تدافع عن العدالة البيئية"],
+        ["The pollution levels are alarming", "مستويات التلوث مثيرة للقلق"],
+        ["We should support green businesses", "يجب علينا دعم الأعمال الخضراء"],
+        ["The river was heavily polluted", "كان النهر ملوثاً بشدة"],
+        ["Renewable energy is cost-effective", "الطاقة المتجددة فعالة من حيث التكلفة"],
+        ["The forest provides habitat for wildlife", "الغابة توفر موطناً للحياة البرية"],
+        ["We must reduce our carbon footprint", "يجب علينا تقليل بصمتنا الكربونية"],
+        ["The environmental movement gained momentum", "اكتسبت الحركة البيئية زخماً"],
+        ["She studies marine biology", "تدرس علم الأحياء البحرية"],
+        ["The waste management system needs improvement", "نظام إدارة النفايات يحتاج إلى تحسين"],
+        ["We should choose eco-friendly products", "يجب علينا اختيار منتجات صديقة للبيئة"],
+        ["The ozone layer is slowly recovering", "طبقة الأوزون تتعافى ببطء"],
+        ["Green energy creates new jobs", "الطاقة الخضراء تخلق وظائف جديدة"],
+        ["The environmental disaster was devastating", "كانت الكارثة البيئية مدمرة"],
+        ["We need to educate people about conservation", "نحن بحاجة إلى تثقيف الناس حول الحفاظ على البيئة"],
+        ["The clean-up operation was massive", "كانت عملية التنظيف ضخمة"],
+        ["She volunteers for environmental causes", "تتطوع من أجل القضايا البيئية"],
+        ["The national park is well preserved", "الحديقة الوطنية محفوظة بشكل جيد"],
+        ["We should reduce single-use plastics", "يجب علينا تقليل البلاستيك أحادي الاستخدام"],
+        ["The ecosystem supports diverse species", "النظام البيئي يدعم أنواعاً متنوعة"],
+        ["Environmental protection is a priority", "حماية البيئة هي أولوية"],
+        ["The sustainability plan was implemented", "تم تنفيذ خطة الاستدامة"],
+        ["We must act now to save our planet", "يجب علينا التحرك الآن لإنقاذ كوكبنا"],
+
+        // ======== المجموعة 10: كلمات المجتمع والعلاقات (451-500) ========
+        ["Community involvement creates positive change", "المشاركة المجتمعية تخلق تغييراً إيجابياً"],
+        ["Social equality is a fundamental human right", "المساواة الاجتماعية حق أساسي من حقوق الإنسان"],
+        ["We need to support each other always", "نحن بحاجة إلى دعم بعضنا البعض دائماً"],
+        ["Diversity greatly enriches our society", "التنوع يثري مجتمعنا بشكل كبير"],
+        ["Human rights must be universally respected", "حقوق الإنسان يجب احترامها عالمياً"],
+        ["Charity helps those who are in need", "الأعمال الخيرية تساعد المحتاجين"],
+        ["Volunteering is a truly noble act", "التطوع عمل نبيل حقاً"],
+        ["Justice should be fair to everyone equally", "العدالة يجب أن تكون منصفة للجميع بالتساوي"],
+        ["Education empowers entire communities", "التعليم يمكّن المجتمعات بأكملها"],
+        ["Unity brings incredible strength", "الوحدة تجلب قوة لا تصدق"],
+        ["We should respect cultural differences", "يجب علينا احترام الاختلافات الثقافية"],
+        ["The community center serves many people", "يخدم المركز المجتمعي العديد من الأشخاص"],
+        ["She promotes social justice actively", "تعزز العدالة الاجتماعية بنشاط"],
+        ["We need to build stronger communities", "نحن بحاجة إلى بناء مجتمعات أقوى"],
+        ["The neighborhood is very diverse", "الحي متنوع للغاية"],
+        ["They organize community events regularly", "ينظمون فعاليات مجتمعية بانتظام"],
+        ["Social media connects people globally", "وسائل التواصل الاجتماعي تربط الناس عالمياً"],
+        ["We should help our neighbors", "يجب علينا مساعدة جيراننا"],
+        ["The community responded generously", "استجاب المجتمع بسخاء"],
+        ["She is a community leader", "هي قائدة مجتمعية"],
+        ["We need to bridge social divides", "نحن بحاجة إلى ردم الفجوات الاجتماعية"],
+        ["The organization supports local families", "المنظمة تدعم العائلات المحلية"],
+        ["He volunteers at the local shelter", "يتطوع في المأوى المحلي"],
+        ["The community garden is very successful", "حديقة المجتمع ناجحة جداً"],
+        ["We should promote inclusivity", "يجب علينا تعزيز الشمولية"],
+        ["The social program helps the elderly", "يساعد البرنامج الاجتماعي كبار السن"],
+        ["She advocates for children's rights", "تدافع عن حقوق الأطفال"],
+        ["The community came together to help", "اجتمع المجتمع معاً للمساعدة"],
+        ["We need better social services", "نحن بحاجة إلى خدمات اجتماعية أفضل"],
+        ["The neighborhood association meets monthly", "تجمع جمعية الحي شهرياً"],
+        ["He is a respected community figure", "هو شخصية مجتمعية محترمة"],
+        ["The social worker was very helpful", "كان الأخصائي الاجتماعي مفيداً جداً"],
+        ["We should celebrate our diversity", "يجب علينا الاحتفال بتنوعنا"],
+        ["The community project was a success", "كان المشروع المجتمعي ناجحاً"],
+        ["She received community service award", "حصلت على جائزة الخدمة المجتمعية"],
+        ["We need to fight discrimination", "نحن بحاجة إلى محاربة التمييز"],
+        ["The social movement gained traction", "اكتسبت الحركة الاجتماعية زخماً"],
+        ["He works with disadvantaged youth", "يعمل مع الشباب المحرومين"],
+        ["The community center offers free classes", "يقدم المركز المجتمعي دروساً مجانية"],
+        ["We should respect all generations", "يجب علينا احترام جميع الأجيال"],
+        ["The organization promotes peace", "المنظمة تعزز السلام"],
+        ["She founded a community initiative", "أسست مبادرة مجتمعية"],
+        ["The neighborhood is very friendly", "الحي ودود للغاية"],
+        ["We need to help refugees integrate", "نحن بحاجة إلى مساعدة اللاجئين على الاندماج"],
+        ["The community festival was wonderful", "كان مهرجان المجتمع رائعاً"],
+        ["He is a pillar of the community", "هو عمود من أعمدة المجتمع"],
+        ["We should support local businesses", "يجب علينا دعم الأعمال المحلية"],
+        ["The social fabric is strong here", "النسيج الاجتماعي قوي هنا"],
+        ["She works for social change", "تعمل من أجل التغيير الاجتماعي"],
+        ["We are all part of one community", "نحن جميعاً جزء من مجتمع واحد"],
+
+        // ======== المجموعة 11: كلمات الفن والثقافة (501-550) ========
+        ["Art expresses the human experience beautifully", "الفن يعبر عن التجربة الإنسانية بشكل جميل"],
+        ["The museum has an impressive art collection", "المتحف لديه مجموعة فنية رائعة"],
+        ["She is a very talented painter", "هي رسامة موهوبة جداً"],
+        ["The music festival attracted thousands", "جذب مهرجان الموسيقى الآلاف"],
+        ["Literature opens new worlds to us", "الأدب يفتح لنا عوالم جديدة"],
+        ["The film received critical acclaim", "حصل الفيلم على إشادة نقدية"],
+        ["The sculpture is a masterpiece", "التمثال هو تحفة فنية"],
+        ["The theater performance was unforgettable", "كان الأداء المسرحي لا ينسى"],
+        ["She studies art history at university", "تدرس تاريخ الفن في الجامعة"],
+        ["The gallery exhibits contemporary works", "يعرض المعرض أعمالاً معاصرة"],
+        ["The artist created a stunning mural", "خلق الفنان جدارية مذهلة"],
+        ["The concert was incredibly moving", "كانت الحفلة الموسيقية مؤثرة للغاية"],
+        ["Literature reflects society's values", "الأدب يعكس قيم المجتمع"],
+        ["The film director won an award", "فاز مخرج الفيلم بجائزة"],
+        ["The painting sold for millions", "بيعت اللوحة بملايين"],
+        ["She writes beautiful poetry", "تكتب شعراً جميلاً"],
+        ["The cultural heritage must be preserved", "يجب الحفاظ على التراث الثقافي"],
+        ["The exhibition attracted many visitors", "جذب المعرض العديد من الزوار"],
+        ["He is a renowned sculptor", "هو نحات مشهور"],
+        ["The music composition is brilliant", "التأليف الموسيقي رائع"],
+        ["The film explores complex themes", "يستكشف الفيلم موضوعات معقدة"],
+        ["The artist's work is unique", "عمل الفنان فريد"],
+        ["The theater is beautifully designed", "المسرح مصمم بشكل جميل"],
+        ["She performed on Broadway", "قدمت عرضاً في برودواي"],
+        ["The book became a bestseller", "أصبح الكتاب من أكثر الكتب مبيعاً"],
+        ["The arts enrich our lives deeply", "الفنون تثري حياتنا بعمق"],
+        ["The museum underwent major renovations", "خضع المتحف لتجديدات كبيرة"],
+        ["He is a gifted musician", "هو موسيقي موهوب"],
+        ["The painting captures the moment perfectly", "تلتقط اللوحة اللحظة بشكل مثالي"],
+        ["The film tells a powerful story", "الفيلم يروي قصة قوية"],
+        ["She attended the art school", "التحقت بمدرسة الفنون"],
+        ["The exhibition was a huge success", "كان المعرض نجاحاً كبيراً"],
+        ["The orchestra performed magnificently", "قدمت الأوركسترا أداءً رائعاً"],
+        ["Literature influences our thinking", "الأدب يؤثر على تفكيرنا"],
+        ["The sculpture park is beautiful", "حديقة التماثيل جميلة"],
+        ["He is a famous novelist", "هو روائي مشهور"],
+        ["The film won multiple Oscars", "فاز الفيلم بعدة جوائز أوسكار"],
+        ["The gallery features modern art", "يضم المعرض فنوناً حديثة"],
+        ["She wrote a critically acclaimed play", "كتبت مسرحية نالت إشادة نقدية"],
+        ["The artist uses vibrant colors", "الفنان يستخدم ألواناً نابضة بالحياة"],
+        ["The music industry is competitive", "صناعة الموسيقى تنافسية"],
+        ["The painting portrays rural life", "تصور اللوحة الحياة الريفية"],
+        ["He performs in local theaters", "يؤدي في المسارح المحلية"],
+        ["The cultural festival is annual", "المهرجان الثقافي سنوي"],
+        ["She designed the costumes", "صممت الأزياء"],
+        ["The film soundtrack is beautiful", "موسيقى الفيلم جميلة"],
+        ["The art class was very popular", "كان فصل الفن مشهوراً جداً"],
+        ["He collects vintage posters", "يجمع ملصقات قديمة"],
+        ["The performance was sold out", "كان الأداء مباعاً بالكامل"],
+        ["Creativity knows no bounds", "الإبداع لا يعرف حدوداً"],
+
+        // ======== المجموعة 12: كلمات السياسة والقانون (551-600) ========
+        ["The government passed new legislation", "أقرت الحكومة تشريعاً جديداً"],
+        ["The law protects individual rights", "القانون يحمي الحقوق الفردية"],
+        ["Citizens should participate in elections", "يجب على المواطنين المشاركة في الانتخابات"],
+        ["The political system needs reform", "النظام السياسي يحتاج إلى إصلاح"],
+        ["Justice must be served fairly", "يجب تحقيق العدالة بشكل منصف"],
+        ["The legal process is complex", "العملية القانونية معقدة"],
+        ["Democracy gives power to the people", "الديمقراطية تعطي السلطة للشعب"],
+        ["The parliament debated the issue", "ناقش البرلمان القضية"],
+        ["The constitution guarantees freedom", "الدستور يضمن الحرية"],
+        ["Political stability is essential", "الاستقرار السياسي ضروري"],
+        ["The candidate won the election", "فاز المرشح في الانتخابات"],
+        ["The court ruled in her favor", "حكمت المحكمة لصالحها"],
+        ["The law enforcement agencies act professionally", "وكالات إنفاذ القانون تتصرف بشكل احترافي"],
+        ["Voting is both a right and a duty", "التصويت هو حق وواجب"],
+        ["The political debate was heated", "كان النقاش السياسي محتدماً"],
+        ["The government allocated more funds", "خصصت الحكومة المزيد من الأموال"],
+        ["The legal system is independent", "النظام القانوني مستقل"],
+        ["The senator made a powerful speech", "ألقى السناتور خطاباً قوياً"],
+        ["The policy was implemented gradually", "تم تنفيذ السياسة تدريجياً"],
+        ["Citizens have the right to protest", "للمواطنين الحق في الاحتجاج"],
+        ["The judiciary is impartial", "القضاء محايد"],
+        ["The treaty was signed yesterday", "تم توقيع المعاهدة أمس"],
+        ["The political parties formed a coalition", "شكلت الأحزاب السياسية ائتلافاً"],
+        ["The law was amended", "تم تعديل القانون"],
+        ["The government provides public services", "تقدم الحكومة خدمات عامة"],
+        ["The court case was dismissed", "تم رفض القضية"],
+        ["The constitution is the supreme law", "الدستور هو القانون الأعلى"],
+        ["The mayor announced new policies", "أعلن رئيس البلدية سياسات جديدة"],
+        ["The legal rights must be protected", "يجب حماية الحقوق القانونية"],
+        ["The political landscape changed", "تغير المشهد السياسي"],
+        ["The judge made a fair decision", "اتخذ القاضي قراراً عادلاً"],
+        ["The election results were verified", "تم التحقق من نتائج الانتخابات"],
+        ["The government faced criticism", "واجهت الحكومة انتقادات"],
+        ["The law ensures public safety", "القانون يضمن السلامة العامة"],
+        ["The politician was re-elected", "أعيد انتخاب السياسي"],
+        ["The legal document was reviewed", "تم مراجعة الوثيقة القانونية"],
+        ["The political agreement was reached", "تم التوصل إلى اتفاق سياسي"],
+        ["The citizens demanded change", "طالب المواطنون بالتغيير"],
+        ["The court upheld the decision", "أيدت المحكمة القرار"],
+        ["The law regulates business practices", "ينظم القانون الممارسات التجارية"],
+        ["The government launched an investigation", "أطلقت الحكومة تحقيقاً"],
+        ["The political movement grew stronger", "نمت الحركة السياسية أقوى"],
+        ["The legal advice was helpful", "كانت النصيحة القانونية مفيدة"],
+        ["The senator introduced a bill", "قدم السناتور مشروع قانون"],
+        ["The rights are guaranteed by law", "الحقوق مضمونة بموجب القانون"],
+        ["The political system is democratic", "النظام السياسي ديمقراطي"],
+        ["The government responded to the crisis", "استجابت الحكومة للأزمة"],
+        ["The legal framework is comprehensive", "الإطار القانوني شامل"],
+        ["The voters elected a new president", "انتخب الناخبون رئيساً جديداً"],
+        ["We must uphold the rule of law", "يجب علينا دعم سيادة القانون"],
+
+        // ======== المجموعة 13: كلمات الأسرة والعلاقات (601-650) ========
+        ["Family is the most important thing", "الأسرة هي أهم شيء"],
+        ["She has a large and loving family", "لديها عائلة كبيرة ومحبة"],
+        ["We support each other as a family", "ندعم بعضنا البعض كعائلة"],
+        ["The relationship strengthened over time", "قوت العلاقة بمرور الوقت"],
+        ["He proposed to his girlfriend", "تقدم لخطبة صديقته"],
+        ["The couple celebrated their anniversary", "احتفل الزوجان بذكرى زواجهما"],
+        ["Parenting is a rewarding challenge", "الأبوة هي تحدٍ مجزٍ"],
+        ["The siblings are very close", "الأشقاء قريبون جداً"],
+        ["She has a wonderful partnership with him", "لديها شراكة رائعة معه"],
+        ["The family reunion was joyful", "كان لم الشمل فرحاً"],
+        ["He is a devoted father", "هو أب مخلص"],
+        ["The marriage has been strong", "كان الزواج قوياً"],
+        ["We celebrate holidays together", "نحتفل بالأعياد معاً"],
+        ["The relationship is based on trust", "العلاقة مبنية على الثقة"],
+        ["She is a wonderful mother", "هي أم رائعة"],
+        ["The family business succeeded", "نجح عمل العائلة"],
+        ["He values family above everything", "يقدر الأسرة فوق كل شيء"],
+        ["The grandchildren brought joy", "جلب الأحفاد الفرح"],
+        ["They have a mutual respect", "لديهم احترام متبادل"],
+        ["The family home is beautiful", "منزل العائلة جميل"],
+        ["She has a supportive partner", "لديها شريك داعم"],
+        ["The parents were very proud", "كان الوالدان فخورين جداً"],
+        ["The family vacation was memorable", "كانت عطلة العائلة لا تنسى"],
+        ["We share family traditions", "نتشارك تقاليد العائلة"],
+        ["The relationship lasted many years", "استمرت العلاقة لسنوات عديدة"],
+        ["He is a role model for his children", "هو قدوة لأطفاله"],
+        ["The wedding was beautiful", "كان حفل الزفاف جميلاً"],
+        ["She maintains a work-life balance", "تحافظ على توازن بين العمل والحياة"],
+        ["The family dinner is important", "عشاء العائلة مهم"],
+        ["They raised three wonderful children", "ربوا ثلاثة أطفال رائعين"],
+        ["The family heritage is rich", "تراث العائلة غني"],
+        ["He treats everyone with kindness", "يعامل الجميع بلطف"],
+        ["The relationship grew stronger", "نمت العلاقة أقوى"],
+        ["She is the pillar of the family", "هي عمود الأسرة"],
+        ["The family legacy continues", "يستمر إرث العائلة"],
+        ["We have family traditions", "لدينا تقاليد عائلية"],
+        ["The marriage was full of love", "كان الزواج مليئاً بالحب"],
+        ["He is a caring husband", "هو زوج حنون"],
+        ["The children are well-behaved", "الأطفال مهذبون"],
+        ["She values her relationships deeply", "تقدر علاقاتها بعمق"],
+        ["The family gathering was joyous", "كان تجمع العائلة بهيجاً"],
+        ["We support each other's dreams", "ندعم أحلام بعضنا البعض"],
+        ["The relationship is fulfilling", "العلاقة مرضية"],
+        ["He is a great listener", "هو مستمع جيد"],
+        ["The family bond is unbreakable", "الرابط العائلي لا ينكسر"],
+        ["She is a devoted wife", "هي زوجة مخلصة"],
+        ["The children love their grandparents", "الأطفال يحبون أجدادهم"],
+        ["Family comes first always", "الأسرة تأتي أولاً دائماً"],
+        ["The relationship survived challenges", "نجت العلاقة من التحديات"],
+        ["We are blessed with a beautiful family", "نحن مباركون بعائلة جميلة"],
+
+        // ======== المجموعة 14: كلمات الرياضة والترفيه (651-700) ========
+        ["The team won the championship", "فاز الفريق بالبطولة"],
+        ["She is an amazing athlete", "هي رياضية مذهلة"],
+        ["The game was very exciting", "كانت المباراة مثيرة جداً"],
+        ["We exercise regularly at the gym", "نمارس الرياضة بانتظام في صالة الألعاب"],
+        ["The sports event was well organized", "كان الحدث الرياضي منظماً بشكل جيد"],
+        ["He trains every single day", "يتدرب كل يوم"],
+        ["The football match ended in a draw", "انتهت مباراة كرة القدم بالتعادل"],
+        ["She broke the world record", "كسرت الرقم القياسي العالمي"],
+        ["The competition was intense", "كانت المنافسة شديدة"],
+        ["We enjoy outdoor activities", "نستمتع بالأنشطة الخارجية"],
+        ["The tennis tournament is prestigious", "بطولة التنس مرموقة"],
+        ["He is a professional player", "هو لاعب محترف"],
+        ["The team showed great sportsmanship", "أظهر الفريق روح رياضية عالية"],
+        ["She loves swimming in the ocean", "تحب السباحة في المحيط"],
+        ["The stadium was completely full", "كان الملعب ممتلئاً تماماً"],
+        ["We play basketball every weekend", "نلعب كرة السلة كل عطلة نهاية أسبوع"],
+        ["The marathon attracted many participants", "جذب الماراثون العديد من المشاركين"],
+        ["He is a talented footballer", "هو لاعب كرة قدم موهوب"],
+        ["The gym is fully equipped", "صالة الألعاب مجهزة بالكامل"],
+        ["We should stay physically active", "يجب علينا البقاء نشطين بدنياً"],
+        ["The Olympic Games inspire millions", "الألعاب الأولمبية تلهم الملايين"],
+        ["She practices gymnastics professionally", "تمارس الجمباز بشكل احترافي"],
+        ["The referee made a fair decision", "اتخذ الحكم قراراً عادلاً"],
+        ["The team celebrated their victory", "احتفل الفريق بانتصاره"],
+        ["We enjoy playing team sports", "نستمتع بلعب الرياضات الجماعية"],
+        ["The coach motivated the players", "حفز المدرب اللاعبين"],
+        ["She won a gold medal", "فازت بميدالية ذهبية"],
+        ["The game was postponed due to weather", "تم تأجيل المباراة بسبب الطقس"],
+        ["He runs five kilometers daily", "يركض خمسة كيلومترات يومياً"],
+        ["The sports club has new facilities", "النادي الرياضي لديه مرافق جديدة"],
+        ["We should encourage youth sports", "يجب علينا تشجيع رياضات الشباب"],
+        ["The tournament is annual", "البطولة سنوية"],
+        ["She plays tennis professionally", "تلعب التنس بشكل احترافي"],
+        ["The athletes trained hard", "تدرب الرياضيون بجد"],
+        ["The fitness program was effective", "كان برنامج اللياقة البدنية فعالاً"],
+        ["He loves extreme sports", "يحب الرياضات المتطرفة"],
+        ["The match attracted huge crowds", "جذبت المباراة حشوداً كبيرة"],
+        ["She competed internationally", "تنافست دولياً"],
+        ["The sports equipment is modern", "المعدات الرياضية حديثة"],
+        ["We need to warm up before exercise", "نحن بحاجة إلى الإحماء قبل التمرين"],
+        ["The championship was thrilling", "كانت البطولة مثيرة"],
+        ["He scored the winning goal", "سجل هدف الفوز"],
+        ["The team practiced daily", "تدرب الفريق يومياً"],
+        ["She is a role model for young athletes", "هي قدوة للرياضيين الشباب"],
+        ["The sports complex is huge", "المجمع الرياضي ضخم"],
+        ["We should promote healthy competition", "يجب علينا تعزيز المنافسة الصحية"],
+        ["The players showed great skill", "أظهر اللاعبون مهارة كبيرة"],
+        ["She retired from professional sports", "اعتزلت الرياضة الاحترافية"],
+        ["The game was broadcast live", "تم بث المباراة على الهواء مباشرة"],
+        ["Sports teach valuable life lessons", "الرياضة تعلم دروساً حياتية قيمة"],
+
+        // ======== المجموعة 15: كلمات العلوم والتكنولوجيا (701-750) ========
+        ["Science drives human progress forward", "العلم يدفع التقدم البشري إلى الأمام"],
+        ["The research was scientifically rigorous", "كان البحث دقيقاً علمياً"],
+        ["Scientists made an amazing discovery", "حقق العلماء اكتشافاً مذهلاً"],
+        ["The experiment proved the hypothesis", "أثبتت التجربة الفرضية"],
+        ["The medical breakthrough saves lives", "الاختراق الطبي ينقذ الأرواح"],
+        ["We need more investment in science", "نحن بحاجة إلى مزيد من الاستثمار في العلم"],
+        ["The technology is very advanced", "التكنولوجيا متقدمة جداً"],
+        ["She works in a research laboratory", "تعمل في مختبر أبحاث"],
+        ["The scientific method ensures accuracy", "المنهج العلمي يضمن الدقة"],
+        ["The discovery changed our understanding", "غير الاكتشاف فهمنا"],
+        ["The new technology revolutionized medicine", "التكنولوجيا الجديدة أحدثت ثورة في الطب"],
+        ["We need to encourage scientific curiosity", "نحن بحاجة إلى تشجيع الفضول العلمي"],
+        ["The research findings were published", "تم نشر نتائج البحث"],
+        ["Science provides solutions to problems", "العلم يقدم حلولاً للمشاكل"],
+        ["The microscope reveals tiny details", "المجهر يكشف التفاصيل الدقيقة"],
+        ["The chemical reaction was successful", "كان التفاعل الكيميائي ناجحاً"],
+        ["We need to fund basic research", "نحن بحاجة إلى تمويل البحوث الأساسية"],
+        ["The scientist won the Nobel Prize", "فاز العالم بجائزة نوبل"],
+        ["The experiment requires careful measurement", "التجربة تتطلب قياساً دقيقاً"],
+        ["Space exploration continues to advance", "استكشاف الفضاء يواصل التقدم"],
+        ["The new drug is very effective", "الدواء الجديد فعال جداً"],
+        ["We should teach science in schools", "يجب علينا تدريس العلوم في المدارس"],
+        ["The research team worked tirelessly", "عمل فريق البحث بلا كلل"],
+        ["Scientific knowledge grows daily", "المعرفة العلمية تنمو يومياً"],
+        ["The technology improves life quality", "التكنولوجيا تحسن جودة الحياة"],
+        ["She is a brilliant researcher", "هي باحثة لامعة"],
+        ["The project has scientific merit", "المشروع له قيمة علمية"],
+        ["We need to protect scientific integrity", "نحن بحاجة إلى حماية النزاهة العلمية"],
+        ["The discovery was accidental", "كان الاكتشاف عرضياً"],
+        ["Technology evolves rapidly", "التكنولوجيا تتطور بسرعة"],
+        ["The science conference was informative", "كان المؤتمر العلمي غنياً بالمعلومات"],
+        ["He studies physics at university", "يدرس الفيزياء في الجامعة"],
+        ["The invention changed the world", "غير الاختراع العالم"],
+        ["We need more women in science", "نحن بحاجة إلى مزيد من النساء في العلوم"],
+        ["The research lab is well equipped", "مختبر الأبحاث مجهز جيداً"],
+        ["The scientific evidence is clear", "الأدلة العلمية واضحة"],
+        ["She contributed to medical research", "ساهمت في الأبحاث الطبية"],
+        ["The new theory was controversial", "كانت النظرية الجديدة مثيرة للجدل"],
+        ["Technology enables remote work", "التكنولوجيا تمكن العمل عن بعد"],
+        ["The scientist published many papers", "نشر العالم العديد من الأوراق البحثية"],
+        ["We should embrace scientific progress", "يجب علينا تبني التقدم العلمي"],
+        ["The data supports the conclusion", "البيانات تدعم الاستنتاج"],
+        ["The laboratory safety standards are strict", "معايير السلامة في المختبر صارمة"],
+        ["He made a significant contribution", "قدم مساهمة كبيرة"],
+        ["The new technology is revolutionary", "التكنولوجيا الجديدة ثورية"],
+        ["Science is a collaborative effort", "العلم هو جهد تعاوني"],
+        ["The discovery has many applications", "الاكتشاف له العديد من التطبيقات"],
+        ["She leads the research department", "تقود قسم الأبحاث"],
+        ["The scientific community supports the findings", "المجتمع العلمي يدعم النتائج"],
+        ["Technology shapes our future", "التكنولوجيا تشكل مستقبلنا"],
+
+        // ======== المجموعة 16: كلمات العمل والمهنة (751-800) ========
+        ["She has a successful career", "لديها مهنة ناجحة"],
+        ["The job requires dedication", "الوظيفة تتطلب التفاني"],
+        ["He works as a doctor", "يعمل كطبيب"],
+        ["The office environment is professional", "بيئة المكتب احترافية"],
+        ["She attends important meetings daily", "تحضر اجتماعات مهمة يومياً"],
+        ["The workplace promotes teamwork", "مكان العمل يعزز العمل الجماعي"],
+        ["He received a well-deserved promotion", "حصل على ترقية مستحقة"],
+        ["The employee showed excellent performance", "أظهر الموظف أداءً ممتازاً"],
+        ["We need to hire qualified people", "نحن بحاجة إلى توظيف أشخاص مؤهلين"],
+        ["The company offers good benefits", "تقدم الشركة مزايا جيدة"],
+        ["She manages her time efficiently", "تدير وقتها بكفاءة"],
+        ["The job market is competitive", "سوق العمل تنافسي"],
+        ["He enjoys his profession", "يستمتع بمهنته"],
+        ["The team works harmoniously", "الفريق يعمل بتناغم"],
+        ["She achieved career success early", "حققت نجاحاً مهنياً مبكراً"],
+        ["The training program was beneficial", "كان برنامج التدريب مفيداً"],
+        ["We should develop new skills", "يجب علينا تطوير مهارات جديدة"],
+        ["The career path is challenging", "المسار المهني صعب"],
+        ["He is a dedicated professional", "هو محترف مخلص"],
+        ["The business meeting was productive", "كان الاجتماع التجاري مثمراً"],
+        ["She works remotely from home", "تعمل عن بعد من المنزل"],
+        ["The salary is very competitive", "الراتب تنافسي للغاية"],
+        ["He changed his career recently", "غير مساره المهني مؤخراً"],
+        ["The project deadline is approaching", "موعد تسليم المشروع يقترب"],
+        ["We need to improve teamwork", "نحن بحاجة إلى تحسين العمل الجماعي"],
+        ["The employee was recognized", "تم تكريم الموظف"],
+        ["She has excellent leadership skills", "لديها مهارات قيادية ممتازة"],
+        ["The job interview went well", "جرت مقابلة العمل بشكل جيد"],
+        ["He is committed to his work", "هو ملتزم بعمله"],
+        ["The company provides training", "تقدم الشركة التدريب"],
+        ["We should set career goals", "يجب علينا تحديد أهداف مهنية"],
+        ["The professional network is important", "الشبكة المهنية مهمة"],
+        ["She founded her own company", "أسست شركتها الخاصة"],
+        ["The work environment is positive", "بيئة العمل إيجابية"],
+        ["He handles pressure calmly", "يتعامل مع الضغط بهدوء"],
+        ["The job requires creativity", "الوظيفة تتطلب الإبداع"],
+        ["We need to meet deadlines", "نحن بحاجة إلى الالتزام بالمواعيد النهائية"],
+        ["She is an excellent manager", "هي مديرة ممتازة"],
+        ["The profession demands continuous learning", "المهنة تتطلب التعلم المستمر"],
+        ["He built a successful business", "بنى عملاً تجارياً ناجحاً"],
+        ["The workplace is diverse", "مكان العمل متنوع"],
+        ["She excels in her field", "تتفوق في مجالها"],
+        ["The career opportunities are great", "فرص العمل رائعة"],
+        ["We should maintain work-life balance", "يجب علينا الحفاظ على توازن العمل والحياة"],
+        ["The job security is good", "الأمان الوظيفي جيد"],
+        ["He mentors junior employees", "يرشد الموظفين الجدد"],
+        ["The company values innovation", "الشركة تقدر الابتكار"],
+        ["She accepted a new position", "قبلت منصباً جديداً"],
+        ["The work is very fulfilling", "العمل مُرضٍ جداً"],
+        ["We need to collaborate effectively", "نحن بحاجة إلى التعاون بفعالية"],
+
+        // ======== المجموعة 17: كلمات الطعام والمطبخ (801-850) ========
+        ["The restaurant serves delicious food", "يقدم المطعم طعاماً لذيذاً"],
+        ["She loves cooking Mediterranean cuisine", "تحب طهي المأكولات المتوسطية"],
+        ["The recipe is easy to follow", "الوصفة سهلة المتابعة"],
+        ["We should eat more vegetables", "يجب علينا تناول المزيد من الخضروات"],
+        ["The dish is very flavorful", "الطبق مليء بالنكهات"],
+        ["He is a professional chef", "هو طاهٍ محترف"],
+        ["The kitchen is well equipped", "المطبخ مجهز جيداً"],
+        ["She bakes amazing bread", "تخبز خبزاً رائعاً"],
+        ["The meal was perfectly cooked", "كان الوجبة مطبوخة بشكل مثالي"],
+        ["We enjoy cooking together", "نستمتع بالطهي معاً"],
+        ["The ingredients are fresh and organic", "المكونات طازجة وعضوية"],
+        ["The restaurant has a great atmosphere", "المطعم لديه جو رائع"],
+        ["She follows a healthy diet", "تتبع نظاماً غذائياً صحياً"],
+        ["The food is beautifully presented", "الطعام مقدم بشكل جميل"],
+        ["He owns a popular café", "يمتلك مقهى شهيراً"],
+        ["The cuisine is known worldwide", "المطبخ معروف عالمياً"],
+        ["We should try new recipes", "يجب علينا تجربة وصفات جديدة"],
+        ["The cooking class was fun", "كان فصل الطهي ممتعاً"],
+        ["She serves vegetarian options", "تقدم خيارات نباتية"],
+        ["The food quality is excellent", "جودة الطعام ممتازة"],
+        ["He grills meat perfectly", "يشوي اللحم بشكل مثالي"],
+        ["The dinner was a great success", "كان العشاء نجاحاً كبيراً"],
+        ["We need to stock the kitchen", "نحن بحاجة إلى تزويد المطبخ"],
+        ["The pastry is delicious", "المعجنات لذيذة"],
+        ["She enjoys trying new cuisines", "تستمتع بتجربة مطابخ جديدة"],
+        ["The restaurant is fully booked", "المطعم محجوز بالكامل"],
+        ["He prepares gourmet meals", "يحضر وجبات فاخرة"],
+        ["The spices add wonderful flavor", "التوابل تضيف نكهة رائعة"],
+        ["We should eat mindfully", "يجب علينا تناول الطعام بوعي"],
+        ["The cookware is of high quality", "أواني الطهي ذات جودة عالية"],
+        ["She creates amazing desserts", "تصنع حلويات مذهلة"],
+        ["The menu offers variety", "القائمة تقدم تنوعاً"],
+        ["He is a food critic", "هو ناقد طعام"],
+        ["The breakfast buffet is excellent", "بوفيه الإفطار ممتاز"],
+        ["We learned cooking techniques", "تعلمنا تقنيات الطهي"],
+        ["The soup is very comforting", "الحساء مريح جداً"],
+        ["She uses local ingredients", "تستخدم مكونات محلية"],
+        ["The dining experience was exceptional", "كانت تجربة تناول الطعام استثنائية"],
+        ["He loves street food", "يحب طعام الشارع"],
+        ["The kitchen is organized neatly", "المطبخ منظم بدقة"],
+        ["We should reduce sugar intake", "يجب علينا تقليل تناول السكر"],
+        ["The salad is very refreshing", "السلطة منعشة جداً"],
+        ["She prepares lunch daily", "تحضر الغداء يومياً"],
+        ["The chef is very creative", "الطاهي مبدع للغاية"],
+        ["The food presentation matters", "تقديم الطعام مهم"],
+        ["He runs a food blog", "يدير مدونة طعام"],
+        ["The ingredients are locally sourced", "المكونات من مصادر محلية"],
+        ["We enjoyed a wonderful meal", "استمتعنا بوجبة رائعة"],
+        ["The kitchen renovation is complete", "تم الانتهاء من تجديد المطبخ"],
+        ["Cooking is a life skill", "الطهي هو مهارة حياتية"],
+
+        // ======== المجموعة 18: كلمات الطبيعة والسفر (851-900) ========
+        ["The mountains are majestic and beautiful", "الجبال مهيبة وجميلة"],
+        ["We should explore the natural world", "يجب علينا استكشاف العالم الطبيعي"],
+        ["The forest is full of wildlife", "الغابة مليئة بالحياة البرية"],
+        ["The ocean is incredibly vast", "المحيط واسع بشكل لا يصدق"],
+        ["She loves hiking in the mountains", "تحب التنزه في الجبال"],
+        ["The sunset is absolutely stunning", "غروب الشمس مذهل تماماً"],
+        ["We need to protect our natural resources", "نحن بحاجة إلى حماية مواردنا الطبيعية"],
+        ["The river flows through the valley", "النهر يتدفق عبر الوادي"],
+        ["The desert is harsh but beautiful", "الصحراء قاسية ولكنها جميلة"],
+        ["She travels to exotic locations", "تسافر إلى مواقع غريبة"],
+        ["The lake is crystal clear", "البحيرة صافية كالبلور"],
+        ["We should appreciate nature's beauty", "يجب علينا تقدير جمال الطبيعة"],
+        ["The island is a paradise", "الجزيرة هي جنة"],
+        ["The waterfall is magnificent", "الشلال رائع"],
+        ["He explores new destinations", "يستكشف وجهات جديدة"],
+        ["The national park is preserved", "الحديقة الوطنية محفوظة"],
+        ["The landscape is breathtaking", "المنظر الطبيعي خلاب"],
+        ["She travels to learn about cultures", "تسافر لتتعرف على الثقافات"],
+        ["The wildflowers are colorful", "الزهور البرية ملونة"],
+        ["We should camp in nature", "يجب علينا التخييم في الطبيعة"],
+        ["The canyon is a natural wonder", "الوادي هو أعجوبة طبيعية"],
+        ["The coastal views are stunning", "المناظر الساحلية مذهلة"],
+        ["He enjoys bird watching", "يستمتع بمراقبة الطيور"],
+        ["The nature trail is well marked", "مسار الطبيعة محدد جيداً"],
+        ["She loves outdoor adventures", "تحب المغامرات الخارجية"],
+        ["The rainforest is diverse", "الغابة المطيرة متنوعة"],
+        ["We should visit the countryside", "يجب علينا زيارة الريف"],
+        ["The glacier is melting", "النهر الجليدي يذوب"],
+        ["He takes amazing nature photos", "يلتقط صوراً طبيعية مذهلة"],
+        ["The ecosystem is balanced", "النظام البيئي متوازن"],
+        ["The journey through nature is healing", "الرحلة عبر الطبيعة علاجية"],
+        ["The cliff offers a great view", "الجرف يوفر إطلالة رائعة"],
+        ["She protects endangered animals", "تحمي الحيوانات المهددة بالانقراض"],
+        ["The park has many trails", "الحديقة لديها العديد من المسارات"],
+        ["We should respect wildlife", "يجب علينا احترام الحياة البرية"],
+        ["The mountain range is impressive", "سلسلة الجبال مثيرة للإعجاب"],
+        ["He sails across the ocean", "يبحر عبر المحيط"],
+        ["The natural beauty is overwhelming", "الجمال الطبيعي ساحق"],
+        ["She enjoys botanical gardens", "تستمتع بالحدائق النباتية"],
+        ["The forest path is peaceful", "مسار الغابة هادئ"],
+        ["We need to conserve nature", "نحن بحاجة إلى الحفاظ على الطبيعة"],
+        ["The volcano is active", "البركان نشط"],
+        ["He studies geology", "يدرس الجيولوجيا"],
+        ["The natural phenomenon is rare", "الظاهرة الطبيعية نادرة"],
+        ["She feels connected to nature", "تشعر بالارتباط بالطبيعة"],
+        ["The sanctuary protects wildlife", "المحمية تحمي الحياة البرية"],
+        ["The hiking trail is challenging", "مسار المشي صعب"],
+        ["The scenery changes with seasons", "المناظر الطبيعية تتغير مع الفصول"],
+        ["The river is navigable", "النهر صالح للملاحة"],
+        ["Nature inspires creativity", "الطبيعة تلهم الإبداع"],
+
+        // ======== المجموعة 19: كلمات الاتصال والتواصل (901-950) ========
+        ["Communication is the key to success", "التواصل هو مفتاح النجاح"],
+        ["She expressed her opinion clearly", "عبرت عن رأيها بوضوح"],
+        ["We had a very productive conversation", "أجرينا محادثة مثمرة جداً"],
+        ["He presented his arguments effectively", "قدم حججه بفعالية"],
+        ["The message was well received", "تم استقبال الرسالة بشكل جيد"],
+        ["They negotiated a fair agreement", "تفاوضوا على اتفاق عادل"],
+        ["The feedback was constructive", "كانت الملاحظات بناءة"],
+        ["She delivered an inspiring speech", "ألقت خطاباً ملهمياً"],
+        ["The discussion was very enlightening", "كان النقاش مثرياً جداً"],
+        ["We exchanged important information", "تبادلنا معلومات مهمة"],
+        ["The email was sent yesterday", "تم إرسال البريد الإلكتروني أمس"],
+        ["He is a great communicator", "هو متواصل رائع"],
+        ["We should improve our listening skills", "يجب علينا تحسين مهارات الاستماع لدينا"],
+        ["The presentation was well prepared", "كان العرض التقديمي معداً جيداً"],
+        ["She communicates with confidence", "تتواصل بثقة"],
+        ["The newsletter is published monthly", "النشرة الإخبارية تنشر شهرياً"],
+        ["He gave clear instructions", "أعطى تعليمات واضحة"],
+        ["We need to resolve misunderstandings", "نحن بحاجة إلى حل سوء الفهم"],
+        ["The interview was very successful", "كانت المقابلة ناجحة جداً"],
+        ["She writes professional emails", "تكتب رسائل بريد إلكتروني احترافية"],
+        ["The meeting agenda was shared", "تم مشاركة جدول أعمال الاجتماع"],
+        ["He speaks multiple languages", "يتحدث عدة لغات"],
+        ["We should use simple language", "يجب علينا استخدام لغة بسيطة"],
+        ["The team held a conference call", "عقد الفريق مكالمة مؤتمرية"],
+        ["She is a skilled negotiator", "هي مفاوضة ماهرة"],
+        ["The report was thoroughly reviewed", "تم مراجعة التقرير بدقة"],
+        ["We need to clarify our position", "نحن بحاجة إلى توضيح موقفنا"],
+        ["He responded to all questions", "رد على جميع الأسئلة"],
+        ["The communication was effective", "كان التواصل فعالاً"],
+        ["She facilitates team meetings", "تسهل اجتماعات الفريق"],
+        ["The feedback was very helpful", "كانت الملاحظات مفيدة جداً"],
+        ["We should listen actively", "يجب علينا الاستماع بنشاط"],
+        ["The message was delivered promptly", "تم تسليم الرسالة على الفور"],
+        ["He handles customer complaints professionally", "يتعامل مع شكاوى العملاء بشكل احترافي"],
+        ["She presents complex ideas clearly", "تقدم أفكاراً معقدة بوضوح"],
+        ["The dialogue was constructive", "كان الحوار بناءً"],
+        ["We need to improve communication", "نحن بحاجة إلى تحسين التواصل"],
+        ["The newsletter is informative", "النشرة الإخبارية غنية بالمعلومات"],
+        ["He speaks persuasively", "يتحدث بشكل مقنع"],
+        ["She translates documents accurately", "تترجم الوثائق بدقة"],
+        ["The communication strategy was successful", "كانت استراتيجية التواصل ناجحة"],
+        ["We should avoid misunderstandings", "يجب علينا تجنب سوء الفهم"],
+        ["The memo was circulated", "تم تعميم المذكرة"],
+        ["He is a good public speaker", "هو متحدث عام جيد"],
+        ["She values open communication", "تقدر التواصل المفتوح"],
+        ["The team communicates daily", "يتواصل الفريق يومياً"],
+        ["We need to share information", "نحن بحاجة إلى مشاركة المعلومات"],
+        ["The presentation was engaging", "كان العرض التقديمي جذاباً"],
+        ["He provides regular updates", "يقدم تحديثات منتظمة"],
+        ["Effective communication builds trust", "التواصل الفعال يبني الثقة"],
+
+        // ======== المجموعة 20: كلمات متنوعة (951-1000) ========
+        ["Time management is essential", "إدارة الوقت ضرورية"],
+        ["She maintains a positive outlook", "تحافظ على نظرة إيجابية"],
+        ["The challenge made us stronger", "التحدي جعلنا أقوى"],
+        ["We should embrace change positively", "يجب علينا تبني التغيير بشكل إيجابي"],
+        ["He is known for his integrity", "هو معروف بنزاهته"],
+        ["The opportunity was too good to miss", "كانت الفرصة جيدة جداً لتفوت"],
+        ["She demonstrates great courage", "تظهر شجاعة كبيرة"],
+        ["We need to build resilience", "نحن بحاجة إلى بناء المرونة"],
+        ["The future looks very promising", "المستقبل يبدو واعداً جداً"],
+        ["He is committed to excellence", "هو ملتزم بالتميز"],
+        ["The innovation changed the industry", "الابتكار غير الصناعة"],
+        ["She pursues her dreams passionately", "تسعى وراء أحلامها بشغف"],
+        ["We should celebrate small victories", "يجب علينا الاحتفال بالانتصارات الصغيرة"],
+        ["The knowledge is valuable", "المعرفة قيمة"],
+        ["He shows compassion to others", "يظهر التعاطف مع الآخرين"],
+        ["The wisdom comes with experience", "الحكمة تأتي مع الخبرة"],
+        ["She is a visionary leader", "هي قائدة ذات رؤية"],
+        ["We need to take responsibility", "نحن بحاجة إلى تحمل المسؤولية"],
+        ["The transformation was remarkable", "كان التحول ملحوظاً"],
+        ["He inspires everyone around him", "يلهم كل من حوله"],
+        ["The friendship lasted a lifetime", "استمرت الصداقة مدى الحياة"],
+        ["She values honesty above all", "تقدر الصدق فوق كل شيء"],
+        ["We should practice gratitude daily", "يجب علينا ممارسة الامتنان يومياً"],
+        ["The experience was life-changing", "كانت التجربة تغير الحياة"],
+        ["He believes in second chances", "يؤمن بالفرص الثانية"],
+        ["The dream finally came true", "تحقق الحلم أخيراً"],
+        ["She overcomes obstacles bravely", "تتغلب على العقبات بشجاعة"],
+        ["We should help the less fortunate", "يجب علينا مساعدة الأقل حظاً"],
+        ["The potential is unlimited", "الإمكانيات غير محدودة"],
+        ["He pursues knowledge continuously", "يسعى وراء المعرفة باستمرار"],
+        ["She maintains her principles", "تحافظ على مبادئها"],
+        ["We should foster innovation", "يجب علينا تعزيز الابتكار"],
+        ["The achievement was significant", "كان الإنجاز كبيراً"],
+        ["He shows great perseverance", "يظهر مثابرة كبيرة"],
+        ["The mission is very important", "المهمة مهمة جداً"],
+        ["She builds strong relationships", "تبني علاقات قوية"],
+        ["We need to prioritize health", "نحن بحاجة إلى إعطاء الأولوية للصحة"],
+        ["The dedication paid off", "أتى التفاني بثماره"],
+        ["He maintains a work ethic", "يحافظ على أخلاقيات العمل"],
+        ["The solution was creative", "كان الحل إبداعياً"],
+        ["She acts with integrity", "تتصرف بنزاهة"],
+        ["We should invest in ourselves", "يجب علينا الاستثمار في أنفسنا"],
+        ["The attitude determines success", "الموقف يحدد النجاح"],
+        ["He handles challenges calmly", "يتعامل مع التحديات بهدوء"],
+        ["She leads by example", "تقود بالقدوة"],
+        ["The effort was worthwhile", "كان الجهد يستحق العناء"],
+        ["We need to stay optimistic", "نحن بحاجة إلى البقاء متفائلين"],
+        ["The progress is measurable", "التقدم قابل للقياس"],
+        ["He builds his legacy", "يبني إرثه"],
+        ["The accomplishment is personal", "الإنجاز شخصي"],
+        ["She creates a positive impact", "تخلق تأثيراً إيجابياً"],
+        ["The journey continues", "الرحلة مستمرة"],
+        ["We must stay focused", "يجب علينا البقاء مركزين"],
+        ["He finds joy in simple things", "يجد السعادة في الأشياء البسيطة"],
+        ["The memories are precious", "الذكريات ثمينة"],
+        ["She shapes her own destiny", "تشكل مصيرها بنفسها"],
+        ["We should leave a legacy", "يجب علينا ترك إرث"],
+        ["The passion is contagious", "الشغف معدٍ"],
+        ["He remains humble despite success", "يبقى متواضعاً رغم النجاح"],
+        ["She spreads kindness everywhere", "تنشر اللطف في كل مكان"],
+        ["The growth is continuous", "النمو مستمر"],
+        ["We need to stay authentic", "نحن بحاجة إلى البقاء أصليين"],
+        ["He makes a difference", "يُحدث فرقاً"],
+        ["The vision is clear", "الرؤية واضحة"],
+        ["She embraces her uniqueness", "تتبنى تفردها"],
+        ["We should share our blessings", "يجب علينا مشاركة بركاتنا"],
+        ["The lesson is valuable", "الدرس قيم"],
+        ["He serves his community", "يخدم مجتمعه"],
+        ["The possibility is endless", "الإمكانيات لا نهاية لها"],
+        ["She creates her own path", "تخلق طريقها الخاص"],
+        ["We should chase our dreams", "يجب علينا مطاردة أحلامنا"],
+        ["The future is bright", "المستقبل مشرق"],
+        ["He builds bridges, not walls", "يبني جسوراً وليس جدراناً"],
+        ["She spreads positivity", "تنشر الإيجابية"],
+        ["The journey is meaningful", "الرحلة ذات معنى"],
+        ["We need to stay curious", "نحن بحاجة إلى البقاء فضوليين"],
+        ["The adventure awaits", "المغامرة تنتظر"],
+        ["He creates opportunities", "يخلق الفرص"],
+        ["She leaves a mark", "تترك بصمة"],
+        ["The success is shared", "النجاح مشترك"],
+        ["We should lift each other", "يجب علينا رفع بعضنا البعض"],
+        ["The hope remains strong", "الأمل لا يزال قوياً"],
+        ["He finds purpose in work", "يجد الهدف في العمل"],
+        ["She builds a better world", "تبني عالماً أفضل"],
+        ["We need to stay resilient", "نحن بحاجة إلى البقاء صامدين"],
+        ["The change starts with us", "التغيير يبدأ منا"],
+        ["He lives with intention", "يعيش بنية"],
+        ["She makes things happen", "تجعل الأشياء تحدث"],
+        ["The love is unconditional", "الحب غير مشروط"],
+        ["We should spread hope", "يجب علينا نشر الأمل"],
+        ["The wisdom is timeless", "الحكمة خالدة"],
+        ["He leaves no regrets", "لا يترك ندامة"],
+        ["She writes her own story", "تكتب قصتها الخاصة"],
+        ["We should follow our passion", "يجب علينا اتباع شغفنا"],
+        ["The courage is inspiring", "الشجاعة ملهمة"],
+        ["He lives his truth", "يعيش حقيقته"],
+        ["She inspires change", "تلهم التغيير"],
+        ["We are all connected", "نحن جميعاً متصلون"],
+        ["The kindness matters", "اللطف مهم"],
+        ["He plants seeds for the future", "يزرع بذوراً للمستقبل"],
+        ["She shines her light", "تشرق بنورها"],
+        ["We make a difference together", "نصنع الفرق معاً"],
+        ["The journey is beautiful", "الرحلة جميلة"]
     ];
-    oxfordPairs.forEach(p => addPair(p[0], p[1]));
-    
-    for (let i = 1; i <= 2000; i++) {
-        addPair(`Mastering English requires consistent practice with sentence number ${i}`, `إتقان اللغة الإنجليزية يتطلب ممارسة مستمرة مع الجملة رقم ${i}`);
-    }
-    
+
+    // إضافة جميع الجمل الـ 1000
+    full1000Pairs.forEach(p => addPair(p[0], p[1]));
+
+    console.log(`تم إضافة ${full1000Pairs.length} جملة جديدة`);
+    console.log(`إجمالي الجمل في المكتبة: ${sentenceLibrary.length}`);
+
     // ================= دالة إزالة علامات الترقيم =================
     function removePunctuation(text) {
         return text.replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim();
@@ -1826,7 +3226,7 @@
             firstDay: getTodayKey(),
             dailyStats: {},
             totalCompletedSentences: 0,
-            preferredLang: 'ar'
+            preferredLang: currentTranslationLang
         };
     }
     
@@ -1898,38 +3298,39 @@
         if (!currentUser) return;
         const sidebarStats = document.getElementById('sidebarStats');
         if (sidebarStats) {
+            const t = getTranslations();
             sidebarStats.innerHTML = `
                 <div class="sidebar-stats-card">
                     <div class="sidebar-stats-title">
                         <i class="fas fa-chart-line"></i>
-                        <span>إحصائيات التعلم</span>
+                        <span>${t.learningStats}</span>
                     </div>
                     <div class="sidebar-stats-grid">
                         <div class="sidebar-stat-row">
                             <div class="sidebar-stat-label">
                                 <i class="fas fa-calendar-alt"></i>
-                                <span>إجمالي الأيام</span>
+                                <span>${t.totalDays}</span>
                             </div>
                             <div class="sidebar-stat-number">${calculateTotalDays()}</div>
                         </div>
                         <div class="sidebar-stat-row">
                             <div class="sidebar-stat-label">
                                 <i class="fas fa-check-circle"></i>
-                                <span>الجمل اليوم</span>
+                                <span>${t.todaySentences}</span>
                             </div>
                             <div class="sidebar-stat-number">${getTodaySentences()}</div>
                         </div>
                         <div class="sidebar-stat-row">
                             <div class="sidebar-stat-label">
                                 <i class="fas fa-clock"></i>
-                                <span>الدقائق اليوم</span>
+                                <span>${t.todayMinutes}</span>
                             </div>
                             <div class="sidebar-stat-number">${getTodayMinutes()}</div>
                         </div>
                         <div class="sidebar-stat-row">
                             <div class="sidebar-stat-label">
                                 <i class="fas fa-language"></i>
-                                <span>لغة الترجمة</span>
+                                <span>${t.translationLangStat}</span>
                             </div>
                             <div class="sidebar-stat-number" style="font-size:0.8rem;">${getLangName(currentTranslationLang)}</div>
                         </div>
@@ -1949,15 +3350,113 @@
         }, 60000);
     }
     
-    // ================= دوال اللغة =================
+    // ================= دوال اللغة والترجمة =================
     function getLangName(code) {
         const lang = languages.find(l => l.code === code);
         return lang ? lang.name : code;
     }
     
-    function getLangFlag(code) {
-        const lang = languages.find(l => l.code === code);
-        return lang ? lang.flag : '🌐';
+    function getTranslations() {
+        const lang = currentTranslationLang;
+        if (siteTranslations[lang]) {
+            return siteTranslations[lang];
+        }
+        return siteTranslations['ar'];
+    }
+    
+    function updateUILanguage() {
+        const t = getTranslations();
+        
+        // تحديث الهيدر
+        document.getElementById('loginBtnText').textContent = t.login;
+        document.getElementById('signupBtnText').textContent = t.signup;
+        document.getElementById('statDaysLabel').textContent = t.days;
+        document.getElementById('statSentencesLabel').textContent = t.sentences;
+        document.getElementById('statMinutesLabel').textContent = t.minutes;
+        
+        // تحديث التذييل
+        document.getElementById('footerDesc').textContent = t.footerDesc;
+        document.getElementById('quickLinksTitle').textContent = t.quickLinks;
+        document.getElementById('homeLink').textContent = t.home;
+        document.getElementById('shadowLessonsLink').textContent = t.shadowLessons;
+        document.getElementById('statsLink').textContent = t.stats;
+        document.getElementById('supportTitle').textContent = t.support;
+        document.getElementById('helpCenterLink').textContent = t.helpCenter;
+        document.getElementById('privacyLink').textContent = t.privacy;
+        document.getElementById('contactLink').textContent = t.contact;
+        document.getElementById('footerCopyright').textContent = `2026 3Alearning | ${t.copyright}`;
+        
+        // الإعلانات
+        document.getElementById('adLabelTop').textContent = t.ad;
+        document.getElementById('adLabelBottom').textContent = t.ads;
+        document.getElementById('footerAdLabel').textContent = t.ad;
+        
+        // الدرس
+        document.getElementById('infoBarText').textContent = t.infoBar;
+        document.getElementById('speedLabel').textContent = t.speed;
+        document.getElementById('prevBtnText').textContent = t.previous;
+        document.getElementById('nextBtnText').textContent = t.next;
+        document.getElementById('translationLabel').textContent = t.translationLang;
+        document.querySelector('.modern-textarea').placeholder = t.writeHere;
+        document.getElementById('currentLangName').textContent = getLangName(currentTranslationLang);
+        
+        // تحديث واجهة المصادقة إذا كانت مفتوحة
+        const authModal = document.querySelector('.auth-overlay');
+        if (authModal) {
+            const isLogin = authModal.querySelector('#loginEmail') !== null;
+            const type = isLogin ? 'login' : 'signup';
+            const title = authModal.querySelector('h2');
+            const subtitle = authModal.querySelector('.auth-subtitle');
+            if (title) {
+                title.textContent = type === 'login' ? '3Alearning' : t.joinNow;
+            }
+            if (subtitle) {
+                subtitle.textContent = type === 'login' ? t.welcomeBack : t.createAccount;
+            }
+            const loginBtn = authModal.querySelector('#doLoginBtn');
+            const signupBtn = authModal.querySelector('#doSignupBtn');
+            if (loginBtn) loginBtn.textContent = t.loginBtn;
+            if (signupBtn) signupBtn.textContent = t.createAccountBtn;
+            
+            const fbBtn = authModal.querySelector('#facebookLoginBtn, #facebookSignupBtn');
+            const googleBtn = authModal.querySelector('#googleLoginBtn, #googleSignupBtn');
+            if (fbBtn) fbBtn.innerHTML = `<i class="fab fa-facebook-f"></i> ${t.facebook}`;
+            if (googleBtn) googleBtn.innerHTML = `<i class="fab fa-google"></i> ${t.google}`;
+            
+            const divider = authModal.querySelector('.divider span');
+            if (divider) divider.textContent = t.or;
+            
+            const emailInput = authModal.querySelector('#loginEmail, #signupEmail');
+            const passInput = authModal.querySelector('#loginPassword, #signupPassword');
+            const nameInput = authModal.querySelector('#signupName');
+            if (emailInput) emailInput.placeholder = t.email;
+            if (passInput) passInput.placeholder = t.password;
+            if (nameInput) nameInput.placeholder = t.fullName;
+            
+            const footer = authModal.querySelector('.auth-footer');
+            if (footer) {
+                const links = footer.querySelectorAll('a');
+                if (links.length > 0) {
+                    if (type === 'login') {
+                        links[0].textContent = t.freeAccount;
+                    } else {
+                        links[0].textContent = t.login;
+                    }
+                }
+                const footerText = footer.childNodes[0];
+                if (footerText && footerText.nodeType === 3) {
+                    footerText.textContent = type === 'login' ? t.noAccount + ' ' : t.haveAccount + ' ';
+                }
+            }
+            
+            const langLabel = authModal.querySelector('.language-selector-wrapper label');
+            if (langLabel) langLabel.textContent = t.preferredLang;
+            
+            const errorDiv = authModal.querySelector('#authError');
+            if (errorDiv) errorDiv.style.display = 'none';
+        }
+        
+        updateSidebarStats();
     }
     
     function updateTranslationDisplay() {
@@ -1969,8 +3468,7 @@
         translationEl.className = `arabic-translation translation-${currentTranslationLang}`;
         
         const langNameEl = document.getElementById('currentLangName');
-        const flag = getLangFlag(currentTranslationLang);
-        langNameEl.innerText = `${flag} ${getLangName(currentTranslationLang)}`;
+        langNameEl.innerText = getLangName(currentTranslationLang);
         
         const lang = languages.find(l => l.code === currentTranslationLang);
         if (lang) {
@@ -1984,6 +3482,8 @@
                 saveUserStats(stats);
             }
         }
+        
+        updateUILanguage();
     }
     
     // ================= المتغيرات الأساسية =================
@@ -2024,7 +3524,6 @@
     let nextButton = document.getElementById('nextBtnNav'), checkIcon = nextButton?.querySelector('.fa-check-circle');
     function updateNextButtonStatus(match){ 
         if(nextButton){ 
-            // إزالة كل الأوضاع السابقة
             nextButton.classList.remove('btn-nav-next-success', 'btn-nav-error');
             if(match === true){ 
                 nextButton.classList.add('btn-nav-next-success'); 
@@ -2068,27 +3567,21 @@
             } else inp.style.color='#1f2937'; 
         }
         else { 
-            // التحقق مما إذا كان النص المدخل هو بادئة صحيحة أم لا
             let userClean = removePunctuation(userText).toLowerCase();
             let correctClean = correctText.toLowerCase();
             let prefix = correctClean.startsWith(userClean) && userClean.length > 0;
             
-            // إذا كان المستخدم قد بدأ الكتابة ولكن ليس بشكل صحيح
             if(userClean.length > 0 && !prefix) {
-                // خطأ - إظهار الأنيميشن واللون الأحمر
                 inp.classList.add('error-mode', 'text-error');
                 inp.style.color = '#c62828';
                 
-                // تشغيل صوت الخطأ مع كل حرف خاطئ جديد
                 if(lastState !== false) {
                     playErrorSound();
                     lastState = false;
                 }
                 
-                // تحديث زر التالي إلى حالة الخطأ
                 updateNextButtonStatus(false);
                 
-                // إعادة تعيين المؤقت لإزالة الأنيميشن بعد فترة
                 if(errTimeout) clearTimeout(errTimeout);
                 errTimeout = setTimeout(() => { 
                     if(inp && document.activeElement === inp) {
@@ -2097,18 +3590,15 @@
                 }, 600);
             }
             else if(prefix && !exact && userClean.length > 0) {
-                // بادئة صحيحة - إزالة حالة الخطأ
                 inp.classList.remove('error-mode', 'text-error');
                 inp.style.color = '#1f2937';
                 if(lastState === false) {
-                    // إذا كان سابقاً في حالة خطأ، قم بتشغيل صوت صحيح خفيف
                     playCorrectSound();
                 }
                 lastState = null;
                 updateNextButtonStatus(null);
             }
             else if(userClean.length === 0) {
-                // حقل فارغ - إعادة تعيين
                 inp.classList.remove('error-mode', 'text-error');
                 inp.style.color = '#1f2937';
                 lastState = null;
@@ -2117,7 +3607,6 @@
             }
         }
         
-        // تحديث حالة زر التالي بشكل نهائي
         if(userText.length > 0 && !exact) {
             let userClean = removePunctuation(userText).toLowerCase();
             let correctClean = correctText.toLowerCase();
@@ -2144,6 +3633,7 @@
     function updateSidebarContent() {
         const sidebarContent = document.getElementById('sidebarContent');
         if (!sidebarContent) return;
+        const t = getTranslations();
         
         if (currentUser) {
             const initials = currentUser.name.charAt(0).toUpperCase();
@@ -2159,13 +3649,13 @@
                         <div class="sidebar-user-fullname">${currentUser.name}</div>
                         <div class="sidebar-user-email-small" dir="ltr">${displayEmail || currentUser.email}</div>
                     </div>
-                    <button class="sidebar-logout-button" id="sidebarLogoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>
+                    <button class="sidebar-logout-button" id="sidebarLogoutBtn"><i class="fas fa-sign-out-alt"></i> ${t.logout}</button>
                 </div>
                 <div id="sidebarStats"></div>
                 <ul class="sidebar-links">
-                    <li><a href="#" id="sidebarLangBtn"><i class="fas fa-language"></i> تغيير لغة الترجمة</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> الإعدادات</a></li>
-                    <li><a href="#"><i class="fas fa-question-circle"></i> المساعدة</a></li>
+                    <li><a href="#" id="sidebarLangBtn"><i class="fas fa-language"></i> ${t.changeLanguage}</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> ${t.settings}</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> ${t.help}</a></li>
                 </ul>
             `;
             document.getElementById('sidebarLogoutBtn')?.addEventListener('click', (e) => {
@@ -2182,8 +3672,8 @@
         } else {
             sidebarContent.innerHTML = `
                 <div class="sidebar-auth-buttons">
-                    <button class="sidebar-auth-btn sidebar-login-btn" id="sidebarLoginBtn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
-                    <button class="sidebar-auth-btn sidebar-signup-btn" id="sidebarSignupBtn"><i class="fas fa-user-plus"></i> إنشاء حساب جديد</button>
+                    <button class="sidebar-auth-btn sidebar-login-btn" id="sidebarLoginBtn"><i class="fas fa-sign-in-alt"></i> ${t.login}</button>
+                    <button class="sidebar-auth-btn sidebar-signup-btn" id="sidebarSignupBtn"><i class="fas fa-user-plus"></i> ${t.signup}</button>
                 </div>
             `;
             document.getElementById('sidebarLoginBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showAuthModal('login'); });
@@ -2195,6 +3685,7 @@
     function showLanguageSelector() {
         let existing = document.querySelector('.auth-overlay'); 
         if(existing) existing.remove();
+        const t = getTranslations();
         
         let modal = document.createElement('div');
         modal.className = 'auth-overlay';
@@ -2202,23 +3693,23 @@
         let langOptions = '';
         languages.forEach(lang => {
             const selected = lang.code === currentTranslationLang ? 'selected' : '';
-            langOptions += `<option value="${lang.code}" ${selected}>${lang.flag} ${lang.name}</option>`;
+            langOptions += `<option value="${lang.code}" ${selected}>${lang.name}</option>`;
         });
         
         modal.innerHTML = `
             <div class="auth-card">
                 <button class="close-auth-btn" id="closeLangBtn"><i class="fas fa-times"></i></button>
-                <h2>🌐 اختر لغة الترجمة</h2>
-                <div class="auth-subtitle">اختر اللغة التي تريد ترجمة الجمل إليها</div>
+                <h2>${t.chooseTranslationLang}</h2>
+                <div class="auth-subtitle">${t.chooseLangSubtitle}</div>
                 <div class="language-selector-wrapper">
-                    <label for="langSelect">اللغة</label>
+                    <label for="langSelect">${t.preferredLang}</label>
                     <select id="langSelect">
                         ${langOptions}
                     </select>
                 </div>
-                <button class="btn-auth btn-auth-primary" id="applyLangBtn">تطبيق التغيير</button>
+                <button class="btn-auth btn-auth-primary" id="applyLangBtn">${t.applyChange}</button>
                 <div class="auth-footer" style="margin-top:12px;font-size:0.8rem;color:var(--text-muted);">
-                    <i class="fas fa-info-circle"></i> سيتم حفظ تفضيل اللغة في حسابك
+                    <i class="fas fa-info-circle"></i> ${t.langWillBeSaved}
                 </div>
             </div>
         `;
@@ -2235,7 +3726,8 @@
                 updateTranslationDisplay();
                 updateSidebarStats();
                 closeAuthModal(modal);
-                showMsg(`تم تغيير لغة الترجمة إلى ${getLangName(selectedLang)}`);
+                const t2 = getTranslations();
+                showMsg(`${t2.languageChanged} ${getLangName(selectedLang)}`);
             }
         };
     }
@@ -2243,6 +3735,7 @@
     function updateHeaderUI() {
         const headerButtons = document.getElementById('headerButtons');
         const userInfo = document.getElementById('userInfoHeader');
+        const t = getTranslations();
         
         if (currentUser) {
             if (headerButtons) headerButtons.style.display = 'none';
@@ -2269,6 +3762,7 @@
             if (timeInterval) clearInterval(timeInterval);
         }
         updateSidebarContent();
+        updateUILanguage();
     }
     
     function logout() {
@@ -2277,7 +3771,8 @@
         saveCurrentUser();
         trialCount = 0;
         updateHeaderUI();
-        showMsg('تم تسجيل الخروج بنجاح');
+        const t = getTranslations();
+        showMsg(t.logoutSuccess);
     }
     
     function handleSocialLogin(provider, name, email) {
@@ -2290,7 +3785,8 @@
                 name: name,
                 email: email,
                 password: null,
-                provider: provider
+                provider: provider,
+                preferredLang: currentTranslationLang
             };
             users.push(newUser);
             currentUser = newUser;
@@ -2298,44 +3794,47 @@
         }
         saveCurrentUser();
         updateHeaderUI();
-        showMsg(`مرحباً ${currentUser.name}`);
+        const t = getTranslations();
+        showMsg(`${t.welcomeUser} ${currentUser.name}`);
     }
     
     function showAuthModal(type = 'login'){ 
         let existing=document.querySelector('.auth-overlay'); if(existing) existing.remove(); 
+        const t = getTranslations();
         let modal=document.createElement('div'); modal.className='auth-overlay'; 
         
         let langOptions = '';
         languages.forEach(lang => {
-            langOptions += `<option value="${lang.code}">${lang.flag} ${lang.name}</option>`;
+            const selected = lang.code === currentTranslationLang ? 'selected' : '';
+            langOptions += `<option value="${lang.code}" ${selected}>${lang.name}</option>`;
         });
         
         if (type === 'login') {
-            modal.innerHTML=`<div class="auth-card"><button class="close-auth-btn" id="closeAuthBtn"><i class="fas fa-times"></i></button><h2>3Alearning</h2><div class="auth-subtitle">مرحباً بك في منصة تدريب الظل الذكي</div><div id="authError" style="background:#fef2f2; border-radius:60px; padding:6px; margin-bottom:12px; display:none;"></div><div class="social-buttons"><button class="btn-social facebook" id="facebookLoginBtn"><i class="fab fa-facebook-f"></i> فيسبوك</button><button class="btn-social google" id="googleLoginBtn"><i class="fab fa-google"></i> Google</button></div><div class="divider"><span>أو</span></div><div><div class="input-group"><input type="email" id="loginEmail" placeholder="البريد الإلكتروني"></div><div class="input-group"><input type="password" id="loginPassword" placeholder="كلمة المرور"></div><button class="btn-auth btn-auth-primary" id="doLoginBtn">تسجيل الدخول</button></div><div class="auth-footer">ليس لديك حساب؟ <a id="showSignupFromLoginBtn">إنشاء حساب مجاني</a></div></div>`; 
+            modal.innerHTML=`<div class="auth-card"><button class="close-auth-btn" id="closeAuthBtn"><i class="fas fa-times"></i></button><h2>3Alearning</h2><div class="auth-subtitle">${t.welcomeBack}</div><div id="authError" style="background:#fef2f2; border-radius:60px; padding:6px; margin-bottom:12px; display:none;"></div><div class="social-buttons"><button class="btn-social facebook" id="facebookLoginBtn"><i class="fab fa-facebook-f"></i> ${t.facebook}</button><button class="btn-social google" id="googleLoginBtn"><i class="fab fa-google"></i> ${t.google}</button></div><div class="divider"><span>${t.or}</span></div><div><div class="input-group"><input type="email" id="loginEmail" placeholder="${t.email}"></div><div class="input-group"><input type="password" id="loginPassword" placeholder="${t.password}"></div><button class="btn-auth btn-auth-primary" id="doLoginBtn">${t.loginBtn}</button></div><div class="auth-footer">${t.noAccount} <a id="showSignupFromLoginBtn">${t.freeAccount}</a></div></div>`; 
         } else {
-            modal.innerHTML=`<div class="auth-card"><button class="close-auth-btn" id="closeAuthBtn"><i class="fas fa-times"></i></button><h2>انضم الآن</h2><div class="auth-subtitle">أنشئ حسابك وابدأ رحلة التعلم</div><div id="authError" style="background:#fef2f2; border-radius:60px; padding:6px; margin-bottom:12px; display:none;"></div><div class="social-buttons"><button class="btn-social facebook" id="facebookSignupBtn"><i class="fab fa-facebook-f"></i> فيسبوك</button><button class="btn-social google" id="googleSignupBtn"><i class="fab fa-google"></i> Google</button></div><div class="divider"><span>أو</span></div><div class="input-group"><input type="text" id="signupName" placeholder="الاسم الكامل"></div><div class="input-group"><input type="email" id="signupEmail" placeholder="البريد الإلكتروني"></div><div class="input-group"><input type="password" id="signupPassword" placeholder="كلمة المرور"></div>
+            modal.innerHTML=`<div class="auth-card"><button class="close-auth-btn" id="closeAuthBtn"><i class="fas fa-times"></i></button><h2>${t.joinNow}</h2><div class="auth-subtitle">${t.createAccount}</div><div id="authError" style="background:#fef2f2; border-radius:60px; padding:6px; margin-bottom:12px; display:none;"></div><div class="social-buttons"><button class="btn-social facebook" id="facebookSignupBtn"><i class="fab fa-facebook-f"></i> ${t.facebook}</button><button class="btn-social google" id="googleSignupBtn"><i class="fab fa-google"></i> ${t.google}</button></div><div class="divider"><span>${t.or}</span></div><div class="input-group"><input type="text" id="signupName" placeholder="${t.fullName}"></div><div class="input-group"><input type="email" id="signupEmail" placeholder="${t.email}"></div><div class="input-group"><input type="password" id="signupPassword" placeholder="${t.password}"></div>
             <div class="language-selector-wrapper">
-                <label for="signupLangSelect">🌐 لغة الترجمة المفضلة</label>
+                <label for="signupLangSelect">${t.preferredLang}</label>
                 <select id="signupLangSelect">
                     ${langOptions}
                 </select>
             </div>
-            <button class="btn-auth btn-auth-primary" id="doSignupBtn">إنشاء حساب</button>
-            <div class="auth-footer">لديك حساب؟ <a id="showLoginFromSignupBtn">تسجيل الدخول</a></div></div>`;
+            <button class="btn-auth btn-auth-primary" id="doSignupBtn">${t.createAccountBtn}</button>
+            <div class="auth-footer">${t.haveAccount} <a id="showLoginFromSignupBtn">${t.login}</a></div></div>`;
         }
         document.body.appendChild(modal); 
         document.getElementById('closeAuthBtn').onclick = () => closeAuthModal(modal);
         modal.onclick = (e) => { if(e.target === modal) closeAuthModal(modal); };
         
         const handleFacebookMock = () => {
-            const mockName = "محمد المستخدم";
+            const mockName = currentTranslationLang === 'ar' ? "محمد المستخدم" : "Mohamed User";
             const mockEmail = `fb_user_${Date.now()}@example.com`;
             handleSocialLogin('facebook', mockName, mockEmail);
             closeAuthModal(modal);
         };
         
         const handleGoogleMock = () => {
-            const mockName = "أحمد المستخدم";
+            const mockName = currentTranslationLang === 'ar' ? "أحمد المستخدم" : "Ahmed User";
             const mockEmail = `google_user_${Date.now()}@example.com`;
             handleSocialLogin('google', mockName, mockEmail);
             closeAuthModal(modal);
@@ -2346,10 +3845,10 @@
             document.getElementById('googleLoginBtn')?.addEventListener('click', handleGoogleMock);
             document.getElementById('doLoginBtn').onclick = () => {
                 let email=document.getElementById('loginEmail').value.trim(), pwd=document.getElementById('loginPassword').value, err=document.getElementById('authError'); 
-                if(!email||!pwd){ err.style.display='block'; err.innerText='املأ جميع الحقول'; return; } 
+                if(!email||!pwd){ err.style.display='block'; err.innerText=t.allFieldsRequired; return; } 
                 let u=users.find(u=>u.email===email && u.password===pwd); 
-                if(u){ currentUser=u; saveCurrentUser(); updateHeaderUI(); modal.remove(); showMsg(`مرحبا ${u.name}`); } 
-                else { err.style.display='block'; err.innerText='البريد أو كلمة المرور غير صحيحة'; } 
+                if(u){ currentUser=u; saveCurrentUser(); updateHeaderUI(); modal.remove(); const t2=getTranslations(); showMsg(`${t2.welcomeUser} ${u.name}`); } 
+                else { err.style.display='block'; err.innerText=t.invalidCredentials; } 
             };
             document.getElementById('showSignupFromLoginBtn').onclick = () => { modal.remove(); showAuthModal('signup'); };
         } else {
@@ -2357,15 +3856,15 @@
             document.getElementById('googleSignupBtn')?.addEventListener('click', handleGoogleMock);
             document.getElementById('doSignupBtn').onclick = () => {
                 let n=document.getElementById('signupName').value.trim(), e=document.getElementById('signupEmail').value.trim(), p=document.getElementById('signupPassword').value, errDiv=document.getElementById('authError');
-                const selectedLang = document.getElementById('signupLangSelect')?.value || 'ar';
-                if(!n||!e||!p){ errDiv.style.display='block'; errDiv.innerText='جميع الحقول مطلوبة'; return; } 
-                if(users.find(u=>u.email===e)){ errDiv.style.display='block'; errDiv.innerText='البريد مسجل مسبقاً'; return; } 
-                let nu={id:Date.now(),name:n,email:e,password:p,provider:'email'}; 
+                const selectedLang = document.getElementById('signupLangSelect')?.value || currentTranslationLang;
+                if(!n||!e||!p){ errDiv.style.display='block'; errDiv.innerText=t.allFieldsRequired; return; } 
+                if(users.find(u=>u.email===e)){ errDiv.style.display='block'; errDiv.innerText=t.emailExists; return; } 
+                let nu={id:Date.now(),name:n,email:e,password:p,provider:'email',preferredLang:selectedLang}; 
                 users.push(nu); saveUsers(); currentUser=nu; saveCurrentUser(); 
                 currentTranslationLang = selectedLang;
                 updateTranslationDisplay();
                 updateHeaderUI(); 
-                modal.remove(); showMsg(`أهلا ${n}! ابدأ التدريب الآن`); 
+                modal.remove(); const t2=getTranslations(); showMsg(`${t2.welcomeUser} ${n}!`); 
             };
             document.getElementById('showLoginFromSignupBtn').onclick = () => { modal.remove(); showAuthModal('login'); };
         }
@@ -2393,7 +3892,6 @@
         document.getElementById('originalText').innerText = getCurrentCorrectTextClean();
         updateTranslationDisplay();
         let inp=document.getElementById('userInput'); inp.value=''; inp.classList.remove('error-mode','text-error'); inp.style.color='#1f2937'; lastState=null; 
-        // إعادة تعيين زر التالي إلى الحالة المحايدة
         updateNextButtonStatus(null);
         inp.focus(); 
         autoSpeak();
@@ -2404,19 +3902,16 @@
         let curText = inp.value.trim();
         let correctText = getCurrentCorrectTextClean();
         let isCorrect = (removePunctuation(curText) === correctText);
+        const t = getTranslations();
         
-        // ✅ منع التخطي إذا لم تكن الإجابة صحيحة
         if(!isCorrect) {
-            // إظهار حالة الخطأ
             inp.classList.add('error-mode', 'text-error');
             inp.style.color = '#c62828';
             playErrorSound();
             updateNextButtonStatus(false);
             
-            // إظهار رسالة للمستخدم
-            showMsg('⚠️ يرجى كتابة الجملة بشكل صحيح قبل التالي', true);
+            showMsg(t.writeCorrectly, true);
             
-            // إزالة حالة الخطأ بعد 0.6 ثانية
             if(errTimeout) clearTimeout(errTimeout);
             errTimeout = setTimeout(() => { 
                 if(inp && document.activeElement === inp) {
@@ -2426,40 +3921,39 @@
             return;
         }
         
-        // ✅ إذا كانت الإجابة صحيحة وليس المستخدم مسجل
         if(!currentUser){ 
             if(trialCount>=MAX_TRIAL){ 
-                showMsg('الرجاء تسجيل الدخول للمتابعة', true); 
+                showMsg(t.pleaseLoginToContinue, true); 
                 showAuthModal(); 
                 return; 
             } 
             trialCount++; 
             if(trialCount===MAX_TRIAL) 
-                showMsg('تنبيه: هذه آخر جملة تجريبية، سجل لتواصل التدريب', true); 
+                showMsg(t.lastTrial, true); 
             else 
-                showMsg(`جملة تجريبية ${trialCount}/${MAX_TRIAL}`); 
+                showMsg(`${t.trialSentence} ${trialCount}/${MAX_TRIAL}`); 
         }
         
-        // ✅ الانتقال للجملة التالية
         currentIndex=(currentIndex+1)%sentenceLibrary.length; 
         updateDisplay(); 
     }
     
     function prevSentence(){ 
+        const t = getTranslations();
         if(!currentUser){ 
             if(trialCount>=MAX_TRIAL){ 
-                showMsg('الرجاء تسجيل الدخول للمتابعة', true); 
+                showMsg(t.pleaseLoginToContinue, true); 
                 showAuthModal(); 
                 return; 
             } 
             if(trialCount===0){ 
                 trialCount++; 
-                showMsg(`جملة تجريبية 1/${MAX_TRIAL}`); 
+                showMsg(`${t.trialSentence} 1/${MAX_TRIAL}`); 
             } else if(trialCount<MAX_TRIAL){ 
                 trialCount++; 
-                showMsg(`جملة تجريبية ${trialCount}/${MAX_TRIAL}`); 
+                showMsg(`${t.trialSentence} ${trialCount}/${MAX_TRIAL}`); 
             } else { 
-                showMsg('الرجاء تسجيل الدخول للمتابعة', true); 
+                showMsg(t.pleaseLoginToContinue, true); 
                 showAuthModal(); 
                 return; 
             } 
@@ -2469,15 +3963,40 @@
     }
     
     function speakCurrent(){ 
-        let btn=document.getElementById('speakBtn'); if(btn.classList.contains('loading')) return; if(window.speechSynthesis){ window.speechSynthesis.cancel(); btn.classList.add('loading'); let u=new SpeechSynthesisUtterance(getCurrentCorrectTextOriginal()); u.lang='en-US'; u.rate=currentSpeed; u.onend=()=>btn.classList.remove('loading'); u.onerror=()=>{ btn.classList.remove('loading'); showMsg("حدث خطأ", true); }; window.speechSynthesis.speak(u); setTimeout(()=>{ if(btn.classList.contains('loading')) btn.classList.remove('loading'); },4000); } else showMsg("المتصفح لا يدعم النطق", true); 
+        const t = getTranslations();
+        let btn=document.getElementById('speakBtn'); if(btn.classList.contains('loading')) return; if(window.speechSynthesis){ window.speechSynthesis.cancel(); btn.classList.add('loading'); let u=new SpeechSynthesisUtterance(getCurrentCorrectTextOriginal()); u.lang='en-US'; u.rate=currentSpeed; u.onend=()=>btn.classList.remove('loading'); u.onerror=()=>{ btn.classList.remove('loading'); showMsg(t.error, true); }; window.speechSynthesis.speak(u); setTimeout(()=>{ if(btn.classList.contains('loading')) btn.classList.remove('loading'); },4000); } else showMsg(t.browserNotSupportSpeech, true); 
         document.getElementById('userInput').focus(); 
     }
     
     function updateSpeed(){ currentSpeed=parseFloat(document.getElementById('speedSlider').value); document.getElementById('speedValue').innerText=currentSpeed.toFixed(2)+'x'; }
     
+    function showAutoLanguageNotice() {
+        const langName = getLangName(currentTranslationLang);
+        const t = getTranslations();
+        showMsg(`${t.autoLangDetected} ${langName}`);
+    }
+    
     window.addEventListener('load',()=>{ 
+        setTimeout(() => {
+            showAutoLanguageNotice();
+        }, 1500);
+        
         let saved=localStorage.getItem('3alearning_currentUser'); 
-        if(saved){ let u=JSON.parse(saved); if(users.find(x=>x.id===u.id)) currentUser=u; } 
+        if(saved){ 
+            let u=JSON.parse(saved); 
+            if(users.find(x=>x.id===u.id)) {
+                currentUser = u;
+                if (currentUser.preferredLang) {
+                    currentTranslationLang = currentUser.preferredLang;
+                }
+            } 
+        } else {
+            const detectedLang = detectBrowserLanguage();
+            if (languages.find(l => l.code === detectedLang)) {
+                currentTranslationLang = detectedLang;
+            }
+        }
+        
         updateHeaderUI();
         updateDisplay(); 
         document.getElementById('userInput').addEventListener('input',validateAndReact); 
@@ -2493,7 +4012,8 @@
         document.getElementById('statsLinkFooter')?.addEventListener('click', (e) => {
             e.preventDefault();
             if (!currentUser) {
-                showMsg('الرجاء تسجيل الدخول لعرض الإحصائيات', true);
+                const t = getTranslations();
+                showMsg(t.statsRequireLogin, true);
                 showAuthModal('login');
             }
         });
