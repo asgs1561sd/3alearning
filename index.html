@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -1661,11 +1662,74 @@
             color: var(--primary-dark);
         }
 
-        /* زر السابق المعطل */
         .btn-nav:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             pointer-events: none;
+        }
+
+        /* تحسينات إضافية للهواتف */
+        @media (max-width: 768px) {
+            .modern-textarea {
+                font-size: 1.1rem;
+                height: 60px;
+                padding: 12px 18px;
+            }
+            .btn-nav {
+                padding: 16px 12px;
+                font-size: 0.9rem;
+                min-height: 54px;
+            }
+            .nav-buttons {
+                gap: 10px;
+            }
+            .text-card {
+                padding: 16px 12px;
+            }
+            .english-sentence {
+                font-size: 1.3rem;
+            }
+            .speed-control input[type="range"] {
+                width: 80px;
+            }
+            .speed-section {
+                padding: 8px 12px;
+                gap: 6px;
+            }
+            .listen-btn {
+                width: 40px;
+                height: 40px;
+            }
+            .listen-btn i {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .english-sentence {
+                font-size: 1.1rem;
+            }
+            .arabic-translation {
+                font-size: 0.85rem;
+            }
+            .btn-nav {
+                font-size: 0.8rem;
+                padding: 12px 8px;
+                min-height: 48px;
+            }
+            .modern-textarea {
+                font-size: 1rem;
+                height: 50px;
+                padding: 10px 14px;
+            }
+            .speed-control input[type="range"] {
+                width: 60px;
+            }
+            .speed-value-badge {
+                font-size: 0.6rem;
+                min-width: 40px;
+                padding: 2px 6px;
+            }
         }
     </style>
     
@@ -3462,9 +3526,6 @@
     function updateNavButtonsState() {
         const prevBtn = document.getElementById('prevBtnNav');
         
-        // زر السابق: يعمل فقط إذا:
-        // 1. تم الضغط على "التالي" مرة واحدة على الأقل (nextPressCount > 0)
-        // 2. وليس في الجملة الأولى (currentIndex > 0)
         if (nextPressCount > 0 && currentIndex > 0) {
             prevBtn.disabled = false;
             prevBtn.style.opacity = '1';
@@ -4016,14 +4077,23 @@
         updateNavButtonsState();
     }
 
-    function nextSentence(){ 
+    function nextSentence(e) { 
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
         let inp = document.getElementById('userInput');
+        if (!inp) return;
+        
         let curText = inp.value.trim();
         let correctText = getCurrentCorrectTextClean();
         let isCorrect = (removePunctuation(curText) === correctText);
         const t = getTranslations();
         
-        // منع الانتقال إذا كانت الكتابة غير صحيحة أو فارغة
+        // إزالة التركيز مؤقتاً لحل مشاكل الهواتف
+        inp.blur();
+        
         if(!isCorrect) {
             inp.classList.add('error-mode', 'text-error');
             inp.style.color = '#c62828';
@@ -4037,10 +4107,10 @@
                 showMsg(t.writeCorrectly, true);
             }
             
-            // هز الصندوق
             inp.style.animation = 'shakeError 0.5s ease-in-out 0s 2';
             setTimeout(() => {
                 inp.style.animation = '';
+                inp.focus();
             }, 600);
             
             if(errTimeout) clearTimeout(errTimeout);
@@ -4053,7 +4123,6 @@
             return;
         }
         
-        // إزالة حالة الخطأ
         inp.classList.remove('error-mode', 'text-error');
         inp.style.color = '#1f2937';
         inp.style.borderColor = '#E2E8F0';
@@ -4072,23 +4141,34 @@
                 showMsg(`${t.trialSentence} ${trialCount}/${MAX_TRIAL}`); 
         }
         
-        // زيادة عداد الضغط على التالي
         nextPressCount++;
-        
         currentIndex=(currentIndex+1)%sentenceLibrary.length; 
         updateDisplay(); 
         updateNavButtonsState();
+        
+        // إعادة التركيز بعد التأخير مع تمرير الصفحة
+        setTimeout(() => {
+            inp.focus();
+            // تمرير إلى حقل الإدخال على الهواتف
+            inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 350);
     }
 
-    function prevSentence(){ 
+    function prevSentence(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
         const t = getTranslations();
         
-        // التحقق: لا يمكن الرجوع إذا لم يتم الضغط على التالي من قبل
-        // أو إذا كنا في الجملة الأولى
         if (nextPressCount === 0 || currentIndex === 0) {
             showMsg(t.cannotGoBack || 'لا يمكنك الرجوع إلى ما قبل البداية', true);
             return;
         }
+        
+        let inp = document.getElementById('userInput');
+        if (inp) inp.blur();
         
         if(!currentUser){ 
             currentIndex=(currentIndex-1+sentenceLibrary.length)%sentenceLibrary.length; 
@@ -4097,17 +4177,42 @@
                 showMsg(t.pleaseLoginToContinue, true);
             }
             updateNavButtonsState();
+            setTimeout(() => {
+                if (inp) {
+                    inp.focus();
+                    inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 350);
             return;
         }
         
         currentIndex=(currentIndex-1+sentenceLibrary.length)%sentenceLibrary.length; 
         updateDisplay(); 
         updateNavButtonsState();
+        
+        setTimeout(() => {
+            if (inp) {
+                inp.focus();
+                inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 350);
     }
 
     function speakCurrent(){ 
         const t = getTranslations();
-        let btn=document.getElementById('speakBtn'); if(btn.classList.contains('loading')) return; if(window.speechSynthesis){ window.speechSynthesis.cancel(); btn.classList.add('loading'); let u=new SpeechSynthesisUtterance(getCurrentCorrectTextOriginal()); u.lang='en-US'; u.rate=currentSpeed; u.onend=()=>btn.classList.remove('loading'); u.onerror=()=>{ btn.classList.remove('loading'); showMsg(t.error, true); }; window.speechSynthesis.speak(u); setTimeout(()=>{ if(btn.classList.contains('loading')) btn.classList.remove('loading'); },4000); } else showMsg(t.browserNotSupportSpeech, true); 
+        let btn=document.getElementById('speakBtn'); 
+        if(btn.classList.contains('loading')) return; 
+        if(window.speechSynthesis){ 
+            window.speechSynthesis.cancel(); 
+            btn.classList.add('loading'); 
+            let u=new SpeechSynthesisUtterance(getCurrentCorrectTextOriginal()); 
+            u.lang='en-US'; 
+            u.rate=currentSpeed; 
+            u.onend=()=>btn.classList.remove('loading'); 
+            u.onerror=()=>{ btn.classList.remove('loading'); showMsg(t.error, true); }; 
+            window.speechSynthesis.speak(u); 
+            setTimeout(()=>{ if(btn.classList.contains('loading')) btn.classList.remove('loading'); },4000); 
+        } else showMsg(t.browserNotSupportSpeech, true); 
         document.getElementById('userInput').focus(); 
     }
 
@@ -4183,6 +4288,8 @@
 
     function validateAndReact(){
         let inp = document.getElementById('userInput');
+        if (!inp) return;
+        
         let userText = inp.value.trim();
         let correctText = getCurrentCorrectTextClean();
         let exact = (removePunctuation(userText) === correctText);
@@ -4206,7 +4313,6 @@
                 inp.style.borderColor = '#E2E8F0';
                 inp.style.animation = '';
             }
-            // إزالة أي أخطاء سابقة
             inp.classList.remove('error-mode', 'text-error');
         }
         else { 
@@ -4215,18 +4321,14 @@
             let prefix = correctClean.startsWith(userClean) && userClean.length > 0;
             
             if(userClean.length > 0 && !prefix) {
-                // الخطأ: كتابة أحرف غير صحيحة
                 inp.classList.add('error-mode', 'text-error');
                 inp.style.color = '#c62828';
                 inp.style.borderColor = '#c62828';
-                
                 if(lastState !== false) {
                     playErrorSound();
                     lastState = false;
                 }
-                
                 updateNextButtonStatus(false);
-                
                 if(errTimeout) clearTimeout(errTimeout);
                 errTimeout = setTimeout(() => { 
                     if(inp && document.activeElement === inp) {
@@ -4236,7 +4338,6 @@
                 }, 600);
             }
             else if(prefix && !exact && userClean.length > 0) {
-                // كتابة صحيحة ولكن غير مكتملة
                 inp.classList.remove('error-mode', 'text-error');
                 inp.style.color = '#1f2937';
                 inp.style.borderColor = '#1CB0F6';
@@ -4256,7 +4357,6 @@
                 updateNextButtonStatus(null);
                 if(errTimeout) clearTimeout(errTimeout);
             } else {
-                // أي حالة أخرى - خطأ
                 inp.classList.add('error-mode', 'text-error');
                 inp.style.color = '#c62828';
                 inp.style.borderColor = '#c62828';
@@ -4348,13 +4448,46 @@
         
         updateHeaderUI();
         updateDisplay(); 
-        document.getElementById('userInput').addEventListener('input',validateAndReact); 
-        document.getElementById('speakBtn').addEventListener('click',speakCurrent); 
-        document.getElementById('speedSlider').addEventListener('input',updateSpeed); 
-        document.getElementById('prevBtnNav').addEventListener('click',prevSentence); 
-        document.getElementById('nextBtnNav').addEventListener('click',nextSentence); 
+        
+        // ربط الأحداث مع تحسين التوافق مع الهواتف
+        const userInput = document.getElementById('userInput');
+        userInput.addEventListener('input', validateAndReact);
+        userInput.addEventListener('keyup', validateAndReact);
+        userInput.addEventListener('change', validateAndReact);
+        
+        // منع السلوك الافتراضي للزر "التالي" لمنع إعادة تحميل الصفحة
+        const nextBtn = document.getElementById('nextBtnNav');
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            nextSentence(e);
+        });
+        
+        // دعم اللمس على الهواتف
+        nextBtn.addEventListener('touchstart', function(e) {
+            // نمنع الحدث الافتراضي للتأكد من عدم حدوث أي تداخل
+            e.preventDefault();
+        }, { passive: false });
+        
+        const prevBtn = document.getElementById('prevBtnNav');
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            prevSentence(e);
+        });
+        prevBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+        
+        document.getElementById('speakBtn').addEventListener('click', speakCurrent); 
+        document.getElementById('speedSlider').addEventListener('input', updateSpeed); 
         updateSpeed(); 
-        document.getElementById('userInput').focus();
+        
+        // التركيز على حقل الإدخال بعد التحميل
+        setTimeout(() => {
+            userInput.focus();
+        }, 500);
+        
         document.getElementById('headerLoginBtn').addEventListener('click', () => showAuthModal('login'));
         document.getElementById('headerSignupBtn').addEventListener('click', () => showAuthModal('signup'));
         document.getElementById('logoutBtnHeader')?.addEventListener('click', logout);
@@ -4401,7 +4534,9 @@
         console.log(`📝 يمكنك تعديل الترجمة بالضغط على زر القلم ✏️`);
         console.log(`🔄 زر السابق يعمل فقط بعد الضغط على "التالي"`);
         console.log(`⚠️ لا يمكن الانتقال للجملة التالية إلا بعد كتابة الجملة بشكل صحيح`);
+        console.log(`📱 تم تحسين التوافق مع الهواتف المحمولة`);
     });
 </script>
 </body>
 </html>
+```
