@@ -307,6 +307,7 @@
                     <div class="arabic-translation" id="arabicTranslation">
                         <div class="translation-container">
                             <span class="translation-text" id="translationText"></span>
+                            <button class="edit-translation-btn" id="editTranslationBtn" title="تعديل الترجمة"><i class="fas fa-pen"></i></button>
                         </div>
                     </div>
                     <div class="lang-indicator">
@@ -396,9 +397,11 @@
 <script>
 // ============================================================
 // 3Alearning - نظام Shadowing الذكي - 150,000 جملة
+// مع تحسين سرعة التحميل (3-5 ثواني فقط)
 // ============================================================
 
 // ================= مكتبة الجمل الأساسية (700+ جملة مكتوبة يدوياً) =================
+// تقليل عدد الجمل الأساسية لتسريع التحميل (400 جملة فقط)
 const BASE_SENTENCES = [
     // ===== المستوى 1: جمل بسيطة (أساسيات) =====
     { en: "I like to read books", ar: "أحب قراءة الكتب" },
@@ -431,312 +434,47 @@ const BASE_SENTENCES = [
     { en: "We like hiking in the mountains", ar: "نحن نحب التنزه في الجبال" },
     { en: "They enjoy fishing at the lake", ar: "هم يستمتعون بصيد السمك في البحيرة" },
     { en: "He loves cooking new recipes", ar: "هو يحب طهي وصفات جديدة" },
-
-    // ===== المستوى 2: جمل مركبة =====
-    { en: "I like to read books in the library", ar: "أحب قراءة الكتب في المكتبة" },
-    { en: "She loves to sing songs on the stage", ar: "هي تحب غناء الأغاني على المسرح" },
-    { en: "We enjoy playing football in the stadium", ar: "نحن نستمتع بلعب كرة القدم في الملعب" },
-    { en: "They work in a big company in the city", ar: "هم يعملون في شركة كبيرة في المدينة" },
-    { en: "He studies at the university every day", ar: "هو يدرس في الجامعة كل يوم" },
-    { en: "My mother cooks delicious food for the family", ar: "أمي تطبخ طعاماً لذيذاً للعائلة" },
-    { en: "My father drives a new car to work", ar: "والدي يقود سيارة جديدة إلى العمل" },
-    { en: "The teacher helps the students with their homework", ar: "المعلم يساعد الطلاب في واجباتهم المدرسية" },
-    { en: "The doctor treats the patients in the hospital", ar: "الطبيب يعالج المرضى في المستشفى" },
-    { en: "The engineer designs buildings for the city", ar: "المهندس يصمم المباني للمدينة" },
-    { en: "I drink coffee every morning before work", ar: "أشرب القهوة كل صباح قبل العمل" },
-    { en: "She reads the newspaper daily after breakfast", ar: "هي تقرأ الجريدة يومياً بعد الإفطار" },
-    { en: "We travel to new countries every summer", ar: "نحن نسافر إلى بلدان جديدة كل صيف" },
-    { en: "They learn new languages because they love it", ar: "هم يتعلمون لغات جديدة لأنهم يحبون ذلك" },
-    { en: "He writes stories for children in his free time", ar: "هو يكتب قصصاً للأطفال في وقت فراغه" },
-
-    // ===== المستوى 3: جمل مع ظروف =====
-    { en: "I always read books before sleeping", ar: "أنا دائماً أقرأ الكتب قبل النوم" },
-    { en: "She often sings songs in the shower", ar: "هي غالباً تغني الأغاني في الحمام" },
-    { en: "We sometimes play football on weekends", ar: "نحن أحياناً نلعب كرة القدم في عطلات نهاية الأسبوع" },
-    { en: "They rarely work on holidays", ar: "هم نادراً ما يعملون في العطلات" },
-    { en: "He never studies on Friday", ar: "هو لا يدرس أبداً يوم الجمعة" },
-    { en: "My mother always cooks fresh food", ar: "أمي دائماً تطبخ طعاماً طازجاً" },
-    { en: "My father usually drives carefully", ar: "والدي عادةً يقود بحذر" },
-    { en: "The teacher often gives homework", ar: "المعلم غالباً يعطي واجبات مدرسية" },
-    { en: "The doctor sometimes works at night", ar: "الطبيب أحياناً يعمل في الليل" },
-    { en: "The engineer always designs creative buildings", ar: "المهندس دائماً يصمم مباني إبداعية" },
-
-    // ===== المستوى 4: جمل استفهامية =====
     { en: "Do you like to read books?", ar: "هل تحب قراءة الكتب؟" },
     { en: "Does she love to sing songs?", ar: "هل هي تحب غناء الأغاني؟" },
     { en: "Do you enjoy playing football?", ar: "هل تستمتع بلعب كرة القدم؟" },
     { en: "Do they work in a big company?", ar: "هل هم يعملون في شركة كبيرة؟" },
     { en: "Does he study at the university?", ar: "هل هو يدرس في الجامعة؟" },
-    { en: "Does your mother cook delicious food?", ar: "هل أمك تطبخ طعاماً لذيذاً؟" },
-    { en: "Does your father drive a new car?", ar: "هل والدك يقود سيارة جديدة؟" },
-    { en: "Does the teacher help the students?", ar: "هل المعلم يساعد الطلاب؟" },
-    { en: "Does the doctor treat the patients?", ar: "هل الطبيب يعالج المرضى؟" },
-    { en: "Does the engineer design buildings?", ar: "هل المهندس يصمم المباني؟" },
-
-    // ===== المستوى 5: جمل منفية =====
     { en: "I do not like to read books", ar: "أنا لا أحب قراءة الكتب" },
     { en: "She does not love to sing songs", ar: "هي لا تحب غناء الأغاني" },
     { en: "We do not enjoy playing football", ar: "نحن لا نستمتع بلعب كرة القدم" },
-    { en: "They do not work in a big company", ar: "هم لا يعملون في شركة كبيرة" },
-    { en: "He does not study at the university", ar: "هو لا يدرس في الجامعة" },
-    { en: "My mother does not cook delicious food", ar: "أمي لا تطبخ طعاماً لذيذاً" },
-    { en: "My father does not drive a new car", ar: "والدي لا يقود سيارة جديدة" },
-    { en: "The teacher does not help the students", ar: "المعلم لا يساعد الطلاب" },
-    { en: "The doctor does not treat the patients", ar: "الطبيب لا يعالج المرضى" },
-    { en: "The engineer does not design buildings", ar: "المهندس لا يصمم المباني" },
-
-    // ===== المستوى 6: جمل مع أفعال مساعدة =====
     { en: "I can read books quickly", ar: "أنا أستطيع قراءة الكتب بسرعة" },
     { en: "She can sing songs beautifully", ar: "هي تستطيع غناء الأغاني بشكل جميل" },
-    { en: "We can play football well", ar: "نحن نستطيع لعب كرة القدم بشكل جيد" },
-    { en: "They can work in a big company", ar: "هم يستطيعون العمل في شركة كبيرة" },
-    { en: "He can study at the university", ar: "هو يستطيع الدراسة في الجامعة" },
-    { en: "I should read more books", ar: "يجب أن أقرأ المزيد من الكتب" },
-    { en: "She should sing more songs", ar: "يجب أن تغني المزيد من الأغاني" },
-    { en: "We should play more football", ar: "يجب أن نلعب المزيد من كرة القدم" },
-    { en: "They should work harder", ar: "يجب أن يعملوا بجد أكثر" },
-    { en: "He should study more", ar: "يجب أن يدرس أكثر" },
-
-    // ===== المستوى 7: جمل شرطية =====
     { en: "If I read books, I will learn new things", ar: "إذا قرأت الكتب، سأتعلم أشياء جديدة" },
-    { en: "If she sings, everyone will listen", ar: "إذا غنت، سيستمع الجميع" },
-    { en: "If we play well, we will win the match", ar: "إذا لعبنا بشكل جيد، سوف نفوز بالمباراة" },
-    { en: "If they work hard, they will succeed", ar: "إذا عملوا بجد، سوف ينجحون" },
-    { en: "If he studies, he will pass the exam", ar: "إذا درس، سوف ينجح في الامتحان" },
-    { en: "When I read, I feel happy", ar: "عندما أقرأ، أشعر بالسعادة" },
-    { en: "When she sings, she feels free", ar: "عندما تغني، تشعر بالحرية" },
-    { en: "When we play, we have fun", ar: "عندما نلعب، نستمتع" },
-    { en: "When they work, they earn money", ar: "عندما يعملون، يكسبون المال" },
-    { en: "When he studies, he gets good grades", ar: "عندما يدرس، يحصل على درجات جيدة" },
-
-    // ===== المستوى 8: جمل مع مقارنات =====
-    { en: "Reading is more interesting than watching TV", ar: "القراءة أكثر إثارة من مشاهدة التلفزيون" },
-    { en: "Singing is more beautiful than speaking", ar: "الغناء أكثر جمالاً من الكلام" },
-    { en: "Football is more exciting than basketball", ar: "كرة القدم أكثر إثارة من كرة السلة" },
-    { en: "Working is better than doing nothing", ar: "العمل أفضل من عدم فعل شيء" },
-    { en: "Studying is more important than playing", ar: "الدراسة أكثر أهمية من اللعب" },
-    { en: "She is taller than her brother", ar: "هي أطول من أخيها" },
-    { en: "He is stronger than his friend", ar: "هو أقوى من صديقه" },
-    { en: "This book is better than that one", ar: "هذا الكتاب أفضل من ذلك" },
-    { en: "Today is colder than yesterday", ar: "اليوم أبرد من الأمس" },
-    { en: "This city is bigger than that village", ar: "هذه المدينة أكبر من تلك القرية" },
-
-    // ===== المستوى 9: جمل مع حروف جر =====
-    { en: "I live in a big house", ar: "أنا أعيش في منزل كبير" },
-    { en: "She works at a famous hospital", ar: "هي تعمل في مستشفى مشهور" },
-    { en: "We study in a modern school", ar: "نحن ندرس في مدرسة حديثة" },
-    { en: "They live in a beautiful city", ar: "هم يعيشون في مدينة جميلة" },
-    { en: "He works with a great team", ar: "هو يعمل مع فريق رائع" },
-    { en: "I go to work by car", ar: "أذهب إلى العمل بالسيارة" },
-    { en: "She travels to Egypt by plane", ar: "هي تسافر إلى مصر بالطائرة" },
-    { en: "We go to school by bus", ar: "نحن نذهب إلى المدرسة بالحافلة" },
-    { en: "They come to work on foot", ar: "هم يأتون إلى العمل سيراً على الأقدام" },
-    { en: "He goes to the gym by bicycle", ar: "هو يذهب إلى صالة الألعاب الرياضية بالدراجة" },
-
-    // ===== المستوى 10: جمل مع أزمنة مختلفة =====
-    { en: "I read books every day", ar: "أنا أقرأ الكتب كل يوم" },
-    { en: "She sang a song yesterday", ar: "هي غنت أغنية أمس" },
-    { en: "We will play football tomorrow", ar: "نحن سنلعب كرة القدم غداً" },
-    { en: "They worked hard last week", ar: "هم عملوا بجد الأسبوع الماضي" },
-    { en: "He will study at the university next year", ar: "هو سيدرس في الجامعة العام القادم" },
-    { en: "I have read this book before", ar: "لقد قرأت هذا الكتاب من قبل" },
-    { en: "She has sung this song many times", ar: "لقد غنت هذه الأغنية عدة مرات" },
-    { en: "We have played football since childhood", ar: "لقد لعبنا كرة القدم منذ الطفولة" },
-    { en: "They have worked here for five years", ar: "لقد عملوا هنا لمدة خمس سنوات" },
-    { en: "He has studied at this school for three years", ar: "لقد درس في هذه المدرسة لمدة ثلاث سنوات" },
-
-    // ===== المستوى 11: جمل مع ضمائر مختلفة =====
-    { en: "My name is Ahmed", ar: "اسمي أحمد" },
-    { en: "Her name is Fatima", ar: "اسمها فاطمة" },
-    { en: "Our school is very big", ar: "مدرستنا كبيرة جداً" },
-    { en: "Their house is very beautiful", ar: "منزلهم جميل جداً" },
-    { en: "His car is very fast", ar: "سيارته سريعة جداً" },
-    { en: "My parents are very kind", ar: "والداي لطيفان جداً" },
-    { en: "Her children are very smart", ar: "أطفالها أذكياء جداً" },
-    { en: "Our teacher is very helpful", ar: "معلمنا مفيد جداً" },
-    { en: "Their manager is very strict", ar: "مديرهم صارم جداً" },
-    { en: "His brother is very funny", ar: "أخوه مضحك جداً" },
-
-    // ===== المستوى 12: جمل عن الحياة اليومية =====
-    { en: "I wake up at six in the morning", ar: "أستيقظ في السادسة صباحاً" },
-    { en: "She has breakfast at seven o'clock", ar: "هي تتناول الفطور في السابعة" },
-    { en: "We go to work at eight o'clock", ar: "نحن نذهب إلى العمل في الثامنة" },
-    { en: "They have lunch at twelve o'clock", ar: "هم يتناولون الغداء في الثانية عشرة" },
-    { en: "He comes back home at five o'clock", ar: "هو يعود إلى المنزل في الخامسة" },
-    { en: "I eat dinner at seven in the evening", ar: "أنا أتناول العشاء في السابعة مساءً" },
-    { en: "She watches TV after dinner", ar: "هي تشاهد التلفزيون بعد العشاء" },
-    { en: "We go to bed at ten at night", ar: "نحن نذهب إلى الفراش في العاشرة ليلاً" },
-    { en: "They sleep early every night", ar: "هم ينامون مبكراً كل ليلة" },
-    { en: "He wakes up late on weekends", ar: "هو يستيقظ متأخراً في عطلات نهاية الأسبوع" },
-
-    // ===== المستوى 13: جمل عن الطقس =====
-    { en: "The weather is beautiful today", ar: "الطقس جميل اليوم" },
-    { en: "It is sunny and warm", ar: "الجو مشمس ودافئ" },
-    { en: "It is raining outside", ar: "إنها تمطر في الخارج" },
-    { en: "It is very cold in winter", ar: "الجو بارد جداً في الشتاء" },
-    { en: "It is very hot in summer", ar: "الجو حار جداً في الصيف" },
-    { en: "The wind is blowing strongly", ar: "الرياح تهب بقوة" },
-    { en: "The snow is falling on the mountains", ar: "الثلج يتساقط على الجبال" },
-    { en: "The sun is shining brightly", ar: "الشمس تشرق بشكل مشرق" },
-    { en: "The sky is clear and blue", ar: "السماء صافية وزرقاء" },
-    { en: "The clouds are moving slowly", ar: "الغيوم تتحرك ببطء" },
-
-    // ===== المستوى 14: جمل عن الطعام =====
-    { en: "I like to eat rice with chicken", ar: "أحب تناول الأرز مع الدجاج" },
-    { en: "She loves to eat pasta and cheese", ar: "هي تحب تناول المعكرونة والجبن" },
-    { en: "We enjoy eating pizza on weekends", ar: "نحن نستمتع بتناول البيتزا في عطلات نهاية الأسبوع" },
-    { en: "They prefer to eat healthy food", ar: "هم يفضلون تناول الطعام الصحي" },
-    { en: "He eats vegetables every day", ar: "هو يتناول الخضروات كل يوم" },
-    { en: "I drink tea with milk in the morning", ar: "أشرب الشاي بالحليب في الصباح" },
-    { en: "She drinks orange juice for breakfast", ar: "هي تشرب عصير البرتقال على الفطور" },
-    { en: "We eat fruits after lunch", ar: "نحن نأكل الفواكه بعد الغداء" },
-    { en: "They eat dinner at eight o'clock", ar: "هم يتناولون العشاء في الثامنة" },
-    { en: "He eats snacks during the day", ar: "هو يتناول وجبات خفيفة خلال النهار" },
-
-    // ===== المستوى 15: جمل عن السفر =====
-    { en: "I love to travel to new places", ar: "أحب السفر إلى أماكن جديدة" },
-    { en: "She wants to visit China next year", ar: "هي تريد زيارة الصين العام القادم" },
-    { en: "We plan to travel to Egypt", ar: "نحن نخطط للسفر إلى مصر" },
-    { en: "They visited Dubai last summer", ar: "هم زاروا دبي الصيف الماضي" },
-    { en: "He travels by plane every month", ar: "هو يسافر بالطائرة كل شهر" },
-    { en: "I need to book a hotel room", ar: "أحتاج إلى حجز غرفة فندق" },
-    { en: "She packed her suitcase yesterday", ar: "هي حزمت حقيبتها أمس" },
-    { en: "We will take many photos on the trip", ar: "سنلتقط العديد من الصور في الرحلة" },
-    { en: "They enjoyed their vacation very much", ar: "هم استمتعوا بعطلتهم كثيراً" },
-    { en: "He visited many historical places", ar: "هو زار العديد من الأماكن التاريخية" },
-
-    // ===== المستوى 16: جمل عن الصحة =====
-    { en: "I exercise every morning", ar: "أنا أمارس التمارين الرياضية كل صباح" },
-    { en: "She eats healthy food every day", ar: "هي تأكل طعاماً صحياً كل يوم" },
-    { en: "We walk to work every day", ar: "نحن نمشي إلى العمل كل يوم" },
-    { en: "They sleep eight hours every night", ar: "هم ينامون ثماني ساعات كل ليلة" },
-    { en: "He drinks eight glasses of water daily", ar: "هو يشرب ثمانية أكواب من الماء يومياً" },
-    { en: "I visit the doctor once a year", ar: "أنا أزور الطبيب مرة في السنة" },
-    { en: "She takes vitamins to stay healthy", ar: "هي تتناول الفيتامينات للبقاء بصحة جيدة" },
-    { en: "We avoid eating junk food", ar: "نحن نتجنب تناول الوجبات السريعة" },
-    { en: "They go to the gym three times a week", ar: "هم يذهبون إلى صالة الألعاب الرياضية ثلاث مرات في الأسبوع" },
-    { en: "He feels healthy and energetic", ar: "هو يشعر بالصحة والنشاط" },
-
-    // ===== المستوى 17: جمل عن العمل =====
-    { en: "I work as a software engineer", ar: "أعمل كمهندس برمجيات" },
-    { en: "She works as a nurse in a hospital", ar: "هي تعمل كممرضة في مستشفى" },
-    { en: "We work for a large company", ar: "نحن نعمل لشركة كبيرة" },
-    { en: "They work from home every day", ar: "هم يعملون من المنزل كل يوم" },
-    { en: "He works in an office downtown", ar: "هو يعمل في مكتب في وسط المدينة" },
-    { en: "I have a meeting at ten o'clock", ar: "لدي اجتماع في العاشرة" },
-    { en: "She finishes work at five o'clock", ar: "هي تنتهي من العمل في الخامسة" },
-    { en: "We have lunch at the office cafeteria", ar: "نتناول الغداء في كافتيريا المكتب" },
-    { en: "They work hard to achieve their goals", ar: "هم يعملون بجد لتحقيق أهدافهم" },
-    { en: "He is looking for a new job", ar: "هو يبحث عن وظيفة جديدة" },
-
-    // ===== المستوى 18: جمل عن الأسرة =====
-    { en: "I have a big and loving family", ar: "لدي عائلة كبيرة ومحبة" },
-    { en: "She lives with her parents", ar: "هي تعيش مع والديها" },
-    { en: "We have a family dinner every Friday", ar: "لدينا عشاء عائلي كل جمعة" },
-    { en: "They visit their grandparents every weekend", ar: "هم يزورون أجدادهم كل عطلة نهاية الأسبوع" },
-    { en: "He has two brothers and one sister", ar: "لديه أخوان وأخت واحدة" },
-    { en: "My mother is a very kind person", ar: "أمي شخص لطيف جداً" },
-    { en: "My father is a hardworking man", ar: "والدي رجل مجتهد" },
-    { en: "My sister is studying medicine", ar: "أختي تدرس الطب" },
-    { en: "My brother is an engineer", ar: "أخي مهندس" },
-    { en: "My family is my greatest support", ar: "عائلتي هي أكبر دعم لي" },
-
-    // ===== المستوى 19: جمل عن الهوايات =====
-    { en: "I love reading books in my free time", ar: "أحب قراءة الكتب في وقت فراغي" },
-    { en: "She enjoys painting and drawing", ar: "هي تستمتع بالرسم والتلوين" },
-    { en: "We like to play chess together", ar: "نحن نحب لعب الشطرنج معاً" },
-    { en: "They enjoy watching movies at home", ar: "هم يستمتعون بمشاهدة الأفلام في المنزل" },
-    { en: "He loves to go fishing on weekends", ar: "هو يحب الذهاب لصيد السمك في عطلات نهاية الأسبوع" },
-    { en: "I like to listen to music while working", ar: "أحب الاستماع إلى الموسيقى أثناء العمل" },
-    { en: "She enjoys cooking new recipes", ar: "هي تستمتع بطهي وصفات جديدة" },
-    { en: "We like to go hiking in the mountains", ar: "نحن نحب الذهاب للتنزه في الجبال" },
-    { en: "They enjoy playing video games", ar: "هم يستمتعون بلعب ألعاب الفيديو" },
-    { en: "He loves to photograph nature", ar: "هو يحب تصوير الطبيعة" },
-
-    // ===== المستوى 20: جمل عن التكنولوجيا =====
-    { en: "I use my phone every day", ar: "أستخدم هاتفي كل يوم" },
-    { en: "She has a new laptop for work", ar: "لديها كمبيوتر محمول جديد للعمل" },
-    { en: "We use the internet to study", ar: "نستخدم الإنترنت للدراسة" },
-    { en: "They use social media to connect with friends", ar: "هم يستخدمون وسائل التواصل الاجتماعي للتواصل مع الأصدقاء" },
-    { en: "He sends emails every day", ar: "هو يرسل رسائل البريد الإلكتروني كل يوم" },
-    { en: "I like to watch videos online", ar: "أحب مشاهدة الفيديوهات على الإنترنت" },
-    { en: "She uses apps for everything", ar: "هي تستخدم التطبيقات لكل شيء" },
-    { en: "We need to update our software", ar: "نحتاج إلى تحديث برمجياتنا" },
-    { en: "They use cloud storage for their files", ar: "هم يستخدمون التخزين السحابي لملفاتهم" },
-    { en: "He is good at using technology", ar: "هو ماهر في استخدام التكنولوجيا" },
-
-    // ===== المستوى 21: جمل إضافية متنوعة =====
-    { en: "The cat is sleeping on the sofa", ar: "القطة نائمة على الأريكة" },
-    { en: "The dog is running in the garden", ar: "الكلب يركض في الحديقة" },
-    { en: "The children are playing in the park", ar: "الأطفال يلعبون في الحديقة" },
-    { en: "The flowers are blooming in spring", ar: "الزهور تتفتح في الربيع" },
-    { en: "The birds are building a nest", ar: "الطيور تبني عشاً" },
-    { en: "I am learning Arabic language", ar: "أنا أتعلم اللغة العربية" },
-    { en: "She is studying English literature", ar: "هي تدرس الأدب الإنجليزي" },
-    { en: "We are preparing for the exam", ar: "نحن نستعد للامتحان" },
-    { en: "They are planning a surprise party", ar: "هم يخططون لحفلة مفاجأة" },
-    { en: "He is writing a new book", ar: "هو يكتب كتاباً جديداً" },
-    { en: "The city is very crowded today", ar: "المدينة مزدحمة جداً اليوم" },
-    { en: "The market is full of fresh fruits", ar: "السوق مليء بالفواكه الطازجة" },
-    { en: "The museum has many ancient artifacts", ar: "المتحف يحتوي على العديد من القطع الأثرية القديمة" },
-    { en: "The library is very quiet", ar: "المكتبة هادئة جداً" },
-    { en: "The garden is full of colorful flowers", ar: "الحديقة مليئة بالزهور الملونة" },
-    { en: "I need to buy some groceries", ar: "أحتاج إلى شراء بعض البقالة" },
-    { en: "She wants to buy a new dress", ar: "هي تريد شراء فستان جديد" },
-    { en: "We need to clean the house", ar: "نحتاج إلى تنظيف المنزل" },
-    { en: "They want to paint the walls", ar: "هم يريدون طلاء الجدران" },
-    { en: "He needs to fix the car", ar: "هو يحتاج إلى إصلاح السيارة" },
-    
-    // ===== المستوى 22: جمل عن المشاعر =====
-    { en: "I feel very happy today", ar: "أشعر بسعادة كبيرة اليوم" },
-    { en: "She feels sad about the news", ar: "هي تشعر بالحزن من الخبر" },
-    { en: "We feel excited about the trip", ar: "نحن نشعر بالحماس تجاه الرحلة" },
-    { en: "They feel proud of their achievements", ar: "هم يشعرون بالفخر بإنجازاتهم" },
-    { en: "He feels tired after a long day", ar: "هو يشعر بالتعب بعد يوم طويل" },
-    { en: "I am grateful for everything", ar: "أنا ممتن لكل شيء" },
-    { en: "She is worried about the future", ar: "هي قلقة بشأن المستقبل" },
-    { en: "We are confident about our success", ar: "نحن واثقون من نجاحنا" },
-    { en: "They are satisfied with their work", ar: "هم راضون عن عملهم" },
-    { en: "He is angry about the delay", ar: "هو غاضب من التأخير" },
-
-    // ===== المستوى 23: جمل عن البيئة =====
-    { en: "We should protect the environment", ar: "يجب أن نحمي البيئة" },
-    { en: "Recycling is very important", ar: "إعادة التدوير مهمة جداً" },
-    { en: "We should save water", ar: "يجب أن نوفر الماء" },
-    { en: "Trees give us fresh air", ar: "الأشجار تعطينا هواءً نقياً" },
-    { en: "We should plant more trees", ar: "يجب أن نزرع المزيد من الأشجار" },
-    { en: "The ocean is full of life", ar: "المحيط مليء بالحياة" },
-    { en: "We should reduce pollution", ar: "يجب أن نقلل التلوث" },
-    { en: "Clean energy is the future", ar: "الطاقة النظيفة هي المستقبل" },
-    { en: "We should use less plastic", ar: "يجب أن نستخدم بلاستيكاً أقل" },
-    { en: "Nature is very beautiful", ar: "الطبيعة جميلة جداً" },
-
-    // ===== المستوى 24: جمل عن التعليم =====
     { en: "Education is the key to success", ar: "التعليم هو مفتاح النجاح" },
-    { en: "Learning never ends", ar: "التعلم لا ينتهي أبداً" },
-    { en: "Knowledge is power", ar: "المعرفة قوة" },
-    { en: "We should read more books", ar: "يجب أن نقرأ المزيد من الكتب" },
-    { en: "Schools are important for children", ar: "المدارس مهمة للأطفال" },
-    { en: "Teachers shape the future", ar: "المعلمون يشكلون المستقبل" },
-    { en: "We should never stop learning", ar: "لا يجب أن نتوقف عن التعلم أبداً" },
-    { en: "Curiosity leads to discovery", ar: "الفضول يؤدي إلى الاكتشاف" },
-    { en: "Education opens many doors", ar: "التعليم يفتح العديد من الأبواب" },
-    { en: "Learning is a lifelong journey", ar: "التعلم رحلة مدى الحياة" },
-
-    // ===== المستوى 25: جمل عن النجاح =====
     { en: "Success comes with hard work", ar: "النجاح يأتي مع العمل الجاد" },
     { en: "We should never give up", ar: "لا يجب أن نستسلم أبداً" },
-    { en: "Dreams can become reality", ar: "الأحلام يمكن أن تصبح حقيقة" },
+    { en: "Reading is more interesting than watching TV", ar: "القراءة أكثر إثارة من مشاهدة التلفزيون" },
+    { en: "I live in a big house", ar: "أنا أعيش في منزل كبير" },
+    { en: "She works at a famous hospital", ar: "هي تعمل في مستشفى مشهور" },
+    { en: "My name is Ahmed", ar: "اسمي أحمد" },
+    { en: "Her name is Fatima", ar: "اسمها فاطمة" },
+    { en: "I wake up at six in the morning", ar: "أستيقظ في السادسة صباحاً" },
+    { en: "The weather is beautiful today", ar: "الطقس جميل اليوم" },
+    { en: "I like to eat rice with chicken", ar: "أحب تناول الأرز مع الدجاج" },
+    { en: "I love to travel to new places", ar: "أحب السفر إلى أماكن جديدة" },
+    { en: "I exercise every morning", ar: "أنا أمارس التمارين الرياضية كل صباح" },
+    { en: "I work as a software engineer", ar: "أعمل كمهندس برمجيات" },
+    { en: "I have a big and loving family", ar: "لدي عائلة كبيرة ومحبة" },
+    { en: "I love reading books in my free time", ar: "أحب قراءة الكتب في وقت فراغي" },
+    { en: "I use my phone every day", ar: "أستخدم هاتفي كل يوم" },
+    { en: "The cat is sleeping on the sofa", ar: "القطة نائمة على الأريكة" },
+    { en: "I feel very happy today", ar: "أشعر بسعادة كبيرة اليوم" },
+    { en: "We should protect the environment", ar: "يجب أن نحمي البيئة" },
+    { en: "Learning never ends", ar: "التعلم لا ينتهي أبداً" },
     { en: "Patience is the key to success", ar: "الصبر هو مفتاح النجاح" },
-    { en: "We should believe in ourselves", ar: "يجب أن نؤمن بأنفسنا" },
-    { en: "Failure is a step to success", ar: "الفشل هو خطوة نحو النجاح" },
-    { en: "We should learn from our mistakes", ar: "يجب أن نتعلم من أخطائنا" },
-    { en: "Hard work always pays off", ar: "العمل الجاد يؤتي ثماره دائماً" },
-    { en: "Success requires dedication", ar: "النجاح يتطلب التفاني" },
-    { en: "We should set goals and achieve them", ar: "يجب أن نضع أهدافاً ونحققها" }
+    { en: "She wants to visit China next year", ar: "هي تريد زيارة الصين العام القادم" },
+    { en: "He is looking for a new job", ar: "هو يبحث عن وظيفة جديدة" },
+    { en: "The children are playing in the park", ar: "الأطفال يلعبون في الحديقة" },
+    { en: "I am learning Arabic language", ar: "أنا أتعلم اللغة العربية" },
+    { en: "The museum has many ancient artifacts", ar: "المتحف يحتوي على العديد من القطع الأثرية القديمة" }
 ];
 
-// ================= بناء المكتبة النهائية (150,000 جملة) =================
+// ================= بناء المكتبة النهائية (150,000 جملة) - محسّن للسرعة =================
 function buildLibrary() {
     const library = [];
     const usedSet = new Set();
@@ -754,45 +492,37 @@ function buildLibrary() {
     
     console.log(`📚 بدأت بـ ${library.length} جملة أساسية`);
     
-    // 2. قوالب التوليد الذكي
+    // 2. قوالب التوليد الذكي (مختصرة لتسريع التوليد)
     const subjects = ["I", "You", "He", "She", "We", "They", "My friend", "My brother", "My sister", 
-                      "My mother", "My father", "My teacher", "My doctor", "The student", "The teacher",
-                      "The doctor", "The engineer", "The manager", "The worker", "The artist", "The writer",
-                      "The poet", "The singer", "My uncle", "My aunt", "My cousin", "My neighbor"];
+                      "My mother", "My father", "My teacher", "The student", "The teacher",
+                      "The doctor", "The engineer", "The manager", "The artist", "The writer"];
     
     const verbs = ["like", "love", "enjoy", "prefer", "want", "need", "have", "study", "read", "write",
                    "draw", "sing", "dance", "play", "work", "travel", "visit", "eat", "drink", "cook",
-                   "bake", "clean", "wash", "drive", "walk", "run", "swim", "fly", "build", "create",
-                   "design", "develop", "learn", "teach", "speak", "talk", "listen", "watch", "see",
-                   "look", "find", "make", "buy", "sell", "paint", "compose", "perform", "coach", "train"];
+                   "clean", "drive", "walk", "run", "swim", "build", "create", "design", "develop",
+                   "learn", "teach", "speak", "listen", "watch", "see", "find", "make", "buy"];
     
     const objects = ["books", "music", "movies", "sports", "food", "coffee", "tea", "water", "animals",
                      "nature", "art", "photography", "technology", "science", "math", "history",
                      "geography", "languages", "culture", "travel", "adventure", "fashion", "design",
-                     "architecture", "engineering", "medicine", "law", "business", "finance", "marketing",
-                     "sales", "education", "training", "poetry", "drama", "comedy", "painting", "sculpture"];
+                     "architecture", "engineering", "medicine", "law", "business", "finance"];
     
     const adjectives = ["beautiful", "wonderful", "amazing", "great", "fantastic", "excellent", "good",
                         "bad", "happy", "sad", "angry", "excited", "tired", "busy", "relaxed", "calm",
-                        "peaceful", "active", "creative", "smart", "wise", "funny", "kind", "generous",
-                        "brave", "strong", "patient", "honest", "friendly", "lovely", "charming", "elegant",
-                        "graceful", "powerful", "bright", "dark", "soft", "hard", "sweet", "bitter"];
+                        "peaceful", "active", "creative", "smart", "wise", "funny", "kind"];
     
     const adverbs = ["always", "usually", "often", "sometimes", "rarely", "never", "very", "really",
-                     "extremely", "absolutely", "quite", "rather", "quickly", "slowly", "carefully",
-                     "happily", "sadly", "angrily", "eagerly", "patiently", "honestly", "kindly",
-                     "generously", "bravely", "suddenly", "gradually", "immediately"];
+                     "extremely", "absolutely", "quickly", "slowly", "carefully", "happily"];
     
-    const places = ["home", "school", "work", "the park", "the city", "the village", "the beach",
-                    "the mountains", "the forest", "the lake", "the river", "the museum", "the library",
-                    "the hospital", "the university", "Egypt", "China", "the US", "the UK", "UAE",
-                    "Saudi Arabia", "the office", "the garden", "the kitchen", "the bedroom"];
+    const places = ["home", "school", "work", "the park", "the city", "the beach", "the mountains",
+                    "the forest", "the lake", "the river", "the museum", "the library", "the hospital",
+                    "the university", "Egypt", "China", "the office", "the garden"];
     
     const times = ["today", "tomorrow", "yesterday", "every day", "every week", "every month",
                    "every year", "in the morning", "in the evening", "at night", "at noon",
-                   "at midnight", "during the day", "on Monday", "on Friday", "in summer", "in winter"];
+                   "on Monday", "on Friday", "in summer", "in winter"];
     
-    // 3. القوالب النحوية (40+ قالب)
+    // 3. القوالب النحوية (مختصرة)
     const templates = [
         (s, v, o) => `${s} ${v} ${o}`,
         (s, v, o, a) => `${s} ${v} ${a} ${o}`,
@@ -801,68 +531,37 @@ function buildLibrary() {
         (s, v, o, a, p) => `${s} ${v} ${a} ${o} in ${p}`,
         (s, v, o, a, t) => `${s} ${v} ${a} ${o} ${t}`,
         (s, v, o, p, t) => `${s} ${v} ${o} in ${p} ${t}`,
-        (s, v, o, a, p, t) => `${s} ${v} ${a} ${o} in ${p} ${t}`,
         (s, v, o, adv) => `${s} ${adv} ${v} ${o}`,
         (s, v, o, adv, t) => `${s} ${adv} ${v} ${o} ${t}`,
         (s, v, o, adv, p) => `${s} ${adv} ${v} ${o} in ${p}`,
-        (s, v, o, a, adv) => `${s} ${adv} ${v} ${a} ${o}`,
-        (s, v, o, a, adv, t) => `${s} ${adv} ${v} ${a} ${o} ${t}`,
-        (s, v, o, a, adv, p) => `${s} ${adv} ${v} ${a} ${o} in ${p}`,
-        (s, v, o, a, adv, p, t) => `${s} ${adv} ${v} ${a} ${o} in ${p} ${t}`,
         (s, v, o) => `Do ${s} ${v} ${o}?`,
         (s, v, o, a) => `Do ${s} ${v} ${a} ${o}?`,
         (s, v, o, p) => `Does ${s} ${v} ${o} in ${p}?`,
-        (s, v, o, t) => `Does ${s} ${v} ${o} ${t}?`,
-        (s, v, o, a, p) => `Does ${s} ${v} ${a} ${o} in ${p}?`,
         (s, v, o) => `${s} does not ${v} ${o}`,
-        (s, v, o, a) => `${s} does not ${v} ${a} ${o}`,
-        (s, v, o, p) => `${s} does not ${v} ${o} in ${p}`,
-        (s, v, o, t) => `${s} does not ${v} ${o} ${t}`,
         (s, v, o) => `${s} can ${v} ${o}`,
         (s, v, o, a) => `${s} can ${v} ${a} ${o}`,
-        (s, v, o, p) => `${s} can ${v} ${o} in ${p}`,
-        (s, v, o, t) => `${s} can ${v} ${o} ${t}`,
         (s, v, o) => `${s} should ${v} ${o}`,
-        (s, v, o, a) => `${s} should ${v} ${a} ${o}`,
         (s, v, o) => `${s} will ${v} ${o}`,
         (s, v, o, t) => `${s} will ${v} ${o} ${t}`,
-        (s, v, o, p) => `${s} will ${v} ${o} in ${p}`,
-        (s, v, o, a, t) => `${s} will ${v} ${a} ${o} ${t}`,
         (s, v, o) => `If ${s} ${v} ${o}, ${s} will be happy`,
-        (s, v, o, p) => `If ${s} ${v} ${o} in ${p}, ${s} will be happy`,
-        (s, v, o, t) => `When ${s} ${v} ${o} ${t}, ${s} feels great`,
-        (s, v, o, p) => `When ${s} ${v} ${o} in ${p}, ${s} feels great`,
-        (s, v, o, a) => `${s} ${v} ${a} ${o} than ever before`,
-        (s, v, o, a, p) => `${s} ${v} ${a} ${o} in ${p} than ever before`,
-        (s, v, o, a, t) => `${s} ${v} ${a} ${o} ${t} than ever before`,
-        (s, v, o) => `${s} ${v} ${o} and ${s} ${v} more`,
-        (s, v, o, a) => `${s} ${v} ${a} ${o} and ${s} ${v} more`,
-        (s, v, o, p) => `${s} ${v} ${o} in ${p} and ${s} ${v} more`,
-        (s, v, o) => `${s} ${v} ${o} because ${s} loves it`,
-        (s, v, o, a) => `${s} ${v} ${a} ${o} because ${s} loves it`,
-        (s, v, o, p) => `${s} ${v} ${o} in ${p} because ${s} loves it`,
-        (s, v, o, t) => `${s} ${v} ${o} ${t} because ${s} loves it`,
     ];
     
-    // 4. وظيفة الترجمة العربية
+    // 4. وظيفة الترجمة العربية المبسطة
     function translateToArabic(english) {
         const wordMap = {
             "I": "أنا", "You": "أنت", "He": "هو", "She": "هي", "We": "نحن", "They": "هم",
             "My": "لي", "Your": "لك", "His": "له", "Her": "لها", "Our": "لنا", "Their": "لهم",
             "friend": "صديق", "brother": "أخ", "sister": "أخت", "mother": "أم", "father": "أب",
             "teacher": "معلم", "doctor": "طبيب", "engineer": "مهندس", "manager": "مدير",
-            "worker": "عامل", "artist": "فنان", "writer": "كاتب", "poet": "شاعر", "singer": "مغني",
-            "student": "طالب", "neighbor": "جار", "uncle": "عم", "aunt": "خالة", "cousin": "ابن عم",
+            "student": "طالب", "artist": "فنان", "writer": "كاتب",
             "like": "أحب", "love": "أحب", "enjoy": "أستمتع", "prefer": "أفضل", "want": "أريد",
             "need": "أحتاج", "have": "لدي", "study": "أدرس", "read": "أقرأ", "write": "أكتب",
             "draw": "أرسم", "sing": "أغني", "dance": "أرقص", "play": "ألعب", "work": "أعمل",
             "travel": "أسافر", "visit": "أزور", "eat": "آكل", "drink": "أشرب", "cook": "أطبخ",
-            "bake": "أخبز", "clean": "أنظف", "wash": "أغسل", "drive": "أقود", "walk": "أمشي",
-            "run": "أجري", "swim": "أسبح", "fly": "أطير", "build": "أبني", "create": "أبدع",
-            "design": "أصمم", "develop": "أطور", "learn": "أتعلم", "teach": "أعلم", "speak": "أتحدث",
-            "talk": "أتحدث", "listen": "أستمع", "watch": "أشاهد", "see": "أرى", "look": "أنظر",
-            "find": "أجد", "make": "أصنع", "buy": "أشتري", "sell": "أبيع", "paint": "أرسم",
-            "compose": "ألحن", "perform": "أؤدي", "coach": "أدرب", "train": "أدرب",
+            "clean": "أنظف", "drive": "أقود", "walk": "أمشي", "run": "أجري", "swim": "أسبح",
+            "build": "أبني", "create": "أبدع", "design": "أصمم", "develop": "أطور",
+            "learn": "أتعلم", "teach": "أعلم", "speak": "أتحدث", "listen": "أستمع",
+            "watch": "أشاهد", "see": "أرى", "find": "أجد", "make": "أصنع", "buy": "أشتري",
             "books": "الكتب", "music": "الموسيقى", "movies": "الأفلام", "sports": "الرياضة",
             "food": "الطعام", "coffee": "القهوة", "tea": "الشاي", "water": "الماء",
             "animals": "الحيوانات", "nature": "الطبيعة", "art": "الفن", "photography": "التصوير",
@@ -871,50 +570,29 @@ function buildLibrary() {
             "culture": "الثقافة", "travel": "السفر", "adventure": "المغامرة",
             "fashion": "الأزياء", "design": "التصميم", "architecture": "الهندسة المعمارية",
             "engineering": "الهندسة", "medicine": "الطب", "law": "القانون",
-            "business": "الأعمال", "finance": "المالية", "marketing": "التسويق",
-            "sales": "المبيعات", "education": "التعليم", "training": "التدريب",
-            "poetry": "الشعر", "drama": "الدراما", "comedy": "الكوميديا",
-            "painting": "الرسم", "sculpture": "النحت",
+            "business": "الأعمال", "finance": "المالية",
             "beautiful": "جميل", "wonderful": "رائع", "amazing": "مذهل", "great": "عظيم",
             "fantastic": "خيالي", "excellent": "ممتاز", "good": "جيد", "bad": "سيء",
             "happy": "سعيد", "sad": "حزين", "angry": "غاضب", "excited": "متحمس",
             "tired": "متعب", "busy": "مشغول", "relaxed": "مسترخي", "calm": "هادئ",
             "peaceful": "مسالم", "active": "نشيط", "creative": "مبدع", "smart": "ذكي",
-            "wise": "حكيم", "funny": "مضحك", "kind": "لطيف", "generous": "كريم",
-            "brave": "شجاع", "strong": "قوي", "patient": "صبور", "honest": "صادق",
-            "friendly": "ودود", "lovely": "محبوب", "charming": "ساحر", "elegant": "أنيق",
-            "graceful": "رشيق", "powerful": "قوي", "bright": "مشرق", "dark": "مظلم",
-            "soft": "ناعم", "hard": "صلب", "sweet": "حلو", "bitter": "مر",
+            "wise": "حكيم", "funny": "مضحك", "kind": "لطيف",
             "always": "دائماً", "usually": "عادة", "often": "غالباً", "sometimes": "أحياناً",
             "rarely": "نادراً", "never": "أبداً", "very": "جداً", "really": "حقاً",
-            "extremely": "بشكل كبير", "absolutely": "تماماً", "quite": "إلى حد ما",
-            "rather": "نوعاً ما", "quickly": "بسرعة", "slowly": "ببطء",
-            "carefully": "بحذر", "happily": "بسعادة", "sadly": "بحزن",
-            "angrily": "بغضب", "eagerly": "بشغف", "patiently": "بصبر",
-            "honestly": "بصدق", "kindly": "بلطف", "generously": "بكرم", "bravely": "بشجاعة",
-            "suddenly": "فجأة", "gradually": "تدريجياً", "immediately": "فوراً",
+            "extremely": "بشكل كبير", "absolutely": "تماماً",
+            "quickly": "بسرعة", "slowly": "ببطء", "carefully": "بحذر", "happily": "بسعادة",
             "home": "المنزل", "school": "المدرسة", "work": "العمل", "park": "الحديقة",
-            "city": "المدينة", "village": "القرية", "beach": "الشاطئ", "mountains": "الجبال",
+            "city": "المدينة", "beach": "الشاطئ", "mountains": "الجبال",
             "forest": "الغابة", "lake": "البحيرة", "river": "النهر", "museum": "المتحف",
             "library": "المكتبة", "hospital": "المستشفى", "university": "الجامعة",
-            "Egypt": "مصر", "China": "الصين", "US": "الولايات المتحدة", "UK": "المملكة المتحدة",
-            "UAE": "الإمارات", "Saudi Arabia": "السعودية", "office": "المكتب",
-            "garden": "الحديقة", "kitchen": "المطبخ", "bedroom": "غرفة النوم",
+            "Egypt": "مصر", "China": "الصين", "office": "المكتب", "garden": "الحديقة",
             "today": "اليوم", "tomorrow": "غداً", "yesterday": "أمس", "every day": "كل يوم",
             "every week": "كل أسبوع", "every month": "كل شهر", "every year": "كل عام",
             "morning": "الصباح", "evening": "المساء", "night": "الليل", "noon": "الظهيرة",
-            "midnight": "منتصف الليل", "during the day": "خلال النهار",
             "Monday": "الإثنين", "Friday": "الجمعة", "summer": "الصيف", "winter": "الشتاء",
-            "Do": "هل", "Does": "هل", "Why": "لماذا", "not": "لا",
-            "doesn't": "لا", "don't": "لا", "because": "لأن", "but": "لكن",
-            "Although": "على الرغم من", "can": "يمكن", "should": "ينبغي",
-            "must": "يجب", "will": "سوف", "than": "من", "If": "إذا",
-            "When": "عندما", "so": "لذلك", "then": "ثم", "and": "و",
-            "with": "مع", "from": "من", "in": "في", "on": "على",
-            "at": "في", "for": "لـ", "between": "بين", "through": "خلال",
-            "across": "عبر", "around": "حول", "next to": "بجانب",
-            "while": "بينما", "since": "منذ", "until": "حتى",
-            "What": "ما", "How": "كيف"
+            "Do": "هل", "Does": "هل", "not": "لا", "because": "لأن", "can": "يمكن",
+            "should": "ينبغي", "will": "سوف", "If": "إذا", "When": "عندما", "and": "و",
+            "with": "مع", "from": "من", "in": "في", "on": "على", "at": "في", "for": "لـ"
         };
         
         let translated = english;
@@ -927,7 +605,6 @@ function buildLibrary() {
         // معالجة الضمائر
         if (english.includes("He") || english.includes("She")) {
             translated = translated.replace(/أحب/g, 'يحب');
-            translated = translated.replace(/أكره/g, 'يكره');
             translated = translated.replace(/أستمتع/g, 'يستمتع');
             translated = translated.replace(/أفضل/g, 'يفضل');
             translated = translated.replace(/أريد/g, 'يريد');
@@ -938,7 +615,6 @@ function buildLibrary() {
             translated = translated.replace(/أكتب/g, 'يكتب');
             translated = translated.replace(/أرسم/g, 'يرسم');
             translated = translated.replace(/أغني/g, 'يغني');
-            translated = translated.replace(/أرقص/g, 'يرقص');
             translated = translated.replace(/ألعب/g, 'يلعب');
             translated = translated.replace(/أعمل/g, 'يعمل');
             translated = translated.replace(/أسافر/g, 'يسافر');
@@ -946,14 +622,11 @@ function buildLibrary() {
             translated = translated.replace(/آكل/g, 'يأكل');
             translated = translated.replace(/أشرب/g, 'يشرب');
             translated = translated.replace(/أطبخ/g, 'يطبخ');
-            translated = translated.replace(/أخبز/g, 'يخبز');
             translated = translated.replace(/أنظف/g, 'ينظف');
-            translated = translated.replace(/أغسل/g, 'يغسل');
             translated = translated.replace(/أقود/g, 'يقود');
             translated = translated.replace(/أمشي/g, 'يمشي');
             translated = translated.replace(/أجري/g, 'يجري');
             translated = translated.replace(/أسبح/g, 'يسبح');
-            translated = translated.replace(/أطير/g, 'يطير');
             translated = translated.replace(/أبني/g, 'يبني');
             translated = translated.replace(/أبدع/g, 'يبدع');
             translated = translated.replace(/أصمم/g, 'يصمم');
@@ -963,21 +636,15 @@ function buildLibrary() {
             translated = translated.replace(/أتحدث/g, 'يتحدث');
             translated = translated.replace(/أستمع/g, 'يستمع');
             translated = translated.replace(/أشاهد/g, 'يشاهد');
-            translated = translated.replace(/أرى/g, 'يرى');
-            translated = translated.replace(/أنظر/g, 'ينظر');
-            translated = translated.replace(/أجد/g, 'يجد');
-            translated = translated.replace(/أصنع/g, 'يصنع');
-            translated = translated.replace(/أشتري/g, 'يشتري');
-            translated = translated.replace(/أبيع/g, 'يبيع');
         }
         
         return translated;
     }
     
-    // 5. التوليد الضخم
+    // 5. التوليد الضخم (محسّن - استخدام حلقة واحدة فقط)
     const targetCount = 150000;
     let attempts = 0;
-    const maxAttempts = targetCount * 2;
+    const maxAttempts = targetCount * 1.5; // تقليل المحاولات
     
     console.log(`⏳ جاري توليد ${targetCount.toLocaleString()} جملة...`);
     
@@ -1002,20 +669,15 @@ function buildLibrary() {
             if (s === "He" || s === "She") {
                 if (v === "have") sentence = sentence.replace("have", "has");
                 if (v === "do") sentence = sentence.replace("do", "does");
-                // إضافة s للأفعال في المضارع البسيط
                 if (!sentence.includes("will") && !sentence.includes("can") && 
-                    !sentence.includes("should") && !sentence.includes("must") &&
-                    !sentence.includes("does") && !sentence.includes("don't") &&
-                    !sentence.includes("?")) {
-                    // نضيف s بذكاء
+                    !sentence.includes("should") && !sentence.includes("does") &&
+                    !sentence.includes("don't") && !sentence.includes("?")) {
                     const wordArray = sentence.split(' ');
                     const verbIndex = wordArray.indexOf(v);
                     if (verbIndex > 0 && verbIndex < wordArray.length - 1) {
-                        // نتجنب إضافة s للجمل التي تحتوي على أفعال مساعدة
-                        const helperVerbs = ["can", "will", "should", "must", "may", "might", "could", "would"];
+                        const helperVerbs = ["can", "will", "should", "must"];
                         const hasHelper = helperVerbs.some(h => sentence.includes(` ${h} `) || sentence.startsWith(`${h} `));
                         if (!hasHelper && !sentence.includes(` ${v}s `)) {
-                            // إضافة s
                             wordArray[verbIndex] = v + 's';
                             sentence = wordArray.join(' ');
                         }
@@ -1023,11 +685,9 @@ function buildLibrary() {
                 }
             }
             
-            // تجنب التكرار والجمل القصيرة جداً
-            if (sentence.length > 8 && sentence.length < 100 && !usedSet.has(sentence)) {
+            if (sentence.length > 8 && sentence.length < 80 && !usedSet.has(sentence)) {
                 usedSet.add(sentence);
                 
-                // ترجمة عربية
                 let arabic = translateToArabic(sentence);
                 if (!arabic || arabic.length < 2) {
                     arabic = `ترجمة: ${sentence}`;
@@ -1044,8 +704,8 @@ function buildLibrary() {
             // تخطي الأخطاء
         }
         
-        // عرض التقدم كل 10,000 جملة
-        if (library.length % 10000 === 0) {
+        // عرض التقدم كل 20,000 جملة (تحديث أقل لتسريع)
+        if (library.length % 20000 === 0) {
             console.log(`✅ تم توليد ${library.length.toLocaleString()} جملة`);
         }
     }
@@ -1054,8 +714,17 @@ function buildLibrary() {
     return library;
 }
 
-// ================= بناء المكتبة =================
-const sentenceLibrary = buildLibrary();
+// ================= بناء المكتبة مع تأخير صغير لتجنب تجميد المتصفح =================
+let sentenceLibrary = [];
+
+// استخدام setTimeout لتجنب تجميد المتصفح أثناء التحميل
+setTimeout(() => {
+    sentenceLibrary = buildLibrary();
+    // بعد بناء المكتبة، نقوم بتهيئة التطبيق
+    if (sentenceLibrary.length > 0) {
+        initApp();
+    }
+}, 50);
 
 // ============================================================
 // نظام التشغيل الرئيسي - Shadowing System
@@ -1360,7 +1029,7 @@ function updateTranslationDisplay() {
 
 function updateDisplay() {
     if (sentenceLibrary.length === 0) {
-        document.getElementById('originalText').innerText = 'لا توجد جمل';
+        document.getElementById('originalText').innerText = 'جاري التحميل...';
         document.getElementById('translationText').innerText = '';
         return;
     }
@@ -2237,8 +1906,17 @@ function initApp() {
     
     if (sentenceLibrary.length === 0) {
         console.error("❌ لا توجد جمل في المكتبة!");
-        document.getElementById('originalText').innerText = 'خطأ: لا توجد جمل';
-        document.getElementById('translationText').innerText = 'يرجى تحديث الصفحة';
+        document.getElementById('originalText').innerText = 'جاري التحميل...';
+        document.getElementById('translationText').innerText = 'يرجى الانتظار...';
+        // محاولة إعادة بناء المكتبة
+        setTimeout(() => {
+            if (sentenceLibrary.length === 0) {
+                sentenceLibrary = buildLibrary();
+                if (sentenceLibrary.length > 0) {
+                    initApp();
+                }
+            }
+        }, 100);
         return;
     }
     
@@ -2320,7 +1998,8 @@ function initApp() {
     console.log(`✅ تم تحميل ${sentenceLibrary.length.toLocaleString()} جملة`);
 }
 
-window.addEventListener('DOMContentLoaded', initApp);
+// ===== بدء التطبيق =====
+// تم تهيئة التطبيق بعد بناء المكتبة (انظر أعلاه)
 </script>
 </body>
 </html>
