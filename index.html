@@ -25,7 +25,78 @@
         body { font-family: 'Tajawal', sans-serif; background: var(--bg-light); min-height: 100vh; overflow-x: hidden; display: flex; flex-direction: column; width: 100%; }
         #appContent { flex: 1; display: flex; flex-direction: column; width: 100%; }
         .main-content { flex: 1; max-width: 880px; margin: 24px auto; padding: 0 24px 40px; width: 100%; }
-        
+
+        /* ===== صفحة التحميل البسيطة ===== */
+        #loadingPage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loadingPage.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loading-logo {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #000000;
+            margin-bottom: 16px;
+            letter-spacing: -2px;
+        }
+        .loading-logo span {
+            color: #000000;
+        }
+        .loading-bar-container {
+            width: 280px;
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .loading-progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e8ecf0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .loading-progress-bar .fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        .loading-progress-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .loading-desc {
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+            max-width: 320px;
+            line-height: 1.5;
+            opacity: 0.7;
+        }
+        .loading-desc i {
+            color: var(--primary);
+            margin-left: 4px;
+        }
+
         /* ===== أنماط الإعدادات ===== */
         .settings-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 1001; padding: 20px; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -48,7 +119,7 @@
         .btn-settings-primary:active { transform: scale(0.97); }
         .settings-footer { margin-top: 16px; font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px; }
         .settings-footer i { color: var(--primary); }
-        
+
         /* ===== أنماط المصادقة ===== */
         .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 1001; padding: 20px; }
         .auth-card { background: var(--white); border-radius: 32px; padding: 40px 32px; width: 100%; max-width: 460px; text-align: center; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.15); border: 1px solid var(--border); position: relative; max-height: 95vh; overflow-y: auto; }
@@ -74,7 +145,7 @@
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
         .divider span { margin: 0 12px; }
         .auth-footer a { color: var(--secondary); font-weight: bold; cursor: pointer; text-decoration: underline; }
-        
+
         /* ===== الهيدر ===== */
         .duolingo-header { background: var(--white); border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; width: 100%; }
         .header-container { max-width: 1280px; margin: 0 auto; padding: 12px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; width: 100%; }
@@ -95,7 +166,7 @@
         .user-name { font-weight: 600; color: var(--text-dark); font-size: 0.9rem; }
         .logout-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 6px; border-radius: 50%; transition: all 0.2s; }
         .logout-btn:hover { color: var(--error); background: #fef2f2; }
-        
+
         /* ===== السايد بار ===== */
         .sidebar-overlay { position: fixed; top: 0; right: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1002; visibility: hidden; opacity: 0; transition: all 0.3s; }
         .sidebar-overlay.active { visibility: visible; opacity: 1; }
@@ -130,7 +201,7 @@
         .sidebar-login-btn { background: transparent; border: 1.5px solid var(--secondary); color: var(--secondary); }
         .sidebar-signup-btn { background: var(--primary); border: none; color: white; }
         .sidebar-auth-btn:active { transform: scale(0.97); }
-        
+
         @media (max-width: 768px) {
             .menu-btn { display: flex; }
             .header-buttons { display: none !important; }
@@ -157,9 +228,11 @@
             .settings-card { padding: 32px 20px 24px; }
             .settings-card h2 { font-size: 1.6rem; }
             .close-settings-btn { top: 12px; left: 12px; width: 32px; height: 32px; font-size: 1rem; }
+            .loading-logo { font-size: 2.8rem; }
+            .loading-bar-container { width: 220px; }
         }
         @media (min-width: 769px) { .menu-btn { display: none; } .sidebar-overlay { display: none; } .header-buttons { display: flex; } .header-stats { display: flex; } }
-        
+
         /* ===== المحتوى الرئيسي ===== */
         .ad-container { text-align: center; margin: 20px auto; overflow: hidden; background: var(--ad-bg); border-radius: 20px; border: 1px solid var(--ad-border); padding: 12px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .ad-container-top { max-width: 880px; margin-top: 0; margin-bottom: 20px; }
@@ -170,7 +243,7 @@
         ins.adsbymuslim { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; background: transparent; text-align: center; }
         .ad-container:empty { display: none; }
         .footer-ad { max-width: 880px; margin: 0 auto 24px auto; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 20px; text-align: center; width: 100%; }
-        
+
         .lesson-card { background: var(--white); border-radius: 28px; overflow: hidden; box-shadow: var(--shadow-md); }
         .lesson-body { padding: 28px 24px; }
         .info-wrapper { display: flex; justify-content: center; margin-bottom: 24px; }
@@ -192,15 +265,14 @@
         .listen-btn.loading { pointer-events: none; }
         .listen-btn.loading i { display: none; }
         .listen-btn.loading::after { content: ""; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid var(--white); border-radius: 50%; animation: spinLoader 0.7s linear infinite; display: block; }
-        @keyframes spinLoader { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
+
         .write-area { margin-bottom: 24px; }
         .modern-textarea { width: 100%; height: 56px; padding: 14px 24px; font-size: 1rem; font-family: 'Tajawal', monospace; border-radius: 60px; background: #fafbfc; transition: all 0.2s; resize: none; caret-color: var(--secondary); font-weight: 500; direction: ltr; text-align: left; line-height: 1.4; color: var(--text-dark); border: 1.5px solid #E2E8F0; }
         .modern-textarea:focus { outline: none; border-color: var(--secondary); background: var(--white); }
         .modern-textarea.error-mode { border-color: var(--error) !important; background-color: #fef2f2; animation: shakeError 0.5s ease-in-out 0s 1; }
         .modern-textarea.text-error { color: #c62828; }
         @keyframes shakeError { 0%,100% { transform: translateX(0); } 10% { transform: translateX(-10px); } 30% { transform: translateX(10px); } 50% { transform: translateX(-6px); } 70% { transform: translateX(6px); } 90% { transform: translateX(-3px); } }
-        
+
         .nav-buttons { display: flex; gap: 16px; align-items: center; }
         .btn-nav { flex: 1; background: #f8fafc; padding: 14px; border-radius: 60px; font-weight: 700; font-family: 'Tajawal', sans-serif; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; transition: all 0.2s; color: var(--text-muted); border: 1.5px solid #E2E8F0; }
         .btn-nav:active { transform: scale(0.97); }
@@ -209,14 +281,14 @@
         .btn-nav-next-success i.fa-check-circle { display: inline-block !important; }
         .btn-nav-error { background: var(--error) !important; border-color: var(--error) !important; color: white !important; }
         .btn-nav:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-        
+
         .trial-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--secondary); color: white; padding: 12px 28px; border-radius: 60px; font-size: 0.85rem; font-weight: 500; z-index: 1100; opacity: 0; transition: all 0.25s; pointer-events: none; backdrop-filter: blur(8px); white-space: nowrap; }
         @media (max-width: 500px) { .trial-toast { white-space: normal; width: 90%; text-align: center; font-size: 0.75rem; } .speed-control input[type="range"] { max-width: 80px; } .speed-value-badge { padding: 2px 8px; font-size: 0.65rem; min-width: 45px; } .listen-btn { width: 34px; height: 34px; } .listen-btn i { font-size: 0.9rem; } }
         .trial-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-        
+
         .sentence-count { font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; text-align: center; }
         .sentence-count strong { color: var(--primary-dark); }
-        
+
         .lang-indicator { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 8px 16px; background: #f8fafc; border-radius: 60px; font-size: 0.8rem; color: var(--text-muted); justify-content: center; }
         .lang-indicator i { color: var(--primary); }
         .lang-indicator .lang-name { font-weight: 700; color: var(--text-dark); }
@@ -228,7 +300,7 @@
         .translation-edit-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(88,204,113,0.2); }
         .translation-ar { color: var(--primary-dark) !important; }
         .translation-zh { color: #E67E22 !important; }
-        
+
         /* ===== الفوتر ===== */
         .professional-footer { background: #1a2a3a; color: #9ca3af; padding: 48px 32px 28px; margin-top: 48px; direction: rtl; width: 100%; }
         .footer-container { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
@@ -249,13 +321,38 @@
         .language-selector-wrapper label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
         .language-selector-wrapper select { width: 100%; padding: 14px 20px; border: 1.5px solid var(--border); border-radius: 60px; font-size: 1rem; font-family: 'Tajawal', sans-serif; background: var(--white); transition: 0.2s; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237E8C8D' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 20px center; padding-left: 44px; cursor: pointer; }
         .language-selector-wrapper select:focus { outline: none; border-color: var(--secondary); }
+
+        .hidden-content {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .visible-content {
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity 0.5s ease;
+        }
     </style>
-    
+
     <script async src="https://muslimadnetwork.com/ads/loader.js"></script>
 </head>
 <body>
 
-<div id="appContent">
+<!-- ===== صفحة التحميل البسيطة ===== -->
+<div id="loadingPage">
+    <div class="loading-logo">3A<span>learning</span></div>
+    <div class="loading-bar-container">
+        <div class="loading-progress-bar">
+            <div class="fill" id="loadingProgressFill"></div>
+        </div>
+        <div class="loading-progress-text" id="loadingProgressText">0%</div>
+    </div>
+    <div class="loading-desc">
+        <i class="fas fa-graduation-cap"></i>
+        منصة تدريب الظل الذكي لتعلم الإنجليزية
+    </div>
+</div>
+
+<div id="appContent" class="hidden-content">
     <!-- ===== الهيدر ===== -->
     <div class="duolingo-header">
         <div class="header-container">
@@ -303,10 +400,10 @@
                     <div class="info-bar"><span id="infoBarText">استمع، ثم اكتب النص كما سمعته بدقة</span></div>
                 </div>
                 <div class="text-card">
-                    <div class="english-sentence" id="originalText">جاري التحميل...</div>
+                    <div class="english-sentence" id="originalText">⏳ جاري التحميل...</div>
                     <div class="arabic-translation" id="arabicTranslation">
                         <div class="translation-container">
-                            <span class="translation-text" id="translationText"></span>
+                            <span class="translation-text" id="translationText">⏳ يرجى الانتظار...</span>
                             <button class="edit-translation-btn" id="editTranslationBtn" title="تعديل الترجمة"><i class="fas fa-pen"></i></button>
                         </div>
                     </div>
@@ -316,7 +413,7 @@
                         <span class="lang-name" id="currentLangName">العربية</span>
                     </div>
                 </div>
-                
+
                 <div class="speed-section">
                     <div class="speed-control">
                         <i class="fas fa-tachometer-alt"></i>
@@ -326,11 +423,11 @@
                     <div class="speed-value-badge" id="speedValue">0.90x</div>
                     <button class="listen-btn" id="speakBtn" aria-label="استماع"><i class="fas fa-volume-up"></i></button>
                 </div>
-                
+
                 <div class="write-area">
                     <textarea id="userInput" class="modern-textarea" placeholder="اكتب الجملة هنا" autofocus></textarea>
                 </div>
-                
+
                 <div class="nav-buttons">
                     <button class="btn-nav" id="prevBtnNav" disabled><i class="fas fa-chevron-right"></i> <span id="prevBtnText">السابق</span></button>
                     <button class="btn-nav" id="nextBtnNav"><span id="nextBtnText">التالي</span> <i class="fas fa-chevron-left"></i> <i class="fas fa-check-circle" style="display: none; margin-right: 5px;"></i></button>
@@ -342,7 +439,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- ===== إعلان سفلي ===== -->
     <div class="ad-container ad-container-bottom">
         <div class="ad-label" id="adLabelBottom">إعلانات</div>
@@ -351,7 +448,7 @@
         </div>
         <script>(adsbymuslim = window.adsbymuslim || []).push({});</script>
     </div>
-    
+
     <!-- ===== الفوتر ===== -->
     <footer class="professional-footer">
         <div class="footer-container">
@@ -396,14 +493,11 @@
 
 <script>
 // ============================================================
-// 3Alearning - نظام Shadowing الذكي - 150,000 جملة
-// مع تحسين سرعة التحميل (3-5 ثواني فقط)
+// 3Alearning - نظام Shadowing الذكي - نسخة سريعة
 // ============================================================
 
-// ================= مكتبة الجمل الأساسية (700+ جملة مكتوبة يدوياً) =================
-// تقليل عدد الجمل الأساسية لتسريع التحميل (400 جملة فقط)
+// ================= مكتبة الجمل الأساسية (للبدء السريع) =================
 const BASE_SENTENCES = [
-    // ===== المستوى 1: جمل بسيطة (أساسيات) =====
     { en: "I like to read books", ar: "أحب قراءة الكتب" },
     { en: "She loves to sing songs", ar: "هي تحب غناء الأغاني" },
     { en: "We enjoy playing football", ar: "نحن نستمتع بلعب كرة القدم" },
@@ -424,62 +518,14 @@ const BASE_SENTENCES = [
     { en: "The moon appears at night", ar: "القمر يظهر في الليل" },
     { en: "The stars twinkle in the sky", ar: "النجوم تتلألأ في السماء" },
     { en: "The river flows through the city", ar: "النهر يجري عبر المدينة" },
-    { en: "I like to walk in the park", ar: "أحب المشي في الحديقة" },
-    { en: "She likes to swim in the sea", ar: "هي تحب السباحة في البحر" },
-    { en: "We like to watch movies", ar: "نحن نحب مشاهدة الأفلام" },
-    { en: "They like to listen to music", ar: "هم يحبون الاستماع إلى الموسيقى" },
-    { en: "He likes to play the guitar", ar: "هو يحب العزف على الجيتار" },
-    { en: "I enjoy reading poetry", ar: "أنا أستمتع بقراءة الشعر" },
-    { en: "She loves painting pictures", ar: "هي تحب رسم اللوحات" },
-    { en: "We like hiking in the mountains", ar: "نحن نحب التنزه في الجبال" },
-    { en: "They enjoy fishing at the lake", ar: "هم يستمتعون بصيد السمك في البحيرة" },
-    { en: "He loves cooking new recipes", ar: "هو يحب طهي وصفات جديدة" },
-    { en: "Do you like to read books?", ar: "هل تحب قراءة الكتب؟" },
-    { en: "Does she love to sing songs?", ar: "هل هي تحب غناء الأغاني؟" },
-    { en: "Do you enjoy playing football?", ar: "هل تستمتع بلعب كرة القدم؟" },
-    { en: "Do they work in a big company?", ar: "هل هم يعملون في شركة كبيرة؟" },
-    { en: "Does he study at the university?", ar: "هل هو يدرس في الجامعة؟" },
-    { en: "I do not like to read books", ar: "أنا لا أحب قراءة الكتب" },
-    { en: "She does not love to sing songs", ar: "هي لا تحب غناء الأغاني" },
-    { en: "We do not enjoy playing football", ar: "نحن لا نستمتع بلعب كرة القدم" },
-    { en: "I can read books quickly", ar: "أنا أستطيع قراءة الكتب بسرعة" },
-    { en: "She can sing songs beautifully", ar: "هي تستطيع غناء الأغاني بشكل جميل" },
-    { en: "If I read books, I will learn new things", ar: "إذا قرأت الكتب، سأتعلم أشياء جديدة" },
-    { en: "Education is the key to success", ar: "التعليم هو مفتاح النجاح" },
-    { en: "Success comes with hard work", ar: "النجاح يأتي مع العمل الجاد" },
-    { en: "We should never give up", ar: "لا يجب أن نستسلم أبداً" },
-    { en: "Reading is more interesting than watching TV", ar: "القراءة أكثر إثارة من مشاهدة التلفزيون" },
-    { en: "I live in a big house", ar: "أنا أعيش في منزل كبير" },
-    { en: "She works at a famous hospital", ar: "هي تعمل في مستشفى مشهور" },
-    { en: "My name is Ahmed", ar: "اسمي أحمد" },
-    { en: "Her name is Fatima", ar: "اسمها فاطمة" },
-    { en: "I wake up at six in the morning", ar: "أستيقظ في السادسة صباحاً" },
-    { en: "The weather is beautiful today", ar: "الطقس جميل اليوم" },
-    { en: "I like to eat rice with chicken", ar: "أحب تناول الأرز مع الدجاج" },
-    { en: "I love to travel to new places", ar: "أحب السفر إلى أماكن جديدة" },
-    { en: "I exercise every morning", ar: "أنا أمارس التمارين الرياضية كل صباح" },
-    { en: "I work as a software engineer", ar: "أعمل كمهندس برمجيات" },
-    { en: "I have a big and loving family", ar: "لدي عائلة كبيرة ومحبة" },
-    { en: "I love reading books in my free time", ar: "أحب قراءة الكتب في وقت فراغي" },
-    { en: "I use my phone every day", ar: "أستخدم هاتفي كل يوم" },
-    { en: "The cat is sleeping on the sofa", ar: "القطة نائمة على الأريكة" },
-    { en: "I feel very happy today", ar: "أشعر بسعادة كبيرة اليوم" },
-    { en: "We should protect the environment", ar: "يجب أن نحمي البيئة" },
-    { en: "Learning never ends", ar: "التعلم لا ينتهي أبداً" },
-    { en: "Patience is the key to success", ar: "الصبر هو مفتاح النجاح" },
-    { en: "She wants to visit China next year", ar: "هي تريد زيارة الصين العام القادم" },
-    { en: "He is looking for a new job", ar: "هو يبحث عن وظيفة جديدة" },
-    { en: "The children are playing in the park", ar: "الأطفال يلعبون في الحديقة" },
-    { en: "I am learning Arabic language", ar: "أنا أتعلم اللغة العربية" },
-    { en: "The museum has many ancient artifacts", ar: "المتحف يحتوي على العديد من القطع الأثرية القديمة" }
 ];
 
-// ================= بناء المكتبة النهائية (150,000 جملة) - محسّن للسرعة =================
-function buildLibrary() {
+// ================= بناء المكتبة الكاملة =================
+function buildFullLibrary() {
     const library = [];
     const usedSet = new Set();
-    
-    // 1. إضافة الجمل الأساسية
+
+    // إضافة الجمل الأساسية
     for (const item of BASE_SENTENCES) {
         library.push({
             english: item.en,
@@ -489,168 +535,55 @@ function buildLibrary() {
         });
         usedSet.add(item.en);
     }
-    
-    console.log(`📚 بدأت بـ ${library.length} جملة أساسية`);
-    
-    // 2. قوالب التوليد الذكي (مختصرة لتسريع التوليد)
-    const subjects = ["I", "You", "He", "She", "We", "They", "My friend", "My brother", "My sister", 
-                      "My mother", "My father", "My teacher", "The student", "The teacher",
-                      "The doctor", "The engineer", "The manager", "The artist", "The writer"];
-    
+
+    // قوالب التوليد
+    const subjects = ["I", "You", "He", "She", "We", "They", "My friend", "My brother", "My sister",
+                      "My mother", "My father", "My teacher", "The student", "The teacher"];
     const verbs = ["like", "love", "enjoy", "prefer", "want", "need", "have", "study", "read", "write",
-                   "draw", "sing", "dance", "play", "work", "travel", "visit", "eat", "drink", "cook",
-                   "clean", "drive", "walk", "run", "swim", "build", "create", "design", "develop",
-                   "learn", "teach", "speak", "listen", "watch", "see", "find", "make", "buy"];
-    
+                   "draw", "sing", "dance", "play", "work", "travel", "visit", "eat", "drink", "cook"];
     const objects = ["books", "music", "movies", "sports", "food", "coffee", "tea", "water", "animals",
-                     "nature", "art", "photography", "technology", "science", "math", "history",
-                     "geography", "languages", "culture", "travel", "adventure", "fashion", "design",
-                     "architecture", "engineering", "medicine", "law", "business", "finance"];
-    
-    const adjectives = ["beautiful", "wonderful", "amazing", "great", "fantastic", "excellent", "good",
-                        "bad", "happy", "sad", "angry", "excited", "tired", "busy", "relaxed", "calm",
-                        "peaceful", "active", "creative", "smart", "wise", "funny", "kind"];
-    
-    const adverbs = ["always", "usually", "often", "sometimes", "rarely", "never", "very", "really",
-                     "extremely", "absolutely", "quickly", "slowly", "carefully", "happily"];
-    
-    const places = ["home", "school", "work", "the park", "the city", "the beach", "the mountains",
-                    "the forest", "the lake", "the river", "the museum", "the library", "the hospital",
-                    "the university", "Egypt", "China", "the office", "the garden"];
-    
-    const times = ["today", "tomorrow", "yesterday", "every day", "every week", "every month",
-                   "every year", "in the morning", "in the evening", "at night", "at noon",
-                   "on Monday", "on Friday", "in summer", "in winter"];
-    
-    // 3. القوالب النحوية (مختصرة)
+                     "nature", "art", "photography", "technology", "science", "math", "history"];
+    const adjectives = ["beautiful", "wonderful", "amazing", "great", "fantastic", "excellent", "good"];
+    const adverbs = ["always", "usually", "often", "sometimes", "rarely", "never", "very", "really"];
+    const places = ["home", "school", "work", "the park", "the city", "the beach", "the mountains"];
+    const times = ["today", "tomorrow", "yesterday", "every day", "every week", "every month"];
+
     const templates = [
         (s, v, o) => `${s} ${v} ${o}`,
         (s, v, o, a) => `${s} ${v} ${a} ${o}`,
         (s, v, o, p) => `${s} ${v} ${o} in ${p}`,
         (s, v, o, t) => `${s} ${v} ${o} ${t}`,
-        (s, v, o, a, p) => `${s} ${v} ${a} ${o} in ${p}`,
-        (s, v, o, a, t) => `${s} ${v} ${a} ${o} ${t}`,
-        (s, v, o, p, t) => `${s} ${v} ${o} in ${p} ${t}`,
         (s, v, o, adv) => `${s} ${adv} ${v} ${o}`,
-        (s, v, o, adv, t) => `${s} ${adv} ${v} ${o} ${t}`,
-        (s, v, o, adv, p) => `${s} ${adv} ${v} ${o} in ${p}`,
         (s, v, o) => `Do ${s} ${v} ${o}?`,
-        (s, v, o, a) => `Do ${s} ${v} ${a} ${o}?`,
-        (s, v, o, p) => `Does ${s} ${v} ${o} in ${p}?`,
         (s, v, o) => `${s} does not ${v} ${o}`,
         (s, v, o) => `${s} can ${v} ${o}`,
-        (s, v, o, a) => `${s} can ${v} ${a} ${o}`,
-        (s, v, o) => `${s} should ${v} ${o}`,
-        (s, v, o) => `${s} will ${v} ${o}`,
-        (s, v, o, t) => `${s} will ${v} ${o} ${t}`,
-        (s, v, o) => `If ${s} ${v} ${o}, ${s} will be happy`,
     ];
-    
-    // 4. وظيفة الترجمة العربية المبسطة
-    function translateToArabic(english) {
-        const wordMap = {
-            "I": "أنا", "You": "أنت", "He": "هو", "She": "هي", "We": "نحن", "They": "هم",
-            "My": "لي", "Your": "لك", "His": "له", "Her": "لها", "Our": "لنا", "Their": "لهم",
-            "friend": "صديق", "brother": "أخ", "sister": "أخت", "mother": "أم", "father": "أب",
-            "teacher": "معلم", "doctor": "طبيب", "engineer": "مهندس", "manager": "مدير",
-            "student": "طالب", "artist": "فنان", "writer": "كاتب",
-            "like": "أحب", "love": "أحب", "enjoy": "أستمتع", "prefer": "أفضل", "want": "أريد",
-            "need": "أحتاج", "have": "لدي", "study": "أدرس", "read": "أقرأ", "write": "أكتب",
-            "draw": "أرسم", "sing": "أغني", "dance": "أرقص", "play": "ألعب", "work": "أعمل",
-            "travel": "أسافر", "visit": "أزور", "eat": "آكل", "drink": "أشرب", "cook": "أطبخ",
-            "clean": "أنظف", "drive": "أقود", "walk": "أمشي", "run": "أجري", "swim": "أسبح",
-            "build": "أبني", "create": "أبدع", "design": "أصمم", "develop": "أطور",
-            "learn": "أتعلم", "teach": "أعلم", "speak": "أتحدث", "listen": "أستمع",
-            "watch": "أشاهد", "see": "أرى", "find": "أجد", "make": "أصنع", "buy": "أشتري",
-            "books": "الكتب", "music": "الموسيقى", "movies": "الأفلام", "sports": "الرياضة",
-            "food": "الطعام", "coffee": "القهوة", "tea": "الشاي", "water": "الماء",
-            "animals": "الحيوانات", "nature": "الطبيعة", "art": "الفن", "photography": "التصوير",
-            "technology": "التكنولوجيا", "science": "العلوم", "math": "الرياضيات",
-            "history": "التاريخ", "geography": "الجغرافيا", "languages": "اللغات",
-            "culture": "الثقافة", "travel": "السفر", "adventure": "المغامرة",
-            "fashion": "الأزياء", "design": "التصميم", "architecture": "الهندسة المعمارية",
-            "engineering": "الهندسة", "medicine": "الطب", "law": "القانون",
-            "business": "الأعمال", "finance": "المالية",
-            "beautiful": "جميل", "wonderful": "رائع", "amazing": "مذهل", "great": "عظيم",
-            "fantastic": "خيالي", "excellent": "ممتاز", "good": "جيد", "bad": "سيء",
-            "happy": "سعيد", "sad": "حزين", "angry": "غاضب", "excited": "متحمس",
-            "tired": "متعب", "busy": "مشغول", "relaxed": "مسترخي", "calm": "هادئ",
-            "peaceful": "مسالم", "active": "نشيط", "creative": "مبدع", "smart": "ذكي",
-            "wise": "حكيم", "funny": "مضحك", "kind": "لطيف",
-            "always": "دائماً", "usually": "عادة", "often": "غالباً", "sometimes": "أحياناً",
-            "rarely": "نادراً", "never": "أبداً", "very": "جداً", "really": "حقاً",
-            "extremely": "بشكل كبير", "absolutely": "تماماً",
-            "quickly": "بسرعة", "slowly": "ببطء", "carefully": "بحذر", "happily": "بسعادة",
-            "home": "المنزل", "school": "المدرسة", "work": "العمل", "park": "الحديقة",
-            "city": "المدينة", "beach": "الشاطئ", "mountains": "الجبال",
-            "forest": "الغابة", "lake": "البحيرة", "river": "النهر", "museum": "المتحف",
-            "library": "المكتبة", "hospital": "المستشفى", "university": "الجامعة",
-            "Egypt": "مصر", "China": "الصين", "office": "المكتب", "garden": "الحديقة",
-            "today": "اليوم", "tomorrow": "غداً", "yesterday": "أمس", "every day": "كل يوم",
-            "every week": "كل أسبوع", "every month": "كل شهر", "every year": "كل عام",
-            "morning": "الصباح", "evening": "المساء", "night": "الليل", "noon": "الظهيرة",
-            "Monday": "الإثنين", "Friday": "الجمعة", "summer": "الصيف", "winter": "الشتاء",
-            "Do": "هل", "Does": "هل", "not": "لا", "because": "لأن", "can": "يمكن",
-            "should": "ينبغي", "will": "سوف", "If": "إذا", "When": "عندما", "and": "و",
-            "with": "مع", "from": "من", "in": "في", "on": "على", "at": "في", "for": "لـ"
-        };
-        
-        let translated = english;
+
+    const wordMap = {
+        "I": "أنا", "You": "أنت", "He": "هو", "She": "هي", "We": "نحن", "They": "هم",
+        "like": "أحب", "love": "أحب", "enjoy": "أستمتع", "prefer": "أفضل", "want": "أريد",
+        "need": "أحتاج", "have": "لدي", "study": "أدرس", "read": "أقرأ", "write": "أكتب",
+        "books": "الكتب", "music": "الموسيقى", "movies": "الأفلام", "sports": "الرياضة",
+        "food": "الطعام", "coffee": "القهوة", "tea": "الشاي", "water": "الماء",
+        "beautiful": "جميل", "wonderful": "رائع", "amazing": "مذهل", "great": "عظيم"
+    };
+
+    function fastTranslate(english) {
+        let result = english;
         for (const [eng, arb] of Object.entries(wordMap)) {
             const regex = new RegExp(`\\b${eng}\\b`, 'gi');
-            translated = translated.replace(regex, arb);
+            result = result.replace(regex, arb);
         }
-        translated = translated.replace(/\s+/g, ' ').trim();
-        
-        // معالجة الضمائر
-        if (english.includes("He") || english.includes("She")) {
-            translated = translated.replace(/أحب/g, 'يحب');
-            translated = translated.replace(/أستمتع/g, 'يستمتع');
-            translated = translated.replace(/أفضل/g, 'يفضل');
-            translated = translated.replace(/أريد/g, 'يريد');
-            translated = translated.replace(/أحتاج/g, 'يحتاج');
-            translated = translated.replace(/لدي/g, 'لديه');
-            translated = translated.replace(/أدرس/g, 'يدرس');
-            translated = translated.replace(/أقرأ/g, 'يقرأ');
-            translated = translated.replace(/أكتب/g, 'يكتب');
-            translated = translated.replace(/أرسم/g, 'يرسم');
-            translated = translated.replace(/أغني/g, 'يغني');
-            translated = translated.replace(/ألعب/g, 'يلعب');
-            translated = translated.replace(/أعمل/g, 'يعمل');
-            translated = translated.replace(/أسافر/g, 'يسافر');
-            translated = translated.replace(/أزور/g, 'يزور');
-            translated = translated.replace(/آكل/g, 'يأكل');
-            translated = translated.replace(/أشرب/g, 'يشرب');
-            translated = translated.replace(/أطبخ/g, 'يطبخ');
-            translated = translated.replace(/أنظف/g, 'ينظف');
-            translated = translated.replace(/أقود/g, 'يقود');
-            translated = translated.replace(/أمشي/g, 'يمشي');
-            translated = translated.replace(/أجري/g, 'يجري');
-            translated = translated.replace(/أسبح/g, 'يسبح');
-            translated = translated.replace(/أبني/g, 'يبني');
-            translated = translated.replace(/أبدع/g, 'يبدع');
-            translated = translated.replace(/أصمم/g, 'يصمم');
-            translated = translated.replace(/أطور/g, 'يطور');
-            translated = translated.replace(/أتعلم/g, 'يتعلم');
-            translated = translated.replace(/أعلم/g, 'يعلم');
-            translated = translated.replace(/أتحدث/g, 'يتحدث');
-            translated = translated.replace(/أستمع/g, 'يستمع');
-            translated = translated.replace(/أشاهد/g, 'يشاهد');
-        }
-        
-        return translated;
+        return result;
     }
-    
-    // 5. التوليد الضخم (محسّن - استخدام حلقة واحدة فقط)
+
     const targetCount = 150000;
     let attempts = 0;
-    const maxAttempts = targetCount * 1.5; // تقليل المحاولات
-    
-    console.log(`⏳ جاري توليد ${targetCount.toLocaleString()} جملة...`);
-    
+    const maxAttempts = targetCount * 1.2;
+    let lastProgress = 0;
+
     while (library.length < targetCount && attempts < maxAttempts) {
         attempts++;
-        
         const s = subjects[Math.floor(Math.random() * subjects.length)];
         const v = verbs[Math.floor(Math.random() * verbs.length)];
         const o = objects[Math.floor(Math.random() * objects.length)];
@@ -658,41 +591,15 @@ function buildLibrary() {
         const adv = adverbs[Math.floor(Math.random() * adverbs.length)];
         const p = places[Math.floor(Math.random() * places.length)];
         const t = times[Math.floor(Math.random() * times.length)];
-        
         const template = templates[Math.floor(Math.random() * templates.length)];
-        
+
         try {
             let sentence = template(s, v, o, a, p, t);
             sentence = sentence.replace(/\s+/g, ' ').trim();
-            
-            // تصحيح نحوي
-            if (s === "He" || s === "She") {
-                if (v === "have") sentence = sentence.replace("have", "has");
-                if (v === "do") sentence = sentence.replace("do", "does");
-                if (!sentence.includes("will") && !sentence.includes("can") && 
-                    !sentence.includes("should") && !sentence.includes("does") &&
-                    !sentence.includes("don't") && !sentence.includes("?")) {
-                    const wordArray = sentence.split(' ');
-                    const verbIndex = wordArray.indexOf(v);
-                    if (verbIndex > 0 && verbIndex < wordArray.length - 1) {
-                        const helperVerbs = ["can", "will", "should", "must"];
-                        const hasHelper = helperVerbs.some(h => sentence.includes(` ${h} `) || sentence.startsWith(`${h} `));
-                        if (!hasHelper && !sentence.includes(` ${v}s `)) {
-                            wordArray[verbIndex] = v + 's';
-                            sentence = wordArray.join(' ');
-                        }
-                    }
-                }
-            }
-            
-            if (sentence.length > 8 && sentence.length < 80 && !usedSet.has(sentence)) {
+            if (sentence.length > 8 && sentence.length < 70 && !usedSet.has(sentence)) {
                 usedSet.add(sentence);
-                
-                let arabic = translateToArabic(sentence);
-                if (!arabic || arabic.length < 2) {
-                    arabic = `ترجمة: ${sentence}`;
-                }
-                
+                let arabic = fastTranslate(sentence);
+                if (!arabic || arabic.length < 2) arabic = `ترجمة: ${sentence}`;
                 library.push({
                     english: sentence,
                     arabic: arabic,
@@ -700,35 +607,27 @@ function buildLibrary() {
                     customTranslations: {}
                 });
             }
-        } catch(e) {
-            // تخطي الأخطاء
-        }
-        
-        // عرض التقدم كل 20,000 جملة (تحديث أقل لتسريع)
-        if (library.length % 20000 === 0) {
-            console.log(`✅ تم توليد ${library.length.toLocaleString()} جملة`);
+        } catch(e) {}
+
+        // تحديث التقدم
+        const progress = Math.min(95, Math.floor((library.length / targetCount) * 95));
+        if (progress > lastProgress) {
+            lastProgress = progress;
+            const fill = document.getElementById('loadingProgressFill');
+            const text = document.getElementById('loadingProgressText');
+            if (fill) fill.style.width = progress + '%';
+            if (text) text.textContent = progress + '%';
         }
     }
-    
-    console.log(`✅ تم بناء مكتبة تحتوي على ${library.length.toLocaleString()} جملة`);
+
+    // اكتمال التحميل
+    const fill = document.getElementById('loadingProgressFill');
+    const text = document.getElementById('loadingProgressText');
+    if (fill) fill.style.width = '100%';
+    if (text) text.textContent = '100%';
+
     return library;
 }
-
-// ================= بناء المكتبة مع تأخير صغير لتجنب تجميد المتصفح =================
-let sentenceLibrary = [];
-
-// استخدام setTimeout لتجنب تجميد المتصفح أثناء التحميل
-setTimeout(() => {
-    sentenceLibrary = buildLibrary();
-    // بعد بناء المكتبة، نقوم بتهيئة التطبيق
-    if (sentenceLibrary.length > 0) {
-        initApp();
-    }
-}, 50);
-
-// ============================================================
-// نظام التشغيل الرئيسي - Shadowing System
-// ============================================================
 
 // ================= نظام الترجمة =================
 const siteTranslations = {
@@ -808,13 +707,13 @@ const siteTranslations = {
     }
 };
 
-// ================= قائمة اللغات =================
 const languages = [
     { code: 'ar', name: 'العربية', dir: 'rtl' },
     { code: 'zh', name: '中文', dir: 'ltr' }
 ];
 
 // ================= المتغيرات العامة =================
+let sentenceLibrary = [];
 let currentTranslationLang = 'ar';
 let currentUser = null;
 let users = JSON.parse(localStorage.getItem('3alearning_users')) || [];
@@ -827,6 +726,7 @@ let sessionStartTime = Date.now();
 let timeInterval = null;
 let lastState = null;
 let errTimeout = null;
+let isAppReady = false;
 
 // ================= دوال مساعدة =================
 function getLangName(code) {
@@ -888,15 +788,8 @@ function loadUserStats() {
     if (!currentUser) return null;
     const statsKey = `3alearning_stats_${currentUser.id}`;
     let stats = localStorage.getItem(statsKey);
-    if (stats) {
-        return JSON.parse(stats);
-    }
-    return {
-        firstDay: getTodayKey(),
-        dailyStats: {},
-        totalCompletedSentences: 0,
-        preferredLang: currentTranslationLang
-    };
+    if (stats) return JSON.parse(stats);
+    return { firstDay: getTodayKey(), dailyStats: {}, totalCompletedSentences: 0, preferredLang: currentTranslationLang };
 }
 
 function saveUserStats(stats) {
@@ -909,9 +802,7 @@ function addCompletedSentence() {
     if (!currentUser) return;
     const stats = loadUserStats();
     const today = getTodayKey();
-    if (!stats.dailyStats[today]) {
-        stats.dailyStats[today] = { minutes: 0, sentences: 0 };
-    }
+    if (!stats.dailyStats[today]) stats.dailyStats[today] = { minutes: 0, sentences: 0 };
     stats.dailyStats[today].sentences++;
     stats.totalCompletedSentences++;
     saveUserStats(stats);
@@ -942,9 +833,7 @@ function updateDailyTime() {
     if (!currentUser) return;
     const stats = loadUserStats();
     const today = getTodayKey();
-    if (!stats.dailyStats[today]) {
-        stats.dailyStats[today] = { minutes: 0, sentences: 0 };
-    }
+    if (!stats.dailyStats[today]) stats.dailyStats[today] = { minutes: 0, sentences: 0 };
     const elapsedMinutes = Math.floor((Date.now() - sessionStartTime) / 60000);
     stats.dailyStats[today].minutes = elapsedMinutes;
     saveUserStats(stats);
@@ -954,11 +843,7 @@ function updateDailyTime() {
 function startTimeTracking() {
     if (timeInterval) clearInterval(timeInterval);
     sessionStartTime = Date.now();
-    timeInterval = setInterval(() => {
-        if (currentUser) {
-            updateDailyTime();
-        }
-    }, 60000);
+    timeInterval = setInterval(() => { if (currentUser) updateDailyTime(); }, 60000);
 }
 
 // ================= دوال الترجمة =================
@@ -968,12 +853,8 @@ function getTranslation(englishText, langCode) {
         if (sentence.customTranslations && sentence.customTranslations[langCode]) {
             return sentence.customTranslations[langCode];
         }
-        if (langCode === 'ar' && sentence.arabic) {
-            return sentence.arabic;
-        }
-        if (langCode === 'zh' && sentence.chinese) {
-            return sentence.chinese;
-        }
+        if (langCode === 'ar' && sentence.arabic) return sentence.arabic;
+        if (langCode === 'zh' && sentence.chinese) return sentence.chinese;
     }
     return englishText;
 }
@@ -981,9 +862,7 @@ function getTranslation(englishText, langCode) {
 function setCustomTranslation(englishText, langCode, newTranslation) {
     const sentence = sentenceLibrary.find(s => s.english === englishText);
     if (sentence) {
-        if (!sentence.customTranslations) {
-            sentence.customTranslations = {};
-        }
+        if (!sentence.customTranslations) sentence.customTranslations = {};
         sentence.customTranslations[langCode] = newTranslation;
         return true;
     }
@@ -992,55 +871,41 @@ function setCustomTranslation(englishText, langCode, newTranslation) {
 
 // ================= دوال العرض =================
 function updateTranslationDisplay() {
-    if (sentenceLibrary.length === 0 || currentIndex >= sentenceLibrary.length) {
-        return;
-    }
+    if (sentenceLibrary.length === 0 || currentIndex >= sentenceLibrary.length) return;
     const englishText = sentenceLibrary[currentIndex].english;
     const translation = getTranslation(englishText, currentTranslationLang);
     const translationText = document.getElementById('translationText');
-    if (translationText) {
-        translationText.textContent = translation;
-    }
-    
+    if (translationText) translationText.textContent = translation;
+
     const translationEl = document.getElementById('arabicTranslation');
     if (translationEl) {
         translationEl.className = `arabic-translation translation-${currentTranslationLang}`;
         const lang = languages.find(l => l.code === currentTranslationLang);
-        if (lang) {
-            translationEl.dir = lang.dir;
-        }
+        if (lang) translationEl.dir = lang.dir;
     }
-    
+
     const langNameEl = document.getElementById('currentLangName');
-    if (langNameEl) {
-        langNameEl.innerText = getLangName(currentTranslationLang);
-    }
-    
+    if (langNameEl) langNameEl.innerText = getLangName(currentTranslationLang);
+
     if (currentUser) {
         const stats = loadUserStats();
-        if (stats) {
-            stats.preferredLang = currentTranslationLang;
-            saveUserStats(stats);
-        }
+        if (stats) { stats.preferredLang = currentTranslationLang; saveUserStats(stats); }
     }
-    
     updateUILanguage();
 }
 
 function updateDisplay() {
     if (sentenceLibrary.length === 0) {
-        document.getElementById('originalText').innerText = 'جاري التحميل...';
-        document.getElementById('translationText').innerText = '';
+        document.getElementById('originalText').innerText = '⏳ جاري التحميل...';
+        document.getElementById('translationText').innerText = '⏳ يرجى الانتظار...';
         return;
     }
-    
+
     const originalText = document.getElementById('originalText');
-    if (originalText) {
-        originalText.innerText = sentenceLibrary[currentIndex].english;
-    }
-    
+    if (originalText) originalText.innerText = sentenceLibrary[currentIndex].english;
+
     updateTranslationDisplay();
-    
+
     const inp = document.getElementById('userInput');
     if (inp) {
         inp.value = '';
@@ -1050,7 +915,7 @@ function updateDisplay() {
         inp.style.animation = '';
         inp.focus();
     }
-    
+
     lastState = null;
     updateNextButtonStatus(null);
     updateNavButtonsState();
@@ -1059,13 +924,11 @@ function updateDisplay() {
 
 function updateUILanguage() {
     const t = getTranslations();
-    
     document.getElementById('loginBtnText').textContent = t.login;
     document.getElementById('signupBtnText').textContent = t.signup;
     document.getElementById('statDaysLabel').textContent = t.days;
     document.getElementById('statSentencesLabel').textContent = t.sentences;
     document.getElementById('statMinutesLabel').textContent = t.minutes;
-    
     document.getElementById('footerDesc').textContent = t.footerDesc;
     document.getElementById('quickLinksTitle').textContent = t.quickLinks;
     document.getElementById('homeLink').textContent = t.home;
@@ -1076,20 +939,16 @@ function updateUILanguage() {
     document.getElementById('privacyLink').textContent = t.privacy;
     document.getElementById('contactLink').textContent = t.contact;
     document.getElementById('footerCopyright').textContent = `2026 3Alearning | ${t.copyright}`;
-    
     document.getElementById('adLabelTop').textContent = t.ad;
     document.getElementById('adLabelBottom').textContent = t.ads;
     document.getElementById('footerAdLabel').textContent = t.ad;
-    
     document.getElementById('infoBarText').textContent = t.infoBar;
     document.getElementById('speedLabel').textContent = t.speed;
     document.getElementById('prevBtnText').textContent = t.previous;
     document.getElementById('nextBtnText').textContent = t.next;
     document.getElementById('translationLabel').textContent = t.translationLang;
-    
     const textarea = document.querySelector('.modern-textarea');
     if (textarea) textarea.placeholder = t.writeHere;
-    
     document.getElementById('currentLangName').textContent = getLangName(currentTranslationLang);
 }
 
@@ -1109,7 +968,6 @@ function updateSidebarStats() {
     if (!currentUser) return;
     const sidebarStats = document.getElementById('sidebarStats');
     if (!sidebarStats) return;
-    
     const t = getTranslations();
     sidebarStats.innerHTML = `
         <div class="sidebar-stats-card">
@@ -1140,14 +998,12 @@ function updateSidebarContent() {
     const sidebarContent = document.getElementById('sidebarContent');
     if (!sidebarContent) return;
     const t = getTranslations();
-    
+
     if (currentUser) {
         const initials = currentUser.name.charAt(0).toUpperCase();
         let displayEmail = currentUser.email;
-        if (displayEmail && displayEmail.length > 25) {
-            displayEmail = displayEmail.substring(0, 22) + '...';
-        }
-        
+        if (displayEmail && displayEmail.length > 25) displayEmail = displayEmail.substring(0, 22) + '...';
+
         sidebarContent.innerHTML = `
             <div class="sidebar-user-card">
                 <div class="sidebar-user-avatar-large">${initials}</div>
@@ -1164,25 +1020,10 @@ function updateSidebarContent() {
                 <li><a href="#"><i class="fas fa-question-circle"></i> ${t.help}</a></li>
             </ul>
         `;
-        
-        document.getElementById('sidebarLogoutBtn')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeSidebar();
-            logout();
-        });
-        
-        document.getElementById('sidebarLangBtn')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeSidebar();
-            showLanguageSelector();
-        });
-        
-        document.getElementById('sidebarSettingsBtn')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeSidebar();
-            showSettingsModal();
-        });
-        
+
+        document.getElementById('sidebarLogoutBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); logout(); });
+        document.getElementById('sidebarLangBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showLanguageSelector(); });
+        document.getElementById('sidebarSettingsBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showSettingsModal(); });
         updateSidebarStats();
     } else {
         sidebarContent.innerHTML = `
@@ -1191,18 +1032,8 @@ function updateSidebarContent() {
                 <button class="sidebar-auth-btn sidebar-signup-btn" id="sidebarSignupBtn"><i class="fas fa-user-plus"></i> ${t.signup}</button>
             </div>
         `;
-        
-        document.getElementById('sidebarLoginBtn')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeSidebar();
-            showAuthModal('login');
-        });
-        
-        document.getElementById('sidebarSignupBtn')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeSidebar();
-            showAuthModal('signup');
-        });
+        document.getElementById('sidebarLoginBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showAuthModal('login'); });
+        document.getElementById('sidebarSignupBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showAuthModal('signup'); });
     }
 }
 
@@ -1210,7 +1041,7 @@ function updateHeaderUI() {
     const headerButtons = document.getElementById('headerButtons');
     const userInfo = document.getElementById('userInfoHeader');
     const t = getTranslations();
-    
+
     if (currentUser) {
         if (headerButtons) headerButtons.style.display = 'none';
         if (userInfo) {
@@ -1220,13 +1051,8 @@ function updateHeaderUI() {
             if (avatar) avatar.textContent = currentUser.name.charAt(0).toUpperCase();
             if (nameDisplay) nameDisplay.textContent = currentUser.name;
         }
-        
         const stats = loadUserStats();
-        if (stats && stats.preferredLang) {
-            currentTranslationLang = stats.preferredLang;
-            updateTranslationDisplay();
-        }
-        
+        if (stats && stats.preferredLang) { currentTranslationLang = stats.preferredLang; updateTranslationDisplay(); }
         updateStatsDisplay();
         startTimeTracking();
     } else {
@@ -1256,7 +1082,7 @@ function updateNextButtonStatus(match) {
     const nextButton = document.getElementById('nextBtnNav');
     const checkIcon = nextButton?.querySelector('.fa-check-circle');
     if (!nextButton) return;
-    
+
     nextButton.classList.remove('btn-nav-next-success', 'btn-nav-error');
     if (match === true) {
         nextButton.classList.add('btn-nav-next-success');
@@ -1285,13 +1111,9 @@ function playCorrectSound() {
         const a = new (window.AudioContext || window.webkitAudioContext)();
         const o = a.createOscillator();
         const g = a.createGain();
-        o.connect(g);
-        g.connect(a.destination);
-        o.frequency.value = 880;
-        g.gain.value = 0.2;
-        o.type = 'sine';
-        o.start();
-        g.gain.exponentialRampToValueAtTime(0.00001, a.currentTime + 0.4);
+        o.connect(g); g.connect(a.destination);
+        o.frequency.value = 880; g.gain.value = 0.2; o.type = 'sine';
+        o.start(); g.gain.exponentialRampToValueAtTime(0.00001, a.currentTime + 0.4);
         o.stop(a.currentTime + 0.4);
     } catch(e) {}
 }
@@ -1301,18 +1123,15 @@ function playErrorSound() {
         const a = new (window.AudioContext || window.webkitAudioContext)();
         const o = a.createOscillator();
         const g = a.createGain();
-        o.connect(g);
-        g.connect(a.destination);
-        o.frequency.value = 440;
-        g.gain.value = 0.2;
-        o.type = 'sawtooth';
-        o.start();
-        g.gain.exponentialRampToValueAtTime(0.00001, a.currentTime + 0.35);
+        o.connect(g); g.connect(a.destination);
+        o.frequency.value = 440; g.gain.value = 0.2; o.type = 'sawtooth';
+        o.start(); g.gain.exponentialRampToValueAtTime(0.00001, a.currentTime + 0.35);
         o.stop(a.currentTime + 0.35);
     } catch(e) {}
 }
 
 function autoSpeak() {
+    if (!isAppReady) return;
     setTimeout(() => {
         if (window.speechSynthesis) {
             window.speechSynthesis.cancel();
@@ -1334,7 +1153,7 @@ function speakCurrent() {
     const t = getTranslations();
     const btn = document.getElementById('speakBtn');
     if (btn.classList.contains('loading')) return;
-    
+
     if (window.speechSynthesis) {
         window.speechSynthesis.cancel();
         btn.classList.add('loading');
@@ -1342,14 +1161,9 @@ function speakCurrent() {
         utterance.lang = 'en-US';
         utterance.rate = currentSpeed;
         utterance.onend = () => btn.classList.remove('loading');
-        utterance.onerror = () => {
-            btn.classList.remove('loading');
-            showMsg(t.error, true);
-        };
+        utterance.onerror = () => { btn.classList.remove('loading'); showMsg(t.error, true); };
         window.speechSynthesis.speak(utterance);
-        setTimeout(() => {
-            if (btn.classList.contains('loading')) btn.classList.remove('loading');
-        }, 4000);
+        setTimeout(() => { if (btn.classList.contains('loading')) btn.classList.remove('loading'); }, 4000);
     } else {
         showMsg(t.browserNotSupportSpeech, true);
     }
@@ -1358,30 +1172,26 @@ function speakCurrent() {
 
 // ================= دوال التنقل =================
 function nextSentence() {
+    if (!isAppReady) return;
     const inp = document.getElementById('userInput');
     const curText = inp.value.trim();
     const correctText = getCurrentCorrectTextClean();
     const isCorrect = (removePunctuation(curText) === correctText);
     const t = getTranslations();
-    
+
     if (!isCorrect) {
         inp.classList.add('error-mode', 'text-error');
         inp.style.color = '#c62828';
         inp.style.borderColor = '#c62828';
         playErrorSound();
         updateNextButtonStatus(false);
-        
         if (curText.length === 0) {
             showMsg('الرجاء كتابة الجملة أولاً', true);
         } else {
             showMsg(t.writeCorrectly, true);
         }
-        
         inp.style.animation = 'shakeError 0.5s ease-in-out 0s 2';
-        setTimeout(() => {
-            inp.style.animation = '';
-        }, 600);
-        
+        setTimeout(() => { inp.style.animation = ''; }, 600);
         if (errTimeout) clearTimeout(errTimeout);
         errTimeout = setTimeout(() => {
             if (inp && document.activeElement === inp) {
@@ -1391,12 +1201,12 @@ function nextSentence() {
         }, 600);
         return;
     }
-    
+
     inp.classList.remove('error-mode', 'text-error');
     inp.style.color = '#1f2937';
     inp.style.borderColor = '#E2E8F0';
     inp.style.animation = '';
-    
+
     if (!currentUser) {
         if (trialCount >= MAX_TRIAL) {
             showMsg(t.pleaseLoginToContinue, true);
@@ -1410,7 +1220,7 @@ function nextSentence() {
             showMsg(`${t.trialSentence} ${trialCount}/${MAX_TRIAL}`);
         }
     }
-    
+
     nextPressCount++;
     currentIndex = (currentIndex + 1) % sentenceLibrary.length;
     updateDisplay();
@@ -1418,13 +1228,12 @@ function nextSentence() {
 }
 
 function prevSentence() {
+    if (!isAppReady) return;
     const t = getTranslations();
-    
     if (nextPressCount === 0 || currentIndex === 0) {
         showMsg(t.cannotGoBack || 'لا يمكنك الرجوع إلى ما قبل البداية', true);
         return;
     }
-    
     currentIndex = (currentIndex - 1 + sentenceLibrary.length) % sentenceLibrary.length;
     updateDisplay();
     updateNavButtonsState();
@@ -1447,14 +1256,7 @@ function handleSocialLogin(provider, name, email) {
     if (existingUser) {
         currentUser = existingUser;
     } else {
-        const newUser = {
-            id: Date.now(),
-            name: name,
-            email: email,
-            password: null,
-            provider: provider,
-            preferredLang: currentTranslationLang
-        };
+        const newUser = { id: Date.now(), name: name, email: email, password: null, provider: provider, preferredLang: currentTranslationLang };
         users.push(newUser);
         currentUser = newUser;
         saveUsers();
@@ -1471,13 +1273,13 @@ function showAuthModal(type = 'login') {
     const t = getTranslations();
     const modal = document.createElement('div');
     modal.className = 'auth-overlay';
-    
+
     let langOptions = '';
     languages.forEach(lang => {
         const selected = lang.code === currentTranslationLang ? 'selected' : '';
         langOptions += `<option value="${lang.code}" ${selected}>${lang.name}</option>`;
     });
-    
+
     if (type === 'login') {
         modal.innerHTML = `
             <div class="auth-card">
@@ -1522,26 +1324,26 @@ function showAuthModal(type = 'login') {
             </div>
         `;
     }
-    
+
     document.body.appendChild(modal);
-    
+
     document.getElementById('closeAuthBtn').onclick = () => closeAuthModal(modal);
     modal.onclick = (e) => { if (e.target === modal) closeAuthModal(modal); };
-    
+
     const handleFacebookMock = () => {
         const mockName = currentTranslationLang === 'ar' ? "محمد المستخدم" : "Mohamed User";
         const mockEmail = `fb_user_${Date.now()}@example.com`;
         handleSocialLogin('facebook', mockName, mockEmail);
         closeAuthModal(modal);
     };
-    
+
     const handleGoogleMock = () => {
         const mockName = currentTranslationLang === 'ar' ? "أحمد المستخدم" : "Ahmed User";
         const mockEmail = `google_user_${Date.now()}@example.com`;
         handleSocialLogin('google', mockName, mockEmail);
         closeAuthModal(modal);
     };
-    
+
     if (type === 'login') {
         document.getElementById('facebookLoginBtn')?.addEventListener('click', handleFacebookMock);
         document.getElementById('googleLoginBtn')?.addEventListener('click', handleGoogleMock);
@@ -1549,28 +1351,12 @@ function showAuthModal(type = 'login') {
             const email = document.getElementById('loginEmail').value.trim();
             const pwd = document.getElementById('loginPassword').value;
             const err = document.getElementById('authError');
-            if (!email || !pwd) {
-                err.style.display = 'block';
-                err.innerText = t.allFieldsRequired;
-                return;
-            }
+            if (!email || !pwd) { err.style.display = 'block'; err.innerText = t.allFieldsRequired; return; }
             const u = users.find(u => u.email === email && u.password === pwd);
-            if (u) {
-                currentUser = u;
-                saveCurrentUser();
-                updateHeaderUI();
-                modal.remove();
-                const t2 = getTranslations();
-                showMsg(`${t2.welcomeUser} ${u.name}`);
-            } else {
-                err.style.display = 'block';
-                err.innerText = t.invalidCredentials;
-            }
+            if (u) { currentUser = u; saveCurrentUser(); updateHeaderUI(); modal.remove(); const t2 = getTranslations(); showMsg(`${t2.welcomeUser} ${u.name}`); }
+            else { err.style.display = 'block'; err.innerText = t.invalidCredentials; }
         };
-        document.getElementById('showSignupFromLoginBtn').onclick = () => {
-            modal.remove();
-            showAuthModal('signup');
-        };
+        document.getElementById('showSignupFromLoginBtn').onclick = () => { modal.remove(); showAuthModal('signup'); };
     } else {
         document.getElementById('facebookSignupBtn')?.addEventListener('click', handleFacebookMock);
         document.getElementById('googleSignupBtn')?.addEventListener('click', handleGoogleMock);
@@ -1580,25 +1366,10 @@ function showAuthModal(type = 'login') {
             const p = document.getElementById('signupPassword').value;
             const errDiv = document.getElementById('authError');
             const selectedLang = document.getElementById('signupLangSelect')?.value || currentTranslationLang;
-            
-            if (!n || !e || !p) {
-                errDiv.style.display = 'block';
-                errDiv.innerText = t.allFieldsRequired;
-                return;
-            }
-            if (users.find(u => u.email === e)) {
-                errDiv.style.display = 'block';
-                errDiv.innerText = t.emailExists;
-                return;
-            }
-            const nu = {
-                id: Date.now(),
-                name: n,
-                email: e,
-                password: p,
-                provider: 'email',
-                preferredLang: selectedLang
-            };
+
+            if (!n || !e || !p) { errDiv.style.display = 'block'; errDiv.innerText = t.allFieldsRequired; return; }
+            if (users.find(u => u.email === e)) { errDiv.style.display = 'block'; errDiv.innerText = t.emailExists; return; }
+            const nu = { id: Date.now(), name: n, email: e, password: p, provider: 'email', preferredLang: selectedLang };
             users.push(nu);
             saveUsers();
             currentUser = nu;
@@ -1610,10 +1381,7 @@ function showAuthModal(type = 'login') {
             const t2 = getTranslations();
             showMsg(`${t2.welcomeUser} ${n}!`);
         };
-        document.getElementById('showLoginFromSignupBtn').onclick = () => {
-            modal.remove();
-            showAuthModal('login');
-        };
+        document.getElementById('showLoginFromSignupBtn').onclick = () => { modal.remove(); showAuthModal('login'); };
     }
 }
 
@@ -1622,16 +1390,15 @@ function showLanguageSelector() {
     let existing = document.querySelector('.auth-overlay');
     if (existing) existing.remove();
     const t = getTranslations();
-    
     const modal = document.createElement('div');
     modal.className = 'auth-overlay';
-    
+
     let langOptions = '';
     languages.forEach(lang => {
         const selected = lang.code === currentTranslationLang ? 'selected' : '';
         langOptions += `<option value="${lang.code}" ${selected}>${lang.name}</option>`;
     });
-    
+
     modal.innerHTML = `
         <div class="auth-card">
             <button class="close-auth-btn" id="closeLangBtn"><i class="fas fa-times"></i></button>
@@ -1647,12 +1414,12 @@ function showLanguageSelector() {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
-    
+
     document.getElementById('closeLangBtn').onclick = () => closeAuthModal(modal);
     modal.onclick = (e) => { if (e.target === modal) closeAuthModal(modal); };
-    
+
     document.getElementById('applyLangBtn').onclick = () => {
         const selectedLang = document.getElementById('langSelect').value;
         if (selectedLang) {
@@ -1670,16 +1437,15 @@ function showSettingsModal() {
     let existing = document.querySelector('.settings-overlay');
     if (existing) existing.remove();
     const t = getTranslations();
-    
     const modal = document.createElement('div');
     modal.className = 'settings-overlay';
-    
+
     let langOptions = '';
     languages.forEach(lang => {
         const selected = lang.code === currentTranslationLang ? 'selected' : '';
         langOptions += `<option value="${lang.code}" ${selected}>${lang.name}</option>`;
     });
-    
+
     modal.innerHTML = `
         <div class="settings-card">
             <button class="close-settings-btn" id="closeSettingsBtn"><i class="fas fa-times"></i></button>
@@ -1703,14 +1469,12 @@ function showSettingsModal() {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
-    
-    document.getElementById('closeSettingsBtn').onclick = () => {
-        if (modal && modal.remove) modal.remove();
-    };
+
+    document.getElementById('closeSettingsBtn').onclick = () => { if (modal && modal.remove) modal.remove(); };
     modal.onclick = (e) => { if (e.target === modal && modal.remove) modal.remove(); };
-    
+
     document.getElementById('applySettingsBtn').onclick = () => {
         const selectedLang = document.getElementById('settingsLangSelect').value;
         if (selectedLang && selectedLang !== currentTranslationLang) {
@@ -1735,34 +1499,34 @@ let isEditingTranslation = false;
 function startEditTranslation() {
     if (isEditingTranslation) return;
     isEditingTranslation = true;
-    
+
     const translationText = document.getElementById('translationText');
     const currentText = translationText.textContent;
     const t = getTranslations();
-    
+
     const input = document.createElement('input');
     input.type = 'text';
     input.value = currentText;
     input.className = 'translation-edit-input';
     input.dir = currentTranslationLang === 'ar' ? 'rtl' : 'ltr';
-    
+
     const container = translationText.parentElement;
     translationText.style.display = 'none';
     container.appendChild(input);
     input.focus();
     input.select();
-    
+
     const editBtn = document.getElementById('editTranslationBtn');
     editBtn.innerHTML = `<i class="fas fa-save"></i>`;
     editBtn.title = t.saveTranslation || 'حفظ الترجمة';
-    
+
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'edit-translation-btn';
     cancelBtn.innerHTML = `<i class="fas fa-times"></i>`;
     cancelBtn.title = t.cancel || 'إلغاء';
     cancelBtn.style.color = 'var(--error)';
     container.appendChild(cancelBtn);
-    
+
     const saveTranslation = () => {
         const newText = input.value.trim();
         if (newText && newText !== currentText) {
@@ -1773,20 +1537,14 @@ function startEditTranslation() {
         }
         finishEdit();
     };
-    
-    const cancelEdit = () => {
-        finishEdit();
-    };
-    
+
+    const cancelEdit = () => { finishEdit(); };
+
     const finishEdit = () => {
         isEditingTranslation = false;
         translationText.style.display = 'inline';
-        if (input.parentElement) {
-            input.parentElement.removeChild(input);
-        }
-        if (cancelBtn.parentElement) {
-            cancelBtn.parentElement.removeChild(cancelBtn);
-        }
+        if (input.parentElement) input.parentElement.removeChild(input);
+        if (cancelBtn.parentElement) cancelBtn.parentElement.removeChild(cancelBtn);
         editBtn.innerHTML = `<i class="fas fa-pen"></i>`;
         editBtn.title = t.editTranslation || 'تعديل الترجمة';
         const sentence = sentenceLibrary[currentIndex];
@@ -1795,39 +1553,30 @@ function startEditTranslation() {
             translationText.textContent = translation;
         }
     };
-    
+
     input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            saveTranslation();
-        }
-        if (e.key === 'Escape') {
-            e.preventDefault();
-            cancelEdit();
-        }
+        if (e.key === 'Enter') { e.preventDefault(); saveTranslation(); }
+        if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); }
     });
-    
+
     editBtn.onclick = saveTranslation;
     cancelBtn.onclick = cancelEdit;
-    
+
     input.addEventListener('blur', (e) => {
-        setTimeout(() => {
-            if (isEditingTranslation) {
-                saveTranslation();
-            }
-        }, 200);
+        setTimeout(() => { if (isEditingTranslation) saveTranslation(); }, 200);
     });
 }
 
 // ================= دالة التحقق من الإدخال =================
 function validateAndReact() {
+    if (!isAppReady) return;
     const inp = document.getElementById('userInput');
     const userText = inp.value.trim();
     const correctText = getCurrentCorrectTextClean();
     const exact = (removePunctuation(userText) === correctText);
-    
+
     updateNextButtonStatus(exact);
-    
+
     if (exact) {
         if (lastState !== true) {
             playCorrectSound();
@@ -1837,9 +1586,7 @@ function validateAndReact() {
             inp.style.animation = '';
             lastState = true;
             if (errTimeout) clearTimeout(errTimeout);
-            if (currentUser) {
-                addCompletedSentence();
-            }
+            if (currentUser) addCompletedSentence();
         } else {
             inp.style.color = '#1f2937';
             inp.style.borderColor = '#E2E8F0';
@@ -1850,18 +1597,15 @@ function validateAndReact() {
         const userClean = removePunctuation(userText).toLowerCase();
         const correctClean = correctText.toLowerCase();
         const prefix = correctClean.startsWith(userClean) && userClean.length > 0;
-        
+
         if (userClean.length > 0 && !prefix) {
             inp.classList.add('error-mode', 'text-error');
             inp.style.color = '#c62828';
             inp.style.borderColor = '#c62828';
-            
-            if (lastState !== false) {
-                playErrorSound();
-                lastState = false;
-            }
+
+            if (lastState !== false) { playErrorSound(); lastState = false; }
             updateNextButtonStatus(false);
-            
+
             if (errTimeout) clearTimeout(errTimeout);
             errTimeout = setTimeout(() => {
                 if (inp && document.activeElement === inp) {
@@ -1874,9 +1618,7 @@ function validateAndReact() {
             inp.style.color = '#1f2937';
             inp.style.borderColor = '#1CB0F6';
             inp.style.animation = '';
-            if (lastState === false) {
-                playCorrectSound();
-            }
+            if (lastState === false) playCorrectSound();
             lastState = null;
             updateNextButtonStatus(null);
         } else if (userClean.length === 0) {
@@ -1891,10 +1633,7 @@ function validateAndReact() {
             inp.classList.add('error-mode', 'text-error');
             inp.style.color = '#c62828';
             inp.style.borderColor = '#c62828';
-            if (lastState !== false) {
-                playErrorSound();
-                lastState = false;
-            }
+            if (lastState !== false) { playErrorSound(); lastState = false; }
             updateNextButtonStatus(false);
         }
     }
@@ -1903,103 +1642,130 @@ function validateAndReact() {
 // ================= تهيئة التطبيق =================
 function initApp() {
     console.log("🚀 بدء تشغيل التطبيق...");
-    
+
     if (sentenceLibrary.length === 0) {
         console.error("❌ لا توجد جمل في المكتبة!");
-        document.getElementById('originalText').innerText = 'جاري التحميل...';
-        document.getElementById('translationText').innerText = 'يرجى الانتظار...';
-        // محاولة إعادة بناء المكتبة
-        setTimeout(() => {
-            if (sentenceLibrary.length === 0) {
-                sentenceLibrary = buildLibrary();
-                if (sentenceLibrary.length > 0) {
-                    initApp();
-                }
-            }
-        }, 100);
+        document.getElementById('originalText').innerText = '⏳ جاري التحميل...';
+        document.getElementById('translationText').innerText = '⏳ يرجى الانتظار...';
         return;
     }
-    
+
     console.log(`📚 عدد الجمل المتاحة: ${sentenceLibrary.length.toLocaleString()}`);
-    
+
     const countEl = document.getElementById('sentenceCount');
-    if (countEl) {
-        countEl.textContent = sentenceLibrary.length.toLocaleString();
-    }
-    
+    if (countEl) countEl.textContent = sentenceLibrary.length.toLocaleString();
+
     // استعادة المستخدم
     const saved = localStorage.getItem('3alearning_currentUser');
     if (saved) {
         const u = JSON.parse(saved);
         if (users.find(x => x.id === u.id)) {
             currentUser = u;
-            if (currentUser.preferredLang) {
-                currentTranslationLang = currentUser.preferredLang;
-            }
+            if (currentUser.preferredLang) currentTranslationLang = currentUser.preferredLang;
         }
     } else {
         try {
             const browserLang = navigator.language || navigator.languages?.[0] || 'ar';
             const langCode = browserLang.split('-')[0].toLowerCase();
             const supported = languages.find(l => l.code === langCode);
-            if (supported) {
-                currentTranslationLang = langCode;
-            }
-        } catch (e) {
-            currentTranslationLang = 'ar';
-        }
+            if (supported) currentTranslationLang = langCode;
+        } catch (e) { currentTranslationLang = 'ar'; }
     }
-    
+
     updateHeaderUI();
     updateDisplay();
-    
+
     // ربط الأحداث
-    document.getElementById('userInput').addEventListener('input', validateAndReact);
-    document.getElementById('speakBtn').addEventListener('click', speakCurrent);
-    document.getElementById('speedSlider').addEventListener('input', function() {
-        currentSpeed = parseFloat(this.value);
-        document.getElementById('speedValue').innerText = currentSpeed.toFixed(2) + 'x';
-    });
-    document.getElementById('prevBtnNav').addEventListener('click', prevSentence);
-    document.getElementById('nextBtnNav').addEventListener('click', nextSentence);
-    
-    document.getElementById('headerLoginBtn').addEventListener('click', () => showAuthModal('login'));
-    document.getElementById('headerSignupBtn').addEventListener('click', () => showAuthModal('signup'));
-    document.getElementById('logoutBtnHeader')?.addEventListener('click', logout);
-    
-    document.getElementById('menuBtn').addEventListener('click', openSidebar);
-    document.getElementById('closeSidebarBtn').addEventListener('click', closeSidebar);
-    document.getElementById('sidebarOverlay').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('sidebarOverlay')) closeSidebar();
-    });
-    
-    const editBtn = document.getElementById('editTranslationBtn');
-    if (editBtn) {
-        editBtn.addEventListener('click', startEditTranslation);
+    const userInput = document.getElementById('userInput');
+    if (userInput) userInput.addEventListener('input', validateAndReact);
+
+    const speakBtn = document.getElementById('speakBtn');
+    if (speakBtn) speakBtn.addEventListener('click', speakCurrent);
+
+    const speedSlider = document.getElementById('speedSlider');
+    if (speedSlider) {
+        speedSlider.addEventListener('input', function() {
+            currentSpeed = parseFloat(this.value);
+            document.getElementById('speedValue').innerText = currentSpeed.toFixed(2) + 'x';
+        });
     }
-    
-    document.getElementById('statsLinkFooter')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (!currentUser) {
-            const t = getTranslations();
-            showMsg(t.statsRequireLogin, true);
-            showAuthModal('login');
-        }
+
+    const prevBtn = document.getElementById('prevBtnNav');
+    if (prevBtn) prevBtn.addEventListener('click', prevSentence);
+
+    const nextBtn = document.getElementById('nextBtnNav');
+    if (nextBtn) nextBtn.addEventListener('click', nextSentence);
+
+    const headerLoginBtn = document.getElementById('headerLoginBtn');
+    if (headerLoginBtn) headerLoginBtn.addEventListener('click', () => showAuthModal('login'));
+
+    const headerSignupBtn = document.getElementById('headerSignupBtn');
+    if (headerSignupBtn) headerSignupBtn.addEventListener('click', () => showAuthModal('signup'));
+
+    const logoutBtn = document.getElementById('logoutBtnHeader');
+    if (logoutBtn) logoutBtn.addEventListener('click', logout);
+
+    const menuBtn = document.getElementById('menuBtn');
+    if (menuBtn) menuBtn.addEventListener('click', openSidebar);
+
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeSidebar);
+
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    if (sidebarOverlay) sidebarOverlay.addEventListener('click', (e) => {
+        if (e.target === sidebarOverlay) closeSidebar();
     });
-    
+
+    const editBtn = document.getElementById('editTranslationBtn');
+    if (editBtn) editBtn.addEventListener('click', startEditTranslation);
+
+    const statsLinkFooter = document.getElementById('statsLinkFooter');
+    if (statsLinkFooter) {
+        statsLinkFooter.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!currentUser) {
+                const t = getTranslations();
+                showMsg(t.statsRequireLogin, true);
+                showAuthModal('login');
+            }
+        });
+    }
+
     document.getElementById('speedValue').innerText = '0.90x';
-    
+
+    // جعل التطبيق جاهزاً
+    isAppReady = true;
+
+    // إخفاء صفحة التحميل وإظهار المحتوى
+    const loadingPage = document.getElementById('loadingPage');
+    const appContent = document.getElementById('appContent');
+
+    if (loadingPage) {
+        loadingPage.classList.add('hidden');
+        setTimeout(() => { loadingPage.style.display = 'none'; }, 700);
+    }
+
+    if (appContent) {
+        appContent.classList.remove('hidden-content');
+        appContent.classList.add('visible-content');
+    }
+
     setTimeout(() => {
         const langName = getLangName(currentTranslationLang);
         const t = getTranslations();
         showMsg(`${t.autoLangDetected} ${langName}`);
     }, 1500);
-    
+
     console.log(`✅ تم تحميل ${sentenceLibrary.length.toLocaleString()} جملة`);
 }
 
-// ===== بدء التطبيق =====
-// تم تهيئة التطبيق بعد بناء المكتبة (انظر أعلاه)
+// ===== بدء التحميل السريع =====
+setTimeout(() => {
+    // بناء المكتبة مع تحديث التقدم
+    sentenceLibrary = buildFullLibrary();
+    // بدء التطبيق
+    initApp();
+}, 50);
 </script>
 </body>
 </html>
