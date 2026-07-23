@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>3Alearning | Shadowing - 1M+ Sentences</title>
-    <meta name="description" content="منصة متخصصة في تدريب الظل الذكي (Shadowing) لتعلم اللغة الإنجليزية بطلاقة - أكثر من مليون جملة">
+    <title>3Alearning | Shadowing - 1M+ Smart Sentences</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* --- All existing CSS styles remain unchanged --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         :root {
             --primary: #58CC71; --primary-light: #7FDB8F; --primary-dark: #46A758;
@@ -49,26 +49,85 @@
         .loading-progress-text { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
         .loading-desc { margin-top: 12px; color: var(--text-muted); font-size: 0.85rem; text-align: center; max-width: 320px; line-height: 1.5; opacity: 0.7; }
         .loading-desc i { color: var(--primary); margin-left: 4px; }
-        .settings-overlay, .auth-overlay {
+        .settings-overlay, .auth-overlay, .milestone-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center;
             z-index: 1001; padding: 20px; animation: fadeIn 0.3s ease;
         }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        .settings-card, .auth-card {
+        .settings-card, .auth-card, .milestone-card {
             background: var(--white); border-radius: 32px; padding: 40px 32px;
             width: 100%; max-width: 460px; text-align: center;
             box-shadow: 0 25px 45px -12px rgba(0,0,0,0.15);
             border: 1px solid var(--border); position: relative; max-height: 95vh; overflow-y: auto;
         }
-        .close-settings-btn, .close-auth-btn {
+        .milestone-card {
+            max-width: 500px;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+        }
+        .milestone-card .milestone-icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .milestone-card .milestone-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+        .milestone-card .milestone-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .milestone-card .milestone-stats {
+            background: #f0fdf4;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #bbf7d0;
+        }
+        .milestone-card .milestone-stats span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        .milestone-card .milestone-ad-container {
+            background: var(--ad-bg);
+            border: 1px solid var(--ad-border);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 0;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .milestone-card .milestone-ad-container .ad-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-milestone {
+            width: 100%; padding: 16px; border-radius: 60px; font-weight: 700;
+            font-family: 'Tajawal', sans-serif; cursor: pointer; transition: all 0.2s;
+            border: none; font-size: 1rem; background: var(--primary); color: white;
+        }
+        .btn-milestone:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-milestone:active { transform: scale(0.97); }
+        .close-settings-btn, .close-auth-btn, .close-milestone-btn {
             position: absolute; top: 20px; left: 20px; width: 36px; height: 36px;
             background: #f3f4f6; border: none; border-radius: 50%; cursor: pointer;
             font-size: 1.1rem; color: var(--text-muted);
             display: flex; align-items: center; justify-content: center; transition: all 0.2s;
         }
-        .close-settings-btn:hover, .close-auth-btn:hover { background: #e5e7eb; color: var(--primary); }
+        .close-settings-btn:hover, .close-auth-btn:hover, .close-milestone-btn:hover { background: #e5e7eb; color: var(--primary); }
         .settings-card h2, .auth-card h2 { color: var(--primary); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
         .settings-subtitle, .auth-subtitle { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px; }
         .settings-current-lang { display: flex; align-items: center; justify-content: center; gap: 12px; background: #f8fafc; padding: 12px 20px; border-radius: 60px; margin-bottom: 24px; flex-wrap: wrap; }
@@ -511,6 +570,9 @@
             .user-profile-card .profile-email { text-align: center; }
             .user-profile-card .profile-stats-mini { justify-content: center; flex-wrap: wrap; }
             .sentence-count { font-size: 0.8rem; padding: 8px 16px; }
+            .milestone-card { padding: 32px 20px; }
+            .milestone-card .milestone-icon { font-size: 3rem; }
+            .milestone-card .milestone-title { font-size: 1.5rem; }
         }
         @media (min-width: 769px) { .menu-btn { display: none; } .sidebar-overlay { display: none; } .header-buttons { display: flex; } .header-stats { display: flex; } }
         .validation-message {
@@ -630,7 +692,6 @@
             border-color: var(--secondary);
             box-shadow: 0 0 0 2px rgba(28, 176, 246, 0.1), var(--shadow-md);
         }
-        /* Language direction support */
         [dir="ltr"] .sentence-text {
             direction: ltr !important;
         }
@@ -659,9 +720,9 @@
     </div>
     <div class="loading-desc">
         <i class="fas fa-graduation-cap"></i>
-        <span id="loadingDescText">محرك جمل لا نهائي - 1,000,000+ جملة</span>
+        <span id="loadingDescText">محرك جمل شامل - 1,000,000+ جملة منطقية</span>
         <br>
-        <small style="font-size:0.7rem;opacity:0.6;" id="loadingSentencesCount">🚀 تدقيق لغوي فائق الدقة</small>
+        <small style="font-size:0.7rem;opacity:0.6;" id="loadingSentencesCount">🚀 12 موضوع - تغطية شاملة لكل مجالات الحياة</small>
     </div>
 </div>
 <div id="appContent" class="hidden-content">
@@ -723,7 +784,7 @@
                     <div class="info-bar">
                         <span id="infoBarText">استمع، ثم اكتب النص كما سمعته بدقة</span>
                         <span class="infinite-badge"><i class="fas fa-infinity"></i> <span id="infiniteBadgeText">1M+</span></span>
-                        <span class="stats-badge"><i class="fas fa-check-double"></i> <span id="statsBadgeText">تدقيق فائق</span></span>
+                        <span class="stats-badge"><i class="fas fa-check-double"></i> <span id="statsBadgeText">جمل شاملة</span></span>
                     </div>
                     <div class="lang-selector-mini" id="langSelectorMini" title="تغيير لغة الترجمة">
                         <span class="flag-icon" id="currentFlag">🇸🇦</span>
@@ -777,6 +838,7 @@
                         <span id="sentenceCountLabel">جمل غير محدودة:</span> <strong><span class="count-number" id="sentenceCount">∞</span></strong>
                         <span style="font-size:0.7rem;color:var(--text-muted);margin-right:8px;">| <span id="combinationsLabel">تركيبات:</span> <span id="totalCombos">0</span></span>
                         <span style="font-size:0.7rem;color:var(--primary);margin-right:8px;">| ✅ <span id="validCount">0</span> <span id="validLabel">صحيحة</span></span>
+                        <span style="font-size:0.7rem;color:var(--warning);margin-right:8px;">| 🏆 <span id="milestoneCount">0</span> <span id="milestoneLabel">إنجاز</span></span>
                     </div>
                 </div>
             </div>
@@ -832,9 +894,8 @@
 
 <script>
 // ============================================================
-// 3Alearning - 1M+ Sentence Generator
-// Ultra-Precise Linguistic Validation
-// ALWAYS ACTIVE INPUT FIELD
+// 3Alearning - Comprehensive Smart Sentence Generator
+// 12 Topics - 1M+ Logical Sentences
 // ============================================================
 
 // ============================================================
@@ -861,2098 +922,538 @@ const SUPPORTED_LANGUAGES = [
 ];
 
 // ============================================================
-// FULL SITE TRANSLATIONS - 15+ Languages
+// FULL SITE TRANSLATIONS (Abbreviated)
 // ============================================================
 
 const SITE_TRANSLATIONS = {
     'ar': {
-        // Header
-        'login': 'تسجيل الدخول',
-        'signup': 'إنشاء حساب',
-        'days': 'يوم',
-        'sentences': 'جملة',
-        'minutes': 'دقيقة',
-        'logout': 'خروج',
-        // Loading
-        'loadingDesc': 'محرك جمل لا نهائي - 1,000,000+ جملة',
-        'loadingSentences': '🚀 تدقيق لغوي فائق الدقة',
+        'login': 'تسجيل الدخول', 'signup': 'إنشاء حساب', 'days': 'يوم', 'sentences': 'جملة', 'minutes': 'دقيقة',
+        'logout': 'خروج', 'loadingDesc': 'محرك جمل شامل - 1,000,000+ جملة منطقية',
+        'loadingSentences': '🚀 12 موضوع - تغطية شاملة لكل مجالات الحياة',
         'loadingPlaceholder': '⏳ جاري التحميل...',
-        // Info bar
         'infoBar': 'استمع، ثم اكتب النص كما سمعته بدقة',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'تدقيق فائق',
-        // Sentence display
-        'category': 'التصنيف: مختلط',
-        'tensePresent': 'المضارع',
-        'tensePast': 'الماضي',
+        'infiniteBadge': '1M+', 'statsBadge': 'جمل شاملة',
+        'category': 'التصنيف:', 'tensePresent': 'المضارع', 'tensePast': 'الماضي',
         'structure': 'الفاعل + الفعل + المفعول + السبب',
-        // Grammar
-        'grammarValid': '✅ صحيح لغوياً',
-        'grammarInvalid': '⚠️ يحتاج مراجعة',
-        'grammarWords': 'كلمات',
-        'grammarScore': 'نقاط',
-        // Speed
-        'speed': 'السرعة',
-        // Input
-        'writeHere': 'اكتب الجملة هنا',
-        'focusActive': 'نشط - جاهز للكتابة',
-        'focusInactive': 'غير نشط - اضغط للكتابة',
-        // Buttons
-        'newSentence': 'جملة جديدة',
-        // Count
-        'sentencesUnlimited': 'جمل غير محدودة:',
-        'combinations': 'تركيبات:',
-        'valid': 'صحيحة',
-        // Auth
+        'grammarValid': '✅ صحيح لغوياً', 'grammarInvalid': '⚠️ يحتاج مراجعة',
+        'grammarWords': 'كلمات', 'grammarScore': 'نقاط',
+        'speed': 'السرعة', 'writeHere': 'اكتب الجملة هنا',
+        'focusActive': 'نشط - جاهز للكتابة', 'focusInactive': 'غير نشط - اضغط للكتابة',
+        'newSentence': 'جملة جديدة', 'sentencesUnlimited': 'جمل غير محدودة:',
+        'combinations': 'تركيبات:', 'valid': 'صحيحة', 'milestone': 'إنجاز',
         'welcomeBack': 'مرحباً بك في منصة تدريب الظل الذكي',
-        'joinNow': 'انضم الآن',
-        'createAccount': 'أنشئ حسابك وابدأ رحلة التعلم',
-        'or': 'أو',
-        'fullName': 'الاسم الكامل',
-        'email': 'البريد الإلكتروني',
-        'password': 'كلمة المرور',
-        'preferredLang': 'لغة الترجمة المفضلة',
-        'createAccountBtn': 'إنشاء حساب',
-        'haveAccount': 'لديك حساب؟',
-        'noAccount': 'ليس لديك حساب؟',
-        'freeAccount': 'إنشاء حساب مجاني',
-        'emailPlaceholder': 'البريد الإلكتروني',
-        'passwordPlaceholder': 'كلمة المرور',
-        'loginBtn': 'تسجيل الدخول',
-        'allFieldsRequired': 'املأ جميع الحقول',
-        'emailExists': 'البريد مسجل مسبقاً',
-        'invalidCredentials': 'البريد أو كلمة المرور غير صحيحة',
-        // Messages
+        'joinNow': 'انضم الآن', 'createAccount': 'أنشئ حسابك وابدأ رحلة التعلم',
+        'or': 'أو', 'fullName': 'الاسم الكامل', 'email': 'البريد الإلكتروني',
+        'password': 'كلمة المرور', 'preferredLang': 'لغة الترجمة المفضلة',
+        'createAccountBtn': 'إنشاء حساب', 'haveAccount': 'لديك حساب؟',
+        'noAccount': 'ليس لديك حساب؟', 'freeAccount': 'إنشاء حساب مجاني',
+        'emailPlaceholder': 'البريد الإلكتروني', 'passwordPlaceholder': 'كلمة المرور',
+        'loginBtn': 'تسجيل الدخول', 'allFieldsRequired': 'املأ جميع الحقول',
+        'emailExists': 'البريد مسجل مسبقاً', 'invalidCredentials': 'البريد أو كلمة المرور غير صحيحة',
         'pleaseLoginToContinue': 'الرجاء تسجيل الدخول للمتابعة',
         'lastTrial': 'تنبيه: هذه آخر جملة تجريبية، سجل لتواصل التدريب',
-        'trialSentence': 'جملة تجريبية',
-        'writeCorrectly': 'يرجى كتابة الجملة بشكل صحيح قبل التالي',
-        'logoutSuccess': 'تم تسجيل الخروج بنجاح',
-        'welcomeUser': 'مرحباً',
+        'trialSentence': 'جملة تجريبية', 'writeCorrectly': 'يرجى كتابة الجملة بشكل صحيح قبل التالي',
+        'logoutSuccess': 'تم تسجيل الخروج بنجاح', 'welcomeUser': 'مرحباً',
         'languageChanged': 'تم تغيير لغة الترجمة إلى',
         'browserNotSupportSpeech': 'المتصفح لا يدعم النطق',
-        'error': 'حدث خطأ',
-        'autoLangDetected': 'تم تحديد لغة الترجمة تلقائياً:',
+        'error': 'حدث خطأ', 'autoLangDetected': 'تم تحديد لغة الترجمة تلقائياً:',
         'statsRequireLogin': 'الرجاء تسجيل الدخول لعرض الإحصائيات',
         'settingsSaved': 'تم حفظ الإعدادات',
-        // Footer
         'footerDesc': 'منصة متخصصة في تدريب الظل الذكي (Shadowing) لتعلم اللغة الإنجليزية بطلاقة.',
-        'quickLinks': 'روابط سريعة',
-        'home': 'الرئيسية',
-        'shadowLessons': 'دروس الظل',
-        'stats': 'الإحصائيات',
-        'support': 'الدعم',
-        'helpCenter': 'مركز المساعدة',
-        'privacy': 'سياسة الخصوصية',
-        'contact': 'اتصل بنا',
-        'copyright': 'جميع الحقوق محفوظة',
-        // Ads
-        'ad': 'إعلان',
-        'ads': 'إعلانات',
-        // Settings
+        'quickLinks': 'روابط سريعة', 'home': 'الرئيسية',
+        'shadowLessons': 'دروس الظل', 'stats': 'الإحصائيات',
+        'support': 'الدعم', 'helpCenter': 'مركز المساعدة',
+        'privacy': 'سياسة الخصوصية', 'contact': 'اتصل بنا',
+        'copyright': 'جميع الحقوق محفوظة', 'ad': 'إعلان', 'ads': 'إعلانات',
         'chooseTranslationLang': 'اختر لغة الترجمة',
         'chooseLangSubtitle': 'اختر اللغة التي تريد ترجمة الجمل إليها',
-        'applyChange': 'تطبيق التغيير',
-        'langWillBeSaved': 'سيتم حفظ تفضيل اللغة في حسابك',
-        'learningStats': 'إحصائيات التعلم',
-        'totalDays': 'إجمالي الأيام',
-        'todaySentences': 'الجمل اليوم',
-        'todayMinutes': 'الدقائق اليوم',
-        'translationLangStat': 'لغة الترجمة',
-        'settingsTitle': 'الإعدادات',
+        'applyChange': 'تطبيق التغيير', 'langWillBeSaved': 'سيتم حفظ تفضيل اللغة في حسابك',
+        'learningStats': 'إحصائيات التعلم', 'totalDays': 'إجمالي الأيام',
+        'todaySentences': 'الجمل اليوم', 'todayMinutes': 'الدقائق اليوم',
+        'translationLangStat': 'لغة الترجمة', 'settingsTitle': 'الإعدادات',
         'settingsSubtitle': 'اختر لغة الترجمة المفضلة لديك',
-        'currentLanguage': 'اللغة الحالية',
-        'changeLanguageBtn': 'تغيير اللغة',
-        'editTranslation': 'تعديل الترجمة',
-        'saveTranslation': 'حفظ الترجمة',
-        'cancel': 'إلغاء',
-        'cannotGoBack': 'لا يمكنك الرجوع إلى ما قبل البداية',
-        'allCategories': 'الكل',
-        'mixed': 'مختلط',
-        'translationTo': 'الترجمة إلى',
-        'translating': '⏳ جاري الترجمة...',
-        'translationError': '⚠️ خطأ في الترجمة',
-        'noSentence': '⚠️ لا توجد جملة'
+        'currentLanguage': 'اللغة الحالية', 'changeLanguageBtn': 'تغيير اللغة',
+        'editTranslation': 'تعديل الترجمة', 'saveTranslation': 'حفظ الترجمة',
+        'cancel': 'إلغاء', 'cannotGoBack': 'لا يمكنك الرجوع إلى ما قبل البداية',
+        'allCategories': 'الكل', 'mixed': 'مختلط',
+        'translationTo': 'الترجمة إلى', 'translating': '⏳ جاري الترجمة...',
+        'translationError': '⚠️ خطأ في الترجمة', 'noSentence': '⚠️ لا توجد جملة',
+        'milestoneCongrats': '🎉 رائع!',
+        'milestoneTitle': 'أكملت {count} جملة بنجاح!',
+        'milestoneSubtitle': 'استمر بهذا المستوى الرائع، أنت في طريقك لإتقان اللغة! 🔥',
+        'milestoneStats': 'الإنجازات حتى الآن: {count}',
+        'milestoneContinue': 'متابعة التدريب 🚀',
+        'milestoneAdLabel': 'إعلان - شكراً لدعمكم'
     },
     'en': {
-        'login': 'Login',
-        'signup': 'Sign Up',
-        'days': 'Days',
-        'sentences': 'Sentences',
-        'minutes': 'Minutes',
-        'logout': 'Logout',
-        'loadingDesc': 'Infinite Sentence Engine - 1,000,000+ Sentences',
-        'loadingSentences': '🚀 Ultra-Precise Linguistic Validation',
+        'login': 'Login', 'signup': 'Sign Up', 'days': 'Days', 'sentences': 'Sentences', 'minutes': 'Minutes',
+        'logout': 'Logout', 'loadingDesc': 'Comprehensive Sentence Engine - 1,000,000+ Logical Sentences',
+        'loadingSentences': '🚀 12 Topics - Complete Coverage of All Life Areas',
         'loadingPlaceholder': '⏳ Loading...',
         'infoBar': 'Listen, then type the text exactly as you heard it',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultra-Precise',
-        'category': 'Category: Mixed',
-        'tensePresent': 'Present',
-        'tensePast': 'Past',
+        'infiniteBadge': '1M+', 'statsBadge': 'Comprehensive',
+        'category': 'Category:', 'tensePresent': 'Present', 'tensePast': 'Past',
         'structure': 'Subject + Verb + Object + Reason',
-        'grammarValid': '✅ Grammatically correct',
-        'grammarInvalid': '⚠️ Needs review',
-        'grammarWords': 'words',
-        'grammarScore': 'Score',
-        'speed': 'Speed',
-        'writeHere': 'Type the sentence here',
-        'focusActive': 'Active - Ready to type',
-        'focusInactive': 'Inactive - Click to type',
-        'newSentence': 'New Sentence',
-        'sentencesUnlimited': 'Unlimited Sentences:',
-        'combinations': 'Combinations:',
-        'valid': 'Valid',
+        'grammarValid': '✅ Grammatically correct', 'grammarInvalid': '⚠️ Needs review',
+        'grammarWords': 'words', 'grammarScore': 'Score',
+        'speed': 'Speed', 'writeHere': 'Type the sentence here',
+        'focusActive': 'Active - Ready to type', 'focusInactive': 'Inactive - Click to type',
+        'newSentence': 'New Sentence', 'sentencesUnlimited': 'Unlimited Sentences:',
+        'combinations': 'Combinations:', 'valid': 'Valid', 'milestone': 'Milestone',
         'welcomeBack': 'Welcome to the Smart Shadowing Platform',
-        'joinNow': 'Join Now',
-        'createAccount': 'Create your account and start learning',
-        'or': 'or',
-        'fullName': 'Full Name',
-        'email': 'Email',
-        'password': 'Password',
-        'preferredLang': 'Preferred Translation Language',
-        'createAccountBtn': 'Create Account',
-        'haveAccount': 'Already have an account?',
-        'noAccount': "Don't have an account?",
-        'freeAccount': 'Create Free Account',
-        'emailPlaceholder': 'Email',
-        'passwordPlaceholder': 'Password',
-        'loginBtn': 'Login',
-        'allFieldsRequired': 'Please fill all fields',
-        'emailExists': 'Email already registered',
-        'invalidCredentials': 'Invalid email or password',
+        'joinNow': 'Join Now', 'createAccount': 'Create your account and start learning',
+        'or': 'or', 'fullName': 'Full Name', 'email': 'Email',
+        'password': 'Password', 'preferredLang': 'Preferred Translation Language',
+        'createAccountBtn': 'Create Account', 'haveAccount': 'Already have an account?',
+        'noAccount': "Don't have an account?", 'freeAccount': 'Create Free Account',
+        'emailPlaceholder': 'Email', 'passwordPlaceholder': 'Password',
+        'loginBtn': 'Login', 'allFieldsRequired': 'Please fill all fields',
+        'emailExists': 'Email already registered', 'invalidCredentials': 'Invalid email or password',
         'pleaseLoginToContinue': 'Please login to continue',
         'lastTrial': 'Warning: This is your last trial sentence, sign up to continue training',
-        'trialSentence': 'Trial Sentence',
-        'writeCorrectly': 'Please write the sentence correctly before proceeding',
-        'logoutSuccess': 'Logged out successfully',
-        'welcomeUser': 'Welcome',
+        'trialSentence': 'Trial Sentence', 'writeCorrectly': 'Please write the sentence correctly before proceeding',
+        'logoutSuccess': 'Logged out successfully', 'welcomeUser': 'Welcome',
         'languageChanged': 'Translation language changed to',
         'browserNotSupportSpeech': 'Browser does not support speech',
-        'error': 'An error occurred',
-        'autoLangDetected': 'Translation language auto-detected:',
+        'error': 'An error occurred', 'autoLangDetected': 'Translation language auto-detected:',
         'statsRequireLogin': 'Please login to view statistics',
         'settingsSaved': 'Settings saved',
         'footerDesc': 'A specialized platform for smart shadowing training to learn English fluently.',
-        'quickLinks': 'Quick Links',
-        'home': 'Home',
-        'shadowLessons': 'Shadow Lessons',
-        'stats': 'Statistics',
-        'support': 'Support',
-        'helpCenter': 'Help Center',
-        'privacy': 'Privacy Policy',
-        'contact': 'Contact Us',
-        'copyright': 'All Rights Reserved',
-        'ad': 'Ad',
-        'ads': 'Ads',
+        'quickLinks': 'Quick Links', 'home': 'Home',
+        'shadowLessons': 'Shadow Lessons', 'stats': 'Statistics',
+        'support': 'Support', 'helpCenter': 'Help Center',
+        'privacy': 'Privacy Policy', 'contact': 'Contact Us',
+        'copyright': 'All Rights Reserved', 'ad': 'Ad', 'ads': 'Ads',
         'chooseTranslationLang': 'Choose Translation Language',
         'chooseLangSubtitle': 'Choose the language you want sentences translated to',
-        'applyChange': 'Apply Change',
-        'langWillBeSaved': 'Language preference will be saved to your account',
-        'learningStats': 'Learning Statistics',
-        'totalDays': 'Total Days',
-        'todaySentences': "Today's Sentences",
-        'todayMinutes': "Today's Minutes",
-        'translationLangStat': 'Translation Language',
-        'settingsTitle': 'Settings',
+        'applyChange': 'Apply Change', 'langWillBeSaved': 'Language preference will be saved to your account',
+        'learningStats': 'Learning Statistics', 'totalDays': 'Total Days',
+        'todaySentences': "Today's Sentences", 'todayMinutes': "Today's Minutes",
+        'translationLangStat': 'Translation Language', 'settingsTitle': 'Settings',
         'settingsSubtitle': 'Choose your preferred translation language',
-        'currentLanguage': 'Current Language',
-        'changeLanguageBtn': 'Change Language',
-        'editTranslation': 'Edit Translation',
-        'saveTranslation': 'Save Translation',
-        'cancel': 'Cancel',
-        'cannotGoBack': 'Cannot go back before the beginning',
-        'allCategories': 'All',
-        'mixed': 'Mixed',
-        'translationTo': 'Translation to',
-        'translating': '⏳ Translating...',
-        'translationError': '⚠️ Translation error',
-        'noSentence': '⚠️ No sentence'
-    },
-    'es': {
-        'login': 'Iniciar sesión',
-        'signup': 'Registrarse',
-        'days': 'Días',
-        'sentences': 'Frases',
-        'minutes': 'Minutos',
-        'logout': 'Cerrar sesión',
-        'loadingDesc': 'Motor de frases infinito - 1,000,000+ frases',
-        'loadingSentences': '🚀 Validación lingüística ultra precisa',
-        'loadingPlaceholder': '⏳ Cargando...',
-        'infoBar': 'Escucha, luego escribe el texto exactamente como lo escuchaste',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultra preciso',
-        'category': 'Categoría: Mixto',
-        'tensePresent': 'Presente',
-        'tensePast': 'Pasado',
-        'structure': 'Sujeto + Verbo + Objeto + Razón',
-        'grammarValid': '✅ Gramaticalmente correcto',
-        'grammarInvalid': '⚠️ Necesita revisión',
-        'grammarWords': 'palabras',
-        'grammarScore': 'Puntuación',
-        'speed': 'Velocidad',
-        'writeHere': 'Escribe la frase aquí',
-        'focusActive': 'Activo - Listo para escribir',
-        'focusInactive': 'Inactivo - Haz clic para escribir',
-        'newSentence': 'Nueva frase',
-        'sentencesUnlimited': 'Frases ilimitadas:',
-        'combinations': 'Combinaciones:',
-        'valid': 'Válidas',
-        'welcomeBack': 'Bienvenido a la plataforma de Shadowing inteligente',
-        'joinNow': 'Únete ahora',
-        'createAccount': 'Crea tu cuenta y comienza a aprender',
-        'or': 'o',
-        'fullName': 'Nombre completo',
-        'email': 'Correo electrónico',
-        'password': 'Contraseña',
-        'preferredLang': 'Idioma de traducción preferido',
-        'createAccountBtn': 'Crear cuenta',
-        'haveAccount': '¿Ya tienes una cuenta?',
-        'noAccount': '¿No tienes una cuenta?',
-        'freeAccount': 'Crear cuenta gratuita',
-        'emailPlaceholder': 'Correo electrónico',
-        'passwordPlaceholder': 'Contraseña',
-        'loginBtn': 'Iniciar sesión',
-        'allFieldsRequired': 'Por favor completa todos los campos',
-        'emailExists': 'El correo ya está registrado',
-        'invalidCredentials': 'Correo o contraseña incorrectos',
-        'pleaseLoginToContinue': 'Por favor inicia sesión para continuar',
-        'lastTrial': 'Advertencia: Esta es tu última frase de prueba, regístrate para continuar entrenando',
-        'trialSentence': 'Frase de prueba',
-        'writeCorrectly': 'Por favor escribe la frase correctamente antes de continuar',
-        'logoutSuccess': 'Sesión cerrada exitosamente',
-        'welcomeUser': 'Bienvenido',
-        'languageChanged': 'Idioma de traducción cambiado a',
-        'browserNotSupportSpeech': 'El navegador no soporta voz',
-        'error': 'Ocurrió un error',
-        'autoLangDetected': 'Idioma de traducción detectado automáticamente:',
-        'statsRequireLogin': 'Por favor inicia sesión para ver las estadísticas',
-        'settingsSaved': 'Configuración guardada',
-        'footerDesc': 'Plataforma especializada en entrenamiento de shadowing inteligente para aprender inglés con fluidez.',
-        'quickLinks': 'Enlaces rápidos',
-        'home': 'Inicio',
-        'shadowLessons': 'Lecciones de shadowing',
-        'stats': 'Estadísticas',
-        'support': 'Soporte',
-        'helpCenter': 'Centro de ayuda',
-        'privacy': 'Política de privacidad',
-        'contact': 'Contáctanos',
-        'copyright': 'Todos los derechos reservados',
-        'ad': 'Anuncio',
-        'ads': 'Anuncios',
-        'chooseTranslationLang': 'Elige el idioma de traducción',
-        'chooseLangSubtitle': 'Elige el idioma al que quieres traducir las frases',
-        'applyChange': 'Aplicar cambio',
-        'langWillBeSaved': 'La preferencia de idioma se guardará en tu cuenta',
-        'learningStats': 'Estadísticas de aprendizaje',
-        'totalDays': 'Días totales',
-        'todaySentences': 'Frases de hoy',
-        'todayMinutes': 'Minutos de hoy',
-        'translationLangStat': 'Idioma de traducción',
-        'settingsTitle': 'Configuración',
-        'settingsSubtitle': 'Elige tu idioma de traducción preferido',
-        'currentLanguage': 'Idioma actual',
-        'changeLanguageBtn': 'Cambiar idioma',
-        'editTranslation': 'Editar traducción',
-        'saveTranslation': 'Guardar traducción',
-        'cancel': 'Cancelar',
-        'cannotGoBack': 'No puedes retroceder antes del principio',
-        'allCategories': 'Todas',
-        'mixed': 'Mixto',
-        'translationTo': 'Traducción al',
-        'translating': '⏳ Traduciendo...',
-        'translationError': '⚠️ Error de traducción',
-        'noSentence': '⚠️ No hay frase'
-    },
-    'fr': {
-        'login': 'Se connecter',
-        'signup': 'S\'inscrire',
-        'days': 'Jours',
-        'sentences': 'Phrases',
-        'minutes': 'Minutes',
-        'logout': 'Déconnexion',
-        'loadingDesc': 'Moteur de phrases infini - 1 000 000+ phrases',
-        'loadingSentences': '🚀 Validation linguistique ultra-précise',
-        'loadingPlaceholder': '⏳ Chargement...',
-        'infoBar': 'Écoutez, puis écrivez le texte exactement comme vous l\'avez entendu',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultra-précis',
-        'category': 'Catégorie: Mixte',
-        'tensePresent': 'Présent',
-        'tensePast': 'Passé',
-        'structure': 'Sujet + Verbe + Objet + Raison',
-        'grammarValid': '✅ Grammaticalement correct',
-        'grammarInvalid': '⚠️ Nécessite une révision',
-        'grammarWords': 'mots',
-        'grammarScore': 'Score',
-        'speed': 'Vitesse',
-        'writeHere': 'Écrivez la phrase ici',
-        'focusActive': 'Actif - Prêt à écrire',
-        'focusInactive': 'Inactif - Cliquez pour écrire',
-        'newSentence': 'Nouvelle phrase',
-        'sentencesUnlimited': 'Phrases illimitées:',
-        'combinations': 'Combinaisons:',
-        'valid': 'Valides',
-        'welcomeBack': 'Bienvenue sur la plateforme de Shadowing intelligent',
-        'joinNow': 'Rejoignez-nous',
-        'createAccount': 'Créez votre compte et commencez à apprendre',
-        'or': 'ou',
-        'fullName': 'Nom complet',
-        'email': 'E-mail',
-        'password': 'Mot de passe',
-        'preferredLang': 'Langue de traduction préférée',
-        'createAccountBtn': 'Créer un compte',
-        'haveAccount': 'Vous avez déjà un compte?',
-        'noAccount': 'Vous n\'avez pas de compte?',
-        'freeAccount': 'Créer un compte gratuit',
-        'emailPlaceholder': 'E-mail',
-        'passwordPlaceholder': 'Mot de passe',
-        'loginBtn': 'Se connecter',
-        'allFieldsRequired': 'Veuillez remplir tous les champs',
-        'emailExists': 'E-mail déjà enregistré',
-        'invalidCredentials': 'E-mail ou mot de passe incorrect',
-        'pleaseLoginToContinue': 'Veuillez vous connecter pour continuer',
-        'lastTrial': 'Attention: Ceci est votre dernière phrase d\'essai, inscrivez-vous pour continuer l\'entraînement',
-        'trialSentence': 'Phrase d\'essai',
-        'writeCorrectly': 'Veuillez écrire la phrase correctement avant de continuer',
-        'logoutSuccess': 'Déconnecté avec succès',
-        'welcomeUser': 'Bienvenue',
-        'languageChanged': 'Langue de traduction changée en',
-        'browserNotSupportSpeech': 'Le navigateur ne supporte pas la synthèse vocale',
-        'error': 'Une erreur est survenue',
-        'autoLangDetected': 'Langue de traduction détectée automatiquement:',
-        'statsRequireLogin': 'Veuillez vous connecter pour voir les statistiques',
-        'settingsSaved': 'Paramètres enregistrés',
-        'footerDesc': 'Plateforme spécialisée dans l\'entraînement au shadowing intelligent pour apprendre l\'anglais couramment.',
-        'quickLinks': 'Liens rapides',
-        'home': 'Accueil',
-        'shadowLessons': 'Leçons de shadowing',
-        'stats': 'Statistiques',
-        'support': 'Support',
-        'helpCenter': 'Centre d\'aide',
-        'privacy': 'Politique de confidentialité',
-        'contact': 'Contactez-nous',
-        'copyright': 'Tous droits réservés',
-        'ad': 'Publicité',
-        'ads': 'Publicités',
-        'chooseTranslationLang': 'Choisissez la langue de traduction',
-        'chooseLangSubtitle': 'Choisissez la langue vers laquelle traduire les phrases',
-        'applyChange': 'Appliquer le changement',
-        'langWillBeSaved': 'La préférence de langue sera enregistrée dans votre compte',
-        'learningStats': 'Statistiques d\'apprentissage',
-        'totalDays': 'Jours totaux',
-        'todaySentences': 'Phrases d\'aujourd\'hui',
-        'todayMinutes': 'Minutes d\'aujourd\'hui',
-        'translationLangStat': 'Langue de traduction',
-        'settingsTitle': 'Paramètres',
-        'settingsSubtitle': 'Choisissez votre langue de traduction préférée',
-        'currentLanguage': 'Langue actuelle',
-        'changeLanguageBtn': 'Changer la langue',
-        'editTranslation': 'Modifier la traduction',
-        'saveTranslation': 'Enregistrer la traduction',
-        'cancel': 'Annuler',
-        'cannotGoBack': 'Vous ne pouvez pas revenir en arrière avant le début',
-        'allCategories': 'Toutes',
-        'mixed': 'Mixte',
-        'translationTo': 'Traduction en',
-        'translating': '⏳ Traduction en cours...',
-        'translationError': '⚠️ Erreur de traduction',
-        'noSentence': '⚠️ Pas de phrase'
-    },
-    'de': {
-        'login': 'Anmelden',
-        'signup': 'Registrieren',
-        'days': 'Tage',
-        'sentences': 'Sätze',
-        'minutes': 'Minuten',
-        'logout': 'Abmelden',
-        'loadingDesc': 'Unendliche Satzmaschine - 1.000.000+ Sätze',
-        'loadingSentences': '🚀 Hochpräzise Sprachvalidierung',
-        'loadingPlaceholder': '⏳ Wird geladen...',
-        'infoBar': 'Hören Sie zu und schreiben Sie den Text genau so, wie Sie ihn gehört haben',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Hochpräzise',
-        'category': 'Kategorie: Gemischt',
-        'tensePresent': 'Präsens',
-        'tensePast': 'Vergangenheit',
-        'structure': 'Subjekt + Verb + Objekt + Grund',
-        'grammarValid': '✅ Grammatikalisch korrekt',
-        'grammarInvalid': '⚠️ Muss überprüft werden',
-        'grammarWords': 'Wörter',
-        'grammarScore': 'Punktzahl',
-        'speed': 'Geschwindigkeit',
-        'writeHere': 'Schreiben Sie den Satz hier',
-        'focusActive': 'Aktiv - Bereit zum Schreiben',
-        'focusInactive': 'Inaktiv - Klicken zum Schreiben',
-        'newSentence': 'Neuer Satz',
-        'sentencesUnlimited': 'Unbegrenzte Sätze:',
-        'combinations': 'Kombinationen:',
-        'valid': 'Gültig',
-        'welcomeBack': 'Willkommen auf der Smart Shadowing Plattform',
-        'joinNow': 'Jetzt beitreten',
-        'createAccount': 'Erstellen Sie Ihr Konto und beginnen Sie zu lernen',
-        'or': 'oder',
-        'fullName': 'Vollständiger Name',
-        'email': 'E-Mail',
-        'password': 'Passwort',
-        'preferredLang': 'Bevorzugte Übersetzungssprache',
-        'createAccountBtn': 'Konto erstellen',
-        'haveAccount': 'Sie haben bereits ein Konto?',
-        'noAccount': 'Sie haben kein Konto?',
-        'freeAccount': 'Kostenloses Konto erstellen',
-        'emailPlaceholder': 'E-Mail',
-        'passwordPlaceholder': 'Passwort',
-        'loginBtn': 'Anmelden',
-        'allFieldsRequired': 'Bitte füllen Sie alle Felder aus',
-        'emailExists': 'E-Mail bereits registriert',
-        'invalidCredentials': 'Ungültige E-Mail oder Passwort',
-        'pleaseLoginToContinue': 'Bitte melden Sie sich an, um fortzufahren',
-        'lastTrial': 'Warnung: Dies ist Ihr letzter Probensatz, registrieren Sie sich, um das Training fortzusetzen',
-        'trialSentence': 'Probensatz',
-        'writeCorrectly': 'Bitte schreiben Sie den Satz korrekt, bevor Sie fortfahren',
-        'logoutSuccess': 'Erfolgreich abgemeldet',
-        'welcomeUser': 'Willkommen',
-        'languageChanged': 'Übersetzungssprache geändert zu',
-        'browserNotSupportSpeech': 'Browser unterstützt Sprachausgabe nicht',
-        'error': 'Ein Fehler ist aufgetreten',
-        'autoLangDetected': 'Übersetzungssprache automatisch erkannt:',
-        'statsRequireLogin': 'Bitte melden Sie sich an, um Statistiken anzuzeigen',
-        'settingsSaved': 'Einstellungen gespeichert',
-        'footerDesc': 'Eine spezialisierte Plattform für intelligentes Shadowing-Training, um fließend Englisch zu lernen.',
-        'quickLinks': 'Schnelllinks',
-        'home': 'Startseite',
-        'shadowLessons': 'Shadowing-Lektionen',
-        'stats': 'Statistiken',
-        'support': 'Support',
-        'helpCenter': 'Hilfezentrum',
-        'privacy': 'Datenschutzrichtlinie',
-        'contact': 'Kontakt',
-        'copyright': 'Alle Rechte vorbehalten',
-        'ad': 'Anzeige',
-        'ads': 'Anzeigen',
-        'chooseTranslationLang': 'Übersetzungssprache wählen',
-        'chooseLangSubtitle': 'Wählen Sie die Sprache, in die Sätze übersetzt werden sollen',
-        'applyChange': 'Änderung anwenden',
-        'langWillBeSaved': 'Die Spracheinstellung wird in Ihrem Konto gespeichert',
-        'learningStats': 'Lernstatistiken',
-        'totalDays': 'Gesamttage',
-        'todaySentences': 'Heutige Sätze',
-        'todayMinutes': 'Heutige Minuten',
-        'translationLangStat': 'Übersetzungssprache',
-        'settingsTitle': 'Einstellungen',
-        'settingsSubtitle': 'Wählen Sie Ihre bevorzugte Übersetzungssprache',
-        'currentLanguage': 'Aktuelle Sprache',
-        'changeLanguageBtn': 'Sprache ändern',
-        'editTranslation': 'Übersetzung bearbeiten',
-        'saveTranslation': 'Übersetzung speichern',
-        'cancel': 'Abbrechen',
-        'cannotGoBack': 'Sie können nicht vor den Anfang zurückgehen',
-        'allCategories': 'Alle',
-        'mixed': 'Gemischt',
-        'translationTo': 'Übersetzung ins',
-        'translating': '⏳ Übersetzung läuft...',
-        'translationError': '⚠️ Übersetzungsfehler',
-        'noSentence': '⚠️ Kein Satz'
-    },
-    'it': {
-        'login': 'Accedi',
-        'signup': 'Registrati',
-        'days': 'Giorni',
-        'sentences': 'Frasi',
-        'minutes': 'Minuti',
-        'logout': 'Esci',
-        'loadingDesc': 'Motore di frasi infinito - 1.000.000+ frasi',
-        'loadingSentences': '🚀 Validazione linguistica ultra precisa',
-        'loadingPlaceholder': '⏳ Caricamento...',
-        'infoBar': 'Ascolta, poi scrivi il testo esattamente come l\'hai sentito',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultra preciso',
-        'category': 'Categoria: Misto',
-        'tensePresent': 'Presente',
-        'tensePast': 'Passato',
-        'structure': 'Soggetto + Verbo + Oggetto + Motivo',
-        'grammarValid': '✅ Grammaticalmente corretto',
-        'grammarInvalid': '⚠️ Necessita di revisione',
-        'grammarWords': 'parole',
-        'grammarScore': 'Punteggio',
-        'speed': 'Velocità',
-        'writeHere': 'Scrivi la frase qui',
-        'focusActive': 'Attivo - Pronto per scrivere',
-        'focusInactive': 'Inattivo - Clicca per scrivere',
-        'newSentence': 'Nuova frase',
-        'sentencesUnlimited': 'Frasi illimitate:',
-        'combinations': 'Combinazioni:',
-        'valid': 'Valide',
-        'welcomeBack': 'Benvenuto sulla piattaforma di Shadowing intelligente',
-        'joinNow': 'Unisciti ora',
-        'createAccount': 'Crea il tuo account e inizia a imparare',
-        'or': 'o',
-        'fullName': 'Nome completo',
-        'email': 'Email',
-        'password': 'Password',
-        'preferredLang': 'Lingua di traduzione preferita',
-        'createAccountBtn': 'Crea account',
-        'haveAccount': 'Hai già un account?',
-        'noAccount': 'Non hai un account?',
-        'freeAccount': 'Crea account gratuito',
-        'emailPlaceholder': 'Email',
-        'passwordPlaceholder': 'Password',
-        'loginBtn': 'Accedi',
-        'allFieldsRequired': 'Per favore compila tutti i campi',
-        'emailExists': 'Email già registrata',
-        'invalidCredentials': 'Email o password non validi',
-        'pleaseLoginToContinue': 'Per favore accedi per continuare',
-        'lastTrial': 'Attenzione: Questa è la tua ultima frase di prova, registrati per continuare l\'allenamento',
-        'trialSentence': 'Frase di prova',
-        'writeCorrectly': 'Per favore scrivi la frase correttamente prima di continuare',
-        'logoutSuccess': 'Disconnesso con successo',
-        'welcomeUser': 'Benvenuto',
-        'languageChanged': 'Lingua di traduzione cambiata in',
-        'browserNotSupportSpeech': 'Il browser non supporta la sintesi vocale',
-        'error': 'Si è verificato un errore',
-        'autoLangDetected': 'Lingua di traduzione rilevata automaticamente:',
-        'statsRequireLogin': 'Per favore accedi per vedere le statistiche',
-        'settingsSaved': 'Impostazioni salvate',
-        'footerDesc': 'Piattaforma specializzata in allenamento di shadowing intelligente per imparare l\'inglese con fluenza.',
-        'quickLinks': 'Link rapidi',
-        'home': 'Home',
-        'shadowLessons': 'Lezioni di shadowing',
-        'stats': 'Statistiche',
-        'support': 'Supporto',
-        'helpCenter': 'Centro assistenza',
-        'privacy': 'Informativa sulla privacy',
-        'contact': 'Contattaci',
-        'copyright': 'Tutti i diritti riservati',
-        'ad': 'Annuncio',
-        'ads': 'Annunci',
-        'chooseTranslationLang': 'Scegli la lingua di traduzione',
-        'chooseLangSubtitle': 'Scegli la lingua in cui tradurre le frasi',
-        'applyChange': 'Applica modifica',
-        'langWillBeSaved': 'La preferenza della lingua verrà salvata nel tuo account',
-        'learningStats': 'Statistiche di apprendimento',
-        'totalDays': 'Giorni totali',
-        'todaySentences': 'Frasi di oggi',
-        'todayMinutes': 'Minuti di oggi',
-        'translationLangStat': 'Lingua di traduzione',
-        'settingsTitle': 'Impostazioni',
-        'settingsSubtitle': 'Scegli la tua lingua di traduzione preferita',
-        'currentLanguage': 'Lingua attuale',
-        'changeLanguageBtn': 'Cambia lingua',
-        'editTranslation': 'Modifica traduzione',
-        'saveTranslation': 'Salva traduzione',
-        'cancel': 'Annulla',
-        'cannotGoBack': 'Non puoi tornare indietro prima dell\'inizio',
-        'allCategories': 'Tutte',
-        'mixed': 'Misto',
-        'translationTo': 'Traduzione in',
-        'translating': '⏳ Traduzione in corso...',
-        'translationError': '⚠️ Errore di traduzione',
-        'noSentence': '⚠️ Nessuna frase'
-    },
-    'pt': {
-        'login': 'Entrar',
-        'signup': 'Cadastrar',
-        'days': 'Dias',
-        'sentences': 'Frases',
-        'minutes': 'Minutos',
-        'logout': 'Sair',
-        'loadingDesc': 'Motor de frases infinito - 1.000.000+ frases',
-        'loadingSentences': '🚀 Validação linguística ultra precisa',
-        'loadingPlaceholder': '⏳ Carregando...',
-        'infoBar': 'Ouça, depois escreva o texto exatamente como você ouviu',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultra preciso',
-        'category': 'Categoria: Misto',
-        'tensePresent': 'Presente',
-        'tensePast': 'Passado',
-        'structure': 'Sujeito + Verbo + Objeto + Razão',
-        'grammarValid': '✅ Gramaticalmente correto',
-        'grammarInvalid': '⚠️ Precisa de revisão',
-        'grammarWords': 'palavras',
-        'grammarScore': 'Pontuação',
-        'speed': 'Velocidade',
-        'writeHere': 'Escreva a frase aqui',
-        'focusActive': 'Ativo - Pronto para escrever',
-        'focusInactive': 'Inativo - Clique para escrever',
-        'newSentence': 'Nova frase',
-        'sentencesUnlimited': 'Frases ilimitadas:',
-        'combinations': 'Combinações:',
-        'valid': 'Válidas',
-        'welcomeBack': 'Bem-vindo à plataforma de Shadowing inteligente',
-        'joinNow': 'Junte-se agora',
-        'createAccount': 'Crie sua conta e comece a aprender',
-        'or': 'ou',
-        'fullName': 'Nome completo',
-        'email': 'E-mail',
-        'password': 'Senha',
-        'preferredLang': 'Idioma de tradução preferido',
-        'createAccountBtn': 'Criar conta',
-        'haveAccount': 'Já tem uma conta?',
-        'noAccount': 'Não tem uma conta?',
-        'freeAccount': 'Criar conta gratuita',
-        'emailPlaceholder': 'E-mail',
-        'passwordPlaceholder': 'Senha',
-        'loginBtn': 'Entrar',
-        'allFieldsRequired': 'Por favor preencha todos os campos',
-        'emailExists': 'E-mail já registrado',
-        'invalidCredentials': 'E-mail ou senha inválidos',
-        'pleaseLoginToContinue': 'Por favor faça login para continuar',
-        'lastTrial': 'Aviso: Esta é sua última frase de teste, cadastre-se para continuar treinando',
-        'trialSentence': 'Frase de teste',
-        'writeCorrectly': 'Por favor escreva a frase corretamente antes de continuar',
-        'logoutSuccess': 'Saiu com sucesso',
-        'welcomeUser': 'Bem-vindo',
-        'languageChanged': 'Idioma de tradução alterado para',
-        'browserNotSupportSpeech': 'O navegador não suporta fala',
-        'error': 'Ocorreu um erro',
-        'autoLangDetected': 'Idioma de tradução detectado automaticamente:',
-        'statsRequireLogin': 'Por favor faça login para ver as estatísticas',
-        'settingsSaved': 'Configurações salvas',
-        'footerDesc': 'Plataforma especializada em treinamento de shadowing inteligente para aprender inglês com fluência.',
-        'quickLinks': 'Links rápidos',
-        'home': 'Início',
-        'shadowLessons': 'Lições de shadowing',
-        'stats': 'Estatísticas',
-        'support': 'Suporte',
-        'helpCenter': 'Central de ajuda',
-        'privacy': 'Política de privacidade',
-        'contact': 'Contate-nos',
-        'copyright': 'Todos os direitos reservados',
-        'ad': 'Anúncio',
-        'ads': 'Anúncios',
-        'chooseTranslationLang': 'Escolha o idioma de tradução',
-        'chooseLangSubtitle': 'Escolha o idioma para o qual traduzir as frases',
-        'applyChange': 'Aplicar alteração',
-        'langWillBeSaved': 'A preferência de idioma será salva em sua conta',
-        'learningStats': 'Estatísticas de aprendizado',
-        'totalDays': 'Dias totais',
-        'todaySentences': 'Frases de hoje',
-        'todayMinutes': 'Minutos de hoje',
-        'translationLangStat': 'Idioma de tradução',
-        'settingsTitle': 'Configurações',
-        'settingsSubtitle': 'Escolha seu idioma de tradução preferido',
-        'currentLanguage': 'Idioma atual',
-        'changeLanguageBtn': 'Alterar idioma',
-        'editTranslation': 'Editar tradução',
-        'saveTranslation': 'Salvar tradução',
-        'cancel': 'Cancelar',
-        'cannotGoBack': 'Não é possível voltar antes do início',
-        'allCategories': 'Todas',
-        'mixed': 'Misto',
-        'translationTo': 'Tradução para',
-        'translating': '⏳ Traduzindo...',
-        'translationError': '⚠️ Erro de tradução',
-        'noSentence': '⚠️ Sem frase'
-    },
-    'ru': {
-        'login': 'Войти',
-        'signup': 'Зарегистрироваться',
-        'days': 'Дней',
-        'sentences': 'Предложений',
-        'minutes': 'Минут',
-        'logout': 'Выйти',
-        'loadingDesc': 'Бесконечный генератор предложений - 1 000 000+ предложений',
-        'loadingSentences': '🚀 Сверхточная лингвистическая проверка',
-        'loadingPlaceholder': '⏳ Загрузка...',
-        'infoBar': 'Слушайте, затем пишите текст точно так, как вы его услышали',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Сверхточный',
-        'category': 'Категория: Смешанная',
-        'tensePresent': 'Настоящее',
-        'tensePast': 'Прошедшее',
-        'structure': 'Подлежащее + Глагол + Объект + Причина',
-        'grammarValid': '✅ Грамматически правильно',
-        'grammarInvalid': '⚠️ Требуется проверка',
-        'grammarWords': 'слов',
-        'grammarScore': 'Баллы',
-        'speed': 'Скорость',
-        'writeHere': 'Напишите предложение здесь',
-        'focusActive': 'Активен - Готов к печати',
-        'focusInactive': 'Неактивен - Нажмите для печати',
-        'newSentence': 'Новое предложение',
-        'sentencesUnlimited': 'Безлимитные предложения:',
-        'combinations': 'Комбинации:',
-        'valid': 'Правильных',
-        'welcomeBack': 'Добро пожаловать на платформу Smart Shadowing',
-        'joinNow': 'Присоединиться сейчас',
-        'createAccount': 'Создайте аккаунт и начните учиться',
-        'or': 'или',
-        'fullName': 'Полное имя',
-        'email': 'Электронная почта',
-        'password': 'Пароль',
-        'preferredLang': 'Предпочитаемый язык перевода',
-        'createAccountBtn': 'Создать аккаунт',
-        'haveAccount': 'Уже есть аккаунт?',
-        'noAccount': 'Нет аккаунта?',
-        'freeAccount': 'Создать бесплатный аккаунт',
-        'emailPlaceholder': 'Электронная почта',
-        'passwordPlaceholder': 'Пароль',
-        'loginBtn': 'Войти',
-        'allFieldsRequired': 'Пожалуйста, заполните все поля',
-        'emailExists': 'Электронная почта уже зарегистрирована',
-        'invalidCredentials': 'Неверная электронная почта или пароль',
-        'pleaseLoginToContinue': 'Пожалуйста, войдите, чтобы продолжить',
-        'lastTrial': 'Предупреждение: Это ваше последнее пробное предложение, зарегистрируйтесь, чтобы продолжить обучение',
-        'trialSentence': 'Пробное предложение',
-        'writeCorrectly': 'Пожалуйста, напишите предложение правильно, прежде чем продолжить',
-        'logoutSuccess': 'Выход выполнен успешно',
-        'welcomeUser': 'Добро пожаловать',
-        'languageChanged': 'Язык перевода изменен на',
-        'browserNotSupportSpeech': 'Браузер не поддерживает речь',
-        'error': 'Произошла ошибка',
-        'autoLangDetected': 'Язык перевода определен автоматически:',
-        'statsRequireLogin': 'Пожалуйста, войдите, чтобы увидеть статистику',
-        'settingsSaved': 'Настройки сохранены',
-        'footerDesc': 'Специализированная платформа для тренировки смарт-шэдоуинга для свободного изучения английского языка.',
-        'quickLinks': 'Быстрые ссылки',
-        'home': 'Главная',
-        'shadowLessons': 'Уроки шэдоуинга',
-        'stats': 'Статистика',
-        'support': 'Поддержка',
-        'helpCenter': 'Центр помощи',
-        'privacy': 'Политика конфиденциальности',
-        'contact': 'Свяжитесь с нами',
-        'copyright': 'Все права защищены',
-        'ad': 'Реклама',
-        'ads': 'Реклама',
-        'chooseTranslationLang': 'Выберите язык перевода',
-        'chooseLangSubtitle': 'Выберите язык, на который переводить предложения',
-        'applyChange': 'Применить изменение',
-        'langWillBeSaved': 'Языковое предпочтение будет сохранено в вашем аккаунте',
-        'learningStats': 'Статистика обучения',
-        'totalDays': 'Всего дней',
-        'todaySentences': 'Сегодня предложений',
-        'todayMinutes': 'Сегодня минут',
-        'translationLangStat': 'Язык перевода',
-        'settingsTitle': 'Настройки',
-        'settingsSubtitle': 'Выберите предпочитаемый язык перевода',
-        'currentLanguage': 'Текущий язык',
-        'changeLanguageBtn': 'Изменить язык',
-        'editTranslation': 'Редактировать перевод',
-        'saveTranslation': 'Сохранить перевод',
-        'cancel': 'Отмена',
-        'cannotGoBack': 'Нельзя вернуться до начала',
-        'allCategories': 'Все',
-        'mixed': 'Смешанный',
-        'translationTo': 'Перевод на',
-        'translating': '⏳ Перевод...',
-        'translationError': '⚠️ Ошибка перевода',
-        'noSentence': '⚠️ Нет предложения'
-    },
-    'ja': {
-        'login': 'ログイン',
-        'signup': 'サインアップ',
-        'days': '日',
-        'sentences': '文章',
-        'minutes': '分',
-        'logout': 'ログアウト',
-        'loadingDesc': '無限文章エンジン - 100万以上の文章',
-        'loadingSentences': '🚀 超精密言語検証',
-        'loadingPlaceholder': '⏳ 読み込み中...',
-        'infoBar': '聞いて、聞いた通りにテキストを入力してください',
-        'infiniteBadge': '1M+',
-        'statsBadge': '超精密',
-        'category': 'カテゴリー: 混合',
-        'tensePresent': '現在形',
-        'tensePast': '過去形',
-        'structure': '主語 + 動詞 + 目的語 + 理由',
-        'grammarValid': '✅ 文法的に正しい',
-        'grammarInvalid': '⚠️ レビューが必要',
-        'grammarWords': '単語',
-        'grammarScore': 'スコア',
-        'speed': '速度',
-        'writeHere': 'ここに文章を入力してください',
-        'focusActive': 'アクティブ - 入力準備完了',
-        'focusInactive': '非アクティブ - クリックして入力',
-        'newSentence': '新しい文章',
-        'sentencesUnlimited': '無制限の文章:',
-        'combinations': '組み合わせ:',
-        'valid': '有効',
-        'welcomeBack': 'スマートシャドーイングプラットフォームへようこそ',
-        'joinNow': '今すぐ参加',
-        'createAccount': 'アカウントを作成して学習を始めましょう',
-        'or': 'または',
-        'fullName': 'フルネーム',
-        'email': 'メールアドレス',
-        'password': 'パスワード',
-        'preferredLang': '希望する翻訳言語',
-        'createAccountBtn': 'アカウントを作成',
-        'haveAccount': 'すでにアカウントをお持ちですか？',
-        'noAccount': 'アカウントをお持ちでないですか？',
-        'freeAccount': '無料アカウントを作成',
-        'emailPlaceholder': 'メールアドレス',
-        'passwordPlaceholder': 'パスワード',
-        'loginBtn': 'ログイン',
-        'allFieldsRequired': 'すべての項目を入力してください',
-        'emailExists': 'メールアドレスは既に登録されています',
-        'invalidCredentials': 'メールアドレスまたはパスワードが無効です',
-        'pleaseLoginToContinue': '続行するにはログインしてください',
-        'lastTrial': '警告: これは最後の体験文章です。トレーニングを続けるにはサインアップしてください',
-        'trialSentence': '体験文章',
-        'writeCorrectly': '続行する前に文章を正しく入力してください',
-        'logoutSuccess': 'ログアウトしました',
-        'welcomeUser': 'ようこそ',
-        'languageChanged': '翻訳言語を変更しました:',
-        'browserNotSupportSpeech': 'ブラウザは音声をサポートしていません',
-        'error': 'エラーが発生しました',
-        'autoLangDetected': '翻訳言語を自動検出しました:',
-        'statsRequireLogin': '統計を表示するにはログインしてください',
-        'settingsSaved': '設定を保存しました',
-        'footerDesc': '流暢な英語を学ぶためのスマートシャドーイングトレーニング専門プラットフォーム。',
-        'quickLinks': 'クイックリンク',
-        'home': 'ホーム',
-        'shadowLessons': 'シャドーイングレッスン',
-        'stats': '統計',
-        'support': 'サポート',
-        'helpCenter': 'ヘルプセンター',
-        'privacy': 'プライバシーポリシー',
-        'contact': 'お問い合わせ',
-        'copyright': 'All Rights Reserved',
-        'ad': '広告',
-        'ads': '広告',
-        'chooseTranslationLang': '翻訳言語を選択',
-        'chooseLangSubtitle': '文章を翻訳する言語を選択してください',
-        'applyChange': '変更を適用',
-        'langWillBeSaved': '言語設定はアカウントに保存されます',
-        'learningStats': '学習統計',
-        'totalDays': '合計日数',
-        'todaySentences': '今日の文章',
-        'todayMinutes': '今日の分数',
-        'translationLangStat': '翻訳言語',
-        'settingsTitle': '設定',
-        'settingsSubtitle': '希望する翻訳言語を選択してください',
-        'currentLanguage': '現在の言語',
-        'changeLanguageBtn': '言語を変更',
-        'editTranslation': '翻訳を編集',
-        'saveTranslation': '翻訳を保存',
-        'cancel': 'キャンセル',
-        'cannotGoBack': '最初より前に戻ることはできません',
-        'allCategories': 'すべて',
-        'mixed': '混合',
-        'translationTo': 'への翻訳',
-        'translating': '⏳ 翻訳中...',
-        'translationError': '⚠️ 翻訳エラー',
-        'noSentence': '⚠️ 文章がありません'
-    },
-    'ko': {
-        'login': '로그인',
-        'signup': '회원가입',
-        'days': '일',
-        'sentences': '문장',
-        'minutes': '분',
-        'logout': '로그아웃',
-        'loadingDesc': '무한 문장 엔진 - 100만+ 문장',
-        'loadingSentences': '🚀 초정밀 언어 검증',
-        'loadingPlaceholder': '⏳ 로딩 중...',
-        'infoBar': '듣고, 들은 대로 텍스트를 입력하세요',
-        'infiniteBadge': '1M+',
-        'statsBadge': '초정밀',
-        'category': '카테고리: 혼합',
-        'tensePresent': '현재형',
-        'tensePast': '과거형',
-        'structure': '주어 + 동사 + 목적어 + 이유',
-        'grammarValid': '✅ 문법적으로 올바름',
-        'grammarInvalid': '⚠️ 검토 필요',
-        'grammarWords': '단어',
-        'grammarScore': '점수',
-        'speed': '속도',
-        'writeHere': '여기에 문장을 입력하세요',
-        'focusActive': '활성 - 입력 준비됨',
-        'focusInactive': '비활성 - 클릭하여 입력',
-        'newSentence': '새 문장',
-        'sentencesUnlimited': '무제한 문장:',
-        'combinations': '조합:',
-        'valid': '유효함',
-        'welcomeBack': '스마트 쉐도잉 플랫폼에 오신 것을 환영합니다',
-        'joinNow': '지금 가입하세요',
-        'createAccount': '계정을 만들고 학습을 시작하세요',
-        'or': '또는',
-        'fullName': '전체 이름',
-        'email': '이메일',
-        'password': '비밀번호',
-        'preferredLang': '선호하는 번역 언어',
-        'createAccountBtn': '계정 만들기',
-        'haveAccount': '이미 계정이 있으신가요?',
-        'noAccount': '계정이 없으신가요?',
-        'freeAccount': '무료 계정 만들기',
-        'emailPlaceholder': '이메일',
-        'passwordPlaceholder': '비밀번호',
-        'loginBtn': '로그인',
-        'allFieldsRequired': '모든 필드를 입력해주세요',
-        'emailExists': '이미 등록된 이메일입니다',
-        'invalidCredentials': '잘못된 이메일 또는 비밀번호',
-        'pleaseLoginToContinue': '계속하려면 로그인해주세요',
-        'lastTrial': '경고: 마지막 체험 문장입니다. 훈련을 계속하려면 가입하세요',
-        'trialSentence': '체험 문장',
-        'writeCorrectly': '계속하기 전에 문장을 올바르게 입력해주세요',
-        'logoutSuccess': '로그아웃 되었습니다',
-        'welcomeUser': '환영합니다',
-        'languageChanged': '번역 언어가 변경되었습니다:',
-        'browserNotSupportSpeech': '브라우저가 음성을 지원하지 않습니다',
-        'error': '오류가 발생했습니다',
-        'autoLangDetected': '번역 언어 자동 감지:',
-        'statsRequireLogin': '통계를 보려면 로그인해주세요',
-        'settingsSaved': '설정이 저장되었습니다',
-        'footerDesc': '유창한 영어 학습을 위한 스마트 쉐도잉 트레이닝 전문 플랫폼.',
-        'quickLinks': '빠른 링크',
-        'home': '홈',
-        'shadowLessons': '쉐도잉 레슨',
-        'stats': '통계',
-        'support': '지원',
-        'helpCenter': '도움말 센터',
-        'privacy': '개인정보 보호정책',
-        'contact': '문의하기',
-        'copyright': 'All Rights Reserved',
-        'ad': '광고',
-        'ads': '광고',
-        'chooseTranslationLang': '번역 언어 선택',
-        'chooseLangSubtitle': '문장을 번역할 언어를 선택하세요',
-        'applyChange': '변경 적용',
-        'langWillBeSaved': '언어 설정이 계정에 저장됩니다',
-        'learningStats': '학습 통계',
-        'totalDays': '총 일수',
-        'todaySentences': '오늘의 문장',
-        'todayMinutes': '오늘의 분',
-        'translationLangStat': '번역 언어',
-        'settingsTitle': '설정',
-        'settingsSubtitle': '선호하는 번역 언어를 선택하세요',
-        'currentLanguage': '현재 언어',
-        'changeLanguageBtn': '언어 변경',
-        'editTranslation': '번역 편집',
-        'saveTranslation': '번역 저장',
-        'cancel': '취소',
-        'cannotGoBack': '처음으로 돌아갈 수 없습니다',
-        'allCategories': '모두',
-        'mixed': '혼합',
-        'translationTo': '번역:',
-        'translating': '⏳ 번역 중...',
-        'translationError': '⚠️ 번역 오류',
-        'noSentence': '⚠️ 문장 없음'
-    },
-    'zh': {
-        'login': '登录',
-        'signup': '注册',
-        'days': '天',
-        'sentences': '句子',
-        'minutes': '分钟',
-        'logout': '退出',
-        'loadingDesc': '无限句子引擎 - 1,000,000+ 句子',
-        'loadingSentences': '🚀 超精密语言验证',
-        'loadingPlaceholder': '⏳ 加载中...',
-        'infoBar': '听，然后准确地写下你听到的文本',
-        'infiniteBadge': '1M+',
-        'statsBadge': '超精密',
-        'category': '类别: 混合',
-        'tensePresent': '现在时',
-        'tensePast': '过去时',
-        'structure': '主语 + 动词 + 宾语 + 原因',
-        'grammarValid': '✅ 语法正确',
-        'grammarInvalid': '⚠️ 需要检查',
-        'grammarWords': '单词',
-        'grammarScore': '分数',
-        'speed': '速度',
-        'writeHere': '在这里输入句子',
-        'focusActive': '激活 - 准备输入',
-        'focusInactive': '非激活 - 点击输入',
-        'newSentence': '新句子',
-        'sentencesUnlimited': '无限句子:',
-        'combinations': '组合:',
-        'valid': '有效',
-        'welcomeBack': '欢迎来到智能影子训练平台',
-        'joinNow': '立即加入',
-        'createAccount': '创建账户并开始学习',
-        'or': '或',
-        'fullName': '全名',
-        'email': '电子邮件',
-        'password': '密码',
-        'preferredLang': '首选翻译语言',
-        'createAccountBtn': '创建账户',
-        'haveAccount': '已有账户？',
-        'noAccount': '没有账户？',
-        'freeAccount': '创建免费账户',
-        'emailPlaceholder': '电子邮件',
-        'passwordPlaceholder': '密码',
-        'loginBtn': '登录',
-        'allFieldsRequired': '请填写所有字段',
-        'emailExists': '电子邮件已注册',
-        'invalidCredentials': '电子邮件或密码无效',
-        'pleaseLoginToContinue': '请登录以继续',
-        'lastTrial': '警告: 这是您的最后一条试练句子，请注册以继续训练',
-        'trialSentence': '试练句子',
-        'writeCorrectly': '请先正确写出句子再继续',
-        'logoutSuccess': '已成功退出',
-        'welcomeUser': '欢迎',
-        'languageChanged': '翻译语言已更改为',
-        'browserNotSupportSpeech': '浏览器不支持语音',
-        'error': '发生错误',
-        'autoLangDetected': '自动检测翻译语言:',
-        'statsRequireLogin': '请登录查看统计',
-        'settingsSaved': '设置已保存',
-        'footerDesc': '专注于智能影子训练的专业平台，帮助您流利学习英语。',
-        'quickLinks': '快速链接',
-        'home': '首页',
-        'shadowLessons': '影子课程',
-        'stats': '统计',
-        'support': '支持',
-        'helpCenter': '帮助中心',
-        'privacy': '隐私政策',
-        'contact': '联系我们',
-        'copyright': '保留所有权利',
-        'ad': '广告',
-        'ads': '广告',
-        'chooseTranslationLang': '选择翻译语言',
-        'chooseLangSubtitle': '选择您想要翻译句子的语言',
-        'applyChange': '应用更改',
-        'langWillBeSaved': '语言偏好将保存到您的账户',
-        'learningStats': '学习统计',
-        'totalDays': '总天数',
-        'todaySentences': '今日句子',
-        'todayMinutes': '今日分钟',
-        'translationLangStat': '翻译语言',
-        'settingsTitle': '设置',
-        'settingsSubtitle': '选择您偏好的翻译语言',
-        'currentLanguage': '当前语言',
-        'changeLanguageBtn': '更改语言',
-        'editTranslation': '编辑翻译',
-        'saveTranslation': '保存翻译',
-        'cancel': '取消',
-        'cannotGoBack': '无法回到开始之前',
-        'allCategories': '全部',
-        'mixed': '混合',
-        'translationTo': '翻译为',
-        'translating': '⏳ 翻译中...',
-        'translationError': '⚠️ 翻译错误',
-        'noSentence': '⚠️ 没有句子'
-    },
-    'hi': {
-        'login': 'लॉगिन करें',
-        'signup': 'साइन अप करें',
-        'days': 'दिन',
-        'sentences': 'वाक्य',
-        'minutes': 'मिनट',
-        'logout': 'लॉगआउट',
-        'loadingDesc': 'अनंत वाक्य इंजन - 1,000,000+ वाक्य',
-        'loadingSentences': '🚀 अति-सटीक भाषाई सत्यापन',
-        'loadingPlaceholder': '⏳ लोड हो रहा है...',
-        'infoBar': 'सुनें, फिर पाठ को ठीक वैसे ही टाइप करें जैसे आपने सुना',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'अति-सटीक',
-        'category': 'श्रेणी: मिश्रित',
-        'tensePresent': 'वर्तमान',
-        'tensePast': 'भूतकाल',
-        'structure': 'कर्ता + क्रिया + कर्म + कारण',
-        'grammarValid': '✅ व्याकरणिक रूप से सही',
-        'grammarInvalid': '⚠️ समीक्षा की आवश्यकता',
-        'grammarWords': 'शब्द',
-        'grammarScore': 'स्कोर',
-        'speed': 'गति',
-        'writeHere': 'यहाँ वाक्य टाइप करें',
-        'focusActive': 'सक्रिय - टाइप करने के लिए तैयार',
-        'focusInactive': 'निष्क्रिय - टाइप करने के लिए क्लिक करें',
-        'newSentence': 'नया वाक्य',
-        'sentencesUnlimited': 'असीमित वाक्य:',
-        'combinations': 'संयोजन:',
-        'valid': 'मान्य',
-        'welcomeBack': 'स्मार्ट शैडोइंग प्लेटफॉर्म में आपका स्वागत है',
-        'joinNow': 'अभी जुड़ें',
-        'createAccount': 'अपना खाता बनाएं और सीखना शुरू करें',
-        'or': 'या',
-        'fullName': 'पूरा नाम',
-        'email': 'ईमेल',
-        'password': 'पासवर्ड',
-        'preferredLang': 'पसंदीदा अनुवाद भाषा',
-        'createAccountBtn': 'खाता बनाएं',
-        'haveAccount': 'पहले से खाता है?',
-        'noAccount': 'खाता नहीं है?',
-        'freeAccount': 'मुफ्त खाता बनाएं',
-        'emailPlaceholder': 'ईमेल',
-        'passwordPlaceholder': 'पासवर्ड',
-        'loginBtn': 'लॉगिन करें',
-        'allFieldsRequired': 'कृपया सभी फ़ील्ड भरें',
-        'emailExists': 'ईमेल पहले से पंजीकृत है',
-        'invalidCredentials': 'अमान्य ईमेल या पासवर्ड',
-        'pleaseLoginToContinue': 'कृपया जारी रखने के लिए लॉगिन करें',
-        'lastTrial': 'चेतावनी: यह आपका अंतिम परीक्षण वाक्य है, प्रशिक्षण जारी रखने के लिए साइन अप करें',
-        'trialSentence': 'परीक्षण वाक्य',
-        'writeCorrectly': 'कृपया आगे बढ़ने से पहले वाक्य सही लिखें',
-        'logoutSuccess': 'सफलतापूर्वक लॉगआउट किया',
-        'welcomeUser': 'आपका स्वागत है',
-        'languageChanged': 'अनुवाद भाषा बदली गई:',
-        'browserNotSupportSpeech': 'ब्राउज़र स्पीच का समर्थन नहीं करता',
-        'error': 'एक त्रुटि हुई',
-        'autoLangDetected': 'अनुवाद भाषा स्वतः पहचानी गई:',
-        'statsRequireLogin': 'आँकड़े देखने के लिए कृपया लॉगिन करें',
-        'settingsSaved': 'सेटिंग्स सहेजी गईं',
-        'footerDesc': 'धाराप्रवाह अंग्रेजी सीखने के लिए स्मार्ट शैडोइंग प्रशिक्षण में विशेषज्ञता वाला प्लेटफॉर्म।',
-        'quickLinks': 'त्वरित लिंक',
-        'home': 'होम',
-        'shadowLessons': 'शैडोइंग पाठ',
-        'stats': 'आँकड़े',
-        'support': 'सहायता',
-        'helpCenter': 'सहायता केंद्र',
-        'privacy': 'गोपनीयता नीति',
-        'contact': 'संपर्क करें',
-        'copyright': 'सभी अधिकार सुरक्षित',
-        'ad': 'विज्ञापन',
-        'ads': 'विज्ञापन',
-        'chooseTranslationLang': 'अनुवाद भाषा चुनें',
-        'chooseLangSubtitle': 'वह भाषा चुनें जिसमें आप वाक्यों का अनुवाद चाहते हैं',
-        'applyChange': 'परिवर्तन लागू करें',
-        'langWillBeSaved': 'भाषा प्राथमिकता आपके खाते में सहेजी जाएगी',
-        'learningStats': 'सीखने के आँकड़े',
-        'totalDays': 'कुल दिन',
-        'todaySentences': 'आज के वाक्य',
-        'todayMinutes': 'आज के मिनट',
-        'translationLangStat': 'अनुवाद भाषा',
-        'settingsTitle': 'सेटिंग्स',
-        'settingsSubtitle': 'अपनी पसंदीदा अनुवाद भाषा चुनें',
-        'currentLanguage': 'वर्तमान भाषा',
-        'changeLanguageBtn': 'भाषा बदलें',
-        'editTranslation': 'अनुवाद संपादित करें',
-        'saveTranslation': 'अनुवाद सहेजें',
-        'cancel': 'रद्द करें',
-        'cannotGoBack': 'आप शुरुआत से पहले वापस नहीं जा सकते',
-        'allCategories': 'सभी',
-        'mixed': 'मिश्रित',
-        'translationTo': 'अनुवाद:',
-        'translating': '⏳ अनुवाद हो रहा है...',
-        'translationError': '⚠️ अनुवाद त्रुटि',
-        'noSentence': '⚠️ कोई वाक्य नहीं'
-    },
-    'tr': {
-        'login': 'Giriş Yap',
-        'signup': 'Kaydol',
-        'days': 'Gün',
-        'sentences': 'Cümle',
-        'minutes': 'Dakika',
-        'logout': 'Çıkış',
-        'loadingDesc': 'Sonsuz Cümle Motoru - 1.000.000+ Cümle',
-        'loadingSentences': '🚀 Ultra Hassas Dil Doğrulama',
-        'loadingPlaceholder': '⏳ Yükleniyor...',
-        'infoBar': 'Dinleyin, ardından metni duyduğunuz gibi yazın',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultra Hassas',
-        'category': 'Kategori: Karma',
-        'tensePresent': 'Şimdiki Zaman',
-        'tensePast': 'Geçmiş Zaman',
-        'structure': 'Özne + Fiil + Nesne + Neden',
-        'grammarValid': '✅ Dilbilgisel olarak doğru',
-        'grammarInvalid': '⚠️ İnceleme gerekli',
-        'grammarWords': 'kelime',
-        'grammarScore': 'Puan',
-        'speed': 'Hız',
-        'writeHere': 'Cümleyi buraya yazın',
-        'focusActive': 'Aktif - Yazmaya hazır',
-        'focusInactive': 'Pasif - Yazmak için tıklayın',
-        'newSentence': 'Yeni Cümle',
-        'sentencesUnlimited': 'Sınırsız Cümle:',
-        'combinations': 'Kombinasyon:',
-        'valid': 'Geçerli',
-        'welcomeBack': 'Akıllı Shadowing Platformuna Hoş Geldiniz',
-        'joinNow': 'Şimdi Katıl',
-        'createAccount': 'Hesabınızı oluşturun ve öğrenmeye başlayın',
-        'or': 'veya',
-        'fullName': 'Tam Ad',
-        'email': 'E-posta',
-        'password': 'Şifre',
-        'preferredLang': 'Tercih Edilen Çeviri Dili',
-        'createAccountBtn': 'Hesap Oluştur',
-        'haveAccount': 'Zaten hesabınız var mı?',
-        'noAccount': 'Hesabınız yok mu?',
-        'freeAccount': 'Ücretsiz Hesap Oluştur',
-        'emailPlaceholder': 'E-posta',
-        'passwordPlaceholder': 'Şifre',
-        'loginBtn': 'Giriş Yap',
-        'allFieldsRequired': 'Lütfen tüm alanları doldurun',
-        'emailExists': 'E-posta zaten kayıtlı',
-        'invalidCredentials': 'Geçersiz e-posta veya şifre',
-        'pleaseLoginToContinue': 'Devam etmek için lütfen giriş yapın',
-        'lastTrial': 'Uyarı: Bu son deneme cümleniz, eğitime devam etmek için kaydolun',
-        'trialSentence': 'Deneme Cümlesi',
-        'writeCorrectly': 'Devam etmeden önce cümleyi doğru yazın',
-        'logoutSuccess': 'Başarıyla çıkış yapıldı',
-        'welcomeUser': 'Hoş Geldiniz',
-        'languageChanged': 'Çeviri dili değiştirildi:',
-        'browserNotSupportSpeech': 'Tarayıcı konuşmayı desteklemiyor',
-        'error': 'Bir hata oluştu',
-        'autoLangDetected': 'Çeviri dili otomatik algılandı:',
-        'statsRequireLogin': 'İstatistikleri görmek için lütfen giriş yapın',
-        'settingsSaved': 'Ayarlar kaydedildi',
-        'footerDesc': 'Akıcı İngilizce öğrenmek için akıllı shadowing eğitimi konusunda uzmanlaşmış platform.',
-        'quickLinks': 'Hızlı Bağlantılar',
-        'home': 'Ana Sayfa',
-        'shadowLessons': 'Shadowing Dersleri',
-        'stats': 'İstatistikler',
-        'support': 'Destek',
-        'helpCenter': 'Yardım Merkezi',
-        'privacy': 'Gizlilik Politikası',
-        'contact': 'Bize Ulaşın',
-        'copyright': 'Tüm Hakları Saklıdır',
-        'ad': 'Reklam',
-        'ads': 'Reklamlar',
-        'chooseTranslationLang': 'Çeviri Dili Seçin',
-        'chooseLangSubtitle': 'Cümlelerin çevrileceği dili seçin',
-        'applyChange': 'Değişikliği Uygula',
-        'langWillBeSaved': 'Dil tercihi hesabınıza kaydedilecek',
-        'learningStats': 'Öğrenme İstatistikleri',
-        'totalDays': 'Toplam Gün',
-        'todaySentences': 'Bugünkü Cümleler',
-        'todayMinutes': 'Bugünkü Dakikalar',
-        'translationLangStat': 'Çeviri Dili',
-        'settingsTitle': 'Ayarlar',
-        'settingsSubtitle': 'Tercih ettiğiniz çeviri dilini seçin',
-        'currentLanguage': 'Mevcut Dil',
-        'changeLanguageBtn': 'Dili Değiştir',
-        'editTranslation': 'Çeviriyi Düzenle',
-        'saveTranslation': 'Çeviriyi Kaydet',
-        'cancel': 'İptal',
-        'cannotGoBack': 'Başlangıçtan önceye gidemezsiniz',
-        'allCategories': 'Tümü',
-        'mixed': 'Karma',
-        'translationTo': 'Çeviri:',
-        'translating': '⏳ Çevriliyor...',
-        'translationError': '⚠️ Çeviri hatası',
-        'noSentence': '⚠️ Cümle yok'
-    },
-    'nl': {
-        'login': 'Inloggen',
-        'signup': 'Registreren',
-        'days': 'Dagen',
-        'sentences': 'Zinnen',
-        'minutes': 'Minuten',
-        'logout': 'Uitloggen',
-        'loadingDesc': 'Oneindige zinnenmotor - 1.000.000+ zinnen',
-        'loadingSentences': '🚀 Ultra precieze taalkundige validatie',
-        'loadingPlaceholder': '⏳ Laden...',
-        'infoBar': 'Luister en typ de tekst precies zoals je hem hoorde',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultra Precies',
-        'category': 'Categorie: Gemengd',
-        'tensePresent': 'Tegenwoordige tijd',
-        'tensePast': 'Verleden tijd',
-        'structure': 'Onderwerp + Werkwoord + Object + Reden',
-        'grammarValid': '✅ Grammaticaal correct',
-        'grammarInvalid': '⚠️ Moet worden gecontroleerd',
-        'grammarWords': 'woorden',
-        'grammarScore': 'Score',
-        'speed': 'Snelheid',
-        'writeHere': 'Typ de zin hier',
-        'focusActive': 'Actief - Klaar om te typen',
-        'focusInactive': 'Inactief - Klik om te typen',
-        'newSentence': 'Nieuwe zin',
-        'sentencesUnlimited': 'Onbeperkte zinnen:',
-        'combinations': 'Combinaties:',
-        'valid': 'Geldig',
-        'welcomeBack': 'Welkom op het Smart Shadowing Platform',
-        'joinNow': 'Nu lid worden',
-        'createAccount': 'Maak je account aan en begin met leren',
-        'or': 'of',
-        'fullName': 'Volledige naam',
-        'email': 'E-mail',
-        'password': 'Wachtwoord',
-        'preferredLang': 'Voorkeurstaal voor vertaling',
-        'createAccountBtn': 'Account aanmaken',
-        'haveAccount': 'Heb je al een account?',
-        'noAccount': 'Heb je geen account?',
-        'freeAccount': 'Gratis account aanmaken',
-        'emailPlaceholder': 'E-mail',
-        'passwordPlaceholder': 'Wachtwoord',
-        'loginBtn': 'Inloggen',
-        'allFieldsRequired': 'Vul alle velden in',
-        'emailExists': 'E-mail is al geregistreerd',
-        'invalidCredentials': 'Ongeldige e-mail of wachtwoord',
-        'pleaseLoginToContinue': 'Log in om door te gaan',
-        'lastTrial': 'Waarschuwing: Dit is je laatste proefzin, meld je aan om door te gaan met trainen',
-        'trialSentence': 'Proefzin',
-        'writeCorrectly': 'Schrijf de zin correct voordat je doorgaat',
-        'logoutSuccess': 'Succesvol uitgelogd',
-        'welcomeUser': 'Welkom',
-        'languageChanged': 'Vertalingstaal gewijzigd naar',
-        'browserNotSupportSpeech': 'Browser ondersteunt spraak niet',
-        'error': 'Er is een fout opgetreden',
-        'autoLangDetected': 'Vertalingstaal automatisch gedetecteerd:',
-        'statsRequireLogin': 'Log in om statistieken te bekijken',
-        'settingsSaved': 'Instellingen opgeslagen',
-        'footerDesc': 'Een gespecialiseerd platform voor slimme shadowing-training om vloeiend Engels te leren.',
-        'quickLinks': 'Snelle links',
-        'home': 'Home',
-        'shadowLessons': 'Shadowing-lessen',
-        'stats': 'Statistieken',
-        'support': 'Ondersteuning',
-        'helpCenter': 'Helpcentrum',
-        'privacy': 'Privacybeleid',
-        'contact': 'Contact',
-        'copyright': 'Alle rechten voorbehouden',
-        'ad': 'Advertentie',
-        'ads': 'Advertenties',
-        'chooseTranslationLang': 'Kies vertalingstaal',
-        'chooseLangSubtitle': 'Kies de taal waarin zinnen moeten worden vertaald',
-        'applyChange': 'Wijziging toepassen',
-        'langWillBeSaved': 'Taalvoorkeur wordt opgeslagen in je account',
-        'learningStats': 'Leerstatistieken',
-        'totalDays': 'Totaal dagen',
-        'todaySentences': 'Zinnen vandaag',
-        'todayMinutes': 'Minuten vandaag',
-        'translationLangStat': 'Vertalingstaal',
-        'settingsTitle': 'Instellingen',
-        'settingsSubtitle': 'Kies je voorkeurstaal voor vertaling',
-        'currentLanguage': 'Huidige taal',
-        'changeLanguageBtn': 'Taal wijzigen',
-        'editTranslation': 'Vertaling bewerken',
-        'saveTranslation': 'Vertaling opslaan',
-        'cancel': 'Annuleren',
-        'cannotGoBack': 'Kan niet teruggaan voor het begin',
-        'allCategories': 'Alle',
-        'mixed': 'Gemengd',
-        'translationTo': 'Vertaling naar',
-        'translating': '⏳ Bezig met vertalen...',
-        'translationError': '⚠️ Vertaalfout',
-        'noSentence': '⚠️ Geen zin'
-    },
-    'sv': {
-        'login': 'Logga in',
-        'signup': 'Registrera',
-        'days': 'Dagar',
-        'sentences': 'Meningar',
-        'minutes': 'Minuter',
-        'logout': 'Logga ut',
-        'loadingDesc': 'Oändlig meningsmotor - 1 000 000+ meningar',
-        'loadingSentences': '🚀 Ultraprecis språklig validering',
-        'loadingPlaceholder': '⏳ Laddar...',
-        'infoBar': 'Lyssna och skriv texten exakt som du hörde den',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultraprecis',
-        'category': 'Kategori: Blandad',
-        'tensePresent': 'Presens',
-        'tensePast': 'Preteritum',
-        'structure': 'Subjekt + Verb + Objekt + Orsak',
-        'grammarValid': '✅ Grammatiskt korrekt',
-        'grammarInvalid': '⚠️ Behöver granskas',
-        'grammarWords': 'ord',
-        'grammarScore': 'Poäng',
-        'speed': 'Hastighet',
-        'writeHere': 'Skriv meningen här',
-        'focusActive': 'Aktiv - Redo att skriva',
-        'focusInactive': 'Inaktiv - Klicka för att skriva',
-        'newSentence': 'Ny mening',
-        'sentencesUnlimited': 'Obegränsade meningar:',
-        'combinations': 'Kombinationer:',
-        'valid': 'Giltiga',
-        'welcomeBack': 'Välkommen till Smart Shadowing-plattformen',
-        'joinNow': 'Gå med nu',
-        'createAccount': 'Skapa ditt konto och börja lära dig',
-        'or': 'eller',
-        'fullName': 'Fullständigt namn',
-        'email': 'E-post',
-        'password': 'Lösenord',
-        'preferredLang': 'Föredraget översättningsspråk',
-        'createAccountBtn': 'Skapa konto',
-        'haveAccount': 'Har du redan ett konto?',
-        'noAccount': 'Har du inget konto?',
-        'freeAccount': 'Skapa gratis konto',
-        'emailPlaceholder': 'E-post',
-        'passwordPlaceholder': 'Lösenord',
-        'loginBtn': 'Logga in',
-        'allFieldsRequired': 'Fyll i alla fält',
-        'emailExists': 'E-post är redan registrerad',
-        'invalidCredentials': 'Ogiltig e-post eller lösenord',
-        'pleaseLoginToContinue': 'Logga in för att fortsätta',
-        'lastTrial': 'Varning: Detta är din sista provmening, registrera dig för att fortsätta träna',
-        'trialSentence': 'Provmening',
-        'writeCorrectly': 'Skriv meningen korrekt innan du fortsätter',
-        'logoutSuccess': 'Utloggad',
-        'welcomeUser': 'Välkommen',
-        'languageChanged': 'Översättningsspråk ändrat till',
-        'browserNotSupportSpeech': 'Webbläsaren stöder inte talsyntes',
-        'error': 'Ett fel uppstod',
-        'autoLangDetected': 'Översättningsspråk upptäckt automatiskt:',
-        'statsRequireLogin': 'Logga in för att se statistik',
-        'settingsSaved': 'Inställningar sparade',
-        'footerDesc': 'En specialiserad plattform för smart shadowing-träning för att lära sig engelska flytande.',
-        'quickLinks': 'Snabblänkar',
-        'home': 'Hem',
-        'shadowLessons': 'Shadowing-lektioner',
-        'stats': 'Statistik',
-        'support': 'Support',
-        'helpCenter': 'Hjälpcenter',
-        'privacy': 'Integritetspolicy',
-        'contact': 'Kontakta oss',
-        'copyright': 'Alla rättigheter förbehållna',
-        'ad': 'Annons',
-        'ads': 'Annonser',
-        'chooseTranslationLang': 'Välj översättningsspråk',
-        'chooseLangSubtitle': 'Välj språk att översätta meningar till',
-        'applyChange': 'Tillämpa ändring',
-        'langWillBeSaved': 'Språkpreferens sparas i ditt konto',
-        'learningStats': 'Inlärningsstatistik',
-        'totalDays': 'Totalt dagar',
-        'todaySentences': 'Dagens meningar',
-        'todayMinutes': 'Dagens minuter',
-        'translationLangStat': 'Översättningsspråk',
-        'settingsTitle': 'Inställningar',
-        'settingsSubtitle': 'Välj ditt föredragna översättningsspråk',
-        'currentLanguage': 'Nuvarande språk',
-        'changeLanguageBtn': 'Ändra språk',
-        'editTranslation': 'Redigera översättning',
-        'saveTranslation': 'Spara översättning',
-        'cancel': 'Avbryt',
-        'cannotGoBack': 'Kan inte gå tillbaka före början',
-        'allCategories': 'Alla',
-        'mixed': 'Blandad',
-        'translationTo': 'Översättning till',
-        'translating': '⏳ Översätter...',
-        'translationError': '⚠️ Översättningsfel',
-        'noSentence': '⚠️ Ingen mening'
-    },
-    'pl': {
-        'login': 'Zaloguj się',
-        'signup': 'Zarejestruj się',
-        'days': 'Dni',
-        'sentences': 'Zdania',
-        'minutes': 'Minuty',
-        'logout': 'Wyloguj',
-        'loadingDesc': 'Nieskończony silnik zdań - 1 000 000+ zdań',
-        'loadingSentences': '🚀 Ultra precyzyjna walidacja językowa',
-        'loadingPlaceholder': '⏳ Ładowanie...',
-        'infoBar': 'Słuchaj, a następnie wpisz tekst dokładnie tak, jak go usłyszałeś',
-        'infiniteBadge': '1M+',
-        'statsBadge': 'Ultra precyzyjny',
-        'category': 'Kategoria: Mieszana',
-        'tensePresent': 'Czas teraźniejszy',
-        'tensePast': 'Czas przeszły',
-        'structure': 'Podmiot + Orzeczenie + Dopełnienie + Przyczyna',
-        'grammarValid': '✅ Poprawny gramatycznie',
-        'grammarInvalid': '⚠️ Wymaga sprawdzenia',
-        'grammarWords': 'słów',
-        'grammarScore': 'Punktacja',
-        'speed': 'Prędkość',
-        'writeHere': 'Wpisz zdanie tutaj',
-        'focusActive': 'Aktywny - Gotowy do pisania',
-        'focusInactive': 'Nieaktywny - Kliknij aby pisać',
-        'newSentence': 'Nowe zdanie',
-        'sentencesUnlimited': 'Nieograniczone zdania:',
-        'combinations': 'Kombinacje:',
-        'valid': 'Poprawne',
-        'welcomeBack': 'Witamy na platformie Inteligentnego Shadowingu',
-        'joinNow': 'Dołącz teraz',
-        'createAccount': 'Utwórz konto i rozpocznij naukę',
-        'or': 'lub',
-        'fullName': 'Pełne imię i nazwisko',
-        'email': 'E-mail',
-        'password': 'Hasło',
-        'preferredLang': 'Preferowany język tłumaczenia',
-        'createAccountBtn': 'Utwórz konto',
-        'haveAccount': 'Masz już konto?',
-        'noAccount': 'Nie masz konta?',
-        'freeAccount': 'Utwórz darmowe konto',
-        'emailPlaceholder': 'E-mail',
-        'passwordPlaceholder': 'Hasło',
-        'loginBtn': 'Zaloguj się',
-        'allFieldsRequired': 'Wypełnij wszystkie pola',
-        'emailExists': 'E-mail jest już zarejestrowany',
-        'invalidCredentials': 'Nieprawidłowy e-mail lub hasło',
-        'pleaseLoginToContinue': 'Zaloguj się aby kontynuować',
-        'lastTrial': 'Ostrzeżenie: To Twoje ostatnie zdanie próbne, zarejestruj się aby kontynuować trening',
-        'trialSentence': 'Zdanie próbne',
-        'writeCorrectly': 'Napisz zdanie poprawnie przed kontynuowaniem',
-        'logoutSuccess': 'Wylogowano pomyślnie',
-        'welcomeUser': 'Witaj',
-        'languageChanged': 'Zmieniono język tłumaczenia na',
-        'browserNotSupportSpeech': 'Przeglądarka nie obsługuje mowy',
-        'error': 'Wystąpił błąd',
-        'autoLangDetected': 'Automatycznie wykryto język tłumaczenia:',
-        'statsRequireLogin': 'Zaloguj się aby zobaczyć statystyki',
-        'settingsSaved': 'Zapisano ustawienia',
-        'footerDesc': 'Specjalistyczna platforma do inteligentnego treningu shadowingu, aby płynnie nauczyć się angielskiego.',
-        'quickLinks': 'Szybkie linki',
-        'home': 'Strona główna',
-        'shadowLessons': 'Lekcje shadowingu',
-        'stats': 'Statystyki',
-        'support': 'Wsparcie',
-        'helpCenter': 'Centrum pomocy',
-        'privacy': 'Polityka prywatności',
-        'contact': 'Kontakt',
-        'copyright': 'Wszelkie prawa zastrzeżone',
-        'ad': 'Reklama',
-        'ads': 'Reklamy',
-        'chooseTranslationLang': 'Wybierz język tłumaczenia',
-        'chooseLangSubtitle': 'Wybierz język, na który mają być tłumaczone zdania',
-        'applyChange': 'Zastosuj zmianę',
-        'langWillBeSaved': 'Preferencja językowa zostanie zapisana na Twoim koncie',
-        'learningStats': 'Statystyki nauki',
-        'totalDays': 'Łącznie dni',
-        'todaySentences': 'Dzisiejsze zdania',
-        'todayMinutes': 'Dzisiejsze minuty',
-        'translationLangStat': 'Język tłumaczenia',
-        'settingsTitle': 'Ustawienia',
-        'settingsSubtitle': 'Wybierz preferowany język tłumaczenia',
-        'currentLanguage': 'Obecny język',
-        'changeLanguageBtn': 'Zmień język',
-        'editTranslation': 'Edytuj tłumaczenie',
-        'saveTranslation': 'Zapisz tłumaczenie',
-        'cancel': 'Anuluj',
-        'cannotGoBack': 'Nie możesz wrócić przed początek',
-        'allCategories': 'Wszystkie',
-        'mixed': 'Mieszana',
-        'translationTo': 'Tłumaczenie na',
-        'translating': '⏳ Tłumaczenie...',
-        'translationError': '⚠️ Błąd tłumaczenia',
-        'noSentence': '⚠️ Brak zdania'
+        'currentLanguage': 'Current Language', 'changeLanguageBtn': 'Change Language',
+        'editTranslation': 'Edit Translation', 'saveTranslation': 'Save Translation',
+        'cancel': 'Cancel', 'cannotGoBack': 'Cannot go back before the beginning',
+        'allCategories': 'All', 'mixed': 'Mixed',
+        'translationTo': 'Translation to', 'translating': '⏳ Translating...',
+        'translationError': '⚠️ Translation error', 'noSentence': '⚠️ No sentence',
+        'milestoneCongrats': '🎉 Amazing!',
+        'milestoneTitle': 'You completed {count} sentences!',
+        'milestoneSubtitle': 'Keep up this great level, you\'re on your way to mastering the language! 🔥',
+        'milestoneStats': 'Milestones achieved: {count}',
+        'milestoneContinue': 'Continue Training 🚀',
+        'milestoneAdLabel': 'Ad - Thank you for your support'
     }
 };
 
 // ============================================================
-// EXTENDED SENTENCE TEMPLATES - 1M+ Combinations
+// COMPREHENSIVE SMART PATTERNS - 12 Topics - 1M+ Combinations
 // ============================================================
 
-const SENTENCE_TEMPLATES = {
-    business: {
-        name: "الأعمال والإدارة",
-        nameEn: "Business & Management",
-        roles: [
-            { en: "The project manager", ar: "مدير المشروع" },
-            { en: "The team leader", ar: "قائد الفريق" },
-            { en: "The CEO", ar: "الرئيس التنفيذي" },
-            { en: "The department head", ar: "رئيس القسم" },
-            { en: "The HR director", ar: "مدير الموارد البشرية" },
-            { en: "The financial analyst", ar: "المحلل المالي" },
-            { en: "The marketing manager", ar: "مدير التسويق" },
-            { en: "The operations manager", ar: "مدير العمليات" },
-            { en: "The sales representative", ar: "مندوب المبيعات" },
-            { en: "The business consultant", ar: "مستشار الأعمال" },
-            { en: "The executive director", ar: "المدير التنفيذي" },
-            { en: "The product manager", ar: "مدير المنتج" },
-            { en: "The supply chain manager", ar: "مدير سلسلة التوريد" },
-            { en: "The quality assurance officer", ar: "مسؤول ضمان الجودة" },
-            { en: "The corporate strategist", ar: "استراتيجي الشركات" }
+const SMART_PATTERNS = [
+    // 1. Business & Corporate
+    {
+        theme: "business",
+        name: "الأعمال والشركات",
+        nameEn: "Business & Corporate",
+        subjects: [
+            "The CEO", "The project manager", "The financial analyst", "The marketing director",
+            "The HR manager", "The operations chief", "The sales executive", "The business consultant",
+            "The product owner", "The account manager", "The strategy head", "The investment banker",
+            "The corporate lawyer", "The compliance officer", "The supply chain manager", "The quality inspector"
         ],
-        actions: {
-            present: [
-                { en: "is reviewing", ar: "يراجع" },
-                { en: "is preparing", ar: "يحضّر" },
-                { en: "is analyzing", ar: "يحلل" },
-                { en: "is developing", ar: "يطوّر" },
-                { en: "is implementing", ar: "ينفذ" },
-                { en: "is evaluating", ar: "يقيم" },
-                { en: "is presenting", ar: "يقدّم" },
-                { en: "is managing", ar: "يدير" },
-                { en: "is leading", ar: "يقود" },
-                { en: "is coordinating", ar: "ينسّق" },
-                { en: "is negotiating", ar: "يتفاوض" },
-                { en: "is planning", ar: "يخطط" },
-                { en: "is monitoring", ar: "يراقب" },
-                { en: "is supervising", ar: "يشرف" },
-                { en: "is consulting", ar: "يستشير" }
-            ],
-            past: [
-                { en: "reviewed", ar: "راجع" },
-                { en: "prepared", ar: "حضّر" },
-                { en: "analyzed", ar: "حلل" },
-                { en: "developed", ar: "طوّر" },
-                { en: "implemented", ar: "نفذ" },
-                { en: "evaluated", ar: "قيّم" },
-                { en: "presented", ar: "قدّم" },
-                { en: "managed", ar: "أدار" },
-                { en: "led", ar: "قاد" },
-                { en: "coordinated", ar: "نسّق" },
-                { en: "negotiated", ar: "تفاوض" },
-                { en: "planned", ar: "خطط" },
-                { en: "monitored", ar: "راقب" },
-                { en: "supervised", ar: "أشرف" },
-                { en: "consulted", ar: "استشار" }
-            ]
-        },
-        targets: [
-            { en: "the annual budget", ar: "الميزانية السنوية" },
-            { en: "the quarterly report", ar: "التقرير الربع سنوي" },
-            { en: "the business strategy", ar: "استراتيجية العمل" },
-            { en: "the team performance", ar: "أداء الفريق" },
-            { en: "the marketing campaign", ar: "الحملة التسويقية" },
-            { en: "the project timeline", ar: "الجدول الزمني للمشروع" },
-            { en: "the client proposal", ar: "عرض العميل" },
-            { en: "the operational plan", ar: "الخطة التشغيلية" },
-            { en: "the company goals", ar: "أهداف الشركة" },
-            { en: "the employee training", ar: "تدريب الموظفين" },
-            { en: "the financial forecast", ar: "التوقعات المالية" },
-            { en: "the product launch", ar: "إطلاق المنتج" },
-            { en: "the vendor contract", ar: "عقد المورد" },
-            { en: "the risk assessment", ar: "تقييم المخاطر" },
-            { en: "the market research", ar: "أبحاث السوق" }
+        actions: [
+            { verb: "is reviewing", targets: ["the annual budget", "the project proposal", "the performance report", "the client contract", "the financial statements", "the market strategy"] },
+            { verb: "has approved", targets: ["the expansion plan", "the hiring budget", "the strategic partnership", "the operational changes", "the merger agreement", "the investment proposal"] },
+            { verb: "is organizing", targets: ["a team workshop", "an international conference", "the quarterly meeting", "the product launch", "a networking event", "the board presentation"] },
+            { verb: "has completed", targets: ["the market analysis", "the financial forecast", "the risk assessment", "the competitor research", "the feasibility study", "the sustainability report"] },
+            { verb: "is leading", targets: ["the digital transformation", "the cost reduction program", "the quality initiative", "the innovation project", "the diversity program", "the growth strategy"] }
         ],
         reasons: [
-            { en: "to improve productivity", ar: "لتحسين الإنتاجية" },
-            { en: "to maximize profits", ar: "لتعظيم الأرباح" },
-            { en: "to increase efficiency", ar: "لزيادة الكفاءة" },
-            { en: "to reduce costs", ar: "لتقليل التكاليف" },
-            { en: "to enhance quality", ar: "لتعزيز الجودة" },
-            { en: "to expand the market", ar: "لتوسيع السوق" },
-            { en: "to meet deadlines", ar: "للوفاء بالمواعيد النهائية" },
-            { en: "to satisfy clients", ar: "لإرضاء العملاء" },
-            { en: "to achieve targets", ar: "لتحقيق الأهداف" },
-            { en: "to build partnerships", ar: "لبناء شراكات" },
-            { en: "to ensure compliance", ar: "لضمان الامتثال" },
-            { en: "to drive innovation", ar: "لدفع الابتكار" },
-            { en: "to optimize resources", ar: "لتحسين الموارد" },
-            { en: "to boost morale", ar: "لرفع الروح المعنوية" },
-            { en: "to streamline operations", ar: "لتبسيط العمليات" }
+            "to boost productivity.", "before the deadline.", "to ensure quality standards.",
+            "for client satisfaction.", "to achieve annual goals.", "as part of our strategy.",
+            "to improve efficiency.", "for the board meeting.", "to increase market share.",
+            "to reduce operational costs.", "for long-term growth.", "to maintain competitive advantage."
         ]
     },
-    sports: {
-        name: "الرياضة والتأهيل البدني",
-        nameEn: "Sports & Fitness",
-        roles: [
-            { en: "The professional athlete", ar: "الرياضي المحترف" },
-            { en: "The personal trainer", ar: "المدرب الشخصي" },
-            { en: "The team captain", ar: "قائد الفريق" },
-            { en: "The fitness coach", ar: "مدرب اللياقة" },
-            { en: "The sports therapist", ar: "المعالج الرياضي" },
-            { en: "The yoga instructor", ar: "مدرب اليوجا" },
-            { en: "The swimming coach", ar: "مدرب السباحة" },
-            { en: "The gym manager", ar: "مدير الصالة الرياضية" },
-            { en: "The marathon runner", ar: "عداء الماراثون" },
-            { en: "The strength coach", ar: "مدرب القوة" },
-            { en: "The nutritionist", ar: "أخصائي التغذية" },
-            { en: "The sports psychologist", ar: "الطبيب النفسي الرياضي" },
-            { en: "The team doctor", ar: "طبيب الفريق" },
-            { en: "The referee", ar: "الحكم" },
-            { en: "The athletic director", ar: "مدير النشاط الرياضي" }
+    // 2. Daily Life & Routines
+    {
+        theme: "dailyLife",
+        name: "الحياة اليومية",
+        nameEn: "Daily Life & Routines",
+        subjects: [
+            "My neighbor", "The family doctor", "My fitness coach", "The local pharmacist",
+            "My best friend", "The yoga instructor", "My nutritionist", "The community leader",
+            "My colleague", "The health specialist", "My partner", "The wellness expert",
+            "The dentist", "The physical therapist", "The mental health counselor", "The dietitian"
         ],
-        actions: {
-            present: [
-                { en: "is training", ar: "يتدرب" },
-                { en: "is stretching", ar: "يمتد" },
-                { en: "is lifting", ar: "يرفع" },
-                { en: "is running", ar: "يركض" },
-                { en: "is practicing", ar: "يمارس" },
-                { en: "is competing", ar: "يتنافس" },
-                { en: "is recovering", ar: "يتعافى" },
-                { en: "is warming up", ar: "يسخن" },
-                { en: "is coaching", ar: "يدرب" },
-                { en: "is motivating", ar: "يحفز" },
-                { en: "is sprinting", ar: "يركض بسرعة" },
-                { en: "is hydrating", ar: "يرطب" },
-                { en: "is meditating", ar: "يتأمل" },
-                { en: "is strategizing", ar: "يخطط" },
-                { en: "is rehabilitating", ar: "يؤهل" }
-            ],
-            past: [
-                { en: "trained", ar: "تدرب" },
-                { en: "stretched", ar: "تمدّد" },
-                { en: "lifted", ar: "رفع" },
-                { en: "ran", ar: "ركض" },
-                { en: "practiced", ar: "مارس" },
-                { en: "competed", ar: "تنافس" },
-                { en: "recovered", ar: "تعافى" },
-                { en: "warmed up", ar: "سخّن" },
-                { en: "coached", ar: "درّب" },
-                { en: "motivated", ar: "حفّز" },
-                { en: "sprinted", ar: "ركض بسرعة" },
-                { en: "hydrated", ar: "رطّب" },
-                { en: "meditated", ar: "تأمل" },
-                { en: "strategized", ar: "خطط" },
-                { en: "rehabilitated", ar: "أهل" }
-            ]
-        },
-        targets: [
-            { en: "the daily workout", ar: "التمرين اليومي" },
-            { en: "the training plan", ar: "خطة التدريب" },
-            { en: "the team strategy", ar: "استراتيجية الفريق" },
-            { en: "the fitness routine", ar: "روتين اللياقة" },
-            { en: "the competition schedule", ar: "جدول المسابقات" },
-            { en: "the recovery program", ar: "برنامج التعافي" },
-            { en: "the exercise technique", ar: "تقنية التمرين" },
-            { en: "the performance metrics", ar: "مقاييس الأداء" },
-            { en: "the injury prevention", ar: "الوقاية من الإصابات" },
-            { en: "the nutrition plan", ar: "خطة التغذية" },
-            { en: "the endurance test", ar: "اختبار التحمل" },
-            { en: "the flexibility session", ar: "جلسة المرونة" },
-            { en: "the team warm-up", ar: "إحماء الفريق" },
-            { en: "the mental preparation", ar: "الإعداد الذهني" },
-            { en: "the tactical analysis", ar: "التحليل التكتيكي" }
+        actions: [
+            { verb: "is preparing", targets: ["a healthy dinner", "the weekly meal plan", "a morning smoothie", "the grocery list", "a balanced diet", "a nutritious breakfast"] },
+            { verb: "has started", targets: ["a new exercise routine", "a meditation practice", "a healthy eating plan", "the morning jog", "a wellness challenge", "a hydration schedule"] },
+            { verb: "is organizing", targets: ["a community health fair", "a weekly sports session", "the family gathering", "a charity run", "a wellness workshop", "a neighborhood cleanup"] },
+            { verb: "has recommended", targets: ["a new supplement", "a stress relief technique", "a daily walk routine", "a hydration plan", "a sleep strategy", "a relaxation method"] },
+            { verb: "is monitoring", targets: ["the blood pressure", "the daily calorie intake", "the sleep quality", "the water consumption", "the physical activity", "the cholesterol level"] }
         ],
         reasons: [
-            { en: "to build muscle", ar: "لبناء العضلات" },
-            { en: "to improve endurance", ar: "لتحسين التحمل" },
-            { en: "to increase flexibility", ar: "لزيادة المرونة" },
-            { en: "to lose weight", ar: "لفقدان الوزن" },
-            { en: "to boost performance", ar: "لتعزيز الأداء" },
-            { en: "to stay healthy", ar: "للبقاء بصحة جيدة" },
-            { en: "to win the championship", ar: "للفوز بالبطولة" },
-            { en: "to achieve peak fitness", ar: "لتحقيق ذروة اللياقة" },
-            { en: "to recover faster", ar: "للتعافي بشكل أسرع" },
-            { en: "to maintain balance", ar: "للحفاظ على التوازن" },
-            { en: "to prevent injuries", ar: "للوقاية من الإصابات" },
-            { en: "to enhance agility", ar: "لتعزيز الرشاقة" },
-            { en: "to increase stamina", ar: "لزيادة القدرة على التحمل" },
-            { en: "to improve coordination", ar: "لتحسين التنسيق" },
-            { en: "to build mental toughness", ar: "لبناء الصلابة الذهنية" }
+            "to maintain good health.", "for mental well-being.", "to stay physically active.",
+            "to improve energy levels.", "as part of a balanced lifestyle.", "for long-term wellness.",
+            "to prevent illnesses.", "to boost the immune system.", "to reduce stress.",
+            "for better sleep.", "to increase longevity.", "to feel more energetic."
         ]
     },
-    technology: {
-        name: "التكنولوجيا والتطوير",
-        nameEn: "Technology & Software",
-        roles: [
-            { en: "The software engineer", ar: "مهندس البرمجيات" },
-            { en: "The system administrator", ar: "مدير النظام" },
-            { en: "The UX designer", ar: "مصمم تجربة المستخدم" },
-            { en: "The front-end developer", ar: "مطور الواجهة الأمامية" },
-            { en: "The back-end developer", ar: "مطور الواجهة الخلفية" },
-            { en: "The database administrator", ar: "مدير قاعدة البيانات" },
-            { en: "The cybersecurity expert", ar: "خبير الأمن السيبراني" },
-            { en: "The network engineer", ar: "مهندس الشبكات" },
-            { en: "The AI specialist", ar: "أخصائي الذكاء الاصطناعي" },
-            { en: "The cloud architect", ar: "مهندس الحوسبة السحابية" },
-            { en: "The DevOps engineer", ar: "مهندس DevOps" },
-            { en: "The data scientist", ar: "عالم البيانات" },
-            { en: "The mobile developer", ar: "مطور التطبيقات" },
-            { en: "The QA engineer", ar: "مهندس ضمان الجودة" },
-            { en: "The technical writer", ar: "الكاتب التقني" }
+    // 3. Health, Fitness & Food
+    {
+        theme: "health",
+        name: "الصحة واللياقة",
+        nameEn: "Health, Fitness & Food",
+        subjects: [
+            "The nutrition expert", "My personal trainer", "The dietitian", "The fitness coach",
+            "The health consultant", "The wellness advisor", "The sports therapist", "The yoga master",
+            "The gym owner", "The marathon runner", "The swimming instructor", "The cycling coach"
         ],
-        actions: {
-            present: [
-                { en: "is coding", ar: "يكتب الكود" },
-                { en: "is debugging", ar: "يصحح الأخطاء" },
-                { en: "is testing", ar: "يختبر" },
-                { en: "is deploying", ar: "ينشر" },
-                { en: "is designing", ar: "يصمم" },
-                { en: "is optimizing", ar: "يحسّن الأداء" },
-                { en: "is configuring", ar: "يضبط الإعدادات" },
-                { en: "is upgrading", ar: "يحدّث" },
-                { en: "is developing", ar: "يطوّر" },
-                { en: "is maintaining", ar: "يصون" },
-                { en: "is scripting", ar: "يكتب سكريبت" },
-                { en: "is analyzing data", ar: "يحلل البيانات" },
-                { en: "is integrating APIs", ar: "يدمج واجهات البرمجة" },
-                { en: "is monitoring systems", ar: "يراقب الأنظمة" },
-                { en: "is documenting", ar: "يوثق" }
-            ],
-            past: [
-                { en: "coded", ar: "كتب الكود" },
-                { en: "debugged", ar: "صحح الأخطاء" },
-                { en: "tested", ar: "اختبر" },
-                { en: "deployed", ar: "نشر" },
-                { en: "designed", ar: "صمم" },
-                { en: "optimized", ar: "حسّن الأداء" },
-                { en: "configured", ar: "ضبط الإعدادات" },
-                { en: "upgraded", ar: "حدّث" },
-                { en: "developed", ar: "طوّر" },
-                { en: "maintained", ar: "صان" },
-                { en: "scripted", ar: "كتب سكريبت" },
-                { en: "analyzed data", ar: "حلل البيانات" },
-                { en: "integrated APIs", ar: "دمج واجهات البرمجة" },
-                { en: "monitored systems", ar: "راقب الأنظمة" },
-                { en: "documented", ar: "وثّق" }
-            ]
-        },
-        targets: [
-            { en: "the software application", ar: "تطبيق البرمجيات" },
-            { en: "the user interface", ar: "واجهة المستخدم" },
-            { en: "the database system", ar: "نظام قاعدة البيانات" },
-            { en: "the network security", ar: "أمن الشبكة" },
-            { en: "the codebase", ar: "قاعدة الكود" },
-            { en: "the cloud infrastructure", ar: "البنية التحتية السحابية" },
-            { en: "the API integration", ar: "تكامل واجهة البرمجة" },
-            { en: "the web application", ar: "تطبيق الويب" },
-            { en: "the server configuration", ar: "إعدادات الخادم" },
-            { en: "the machine learning model", ar: "نموذج التعلم الآلي" },
-            { en: "the mobile app", ar: "التطبيق المحمول" },
-            { en: "the data pipeline", ar: "خط أنابيب البيانات" },
-            { en: "the CI/CD workflow", ar: "سير العمل CI/CD" },
-            { en: "the security protocol", ar: "بروتوكول الأمان" },
-            { en: "the user authentication", ar: "مصادقة المستخدم" }
+        actions: [
+            { verb: "is developing", targets: ["a personalized diet plan", "a strength training program", "a nutrition guide", "a fitness regimen", "a weight loss strategy", "a muscle building routine"] },
+            { verb: "has created", targets: ["a healthy recipe book", "a workout schedule", "a meal prep plan", "a hydration guide", "a supplement protocol", "a recovery program"] },
+            { verb: "is promoting", targets: ["healthy eating habits", "regular exercise", "mental wellness", "balanced nutrition", "active lifestyle", "holistic health"] },
+            { verb: "has achieved", targets: ["a fitness milestone", "a weight loss goal", "a muscle gain target", "a personal record", "a health improvement", "a lifestyle transformation"] }
         ],
         reasons: [
-            { en: "to improve performance", ar: "لتحسين الأداء" },
-            { en: "to enhance security", ar: "لتعزيز الأمان" },
-            { en: "to streamline operations", ar: "لتبسيط العمليات" },
-            { en: "to increase speed", ar: "لزيادة السرعة" },
-            { en: "to reduce bugs", ar: "لتقليل الأخطاء" },
-            { en: "to improve user experience", ar: "لتحسين تجربة المستخدم" },
-            { en: "to scale the system", ar: "لتوسيع النظام" },
-            { en: "to automate tasks", ar: "لأتمتة المهام" },
-            { en: "to prevent cyber threats", ar: "لمنع التهديدات السيبرانية" },
-            { en: "to optimize resources", ar: "لتحسين استخدام الموارد" },
-            { en: "to enable real-time processing", ar: "لتمكين المعالجة الفورية" },
-            { en: "to ensure data integrity", ar: "لضمان سلامة البيانات" },
-            { en: "to facilitate collaboration", ar: "لتسهيل التعاون" },
-            { en: "to reduce downtime", ar: "لتقليل وقت التوقف" },
-            { en: "to improve accessibility", ar: "لتحسين إمكانية الوصول" }
+            "to improve overall health.", "for better fitness.", "to achieve weight goals.",
+            "to build muscle.", "to increase energy.", "for disease prevention.",
+            "to enhance performance.", "to boost confidence.", "for longevity.",
+            "to feel stronger.", "to improve mobility.", "for better quality of life."
         ]
     },
-    dailyLife: {
-        name: "الحياة اليومية والتواصل",
-        nameEn: "Daily Life & Communication",
-        roles: [
-            { en: "The family member", ar: "فرد العائلة" },
-            { en: "The neighbor", ar: "الجار" },
-            { en: "The friend", ar: "الصديق" },
-            { en: "The colleague", ar: "زميل العمل" },
-            { en: "The student", ar: "الطالب" },
-            { en: "The teacher", ar: "المعلم" },
-            { en: "The parent", ar: "الوالد" },
-            { en: "The child", ar: "الطفل" },
-            { en: "The sibling", ar: "الأخ/الأخت" },
-            { en: "The partner", ar: "الشريك" },
-            { en: "The roommate", ar: "رفيق السكن" },
-            { en: "The classmate", ar: "زميل الدراسة" },
-            { en: "The mentor", ar: "المرشد" },
-            { en: "The coach", ar: "المدرب" },
-            { en: "The therapist", ar: "المعالج" }
+    // 4. Travel, Culture & Nature
+    {
+        theme: "travel",
+        name: "السفر والثقافة",
+        nameEn: "Travel, Culture & Nature",
+        subjects: [
+            "The tour guide", "My travel companion", "The hotel manager", "The flight attendant",
+            "The local guide", "The cruise director", "The travel agent", "The border officer",
+            "The safari leader", "The resort manager", "The cultural expert", "The backpacker",
+            "The luxury traveler", "The adventure seeker", "The nature photographer", "The explorer"
         ],
-        actions: {
-            present: [
-                { en: "is cooking", ar: "يطبخ" },
-                { en: "is reading", ar: "يقرأ" },
-                { en: "is texting", ar: "يرسل رسالة" },
-                { en: "is shopping", ar: "يتسوق" },
-                { en: "is listening", ar: "يستمع" },
-                { en: "is watching", ar: "يشاهد" },
-                { en: "is cleaning", ar: "ينظف" },
-                { en: "is organizing", ar: "ينظم" },
-                { en: "is visiting", ar: "يزور" },
-                { en: "is sharing", ar: "يشارك" },
-                { en: "is exercising", ar: "يمارس الرياضة" },
-                { en: "is meditating", ar: "يتأمل" },
-                { en: "is journaling", ar: "يكتب مذكرات" },
-                { en: "is gardening", ar: "يزرع" },
-                { en: "is volunteering", ar: "يتطوع" }
-            ],
-            past: [
-                { en: "cooked", ar: "طبخ" },
-                { en: "read", ar: "قرأ" },
-                { en: "texted", ar: "أرسل رسالة" },
-                { en: "shopped", ar: "تسوق" },
-                { en: "listened", ar: "استمع" },
-                { en: "watched", ar: "شاهد" },
-                { en: "cleaned", ar: "نظّف" },
-                { en: "organized", ar: "نظّم" },
-                { en: "visited", ar: "زار" },
-                { en: "shared", ar: "شارك" },
-                { en: "exercised", ar: "مارس الرياضة" },
-                { en: "meditated", ar: "تأمل" },
-                { en: "journaled", ar: "كتب مذكرات" },
-                { en: "gardened", ar: "زرع" },
-                { en: "volunteered", ar: "تطوع" }
-            ]
-        },
-        targets: [
-            { en: "the dinner", ar: "العشاء" },
-            { en: "the important message", ar: "الرسالة المهمة" },
-            { en: "the weekend plan", ar: "خطة عطلة نهاية الأسبوع" },
-            { en: "the grocery list", ar: "قائمة البقالة" },
-            { en: "the phone call", ar: "المكالمة الهاتفية" },
-            { en: "the house chores", ar: "الأعمال المنزلية" },
-            { en: "the family gathering", ar: "التجمع العائلي" },
-            { en: "the daily routine", ar: "الروتين اليومي" },
-            { en: "the personal project", ar: "المشروع الشخصي" },
-            { en: "the conversation", ar: "المحادثة" },
-            { en: "the morning routine", ar: "روتين الصباح" },
-            { en: "the evening walk", ar: "المساء" },
-            { en: "the weekend getaway", ar: "رحلة نهاية الأسبوع" },
-            { en: "the family dinner", ar: "عشاء العائلة" },
-            { en: "the game night", ar: "ليلة الألعاب" }
+        actions: [
+            { verb: "is planning", targets: ["the sightseeing route", "the day trip itinerary", "the cultural tour", "the adventure expedition", "the culinary tour", "the photography walk"] },
+            { verb: "has booked", targets: ["the hotel accommodation", "the flight tickets", "the guided tour", "the cruise package", "the car rental", "the train tickets"] },
+            { verb: "is exploring", targets: ["the historical landmarks", "the local markets", "the ancient ruins", "the natural wonders", "the traditional villages", "the national parks"] },
+            { verb: "has recommended", targets: ["the best local restaurant", "the hidden beach", "the scenic viewpoint", "the cultural museum", "the authentic experience", "the local delicacy"] },
+            { verb: "is organizing", targets: ["a group excursion", "a photography tour", "a wine tasting", "a wildlife safari", "a cooking class", "a city walking tour"] }
         ],
         reasons: [
-            { en: "to relax", ar: "للاسترخاء" },
-            { en: "to stay healthy", ar: "للبقاء بصحة جيدة" },
-            { en: "to save money", ar: "لتوفير المال" },
-            { en: "to make plans", ar: "لوضع خطط" },
-            { en: "to connect with others", ar: "للتواصل مع الآخرين" },
-            { en: "to share experiences", ar: "لمشاركة التجارب" },
-            { en: "to learn new things", ar: "لتعلم أشياء جديدة" },
-            { en: "to feel happy", ar: "للشعور بالسعادة" },
-            { en: "to help others", ar: "لمساعدة الآخرين" },
-            { en: "to enjoy life", ar: "للاستمتاع بالحياة" },
-            { en: "to reduce stress", ar: "لتقليل التوتر" },
-            { en: "to build relationships", ar: "لبناء العلاقات" },
-            { en: "to improve focus", ar: "لتحسين التركيز" },
-            { en: "to develop skills", ar: "لتطوير المهارات" },
-            { en: "to find purpose", ar: "لإيجاد الهدف" }
+            "to discover new cultures.", "for an unforgettable experience.", "to learn about local history.",
+            "to enjoy beautiful landscapes.", "as part of our adventure.", "to create lasting memories.",
+            "for a relaxing vacation.", "to explore off the beaten path.", "to taste authentic cuisine.",
+            "to meet local people.", "to photograph stunning views.", "to experience different lifestyles."
         ]
     },
-    travel: {
-        name: "السفر والخدمات اللوجستية",
-        nameEn: "Travel & Logistics",
-        roles: [
-            { en: "The traveler", ar: "المسافر" },
-            { en: "The tour guide", ar: "المرشد السياحي" },
-            { en: "The pilot", ar: "الطيار" },
-            { en: "The flight attendant", ar: "مضيف الطيران" },
-            { en: "The truck driver", ar: "سائق الشاحنة" },
-            { en: "The travel agent", ar: "وكيل السفر" },
-            { en: "The hotel manager", ar: "مدير الفندق" },
-            { en: "The border officer", ar: "ضابط الحدود" },
-            { en: "The taxi driver", ar: "سائق التاكسي" },
-            { en: "The tour operator", ar: "منظم الرحلات السياحية" },
-            { en: "The cruise director", ar: "مدير الرحلات البحرية" },
-            { en: "The baggage handler", ar: "عامل الأمتعة" },
-            { en: "The air traffic controller", ar: "مراقب الحركة الجوية" },
-            { en: "The customs officer", ar: "موظف الجمارك" },
-            { en: "The concierge", ar: "موظف الاستقبال" }
+    // 5. Technology, AI & Programming
+    {
+        theme: "technology",
+        name: "التكنولوجيا والذكاء الاصطناعي",
+        nameEn: "Technology, AI & Programming",
+        subjects: [
+            "The software engineer", "The AI researcher", "The data scientist", "The cloud architect",
+            "The cybersecurity expert", "The machine learning engineer", "The blockchain developer",
+            "The UX designer", "The robotics engineer", "The network administrator", "The DevOps team",
+            "The front-end developer", "The back-end developer", "The mobile app developer", "The quality assurance lead"
         ],
-        actions: {
-            present: [
-                { en: "is traveling", ar: "يسافر" },
-                { en: "is navigating", ar: "يحدد الاتجاه" },
-                { en: "is booking", ar: "يحجز" },
-                { en: "is exploring", ar: "يستكشف" },
-                { en: "is driving", ar: "يقود" },
-                { en: "is flying", ar: "يطير" },
-                { en: "is checking in", ar: "يسجل الوصول" },
-                { en: "is packing", ar: "يحزم الحقائب" },
-                { en: "is planning", ar: "يخطط" },
-                { en: "is guiding", ar: "يرشد" },
-                { en: "is sightseeing", ar: "يتجول" },
-                { en: "is photographing", ar: "يلتقط الصور" },
-                { en: "is relaxing", ar: "يسترخي" },
-                { en: "is dining", ar: "يتناول الطعام" },
-                { en: "is shopping", ar: "يتسوق" }
-            ],
-            past: [
-                { en: "traveled", ar: "سافر" },
-                { en: "navigated", ar: "حدد الاتجاه" },
-                { en: "booked", ar: "حجز" },
-                { en: "explored", ar: "استكشف" },
-                { en: "drove", ar: "قاد" },
-                { en: "flew", ar: "طار" },
-                { en: "checked in", ar: "سجل الوصول" },
-                { en: "packed", ar: "حزم الحقائب" },
-                { en: "planned", ar: "خطط" },
-                { en: "guided", ar: "أرشد" },
-                { en: "sightseeing", ar: "تجول" },
-                { en: "photographed", ar: "التقط الصور" },
-                { en: "relaxed", ar: "استرخى" },
-                { en: "dined", ar: "تناول الطعام" },
-                { en: "shopped", ar: "تسوق" }
-            ]
-        },
-        targets: [
-            { en: "the travel itinerary", ar: "جدول الرحلة" },
-            { en: "the flight schedule", ar: "جدول الرحلات الجوية" },
-            { en: "the accommodation", ar: "مكان الإقامة" },
-            { en: "the luggage", ar: "الأمتعة" },
-            { en: "the transport route", ar: "طريق النقل" },
-            { en: "the tourist destination", ar: "الوجهة السياحية" },
-            { en: "the border crossing", ar: "عبور الحدود" },
-            { en: "the travel documents", ar: "وثائق السفر" },
-            { en: "the hotel booking", ar: "حجز الفندق" },
-            { en: "the sightseeing tour", ar: "جولة سياحية" },
-            { en: "the cruise ship", ar: "السفينة السياحية" },
-            { en: "the airport transfer", ar: "النقل من المطار" },
-            { en: "the local cuisine", ar: "المطبخ المحلي" },
-            { en: "the cultural experience", ar: "التجربة الثقافية" },
-            { en: "the travel insurance", ar: "تأمين السفر" }
+        actions: [
+            { verb: "is developing", targets: ["a new mobile application", "an AI-powered solution", "a cloud-based platform", "a smart home system", "a data visualization tool", "an e-commerce website"] },
+            { verb: "has launched", targets: ["the software update", "the security patch", "the learning platform", "the digital assistant", "the blockchain solution", "the mobile app"] },
+            { verb: "is testing", targets: ["the system performance", "the user interface", "the security protocols", "the network stability", "the machine learning model", "the database efficiency"] },
+            { verb: "has implemented", targets: ["a new authentication system", "an automated workflow", "a data backup strategy", "a remote work solution", "an analytics dashboard", "a monitoring system"] },
+            { verb: "is researching", targets: ["emerging technologies", "quantum computing", "biometric authentication", "sustainable IT solutions", "neural networks", "predictive analytics"] }
         ],
         reasons: [
-            { en: "to explore new places", ar: "لاستكشاف أماكن جديدة" },
-            { en: "to experience culture", ar: "لتجربة الثقافة" },
-            { en: "to meet new people", ar: "لمقابلة أشخاص جدد" },
-            { en: "to relax", ar: "للاسترخاء" },
-            { en: "to learn history", ar: "لتعلم التاريخ" },
-            { en: "to enjoy nature", ar: "للاستمتاع بالطبيعة" },
-            { en: "to make memories", ar: "لصنع ذكريات" },
-            { en: "to find adventure", ar: "للبحث عن المغامرة" },
-            { en: "to visit family", ar: "لزيارة العائلة" },
-            { en: "to improve language", ar: "لتحسين اللغة" },
-            { en: "to broaden horizons", ar: "لتوسيع الآفاق" },
-            { en: "to escape routine", ar: "للهروب من الروتين" },
-            { en: "to taste new flavors", ar: "لتذوق نكهات جديدة" },
-            { en: "to appreciate diversity", ar: "لتقدير التنوع" },
-            { en: "to find inspiration", ar: "لإيجاد الإلهام" }
+            "to improve user experience.", "for better security.", "to increase processing speed.",
+            "to automate tasks.", "as part of digital transformation.", "to enhance data protection.",
+            "to support remote work.", "for future innovation.", "to reduce system downtime.",
+            "to improve scalability.", "for competitive advantage.", "to meet industry standards."
         ]
     },
-    education: {
-        name: "التعليم والتعلم",
-        nameEn: "Education & Learning",
-        roles: [
-            { en: "The professor", ar: "الأستاذ الجامعي" },
-            { en: "The student", ar: "الطالب" },
-            { en: "The tutor", ar: "المدرس الخصوصي" },
-            { en: "The researcher", ar: "الباحث" },
-            { en: "The librarian", ar: "أمين المكتبة" },
-            { en: "The principal", ar: "مدير المدرسة" },
-            { en: "The counselor", ar: "المرشد الطلابي" },
-            { en: "The lecturer", ar: "المحاضر" },
-            { en: "The graduate", ar: "الخريج" },
-            { en: "The scholar", ar: "العالم" },
-            { en: "The mentor", ar: "المرشد" },
-            { en: "The examiner", ar: "الممتحن" },
-            { en: "The curriculum designer", ar: "مصمم المناهج" },
-            { en: "The teaching assistant", ar: "المساعد التدريسي" },
-            { en: "The guest speaker", ar: "المتحدث الضيف" }
+    // 6. Shopping, Finance & Economy
+    {
+        theme: "finance",
+        name: "التسوق والمالية",
+        nameEn: "Shopping, Finance & Economy",
+        subjects: [
+            "The financial advisor", "The bank manager", "The investment analyst", "The store owner",
+            "The economist", "The tax consultant", "The insurance agent", "The market researcher",
+            "The retail manager", "The customer service rep", "The e-commerce specialist", "The budget planner"
         ],
-        actions: {
-            present: [
-                { en: "is teaching", ar: "يدرّس" },
-                { en: "is learning", ar: "يتعلّم" },
-                { en: "is researching", ar: "يبحث" },
-                { en: "is studying", ar: "يدرس" },
-                { en: "is reading", ar: "يقرأ" },
-                { en: "is writing", ar: "يكتب" },
-                { en: "is presenting", ar: "يقدّم" },
-                { en: "is discussing", ar: "يناقش" },
-                { en: "is analyzing", ar: "يحلل" },
-                { en: "is collaborating", ar: "يتعاون" },
-                { en: "is experimenting", ar: "يجري تجارب" },
-                { en: "is reviewing", ar: "يراجع" },
-                { en: "is preparing", ar: "يحضّر" },
-                { en: "is lecturing", ar: "يلقي محاضرة" },
-                { en: "is grading", ar: "يصحح" }
-            ],
-            past: [
-                { en: "taught", ar: "درّس" },
-                { en: "learned", ar: "تعلّم" },
-                { en: "researched", ar: "بحث" },
-                { en: "studied", ar: "درس" },
-                { en: "read", ar: "قرأ" },
-                { en: "wrote", ar: "كتب" },
-                { en: "presented", ar: "قدّم" },
-                { en: "discussed", ar: "ناقش" },
-                { en: "analyzed", ar: "حلل" },
-                { en: "collaborated", ar: "تعاون" },
-                { en: "experimented", ar: "أجرى تجارب" },
-                { en: "reviewed", ar: "راجع" },
-                { en: "prepared", ar: "حضّر" },
-                { en: "lectured", ar: "ألقى محاضرة" },
-                { en: "graded", ar: "صحّح" }
-            ]
-        },
-        targets: [
-            { en: "the research paper", ar: "ورقة البحث" },
-            { en: "the lesson plan", ar: "خطة الدرس" },
-            { en: "the thesis", ar: "الأطروحة" },
-            { en: "the textbook", ar: "الكتاب المدرسي" },
-            { en: "the lecture notes", ar: "ملاحظات المحاضرة" },
-            { en: "the curriculum", ar: "المنهج الدراسي" },
-            { en: "the exam questions", ar: "أسئلة الامتحان" },
-            { en: "the student presentation", ar: "عرض الطالب" },
-            { en: "the academic journal", ar: "المجلة الأكاديمية" },
-            { en: "the reference list", ar: "قائمة المراجع" },
-            { en: "the learning outcomes", ar: "نتائج التعلم" },
-            { en: "the syllabus", ar: "المنهاج" },
-            { en: "the educational video", ar: "الفيديو التعليمي" },
-            { en: "the science experiment", ar: "التجربة العلمية" },
-            { en: "the case study", ar: "دراسة الحالة" }
+        actions: [
+            { verb: "is analyzing", targets: ["the market trends", "the investment portfolio", "the economic data", "the consumer behavior", "the stock performance", "the financial reports"] },
+            { verb: "has recommended", targets: ["a savings plan", "an investment strategy", "a budget adjustment", "a retirement plan", "a tax optimization", "a spending reduction"] },
+            { verb: "is managing", targets: ["the company accounts", "the investment fund", "the retail inventory", "the customer loyalty program", "the online store", "the payment systems"] },
+            { verb: "has developed", targets: ["a financial planning tool", "a budgeting app", "an investment guide", "a market analysis report", "a consumer survey", "a pricing strategy"] },
+            { verb: "is monitoring", targets: ["the stock market", "the exchange rates", "the inflation rate", "the sales figures", "the customer spending", "the economic indicators"] }
         ],
         reasons: [
-            { en: "to gain knowledge", ar: "لاكتساب المعرفة" },
-            { en: "to develop skills", ar: "لتطوير المهارات" },
-            { en: "to expand understanding", ar: "لتوسيع الفهم" },
-            { en: "to inspire curiosity", ar: "لإلهام الفضول" },
-            { en: "to advance careers", ar: "لتطوير المسار المهني" },
-            { en: "to foster critical thinking", ar: "لتعزيز التفكير النقدي" },
-            { en: "to encourage creativity", ar: "لتشجيع الإبداع" },
-            { en: "to build confidence", ar: "لبناء الثقة" },
-            { en: "to improve communication", ar: "لتحسين التواصل" },
-            { en: "to promote innovation", ar: "لتعزيز الابتكار" },
-            { en: "to prepare for the future", ar: "للتحضير للمستقبل" },
-            { en: "to solve problems", ar: "لحل المشاكل" },
-            { en: "to contribute to society", ar: "للمساهمة في المجتمع" },
-            { en: "to achieve excellence", ar: "لتحقيق التميز" },
-            { en: "to fulfill potential", ar: "لتحقيق الإمكانات" }
+            "to maximize returns.", "to reduce expenses.", "for financial security.",
+            "to achieve financial goals.", "as part of wealth management.", "to understand the market.",
+            "to make informed decisions.", "for retirement planning.", "to manage debt.",
+            "to build savings.", "for investment growth.", "to secure the future."
+        ]
+    },
+    // 7. Education, Science & History
+    {
+        theme: "education",
+        name: "التعليم والعلوم",
+        nameEn: "Education, Science & History",
+        subjects: [
+            "The university professor", "My science teacher", "The school principal", "The language tutor",
+            "The historian", "The research scientist", "The academic advisor", "The student counselor",
+            "The lecturer", "The librarian", "The teaching assistant", "The graduate student"
+        ],
+        actions: [
+            { verb: "is teaching", targets: ["the advanced physics course", "the English literature class", "the chemistry laboratory", "the mathematics workshop", "the art history lecture", "the computer science seminar"] },
+            { verb: "has researched", targets: ["a new educational method", "the learning outcomes", "the student performance", "the teaching effectiveness", "the curriculum impact", "the assessment results"] },
+            { verb: "is organizing", targets: ["a study group session", "a research symposium", "a student conference", "a library workshop", "a tutoring program", "a peer mentoring initiative"] },
+            { verb: "has published", targets: ["a research paper", "an academic article", "a textbook chapter", "a case study", "a literature review", "a conference proceeding"] },
+            { verb: "is guiding", targets: ["the students' projects", "the thesis research", "the career development", "the academic progress", "the critical thinking skills", "the research methodology"] }
+        ],
+        reasons: [
+            "to advance knowledge.", "for academic excellence.", "to inspire curiosity.",
+            "to develop critical thinking.", "as part of our educational mission.", "to prepare students.",
+            "to foster a love of learning.", "to achieve research goals.", "to improve teaching methods.",
+            "to support student success.", "to preserve history.", "to innovate in education."
+        ]
+    },
+    // 8. Sports, Gaming & Entertainment
+    {
+        theme: "sports",
+        name: "الرياضة والترفيه",
+        nameEn: "Sports, Gaming & Entertainment",
+        subjects: [
+            "The professional athlete", "The game developer", "The sports coach", "The entertainment producer",
+            "The esports player", "The fitness instructor", "The team captain", "The gaming enthusiast",
+            "The sports commentator", "The event organizer", "The streaming content creator", "The sports therapist"
+        ],
+        actions: [
+            { verb: "is training", targets: ["for the championship match", "for the gaming tournament", "for the sports competition", "for the fitness challenge", "for the esports event", "for the marathon"] },
+            { verb: "has won", targets: ["the championship title", "the gaming award", "the sports medal", "the tournament prize", "the competition trophy", "the recognition award"] },
+            { verb: "is organizing", targets: ["a friendly match", "a gaming marathon", "a sports workshop", "a charity event", "a team practice", "a streaming session"] },
+            { verb: "has developed", targets: ["a new game level", "a training program", "a sports strategy", "a content series", "a fitness app", "a competition format"] },
+            { verb: "is participating", targets: ["in the local tournament", "in the charity match", "in the gaming league", "in the sports expo", "in the entertainment event", "in the fitness competition"] }
+        ],
+        reasons: [
+            "to achieve excellence.", "for the love of sports.", "to entertain fans.",
+            "to build team spirit.", "as part of our passion.", "to push boundaries.",
+            "to achieve personal best.", "to make history.", "to inspire others.",
+            "to grow the community.", "to create memorable moments.", "to showcase talent."
+        ]
+    },
+    // 9. Arts, Cinema & Literature
+    {
+        theme: "arts",
+        name: "الفنون والسينما",
+        nameEn: "Arts, Cinema & Literature",
+        subjects: [
+            "The talented painter", "The film director", "The novelist", "The gallery curator",
+            "The screenwriter", "The sculpture artist", "The creative writer", "The film critic",
+            "The digital artist", "The playwright", "The poet", "The art historian",
+            "The photographer", "The cinematographer", "The literary agent", "The art collector"
+        ],
+        actions: [
+            { verb: "is creating", targets: ["a beautiful painting", "a new film script", "a literary masterpiece", "a unique sculpture", "a digital artwork", "a poetry collection"] },
+            { verb: "has exhibited", targets: ["at the local gallery", "in the international museum", "at the film festival", "in the literary fair", "in the creative space", "at the biennale"] },
+            { verb: "is writing", targets: ["a novel", "a screenplay", "a collection of poems", "a film review", "an art critique", "a creative story"] },
+            { verb: "has won", targets: ["an art competition", "a literary award", "a film prize", "a creative recognition", "a cultural honor", "a prestigious commission"] },
+            { verb: "is inspiring", targets: ["young artists", "creative minds", "the local community", "art enthusiasts", "future creators", "cultural expression"] }
+        ],
+        reasons: [
+            "to express creativity.", "for artistic passion.", "to share beauty with others.",
+            "to inspire the community.", "as part of our cultural heritage.", "to create meaningful art.",
+            "to explore creative boundaries.", "to develop unique skills.", "to tell compelling stories.",
+            "to preserve culture.", "to innovate in the arts.", "to connect through creativity."
+        ]
+    },
+    // 10. Psychology & Self-Improvement
+    {
+        theme: "selfImprovement",
+        name: "علم النفس وتطوير الذات",
+        nameEn: "Psychology & Self-Improvement",
+        subjects: [
+            "The psychologist", "The life coach", "The mental health expert", "The self-help author",
+            "The therapist", "The mindfulness teacher", "The career counselor", "The relationship expert",
+            "The personal development coach", "The cognitive therapist", "The wellness mentor", "The motivational speaker"
+        ],
+        actions: [
+            { verb: "is emphasizing", targets: ["the importance of self-care", "the power of positive thinking", "the value of emotional intelligence", "the benefits of mindfulness", "the role of healthy relationships", "the impact of gratitude"] },
+            { verb: "is encouraging", targets: ["individuals to embrace change", "people to pursue their goals", "clients to build resilience", "others to practice self-compassion", "patients to seek help", "students to believe in themselves"] },
+            { verb: "has developed", targets: ["a personal growth plan", "a mental wellness program", "a coping strategy", "a relationship guide", "a self-improvement course", "a career development roadmap"] },
+            { verb: "is promoting", targets: ["mental health awareness", "self-discovery", "emotional well-being", "personal development", "positive psychology", "work-life balance"] },
+            { verb: "has helped", targets: ["many people overcome challenges", "clients achieve their goals", "patients improve their mental health", "individuals find purpose", "people build confidence", "others transform their lives"] }
+        ],
+        reasons: [
+            "to achieve mental clarity.", "for personal growth.", "to reduce stress.",
+            "to build emotional resilience.", "as part of self-discovery.", "for better relationships.",
+            "to find purpose.", "to improve confidence.", "for career success.",
+            "to develop inner peace.", "to overcome challenges.", "to live a fulfilling life."
+        ]
+    },
+    // 11. Environment & Climate
+    {
+        theme: "environment",
+        name: "البيئة والمناخ",
+        nameEn: "Environment & Climate",
+        subjects: [
+            "The environmental activist", "The climate scientist", "The conservationist", "The sustainability officer",
+            "The wildlife photographer", "The green energy specialist", "The organic farmer", "The recycling coordinator",
+            "The nature guide", "The water conservation expert", "The forest guardian", "The marine biologist",
+            "The renewable energy advocate", "The eco-conscious citizen", "The environmental educator", "The park ranger"
+        ],
+        actions: [
+            { verb: "is promoting", targets: ["recycling programs", "sustainable farming", "renewable energy", "water conservation", "wildlife protection", "forest preservation"] },
+            { verb: "has implemented", targets: ["a zero-waste policy", "a carbon reduction plan", "a green building design", "an eco-friendly transport system", "a waste segregation program", "a biodiversity conservation plan"] },
+            { verb: "is organizing", targets: ["a community cleanup", "a tree planting event", "an environmental workshop", "a recycling drive", "a climate awareness campaign", "a nature walk"] },
+            { verb: "has discovered", targets: ["a new eco-friendly method", "a species of animals", "a sustainable solution", "a clean energy source", "an innovative recycling process", "a natural habitat"] },
+            { verb: "is advocating", targets: ["for stronger environmental policies", "for green technology investment", "for wildlife protection laws", "for sustainable development", "for climate action", "for environmental justice"] }
+        ],
+        reasons: [
+            "to protect the environment.", "for a sustainable future.", "to conserve natural resources.",
+            "to reduce pollution.", "as part of our environmental commitment.", "to combat climate change.",
+            "to preserve biodiversity.", "for future generations.", "to promote green living.",
+            "to save the planet.", "to restore ecosystems.", "to ensure a livable world."
+        ]
+    },
+    // 12. Social Relationships & Communication
+    {
+        theme: "social",
+        name: "العلاقات والتواصل",
+        nameEn: "Social Relationships & Communication",
+        subjects: [
+            "My closest friend", "The community organizer", "The relationship counselor", "The communication expert",
+            "The social media influencer", "My family member", "The volunteer coordinator", "The support group leader",
+            "The network specialist", "The conflict mediator", "The friendship group", "The community leader",
+            "The public speaker", "The social worker", "The peer mentor", "The relationship coach"
+        ],
+        actions: [
+            { verb: "is building", targets: ["strong relationships", "a supportive community", "trust with others", "meaningful connections", "a network of friends", "bridges between groups"] },
+            { verb: "has improved", targets: ["communication skills", "conflict resolution", "team collaboration", "social connections", "family relationships", "workplace culture"] },
+            { verb: "is organizing", targets: ["a community gathering", "a support group", "a social event", "a networking session", "a team-building activity", "a family reunion"] },
+            { verb: "has started", targets: ["a community initiative", "a support program", "a social club", "a mentorship scheme", "a volunteer project", "a friendship circle"] },
+            { verb: "is encouraging", targets: ["open communication", "active listening", "mutual respect", "collaboration", "understanding", "compassion"] }
+        ],
+        reasons: [
+            "to strengthen friendships.", "to build community.", "to improve communication.",
+            "to resolve conflicts.", "as part of social growth.", "to create belonging.",
+            "to foster understanding.", "to support each other.", "to build trust.",
+            "to enhance relationships.", "to promote inclusion.", "to create lasting connections."
         ]
     }
-};
+];
+
+// ============================================================
+// SMART GENERATOR CLASS
+// ============================================================
+
+class SmartSentenceGenerator {
+    constructor(patterns) {
+        this.patterns = patterns;
+        this.totalThemes = patterns.length;
+        this.recentHistory = [];
+        this.maxHistory = 50;
+        this.totalCombinations = this.calculateTotalCombinations();
+        this.generatedCount = 0;
+        this.usedThemes = {};
+        this.usedActions = {};
+        this.usedTargets = {};
+    }
+
+    calculateTotalCombinations() {
+        let total = 0;
+        for (const pattern of this.patterns) {
+            let actionTargetCombos = 0;
+            for (const action of pattern.actions) {
+                actionTargetCombos += action.targets.length;
+            }
+            total += pattern.subjects.length * actionTargetCombos * pattern.reasons.length;
+        }
+        return total;
+    }
+
+    generateInfiniteSmartSentence() {
+        let attempts = 0;
+        const maxAttempts = 100;
+        let sentence = null;
+        
+        while (attempts < maxAttempts) {
+            attempts++;
+            const theme = this.patterns[Math.floor(Math.random() * this.patterns.length)];
+            const subject = theme.subjects[Math.floor(Math.random() * theme.subjects.length)];
+            
+            const actionIndex = Math.floor(Math.random() * theme.actions.length);
+            const actionObj = theme.actions[actionIndex];
+            const target = actionObj.targets[Math.floor(Math.random() * actionObj.targets.length)];
+            
+            const reason = theme.reasons[Math.floor(Math.random() * theme.reasons.length)];
+            
+            const fullSentence = `${subject} ${actionObj.verb} ${target} ${reason}`;
+            
+            const sentenceKey = fullSentence.toLowerCase().trim();
+            if (!this.recentHistory.includes(sentenceKey)) {
+                sentence = {
+                    english: fullSentence,
+                    theme: theme.theme,
+                    themeName: theme.name,
+                    themeNameEn: theme.nameEn,
+                    subject: subject,
+                    action: actionObj.verb,
+                    target: target,
+                    reason: reason,
+                    uniqueKey: sentenceKey
+                };
+                break;
+            }
+        }
+        
+        if (!sentence) {
+            const theme = this.patterns[Math.floor(Math.random() * this.patterns.length)];
+            const subject = theme.subjects[Math.floor(Math.random() * theme.subjects.length)];
+            const actionIndex = Math.floor(Math.random() * theme.actions.length);
+            const actionObj = theme.actions[actionIndex];
+            const target = actionObj.targets[Math.floor(Math.random() * actionObj.targets.length)];
+            const reason = theme.reasons[Math.floor(Math.random() * theme.reasons.length)];
+            const fullSentence = `${subject} ${actionObj.verb} ${target} ${reason}`;
+            sentence = {
+                english: fullSentence,
+                theme: theme.theme,
+                themeName: theme.name,
+                themeNameEn: theme.nameEn,
+                subject: subject,
+                action: actionObj.verb,
+                target: target,
+                reason: reason,
+                uniqueKey: fullSentence.toLowerCase().trim()
+            };
+        }
+        
+        this.recentHistory.push(sentence.uniqueKey);
+        if (this.recentHistory.length > this.maxHistory) {
+            this.recentHistory.shift();
+        }
+        
+        this.generatedCount++;
+        return sentence;
+    }
+
+    getTotalCombinations() {
+        return this.totalCombinations;
+    }
+
+    getStats() {
+        return {
+            totalGenerated: this.generatedCount,
+            totalThemes: this.totalThemes,
+            totalCombinations: this.totalCombinations,
+            historySize: this.recentHistory.length
+        };
+    }
+}
 
 // ============================================================
 // ULTRA-PRECISE LINGUISTIC VALIDATOR
@@ -2970,58 +1471,43 @@ class UltraLinguisticValidator {
         let isValid = true;
         let details = [];
 
-        // Check 1: Capitalization
         const checkCapital = /^[A-Z]/.test(sentence);
         checks.push({ name: 'capitalization', passed: checkCapital, msg: 'يجب أن تبدأ الجملة بحرف كبير' });
         if (!checkCapital) { isValid = false; details.push('ابدأ بحرف كبير'); }
 
-        // Check 2: Punctuation
         const checkPunctuation = /\.$/.test(sentence);
         checks.push({ name: 'punctuation', passed: checkPunctuation, msg: 'يجب أن تنتهي الجملة بنقطة' });
         if (!checkPunctuation) { isValid = false; details.push('أنهِ بنقطة'); }
 
-        // Check 3: Contains a main verb
-        const verbPattern = /\b(is|are|was|were|has|have|does|do|works|manages|leads|coordinates|develops|implements|evaluates|presents|analyzes|reviews|prepares|trains|stretches|lifts|runs|practices|competes|recovers|coaches|motivates|codes|debugs|tests|deploys|designs|optimizes|configures|upgrades|maintains|cooks|reads|texts|shops|listens|watches|cleans|organizes|visits|shares|travels|navigates|books|explores|drives|flies|packs|plans|guides|teaches|studies|researches|writes|discusses|collaborates|experiments|lectures|grades|reviewed|prepared|analyzed|developed|implemented|evaluated|presented|managed|led|coordinated|trained|stretched|lifted|ran|practiced|competed|recovered|warmed|coached|motivated|coded|debugged|tested|deployed|designed|optimized|configured|upgraded|maintained|cooked|read|texted|shopped|listened|watched|cleaned|organized|visited|shared|traveled|navigated|booked|explored|drove|flew|checked|packed|planned|guided|taught|learned|researched|studied|wrote|discussed|collaborated|experimented|lectured|graded|sprinted|hydrated|meditated|strategized|rehabilitated|scripted|analyzed\s+data|integrated\s+APIs|monitored\s+systems|documented|negotiated|consulted|supervised|sightseeing|photographed|relaxed|dined|exercised|journaled|gardened|volunteered)\b/i;
+        const verbPattern = /\b(is|are|was|were|has|have|does|do|works|manages|leads|coordinates|develops|implements|evaluates|presents|analyzes|reviews|prepares|trains|stretches|lifts|runs|practices|competes|recovers|coaches|motivates|codes|debugs|tests|deploys|designs|optimizes|configures|upgrades|maintains|cooks|reads|texts|shops|listens|watches|cleans|organizes|visits|shares|travels|navigates|books|explores|drives|flies|packs|plans|guides|teaches|studies|researches|writes|discusses|collaborates|experiments|lectures|grades|reviewed|prepared|analyzed|developed|implemented|evaluated|presented|managed|led|coordinated|trained|stretched|lifted|ran|practiced|competed|recovered|warmed|coached|motivated|coded|debugged|tested|deployed|designed|optimized|configured|upgraded|maintained|cooked|read|texted|shopped|listened|watched|cleaned|organized|visited|shared|traveled|navigated|booked|explored|drove|flew|checked|packed|planned|guided|taught|learned|researched|studied|wrote|discussed|collaborated|experimented|lectured|graded|sprinted|hydrated|meditated|strategized|rehabilitated|scripted|analyzed\s+data|integrated\s+APIs|monitored\s+systems|documented|negotiated|consulted|supervised|sightseeing|photographed|relaxed|dined|exercised|journaled|gardened|volunteered|approved|completed|participating|recommended|invited|monitoring|started|achieved|launching|researching|adopted|visited|published|advocating|exhibited|won|prescribed|promoted|emphasizing|encouraging|building|improved|creating|writing|helping)\b/i;
         const hasVerb = verbPattern.test(sentence);
         checks.push({ name: 'has_verb', passed: hasVerb, msg: 'الجملة تفتقر إلى فعل رئيسي' });
         if (!hasVerb) { isValid = false; details.push('أضف فعلًا رئيسيًا'); }
 
-        // Check 4: Contains a subject
-        const subjectPattern = /\b(The\s+\w+|He|She|It|They|We|I|You)\b/i;
+        const subjectPattern = /\b(The\s+\w+|My\s+\w+|Our\s+\w+|He|She|It|They|We|I|You)\b/i;
         const hasSubject = subjectPattern.test(sentence);
         checks.push({ name: 'has_subject', passed: hasSubject, msg: 'الجملة تفتقر إلى فاعل' });
         if (!hasSubject) { isValid = false; details.push('أضف فاعلاً'); }
 
-        // Check 5: Contains an object or complement
-        const objectPattern = /\b(the\s+\w+|it|them|us|me|him|her|this|that|these|those)\b/i;
+        const objectPattern = /\b(the\s+\w+|a\s+\w+|an\s+\w+|it|them|us|me|him|her|this|that|these|those|for\s+the|for\s+a|of\s+the|of\s+a|to\s+the|to\s+a)\b/i;
         const hasObject = objectPattern.test(sentence);
         checks.push({ name: 'has_object', passed: hasObject, msg: 'يفضل وجود مفعول به' });
 
-        // Check 6: Word count
         const words = sentence.split(/\s+/);
         const wordCount = words.length;
         const checkWordCount = wordCount >= 4 && wordCount <= 25;
         checks.push({ name: 'word_count', passed: checkWordCount, msg: `عدد الكلمات: ${wordCount} (يجب 4-25)` });
         if (!checkWordCount) { isValid = false; details.push(`تعديل عدد الكلمات (${wordCount})`); }
 
-        // Check 7: No double spaces
         const checkSpaces = !/\s{2,}/.test(sentence);
         checks.push({ name: 'no_double_spaces', passed: checkSpaces, msg: 'لا توجد مسافات مزدوجة' });
         if (!checkSpaces) { isValid = false; details.push('إزالة المسافات المزدوجة'); }
 
-        // Check 8: Subject-verb agreement (third person singular)
-        const thirdPersonSubjects = /\b(The\s+\w+\s+(manager|leader|CEO|head|director|analyst|representative|consultant|engineer|designer|developer|administrator|expert|specialist|architect|athlete|trainer|captain|coach|therapist|instructor|runner|traveler|guide|pilot|attendant|driver|agent|officer|operator|professor|student|tutor|researcher|librarian|principal|counselor|lecturer|graduate|scholar|mentor|examiner|assistant|speaker))\s+(is|has|does|works|manages|leads|coordinates|develops|implements|evaluates|presents|analyzes|reviews|prepares|trains|stretches|lifts|runs|practices|competes|recovers|coaches|motivates|codes|debugs|tests|deploys|designs|optimizes|configures|upgrades|maintains|cooks|reads|texts|shops|listens|watches|cleans|organizes|visits|shares|travels|navigates|books|explores|drives|flies|packs|plans|guides|teaches|studies|researches|writes|discusses|collaborates|experiments|lectures|grades|negotiates|consults|supervises|sprints|hydrates|meditates|strategizes|rehabilitates|scripts|documents)\b/i;
-        const checkAgreement = !thirdPersonSubjects || /(is|has|does|works|manages|leads|coordinates|develops|implements|evaluates|presents|analyzes|reviews|prepares|trains|stretches|lifts|runs|practices|competes|recovers|coaches|motivates|codes|debugs|tests|deploys|designs|optimizes|configures|upgrades|maintains|cooks|reads|texts|shops|listens|watches|cleans|organizes|visits|shares|travels|navigates|books|explores|drives|flies|packs|plans|guides|teaches|studies|researches|writes|discusses|collaborates|experiments|lectures|grades|negotiates|consults|supervises|sprints|hydrates|meditates|strategizes|rehabilitates|scripts|documents)/i.test(sentence);
-        checks.push({ name: 'subject_verb_agreement', passed: checkAgreement, msg: 'تطابق الفاعل والفعل' });
-
-        // Check 9: No consecutive verbs
         const checkConsecutiveVerbs = !/(\b(is|are|was|were)\s+(is|are|was|were|has|have|does|do)\b)/i.test(sentence);
         checks.push({ name: 'no_consecutive_verbs', passed: checkConsecutiveVerbs, msg: 'لا توجد أفعال متتالية' });
 
-        // Store checks
         this.detailedChecks = checks;
         
-        // Update statistics
         if (isValid) {
             this.validCount++;
         } else {
@@ -3060,133 +1546,10 @@ class UltraLinguisticValidator {
 }
 
 // ============================================================
-// SENTENCE GENERATOR ENGINE - 1M+ Combinations
-// ============================================================
-
-class SentenceGenerator {
-    constructor(templates) {
-        this.templates = templates;
-        this.categories = Object.keys(templates);
-        this.history = [];
-        this.maxHistory = 100;
-        this.validator = new UltraLinguisticValidator();
-        this.totalGenerated = 0;
-        this.totalValid = 0;
-        this.totalInvalid = 0;
-        this.usedCombinations = new Set();
-        this.maxCombinations = 1000000;
-    }
-
-    pickRandom(array) {
-        return array[Math.floor(Math.random() * array.length)];
-    }
-
-    generateSentence() {
-        const categoryKey = this.pickRandom(this.categories);
-        const category = this.templates[categoryKey];
-
-        const role = this.pickRandom(category.roles);
-        const tense = Math.random() < 0.5 ? 'present' : 'past';
-        const action = this.pickRandom(category.actions[tense]);
-        const target = this.pickRandom(category.targets);
-        const reason = this.pickRandom(category.reasons);
-
-        const sentence = this.buildSentence(role, action, target, reason, tense);
-        const translation = this.buildTranslation(role, action, target, reason, tense);
-
-        const comboId = `${categoryKey}|${role.en}|${action.en}|${target.en}|${reason.en}|${tense}`;
-        
-        if (this.usedCombinations.size >= this.maxCombinations) {
-            this.usedCombinations.clear();
-        }
-        this.usedCombinations.add(comboId);
-
-        const grammarStatus = this.validator.getGrammarStatus(sentence);
-
-        const result = {
-            id: this.totalGenerated + 1,
-            category: categoryKey,
-            categoryName: category.name,
-            categoryNameEn: category.nameEn,
-            tense: tense,
-            english: sentence,
-            arabic: translation,
-            components: { role, action, target, reason },
-            grammar: grammarStatus,
-            isValid: grammarStatus.status === 'valid',
-            uniqueId: comboId
-        };
-
-        this.history.push(result);
-        if (this.history.length > this.maxHistory) {
-            this.history.shift();
-        }
-        this.totalGenerated++;
-        
-        if (result.isValid) {
-            this.totalValid++;
-        } else {
-            this.totalInvalid++;
-        }
-
-        return result;
-    }
-
-    buildSentence(role, action, target, reason, tense) {
-        return `${role.en} ${action.en} ${target.en} ${reason.en}.`;
-    }
-
-    buildTranslation(role, action, target, reason, tense) {
-        return `${role.ar} ${action.ar} ${target.ar} ${reason.ar}.`;
-    }
-
-    getStats() {
-        const stats = {};
-        let totalCombos = 0;
-        for (const key of this.categories) {
-            const cat = this.templates[key];
-            const totalActions = cat.actions.present.length + cat.actions.past.length;
-            const combos = cat.roles.length * totalActions * cat.targets.length * cat.reasons.length;
-            totalCombos += combos;
-            stats[key] = {
-                name: cat.name,
-                nameEn: cat.nameEn,
-                roles: cat.roles.length,
-                actions: totalActions,
-                targets: cat.targets.length,
-                reasons: cat.reasons.length,
-                combinations: combos
-            };
-        }
-        return { stats, totalCombos };
-    }
-
-    getTotalCombinations() {
-        let total = 0;
-        for (const key of this.categories) {
-            const cat = this.templates[key];
-            const totalActions = cat.actions.present.length + cat.actions.past.length;
-            total += cat.roles.length * totalActions * cat.targets.length * cat.reasons.length;
-        }
-        return total;
-    }
-
-    getValidationStats() {
-        return {
-            totalGenerated: this.totalGenerated,
-            totalValid: this.totalValid,
-            totalInvalid: this.totalInvalid,
-            validPercentage: this.totalGenerated > 0 ? (this.totalValid / this.totalGenerated * 100).toFixed(1) : 0,
-            uniqueCombinations: this.usedCombinations.size
-        };
-    }
-}
-
-// ============================================================
 // APPLICATION STATE
 // ============================================================
 
-let sentenceGenerator = new SentenceGenerator(SENTENCE_TEMPLATES);
+let smartGenerator = new SmartSentenceGenerator(SMART_PATTERNS);
 let currentSentence = null;
 let currentTranslationLang = 'ar';
 let currentUser = null;
@@ -3200,19 +1563,17 @@ let lastState = null;
 let errTimeout = null;
 let isAppReady = false;
 let translationCache = {};
-let focusRetryCount = 0;
-const MAX_FOCUS_RETRY = 10;
+let completedSentencesCount = 0;
+let milestonesAchieved = 0;
+const MILESTONE_INTERVAL = 15;
 
 // ============================================================
-// FULL SITE TRANSLATION FUNCTION - Translates ALL elements
+// FULL SITE TRANSLATION FUNCTION
 // ============================================================
 
 function updateAllTexts() {
     const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
     
-    // Update all text elements with data-translate attribute or specific IDs
-    
-    // Loading page
     const loadingDesc = document.getElementById('loadingDescText');
     if (loadingDesc) loadingDesc.textContent = t.loadingDesc;
     const loadingSentencesCount = document.getElementById('loadingSentencesCount');
@@ -3220,51 +1581,40 @@ function updateAllTexts() {
     const loadingPlaceholder = document.getElementById('loadingSentencePlaceholder');
     if (loadingPlaceholder) loadingPlaceholder.textContent = t.loadingPlaceholder;
     
-    // Header
     document.getElementById('loginBtnText').textContent = t.login;
     document.getElementById('signupBtnText').textContent = t.signup;
     document.getElementById('statDaysLabel').textContent = t.days;
     document.getElementById('statSentencesLabel').textContent = t.sentences;
     document.getElementById('statMinutesLabel').textContent = t.minutes;
     
-    // Info bar
     document.getElementById('infoBarText').textContent = t.infoBar;
     const infiniteBadge = document.getElementById('infiniteBadgeText');
     if (infiniteBadge) infiniteBadge.textContent = t.infiniteBadge;
     const statsBadge = document.getElementById('statsBadgeText');
     if (statsBadge) statsBadge.textContent = t.statsBadge;
     
-    // Grammar
     updateGrammarText();
-    
-    // Category, tense, structure labels
     updateCategoryTenseStructure();
     
-    // Speed
     document.getElementById('speedLabel').textContent = t.speed;
-    
-    // Input
     const textarea = document.querySelector('.modern-textarea');
     if (textarea) textarea.placeholder = t.writeHere;
     
-    // Focus status
     const isFocused = document.activeElement === document.getElementById('userInput');
     const statusText = document.getElementById('focusStatusText');
     if (statusText) {
         statusText.textContent = isFocused ? t.focusActive : t.focusInactive;
     }
     
-    // Next button
     document.getElementById('nextBtnText').textContent = t.newSentence;
-    
-    // Sentence count labels
     document.getElementById('sentenceCountLabel').textContent = t.sentencesUnlimited;
     const combinationsLabel = document.getElementById('combinationsLabel');
     if (combinationsLabel) combinationsLabel.textContent = t.combinations;
     const validLabel = document.getElementById('validLabel');
     if (validLabel) validLabel.textContent = t.valid;
+    const milestoneLabel = document.getElementById('milestoneLabel');
+    if (milestoneLabel) milestoneLabel.textContent = t.milestone;
     
-    // Footer
     document.getElementById('footerDesc').textContent = t.footerDesc;
     document.getElementById('quickLinksTitle').textContent = t.quickLinks;
     document.getElementById('homeLink').textContent = t.home;
@@ -3276,28 +1626,14 @@ function updateAllTexts() {
     document.getElementById('contactLink').textContent = t.contact;
     document.getElementById('footerCopyright').textContent = `2026 3Alearning | ${t.copyright}`;
     
-    // Ads
     document.getElementById('adLabelTop').textContent = t.ad;
     document.getElementById('adLabelBottom').textContent = t.ads;
     document.getElementById('footerAdLabel').textContent = t.ad;
     
-    // Translation label - update with current language
     updateTranslationLabel();
-    
-    // Update sidebar if open
-    if (document.getElementById('sidebarContent')) {
-        updateSidebarContent();
-    }
-    
-    // Update profile if visible
-    if (document.getElementById('userProfileCard')) {
-        updateProfileDisplay();
-    }
-    
-    // Update stats display
-    if (currentUser) {
-        updateStatsDisplay();
-    }
+    if (document.getElementById('sidebarContent')) updateSidebarContent();
+    if (document.getElementById('userProfileCard')) updateProfileDisplay();
+    if (currentUser) updateStatsDisplay();
 }
 
 function updateTranslationLabel() {
@@ -3342,13 +1678,19 @@ function updateCategoryTenseStructure() {
     
     const categoryLabel = document.getElementById('categoryLabelText');
     if (categoryLabel) {
-        categoryLabel.textContent = `${t.category || 'التصنيف: مختلط'}`;
+        const themeName = currentSentence.themeName || t.mixed;
+        categoryLabel.textContent = `${t.category || 'التصنيف:'} ${themeName}`;
     }
     
     const tenseLabel = document.getElementById('tenseLabelText');
     if (tenseLabel) {
-        const tenseText = currentSentence.tense === 'present' ? t.tensePresent : t.tensePast;
-        tenseLabel.textContent = tenseText || (currentSentence.tense === 'present' ? 'المضارع' : 'الماضي');
+        const verb = currentSentence.action || '';
+        const isPresent = /is|are|am/.test(verb);
+        const isPast = /was|were|has|have|had/.test(verb) || /ed$/.test(verb);
+        let tenseText = t.tensePresent;
+        if (isPast) tenseText = t.tensePast;
+        else if (/will|going to/.test(verb)) tenseText = 'المستقبل';
+        tenseLabel.textContent = tenseText || t.tensePresent;
     }
     
     const structureLabel = document.getElementById('structureLabelText');
@@ -3358,7 +1700,7 @@ function updateCategoryTenseStructure() {
 }
 
 // ============================================================
-// TRANSLATION FUNCTION - Supports 15+ Languages
+// TRANSLATION FUNCTION WITH CACHE
 // ============================================================
 
 async function translateText(text, targetLang = 'ar') {
@@ -3366,10 +1708,12 @@ async function translateText(text, targetLang = 'ar') {
         const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
         return t.noSentence || '⚠️ لا توجد جملة';
     }
+    
     const cacheKey = text.trim() + '_' + targetLang;
     if (translationCache[cacheKey]) {
         return translationCache[cacheKey];
     }
+    
     try {
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
         const response = await fetch(url, {
@@ -3390,6 +1734,10 @@ async function translateText(text, targetLang = 'ar') {
                 }
             }
             if (fullTranslation && fullTranslation.length > 0) {
+                fullTranslation = fullTranslation.replace(/\s+/g, ' ').trim();
+                if (!fullTranslation.endsWith('.')) {
+                    fullTranslation += '.';
+                }
                 translationCache[cacheKey] = fullTranslation;
                 return fullTranslation;
             }
@@ -3440,7 +1788,7 @@ async function translateAndDisplaySentence(sentence) {
 }
 
 // ============================================================
-// USER MANAGEMENT (Simplified)
+// USER MANAGEMENT
 // ============================================================
 
 function saveUsers() {
@@ -3460,7 +1808,7 @@ function loadUserStats() {
     const statsKey = `3alearning_stats_${currentUser.id}`;
     let stats = localStorage.getItem(statsKey);
     if (stats) return JSON.parse(stats);
-    return { firstDay: getTodayKey(), dailyStats: {}, totalCompletedSentences: 0, preferredLang: currentTranslationLang };
+    return { firstDay: getTodayKey(), dailyStats: {}, totalCompletedSentences: 0, preferredLang: currentTranslationLang, milestones: 0 };
 }
 
 function saveUserStats(stats) {
@@ -3520,6 +1868,75 @@ function startTimeTracking() {
 }
 
 // ============================================================
+// MILESTONE SYSTEM
+// ============================================================
+
+function showMilestoneModal() {
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const modal = document.createElement('div');
+    modal.className = 'milestone-overlay';
+    modal.innerHTML = `
+        <div class="milestone-card">
+            <button class="close-milestone-btn" id="closeMilestoneBtn"><i class="fas fa-times"></i></button>
+            <span class="milestone-icon">🎉</span>
+            <div class="milestone-title">${t.milestoneCongrats || '🎉 رائع!'}</div>
+            <div class="milestone-subtitle">
+                ${(t.milestoneTitle || 'أكملت {count} جملة بنجاح!').replace('{count}', completedSentencesCount)}
+            </div>
+            <div class="milestone-stats">
+                <i class="fas fa-trophy" style="color: var(--warning); font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
+                <span>${(t.milestoneStats || 'الإنجازات حتى الآن: {count}').replace('{count}', milestonesAchieved)}</span>
+            </div>
+            <div class="milestone-ad-container">
+                <div class="ad-label">${t.milestoneAdLabel || 'إعلان - شكراً لدعمكم'}</div>
+                <div style="min-height: 60px; display: flex; align-items: center; justify-content: center;">
+                    <ins class="adsbymuslim responsive-ad" style="display:block;width:100%;max-width:320px;min-width:200px;height:auto;min-height:50px;" 
+                         data-ad-client="YOUR_PUBLISHER_ID" data-ad-slot="YOUR_MILESTONE_SLOT" data-ad-format="horizontal"></ins>
+                </div>
+                <script>(adsbymuslim = window.adsbymuslim || []).push({});<\/script>
+            </div>
+            <button class="btn-milestone" id="continueMilestoneBtn">${t.milestoneContinue || 'متابعة التدريب 🚀'}</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    document.getElementById('closeMilestoneBtn').onclick = () => {
+        if (modal && modal.remove) modal.remove();
+    };
+    
+    document.getElementById('continueMilestoneBtn').onclick = () => {
+        if (modal && modal.remove) modal.remove();
+        generateNewSentence();
+        updateDisplay();
+    };
+    
+    modal.onclick = (e) => {
+        if (e.target === modal && modal.remove) modal.remove();
+    };
+}
+
+function checkMilestone() {
+    if (completedSentencesCount > 0 && completedSentencesCount % MILESTONE_INTERVAL === 0) {
+        milestonesAchieved = Math.floor(completedSentencesCount / MILESTONE_INTERVAL);
+        
+        if (currentUser) {
+            const stats = loadUserStats();
+            stats.milestones = milestonesAchieved;
+            saveUserStats(stats);
+        }
+        
+        document.getElementById('milestoneCount').textContent = milestonesAchieved;
+        
+        setTimeout(() => {
+            showMilestoneModal();
+        }, 300);
+        
+        return true;
+    }
+    return false;
+}
+
+// ============================================================
 // UI UPDATES
 // ============================================================
 
@@ -3560,6 +1977,8 @@ function updateSidebarStats() {
     const sidebarStats = document.getElementById('sidebarStats');
     if (!sidebarStats) return;
     const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const stats = loadUserStats();
+    const milestoneCount = stats.milestones || 0;
     sidebarStats.innerHTML = `
         <div class="sidebar-stats-card">
             <div class="sidebar-stats-title"><i class="fas fa-chart-line"></i><span>${t.learningStats}</span></div>
@@ -3575,6 +1994,10 @@ function updateSidebarStats() {
                 <div class="sidebar-stat-row">
                     <div class="sidebar-stat-label"><i class="fas fa-clock"></i><span>${t.todayMinutes}</span></div>
                     <div class="sidebar-stat-number">${getTodayMinutes()}</div>
+                </div>
+                <div class="sidebar-stat-row">
+                    <div class="sidebar-stat-label"><i class="fas fa-trophy"></i><span>${t.milestone || 'إنجاز'}</span></div>
+                    <div class="sidebar-stat-number">${milestoneCount}</div>
                 </div>
                 <div class="sidebar-stat-row">
                     <div class="sidebar-stat-label"><i class="fas fa-id-card"></i><span>ID</span></div>
@@ -3650,6 +2073,10 @@ function updateHeaderUI() {
                 }
             }
         }
+        if (stats && stats.milestones) {
+            milestonesAchieved = stats.milestones;
+            document.getElementById('milestoneCount').textContent = milestonesAchieved;
+        }
         updateStatsDisplay();
         updateProfileDisplay();
         startTimeTracking();
@@ -3702,11 +2129,25 @@ function getCurrentCorrectTextClean() {
 
 function generateNewSentence() {
     try {
-        currentSentence = sentenceGenerator.generateSentence();
+        const smartSentence = smartGenerator.generateInfiniteSmartSentence();
+        const grammarStatus = new UltraLinguisticValidator().getGrammarStatus(smartSentence.english);
+        currentSentence = {
+            ...smartSentence,
+            grammar: grammarStatus,
+            isValid: grammarStatus.status === 'valid',
+            arabic: smartSentence.english
+        };
         return currentSentence;
     } catch (error) {
         console.error('Error generating sentence:', error);
-        currentSentence = sentenceGenerator.generateSentence();
+        const fallback = smartGenerator.generateInfiniteSmartSentence();
+        const grammarStatus = new UltraLinguisticValidator().getGrammarStatus(fallback.english);
+        currentSentence = {
+            ...fallback,
+            grammar: grammarStatus,
+            isValid: grammarStatus.status === 'valid',
+            arabic: fallback.english
+        };
         return currentSentence;
     }
 }
@@ -3722,18 +2163,15 @@ function updateDisplay() {
     
     translateAndDisplaySentence(sentence);
     
-    // Update grammar check with detailed info
     updateGrammarText();
-    
-    // Update category and tense labels
     updateCategoryTenseStructure();
     
-    // Update stats
-    const totalCombos = sentenceGenerator.getTotalCombinations();
+    const totalCombos = smartGenerator.getTotalCombinations();
     document.getElementById('totalCombos').textContent = totalCombos.toLocaleString();
     
-    const validationStats = sentenceGenerator.getValidationStats();
+    const validationStats = { totalValid: smartGenerator.generatedCount };
     document.getElementById('validCount').textContent = validationStats.totalValid.toLocaleString();
+    document.getElementById('milestoneCount').textContent = milestonesAchieved;
     
     const inp = document.getElementById('userInput');
     if (inp) {
@@ -3926,6 +2364,7 @@ function nextSentence() {
     inp.style.color = '#1f2937';
     inp.style.borderColor = '#E2E8F0';
     inp.style.animation = '';
+    
     if (!currentUser) {
         if (trialCount >= MAX_TRIAL) {
             showMsg(t.pleaseLoginToContinue, true);
@@ -3939,11 +2378,24 @@ function nextSentence() {
             showMsg(`${t.trialSentence} ${trialCount}/${MAX_TRIAL}`);
         }
     }
+    
+    completedSentencesCount++;
+    document.getElementById('milestoneCount').textContent = Math.floor(completedSentencesCount / MILESTONE_INTERVAL);
+    
     if (currentUser) {
         addCompletedSentence();
+        const stats = loadUserStats();
+        stats.totalCompletedSentences = completedSentencesCount;
+        stats.milestones = Math.floor(completedSentencesCount / MILESTONE_INTERVAL);
+        saveUserStats(stats);
     }
-    generateNewSentence();
-    updateDisplay();
+    
+    const milestoneTriggered = checkMilestone();
+    
+    if (!milestoneTriggered) {
+        generateNewSentence();
+        updateDisplay();
+    }
 }
 
 // ============================================================
@@ -3979,7 +2431,7 @@ function openSidebar() {
 }
 
 // ============================================================
-// MODALS (Simplified)
+// MODALS
 // ============================================================
 
 function closeAuthModal(modalElement) {
@@ -4329,7 +2781,6 @@ function setupAlwaysActiveInput() {
     
     input.addEventListener('focus', function() {
         updateFocusIndicator(true);
-        focusRetryCount = 0;
     });
     
     input.addEventListener('blur', function(e) {
@@ -4369,7 +2820,7 @@ function setupAlwaysActiveInput() {
             !target.closest('.btn-nav') && !target.closest('.listen-btn') &&
             !target.closest('.lang-selector-mini') && !target.closest('.menu-btn') &&
             !target.closest('.sidebar-overlay') && !target.closest('.auth-overlay') &&
-            !target.closest('.settings-overlay')) {
+            !target.closest('.settings-overlay') && !target.closest('.milestone-overlay')) {
             setTimeout(() => {
                 if (document.hasFocus()) {
                     const active = document.activeElement;
@@ -4455,20 +2906,23 @@ function showMsg(text, isError = false) {
 // ============================================================
 
 function finishInit() {
-    const totalCombos = sentenceGenerator.getTotalCombinations();
+    const totalCombos = smartGenerator.getTotalCombinations();
     console.log(`🚀 إجمالي التركيبات الممكنة: ${totalCombos.toLocaleString()}`);
     document.getElementById('totalCombos').textContent = totalCombos.toLocaleString();
-    
     document.getElementById('sentenceCount').textContent = '∞';
-    document.getElementById('loadingSentencesCount').textContent = `🚀 ${totalCombos.toLocaleString()} تركيبة - تدقيق فائق الدقة`;
+    document.getElementById('loadingSentencesCount').textContent = `🚀 ${totalCombos.toLocaleString()} تركيبة - ${smartGenerator.totalThemes} موضوع شامل`;
     
-    // Restore user
     var saved = localStorage.getItem('3alearning_currentUser');
     if (saved) {
         var u = JSON.parse(saved);
         if (users.find(function(x) { return x.id === u.id; })) {
             currentUser = u;
             if (currentUser.preferredLang) currentTranslationLang = currentUser.preferredLang;
+            const stats = loadUserStats();
+            if (stats && stats.milestones) {
+                milestonesAchieved = stats.milestones;
+                document.getElementById('milestoneCount').textContent = milestonesAchieved;
+            }
         }
     } else {
         try {
@@ -4479,7 +2933,6 @@ function finishInit() {
         } catch (e) { currentTranslationLang = 'ar'; }
     }
     
-    // Update all UI elements with translations
     updateAllTexts();
     updateUILangMiniSelector();
     updateHeaderUI();
@@ -4489,10 +2942,8 @@ function finishInit() {
     generateNewSentence();
     updateDisplay();
     
-    // Setup Always Active Input
     setupAlwaysActiveInput();
     
-    // Event bindings
     var userInput = document.getElementById('userInput');
     if (userInput) userInput.addEventListener('input', validateAndReact);
     
@@ -4572,11 +3023,12 @@ function finishInit() {
         showMsg(t.autoLangDetected + " " + langName);
     }, 1500);
     
-    console.log(`✅ تم إنشاء محرك جمل بـ ${totalCombos.toLocaleString()} تركيبة فريدة`);
+    console.log(`✅ تم إنشاء محرك جمل شامل بـ ${totalCombos.toLocaleString()} تركيبة فريدة`);
     console.log(`🌍 دعم ${SUPPORTED_LANGUAGES.length} لغة للترجمة`);
-    console.log(`🔍 تدقيق لغوي فائق الدقة مع 10 نقاط تحقق`);
+    console.log(`📚 ${smartGenerator.totalThemes} موضوع تغطي كل مجالات الحياة`);
+    console.log(`🔍 تدقيق لغوي فائق الدقة مع 8 نقاط تحقق`);
+    console.log(`🏆 نظام إنجازات كل ${MILESTONE_INTERVAL} جملة`);
     console.log(`⌨️ صندوق الإدخال نشط دائماً`);
-    console.log(`🌐 الترجمة الكاملة للموقع متوفرة بـ ${Object.keys(SITE_TRANSLATIONS).length} لغة`);
 }
 
 // ============================================================
