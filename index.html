@@ -56,75 +56,6 @@
         }
 
         /* ============================================================
-           LOADING SCREEN
-           ============================================================ */
-        #loadingPage {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-            padding: 20px;
-        }
-        #loadingPage.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .loading-logo {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            letter-spacing: -2px;
-        }
-        .loading-logo span {
-            color: var(--text-primary);
-        }
-        .loading-bar-container {
-            width: 240px;
-            max-width: 80%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-        .loading-progress-bar {
-            width: 100%;
-            height: 3px;
-            background: var(--border-light);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .loading-progress-bar .fill {
-            height: 100%;
-            width: 100%;
-            background: var(--text-primary);
-            border-radius: 4px;
-        }
-        .loading-progress-text {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        .loading-desc {
-            margin-top: 10px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            text-align: center;
-            max-width: 280px;
-            line-height: 1.5;
-            opacity: 0.6;
-        }
-
-        /* ============================================================
            HEADER (NAVBAR)
            ============================================================ */
         .header {
@@ -697,18 +628,11 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
-            background: #f8f9fa;
-            border: 1px solid var(--border-light);
+            gap: 5px;
             border-radius: var(--radius-lg);
             padding: 14px 20px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-            transition: all 0.3s ease;
         }
-        .bottom-stats-container:hover {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-
         .bottom-stats .stats-title {
             font-weight: 800;
             font-size: 0.85rem;
@@ -762,12 +686,12 @@
             border-color: var(--text-primary);
         }
         .bottom-stats .podium-item.gold-border {
-            border-color: var(--gold);
+            border-color: #000000;
             background: linear-gradient(145deg, #ffffff, #fef9e7);
             box-shadow: 0 2px 12px rgba(241, 196, 15, 0.08);
         }
         .bottom-stats .podium-item.gold-border:hover {
-            border-color: #d4a500;
+            border-color: #000000;
             box-shadow: 0 6px 24px rgba(241, 196, 15, 0.18);
             transform: translateY(-2px);
         }
@@ -778,7 +702,7 @@
             min-width: 26px;
             text-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
-        .bottom-stats .podium-rank.gold { color: var(--gold); }
+        .bottom-stats .podium-rank.gold { color: #000000; }
         .bottom-stats .podium-rank.silver { color: var(--silver); }
         .bottom-stats .podium-rank.bronze { color: var(--bronze); }
 
@@ -1782,25 +1706,9 @@
 <body>
 
 <!-- ============================================================
-     LOADING SCREEN
-     ============================================================ -->
-<div id="loadingPage">
-    <div class="loading-logo">3A<span>learning</span></div>
-    <div class="loading-bar-container">
-        <div class="loading-progress-bar"><div class="fill"></div></div>
-        <div class="loading-progress-text" id="loadingProgressText">100%</div>
-    </div>
-    <div class="loading-desc">
-        <i class="fas fa-graduation-cap"></i>
-        <span id="loadingDescText">محرك جمل شامل - 1,000,000+ جملة منطقية</span>
-        <br><small style="font-size:0.65rem;opacity:0.6;" id="loadingSentencesCount">🚀 12 موضوع - تغطية شاملة</small>
-    </div>
-</div>
-
-<!-- ============================================================
      APP CONTENT
      ============================================================ -->
-<div id="appContent" class="hidden-content">
+<div id="appContent" class="visible-content">
 
     <!-- HEADER -->
     <header class="header">
@@ -2982,6 +2890,11 @@ function showAuthModal(type='login') {
     overlay.className = 'modal-overlay';
     let langOptions = '';
     SUPPORTED_LANGUAGES.forEach(lang => { const selected = lang.code === currentTranslationLang ? 'selected' : ''; langOptions += `<option value="${lang.code}" ${selected}>${lang.flag} ${lang.name}</option>`; });
+    
+    // Country options
+    let countryOptions = '';
+    COUNTRIES.forEach(country => { countryOptions += `<option value="${country.code}">${country.flag} ${country.name}</option>`; });
+
     if (type === 'login') {
         overlay.innerHTML = `
             <div class="modal-card">
@@ -3005,7 +2918,14 @@ function showAuthModal(type='login') {
                 <div class="input-group"><input type="text" id="signupName" placeholder="${t.fullName}" autocomplete="name"></div>
                 <div class="input-group"><input type="email" id="signupEmail" placeholder="${t.email}" autocomplete="email"></div>
                 <div class="input-group"><input type="password" id="signupPassword" placeholder="${t.password}" autocomplete="new-password"></div>
-                <div class="input-group"><label>${t.preferredLang}</label><select id="signupLangSelect">${langOptions}</select></div>
+                <div class="input-group">
+                    <label>${t.preferredLang}</label>
+                    <select id="signupLangSelect">${langOptions}</select>
+                </div>
+                <div class="input-group">
+                    <label>الدولة</label>
+                    <select id="signupCountrySelect">${countryOptions}</select>
+                </div>
                 <button class="btn-modal" id="doSignupBtn">${t.createAccountBtn}</button>
                 <div class="auth-footer">${t.haveAccount} <a id="showLoginFromSignupBtn">${t.login}</a></div>
             </div>
@@ -3033,8 +2953,10 @@ function showAuthModal(type='login') {
             const p = document.getElementById('signupPassword').value;
             const errDiv = document.getElementById('authError');
             const selectedLang = document.getElementById('signupLangSelect')?.value || currentTranslationLang;
+            const selectedCountry = document.getElementById('signupCountrySelect')?.value || 'US';
             if (!n || !e || !p) { errDiv.style.display='block'; errDiv.innerText=t.allFieldsRequired; return; }
-            const nu = { id: Date.now()+Math.floor(Math.random()*1000), userId: '3A'+Math.floor(10000000+Math.random()*90000000), name: n, email: e, password: p, provider: 'email', preferredLang: selectedLang };
+            const countryObj = COUNTRIES.find(c => c.code === selectedCountry);
+            const nu = { id: Date.now()+Math.floor(Math.random()*1000), userId: '3A'+Math.floor(10000000+Math.random()*90000000), name: n, email: e, password: p, provider: 'email', preferredLang: selectedLang, country: countryObj || { code: 'US', name: '🇺🇸 USA' } };
             users.push(nu); saveUsers(); currentUser = nu; saveCurrentUser(); currentTranslationLang = selectedLang; updateHeaderUI(); closeModal(overlay);
             const t2 = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en']; showMsg(`${t2.welcomeUser} ${n}!`); generateNewSentence(); updateDisplay();
         };
@@ -3129,7 +3051,6 @@ function finishInit() {
     console.log(`🚀 إجمالي التركيبات الممكنة: ${totalCombos.toLocaleString()}`);
     document.getElementById('totalCombos').textContent = totalCombos.toLocaleString();
     document.getElementById('sentenceCount').textContent = '∞';
-    document.getElementById('loadingSentencesCount').textContent = `🚀 ${totalCombos.toLocaleString()} تركيبة - ${smartGenerator.totalThemes} موضوع`;
     
     var saved = localStorage.getItem('3alearning_currentUser');
     if (saved) {
@@ -3177,13 +3098,7 @@ function finishInit() {
     document.getElementById('speedLabel').textContent = '0.9x';
     isAppReady = true;
     
-    var loadingPage = document.getElementById('loadingPage');
-    var appContent = document.getElementById('appContent');
-    setTimeout(function() {
-        if (loadingPage) { loadingPage.classList.add('hidden'); setTimeout(function() { loadingPage.style.display = 'none'; }, 400); }
-        if (appContent) { appContent.classList.remove('hidden-content'); appContent.classList.add('visible-content'); }
-        setTimeout(() => { const input = document.getElementById('userInput'); if (input && document.hasFocus()) { input.focus(); } }, 200);
-    }, 300);
+    setTimeout(() => { const input = document.getElementById('userInput'); if (input && document.hasFocus()) { input.focus(); } }, 200);
     
     setTimeout(function() {
         var langName = getLangName(currentTranslationLang);
