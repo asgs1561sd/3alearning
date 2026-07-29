@@ -11,8 +11,6 @@
     <style>
         /* ============================================================
            UI BLUEPRINT - 3Alearning Shadowing
-           الألوان: أبيض (#FFFFFF)، أسود (#000000 / #111111)، رمادي فاتح (#E5E5E5)
-           أسلوب: مينيمالست، مساحات بيضاء واسعة، حواف دائرية خفيفة
            ============================================================ */
         * {
             margin: 0;
@@ -32,6 +30,7 @@
             --radius-lg: 20px;
             --shadow: 0 1px 3px rgba(0,0,0,0.02);
             --transition: 0.2s ease;
+            --ad-width: 160px;
         }
 
         body {
@@ -376,13 +375,76 @@
         }
 
         /* ============================================================
-           MAIN CONTENT
+           MAIN LAYOUT - بايدن جانبي للإعلانات
            ============================================================ */
-        .main-wrapper {
+        .main-layout {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 16px 0;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* أعمدة الإعلانات الجانبية */
+        .ad-sidebar {
+            flex: 0 0 var(--ad-width);
+            min-width: var(--ad-width);
+            position: sticky;
+            top: 80px;
+            align-self: flex-start;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 8px 0;
+        }
+        .ad-sidebar .ad-box {
+            background: #fafafa;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 8px;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .ad-sidebar .ad-box:hover {
+            border-color: #ccc;
+        }
+        .ad-sidebar .ad-label {
+            font-size: 0.55rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .ad-sidebar .ad-box ins {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            min-height: 200px;
+            background: transparent;
+            text-align: center;
+        }
+
+        /* العمود المركزي (المحتوى الرئيسي) */
+        .main-column {
             flex: 1;
             max-width: 640px;
-            margin: 0 auto;
-            padding: 32px 24px 40px;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .main-wrapper {
+            padding: 0;
             width: 100%;
         }
 
@@ -630,6 +692,203 @@
         }
 
         /* ============================================================
+           BOTTOM STATS - LEADERBOARD (NEW)
+           ============================================================ */
+        .bottom-stats {
+            max-width: 1200px;
+            margin: 16px auto 0;
+            padding: 0 16px 16px;
+            width: 100%;
+        }
+        .bottom-stats-container {
+            background: #fafafa;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .bottom-stats .stats-title {
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-primary);
+        }
+        .bottom-stats .stats-title i {
+            color: #f1c40f;
+        }
+        .bottom-stats .leaderboard-podium {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            cursor: pointer;
+        }
+        .bottom-stats .podium-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 16px 4px 12px;
+            border-radius: 40px;
+            background: var(--bg-color);
+            border: 2px solid #f1c40f;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(241, 196, 15, 0.2);
+        }
+        .bottom-stats .podium-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3);
+        }
+        .bottom-stats .podium-rank {
+            font-weight: 800;
+            font-size: 0.8rem;
+            color: #f1c40f;
+            min-width: 20px;
+        }
+        .bottom-stats .podium-rank.gold { color: #f1c40f; }
+        .bottom-stats .podium-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2c3e50;
+            color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .bottom-stats .podium-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .bottom-stats .podium-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+        .bottom-stats .podium-country {
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+        }
+        .bottom-stats .podium-score {
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            margin-right: 4px;
+        }
+        .bottom-stats .podium-score small {
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-size: 0.6rem;
+        }
+        .bottom-stats .podium-more {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            border-radius: 40px;
+            border: 1px dashed var(--border-light);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .bottom-stats .podium-more:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            background: #f5f5f5;
+        }
+        .bottom-stats .update-timer {
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .bottom-stats .update-timer i {
+            margin-left: 4px;
+        }
+
+        /* Full leaderboard modal */
+        .leaderboard-modal .modal-card {
+            max-width: 500px;
+        }
+        .leaderboard-modal .lb-list {
+            max-height: 400px;
+            overflow-y: auto;
+            text-align: left;
+            direction: ltr;
+            margin: 12px 0;
+        }
+        .leaderboard-modal .lb-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+        .leaderboard-modal .lb-item:hover {
+            background: #f5f5f5;
+        }
+        .leaderboard-modal .lb-item .rank {
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            min-width: 28px;
+        }
+        .leaderboard-modal .lb-item .rank.top1 { color: #f1c40f; }
+        .leaderboard-modal .lb-item .rank.top2 { color: #bdc3c7; }
+        .leaderboard-modal .lb-item .rank.top3 { color: #e67e22; }
+        .leaderboard-modal .lb-item .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        .leaderboard-modal .lb-item .info {
+            flex: 1;
+        }
+        .leaderboard-modal .lb-item .info .name {
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .leaderboard-modal .lb-item .info .country {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+        .leaderboard-modal .lb-item .score {
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .leaderboard-modal .lb-item .score small {
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-size: 0.6rem;
+        }
+        .leaderboard-modal .lb-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-light);
+            font-weight: 600;
+        }
+
+        /* ============================================================
            FOOTER
            ============================================================ */
         .footer {
@@ -759,8 +1018,19 @@
         }
 
         /* ============================================================
-           RESPONSIVE
+           RESPONSIVE - الإعلانات الجانبية تختفي في الشاشات الصغيرة
            ============================================================ */
+        @media (max-width: 1024px) {
+            .ad-sidebar {
+                flex: 0 0 140px;
+                min-width: 140px;
+            }
+            .ad-sidebar .ad-box {
+                min-height: 200px;
+            }
+        }
+
+        /* الهواتف: إخفاء الإعلانات الجانبية تمامًا */
         @media (max-width: 768px) {
             .header {
                 padding: 0 16px;
@@ -781,8 +1051,17 @@
             .mobile-menu-btn {
                 display: block;
             }
-            .main-wrapper {
-                padding: 16px 12px 24px;
+            .main-layout {
+                flex-direction: column;
+                align-items: center;
+                padding: 12px 12px 0;
+                gap: 12px;
+            }
+            .ad-sidebar {
+                display: none !important;
+            }
+            .main-column {
+                max-width: 100%;
             }
             .learning-card {
                 padding: 20px 16px;
@@ -814,6 +1093,22 @@
             .footer-section .social-icons {
                 justify-content: center;
             }
+            .bottom-stats-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .bottom-stats .leaderboard-podium {
+                justify-content: center;
+            }
+            .bottom-stats .podium-item {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* لا حاجة للإعلانات الجانبية، تم إخفاؤها بالفعل */
         }
 
         @media (min-width: 769px) {
@@ -1069,7 +1364,9 @@
             color: var(--text-primary);
         }
 
-        /* Ads */
+        /* ============================================================
+           ADS - خاص بالإعلانات الموجودة أسفل وأعلى
+           ============================================================ */
         .ad-container {
             text-align: center;
             margin: 12px auto;
@@ -1192,85 +1489,149 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-wrapper">
-        <div class="learning-card">
-            <!-- English Sentence -->
-            <div class="sentence-display no-select">
-                <div class="sentence-text" id="sentenceText">
-                    <span style="color: var(--text-secondary); font-size: 1rem;" id="loadingSentencePlaceholder">⏳ جاري التحميل...</span>
-                </div>
+    <!-- MAIN LAYOUT: Side Ads Left + Center Content + Side Ads Right -->
+    <div class="main-layout">
+
+        <!-- ====== LEFT AD SIDEBAR ====== -->
+        <aside class="ad-sidebar" id="leftAdSidebar">
+            <div class="ad-box">
+                <div class="ad-label">AD</div>
+                <!-- Google AdSense (يسار) -->
+                <ins class="adsbygoogle"
+                     style="display:block;width:160px;height:600px;"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
+        </aside>
 
-            <!-- Divider -->
-            <div class="divider"></div>
-
-            <!-- Arabic Translation -->
-            <div class="translation-display no-select">
-                <div class="translation-text" id="translationText">⏳ جاري الترجمة...</div>
-            </div>
-
-            <!-- Audio Controls -->
-            <div class="audio-controls">
-                <div class="speed-section">
-                    <div class="slider-container">
-                        <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.1" value="0.9">
+        <!-- ====== CENTER COLUMN ====== -->
+        <div class="main-column">
+            <div class="main-wrapper">
+                <div class="learning-card">
+                    <!-- English Sentence -->
+                    <div class="sentence-display no-select">
+                        <div class="sentence-text" id="sentenceText">
+                            <span style="color: var(--text-secondary); font-size: 1rem;" id="loadingSentencePlaceholder">⏳ جاري التحميل...</span>
+                        </div>
                     </div>
-                    <div class="speed-labels">
-                        <span>0.5x</span>
-                        <span class="active-speed" id="speedLabel">0.9x</span>
-                        <span>1.5x</span>
+
+                    <!-- Divider -->
+                    <div class="divider"></div>
+
+                    <!-- Arabic Translation -->
+                    <div class="translation-display no-select">
+                        <div class="translation-text" id="translationText">⏳ جاري الترجمة...</div>
+                    </div>
+
+                    <!-- Audio Controls -->
+                    <div class="audio-controls">
+                        <div class="speed-section">
+                            <div class="slider-container">
+                                <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.1" value="0.9">
+                            </div>
+                            <div class="speed-labels">
+                                <span>0.5x</span>
+                                <span class="active-speed" id="speedLabel">0.9x</span>
+                                <span>1.5x</span>
+                            </div>
+                        </div>
+                        <div class="play-section">
+                            <button class="play-btn" id="speakBtn" aria-label="تشغيل">
+                                <i class="fas fa-play" id="playIcon"></i>
+                                <i class="fas fa-pause" id="pauseIcon"></i>
+                            </button>
+                            <span class="play-label" id="playLabel">Start / Stop</span>
+                        </div>
+                    </div>
+
+                    <!-- Text Input -->
+                    <div class="input-area">
+                        <textarea id="userInput" placeholder="Type the sentence as you hear it:" autofocus></textarea>
+                        <div id="validationMsg" class="validation-msg" style="display:none;"></div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="nav-buttons">
+                        <button class="nav-btn" id="nextBtnNav">
+                            <span id="nextBtnText">جملة جديدة</span>
+                            <i class="fas fa-chevron-left"></i>
+                            <i class="fas fa-check-circle" style="display:none; margin-right:4px;"></i>
+                        </button>
+                    </div>
+
+                    <!-- Counter -->
+                    <div class="counter-wrapper">
+                        <span class="counter-text">
+                            <i class="fas fa-infinity" style="margin-left:4px;"></i>
+                            <span id="sentenceCountLabel">جمل غير محدودة:</span>
+                            <strong><span class="count-number" id="sentenceCount">∞</span></strong>
+                            <span class="sep">|</span>
+                            <span id="combinationsLabel">تركيبات:</span>
+                            <span id="totalCombos">0</span>
+                            <span class="sep">|</span>
+                            <span>✅ <span id="validCount">0</span> <span id="validLabel">صحيحة</span></span>
+                            <span class="sep">|</span>
+                            <span>🏆 <span id="milestoneCount">0</span> <span id="milestoneLabel">إنجاز</span></span>
+                        </span>
                     </div>
                 </div>
-                <div class="play-section">
-                    <button class="play-btn" id="speakBtn" aria-label="تشغيل">
-                        <i class="fas fa-play" id="playIcon"></i>
-                        <i class="fas fa-pause" id="pauseIcon"></i>
-                    </button>
-                    <span class="play-label" id="playLabel">تشغيل / إيقاف</span>
-                </div>
             </div>
+        </div>
 
-            <!-- Text Input -->
-            <div class="input-area">
-                <textarea id="userInput" placeholder="Type the sentence as you hear it:" autofocus></textarea>
-                <div id="validationMsg" class="validation-msg" style="display:none;"></div>
+        <!-- ====== RIGHT AD SIDEBAR ====== -->
+        <aside class="ad-sidebar" id="rightAdSidebar">
+            <div class="ad-box">
+                <div class="ad-label">AD</div>
+                <!-- Google AdSense (يمين) -->
+                <ins class="adsbygoogle"
+                     style="display:block;width:160px;height:600px;"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
+        </aside>
 
-            <!-- Navigation Buttons -->
-            <div class="nav-buttons">
-                <button class="nav-btn" id="nextBtnNav">
-                    <span id="nextBtnText">جملة جديدة</span>
-                    <i class="fas fa-chevron-left"></i>
-                    <i class="fas fa-check-circle" style="display:none; margin-right:4px;"></i>
-                </button>
+    </div>
+
+    <!-- ============================================================
+         BOTTOM STATS - LEADERBOARD (NEW)
+         ============================================================ -->
+    <div class="bottom-stats" id="bottomStats">
+        <div class="bottom-stats-container">
+            <div class="stats-title">
+                <i class="fas fa-trophy"></i>
+                <span id="leaderboardTitle">المتصدر اليوم</span>
             </div>
-
-            <!-- Counter -->
-            <div class="counter-wrapper">
-                <span class="counter-text">
-                    <i class="fas fa-infinity" style="margin-left:4px;"></i>
-                    <span id="sentenceCountLabel">جمل غير محدودة:</span>
-                    <strong><span class="count-number" id="sentenceCount">∞</span></strong>
-                    <span class="sep">|</span>
-                    <span id="combinationsLabel">تركيبات:</span>
-                    <span id="totalCombos">0</span>
-                    <span class="sep">|</span>
-                    <span>✅ <span id="validCount">0</span> <span id="validLabel">صحيحة</span></span>
-                    <span class="sep">|</span>
-                    <span>🏆 <span id="milestoneCount">0</span> <span id="milestoneLabel">إنجاز</span></span>
-                </span>
+            <div class="leaderboard-podium" id="podiumContainer">
+                <!-- Will be filled by JS - only top 1 shown -->
+            </div>
+            <div class="update-timer">
+                <i class="fas fa-sync-alt"></i>
+                <span id="updateTimerLabel">تحديث خلال</span>
+                <span id="updateCountdown">45</span><span id="updateSecondsLabel">ث</span>
             </div>
         </div>
     </div>
 
-    <!-- ADS -->
+    <!-- ADS (أسفل المحتوى) -->
     <div class="ad-container">
-        <div class="ad-label" id="adLabelTop">إعلان</div>
+        <div class="ad-label" id="adLabelTop">AD</div>
         <div class="responsive-ad-wrapper">
-            <ins class="adsbymuslim responsive-ad" style="display:block;width:100%;max-width:728px;min-width:250px;height:auto;min-height:90px;" data-ad-client="YOUR_PUBLISHER_ID" data-ad-slot="YOUR_SLOT_ID" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+            <ins class="adsbygoogle responsive-ad"
+                 style="display:block;width:100%;max-width:728px;min-width:250px;height:auto;min-height:90px;"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
-        <script>(adsbymuslim = window.adsbymuslim || []).push({});</script>
     </div>
 
     <!-- FOOTER -->
@@ -1315,11 +1676,17 @@
             </div>
         </div>
         <div class="footer-ad">
-            <div class="ad-label" id="footerAdLabel">إعلان</div>
+            <div class="ad-label" id="footerAdLabel">AD</div>
             <div class="responsive-ad-wrapper">
-                <ins class="adsbymuslim responsive-ad" style="display:block;width:100%;max-width:468px;min-width:200px;height:auto;min-height:60px;" data-ad-client="YOUR_PUBLISHER_ID" data-ad-slot="YOUR_SLOT_ID_FOOTER" data-ad-format="horizontal"></ins>
+                <ins class="adsbygoogle responsive-ad"
+                     style="display:block;width:100%;max-width:468px;min-width:200px;height:auto;min-height:60px;"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="horizontal"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
-            <script>(adsbymuslim = window.adsbymuslim || []).push({});</script>
         </div>
         <div class="footer-bottom">
             <p id="footerCopyright">© 2023 3Alearning Shadowing. All rights reserved.</p>
@@ -1397,7 +1764,15 @@ const SITE_TRANSLATIONS = {
         'noSentence':'⚠️ لا توجد جملة','milestoneCongrats':'🎉 رائع!',
         'milestoneTitle':'أكملت {count} جملة بنجاح!','milestoneSubtitle':'استمر بهذا المستوى الرائع! 🔥',
         'milestoneStats':'الإنجازات حتى الآن: {count}','milestoneContinue':'متابعة التدريب 🚀',
-        'milestoneAdLabel':'إعلان - شكراً لدعمكم'
+        'milestoneAdLabel':'إعلان - شكراً لدعمكم',
+        'leaderboardTitle':'المتصدر اليوم',
+        'updateIn':'تحديث خلال',
+        'fullLeaderboard':'📊 قائمة المتصدرين (30 متسابق)',
+        'rank':'الترتيب',
+        'name':'الاسم',
+        'country':'الدولة',
+        'score':'النقاط',
+        'close':'إغلاق'
     },
     'en': {
         'login':'Login','signup':'Start Now','days':'Days','sentences':'Sentences','minutes':'Minutes',
@@ -1433,7 +1808,15 @@ const SITE_TRANSLATIONS = {
         'translationError':'⚠️ Translation error','noSentence':'⚠️ No sentence',
         'milestoneCongrats':'🎉 Amazing!','milestoneTitle':'You completed {count} sentences!',
         'milestoneSubtitle':'Keep up this great level! 🔥','milestoneStats':'Milestones: {count}',
-        'milestoneContinue':'Continue Training 🚀','milestoneAdLabel':'Ad - Thank you'
+        'milestoneContinue':'Continue Training 🚀','milestoneAdLabel':'Ad - Thank you',
+        'leaderboardTitle':'Today\'s Leader',
+        'updateIn':'Update in',
+        'fullLeaderboard':'📊 Leaderboard (30 Players)',
+        'rank':'Rank',
+        'name':'Name',
+        'country':'Country',
+        'score':'Score',
+        'close':'Close'
     }
 };
 
@@ -1591,6 +1974,238 @@ class UltraLinguisticValidator {
         return { status, message, details: result.details, score, wordCount: result.wordCount, checks: result.checks };
     }
 }
+
+// ============================================================
+// LEADERBOARD SYSTEM (FAKE COMPETITION)
+// ============================================================
+const COUNTRIES = [
+    { code: 'US', name: '🇺🇸 USA' },
+    { code: 'GB', name: '🇬🇧 UK' },
+    { code: 'SA', name: '🇸🇦 Saudi' },
+    { code: 'EG', name: '🇪🇬 Egypt' },
+    { code: 'AE', name: '🇦🇪 UAE' },
+    { code: 'JO', name: '🇯🇴 Jordan' },
+    { code: 'FR', name: '🇫🇷 France' },
+    { code: 'DE', name: '🇩🇪 Germany' },
+    { code: 'IT', name: '🇮🇹 Italy' },
+    { code: 'ES', name: '🇪🇸 Spain' },
+    { code: 'TR', name: '🇹🇷 Turkey' },
+    { code: 'IN', name: '🇮🇳 India' },
+    { code: 'PK', name: '🇵🇰 Pakistan' },
+    { code: 'BD', name: '🇧🇩 Bangladesh' },
+    { code: 'MY', name: '🇲🇾 Malaysia' },
+    { code: 'ID', name: '🇮🇩 Indonesia' },
+    { code: 'CA', name: '🇨🇦 Canada' },
+    { code: 'AU', name: '🇦🇺 Australia' },
+    { code: 'BR', name: '🇧🇷 Brazil' },
+    { code: 'MX', name: '🇲🇽 Mexico' },
+    { code: 'NG', name: '🇳🇬 Nigeria' },
+    { code: 'ZA', name: '🇿🇦 South Africa' },
+    { code: 'JP', name: '🇯🇵 Japan' },
+    { code: 'KR', name: '🇰🇷 Korea' },
+    { code: 'CN', name: '🇨🇳 China' },
+    { code: 'RU', name: '🇷🇺 Russia' },
+    { code: 'NL', name: '🇳🇱 Netherlands' },
+    { code: 'SE', name: '🇸🇪 Sweden' },
+    { code: 'PL', name: '🇵🇱 Poland' }
+];
+
+// Global names from around the world
+const GLOBAL_NAMES = [
+    // USA
+    'James Anderson', 'Emma Wilson', 'Michael Johnson', 'Sarah Davis', 'William Miller',
+    // UK
+    'Oliver Smith', 'Charlotte Brown', 'George Taylor', 'Sophie Williams', 'Harry Jones',
+    // France
+    'Jean Dupont', 'Marie Lambert', 'Pierre Martin', 'Sophie Bernard', 'Louis Petit',
+    // Germany
+    'Maximilian Schmidt', 'Anna Fischer', 'Lukas Weber', 'Emilia Schneider', 'Felix Meyer',
+    // Italy
+    'Marco Rossi', 'Giulia Ricci', 'Luca Moretti', 'Sofia Esposito', 'Alessandro Marino',
+    // Spain
+    'Carlos Garcia', 'Lucia Rodriguez', 'Manuel Martinez', 'Isabel Lopez', 'Antonio Sanchez',
+    // Turkey
+    'Mehmet Demir', 'Ayse Yilmaz', 'Mustafa Kaya', 'Fatma Ozturk', 'Emre Celik',
+    // India
+    'Arjun Patel', 'Priya Sharma', 'Rahul Mehta', 'Neha Gupta', 'Sanjay Singh',
+    // Pakistan
+    'Ahmed Khan', 'Fatima Ali', 'Imran Malik', 'Sana Ahmed', 'Bilal Hussain',
+    // Egypt
+    'Youssef Hassan', 'Nour Ibrahim', 'Karim Mohamed', 'Layla Ahmed', 'Amr Khalid',
+    // Saudi
+    'Abdulrahman Al-Otaibi', 'Noura Al-Saud', 'Fahd Al-Rashid', 'Aisha Al-Qahtani', 'Sultan Al-Ghamdi',
+    // UAE
+    'Khalid Al-Maktoum', 'Mona Al-Falasi', 'Saeed Al-Hashimi', 'Hessa Al-Mansouri', 'Rashid Al-Ali',
+    // Indonesia
+    'Agus Putra', 'Sari Rahayu', 'Wayan Sudarma', 'Dewi Lestari', 'Budi Santoso',
+    // Malaysia
+    'Hassan bin Omar', 'Aisha binti Rahman', 'Iskandar bin Zainal', 'Nurul Huda', 'Amirul Hakim',
+    // Nigeria
+    'Chidi Okonkwo', 'Amina Bello', 'Oluwaseun Adeyemi', 'Ngozi Eze', 'Tunde Balogun',
+    // South Africa
+    'Sipho Ndlovu', 'Thandi Mbeki', 'Pieter van der Merwe', 'Zanele Dlamini', 'Johan Botha'
+];
+
+// Get random country
+function getRandomCountry() {
+    return COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+}
+
+// Get random global name
+function getRandomGlobalName() {
+    return GLOBAL_NAMES[Math.floor(Math.random() * GLOBAL_NAMES.length)];
+}
+
+// Generate leaderboard players (30 players)
+function generateLeaderboardPlayers() {
+    const players = [];
+    const totalPlayers = 30;
+    const usedNames = new Set();
+    
+    for (let i = 0; i < totalPlayers; i++) {
+        let name = getRandomGlobalName();
+        // Ensure unique names
+        while (usedNames.has(name)) {
+            name = getRandomGlobalName();
+        }
+        usedNames.add(name);
+        const country = getRandomCountry();
+        const score = Math.floor(Math.random() * 85) + 15;
+        players.push({
+            id: `player_${i+1}`,
+            name: name,
+            country: country,
+            score: score,
+            avatar: name.charAt(0).toUpperCase()
+        });
+    }
+    // Sort by score descending
+    players.sort((a, b) => b.score - a.score);
+    return players;
+}
+
+let leaderboardPlayers = generateLeaderboardPlayers();
+let updateCountdown = 45;
+
+function renderPodium() {
+    const container = document.getElementById('podiumContainer');
+    if (!container) return;
+    
+    // Only show the top 1 player
+    const top = leaderboardPlayers.slice(0, 1);
+    if (top.length === 0) return;
+    
+    const player = top[0];
+    container.innerHTML = `
+        <div class="podium-item" id="leaderboardClickArea">
+            <span class="podium-rank gold">🥇</span>
+            <div class="podium-avatar">${player.avatar}</div>
+            <div class="podium-info">
+                <span class="podium-name">${player.name}</span>
+                <span class="podium-country">${player.country.flag} ${player.country.name}</span>
+            </div>
+            <span class="podium-score">${player.score} <small>جملة</small></span>
+            <span class="podium-more" id="showFullLeaderboard">
+                <i class="fas fa-chevron-down" style="font-size:0.6rem;"></i>
+                <span style="font-size:0.6rem;">${leaderboardPlayers.length} متسابق</span>
+            </span>
+        </div>
+    `;
+    
+    // Click on the entire podium item or the "more" button shows the full leaderboard
+    const clickArea = document.getElementById('leaderboardClickArea');
+    const moreBtn = document.getElementById('showFullLeaderboard');
+    if (clickArea) {
+        clickArea.addEventListener('click', function(e) {
+            // Prevent double trigger if clicking on the more button
+            if (e.target.closest('#showFullLeaderboard')) return;
+            showFullLeaderboardModal();
+        });
+    }
+    if (moreBtn) {
+        moreBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showFullLeaderboardModal();
+        });
+    }
+}
+
+function showFullLeaderboardModal() {
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay leaderboard-modal';
+    
+    let listHtml = '';
+    const topPlayers = leaderboardPlayers.slice(0, 30);
+    topPlayers.forEach((player, index) => {
+        const rankClass = index === 0 ? 'top1' : (index === 1 ? 'top2' : (index === 2 ? 'top3' : ''));
+        const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : `#${index+1}`));
+        listHtml += `
+            <div class="lb-item">
+                <span class="rank ${rankClass}">${medal}</span>
+                <div class="avatar" style="background:${index < 3 ? '#2c3e50' : '#7f8c8d'}">${player.avatar}</div>
+                <div class="info">
+                    <div class="name">${player.name}</div>
+                    <div class="country">${player.country.flag} ${player.country.name}</div>
+                </div>
+                <div class="score">${player.score} <small>جملة</small></div>
+            </div>
+        `;
+    });
+    
+    overlay.innerHTML = `
+        <div class="modal-card" style="max-width:520px;">
+            <button class="close-modal" id="closeLbBtn"><i class="fas fa-times"></i></button>
+            <h2 style="font-size:1.2rem;">${t.fullLeaderboard}</h2>
+            <div class="subtitle" style="font-size:0.7rem;margin-bottom:12px;">🔄 ${t.updateIn} ${updateCountdown}ث</div>
+            <div class="lb-header">
+                <span>${t.rank}</span>
+                <span style="flex:1;margin-left:8px;">${t.name}</span>
+                <span>${t.score}</span>
+            </div>
+            <div class="lb-list">
+                ${listHtml}
+            </div>
+            <button class="btn-modal" id="closeLbBtn2" style="margin-top:8px;">${t.close}</button>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    document.getElementById('closeLbBtn').onclick = () => closeModal(overlay);
+    document.getElementById('closeLbBtn2').onclick = () => closeModal(overlay);
+    overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay); };
+}
+
+function updateLeaderboard() {
+    // Simulate score changes
+    for (const player of leaderboardPlayers) {
+        const change = Math.floor(Math.random() * 7) - 2;
+        player.score = Math.max(10, Math.min(100, player.score + change));
+    }
+    // Reshuffle a bit
+    if (Math.random() > 0.5) {
+        const idx1 = Math.floor(Math.random() * leaderboardPlayers.length);
+        const idx2 = Math.floor(Math.random() * leaderboardPlayers.length);
+        if (idx1 !== idx2) {
+            const temp = leaderboardPlayers[idx1];
+            leaderboardPlayers[idx1] = leaderboardPlayers[idx2];
+            leaderboardPlayers[idx2] = temp;
+        }
+    }
+    leaderboardPlayers.sort((a, b) => b.score - a.score);
+    renderPodium();
+}
+
+// Countdown timer
+setInterval(() => {
+    updateCountdown--;
+    if (updateCountdown <= 0) {
+        updateCountdown = 45;
+        updateLeaderboard();
+    }
+    const timerEl = document.getElementById('updateCountdown');
+    if (timerEl) timerEl.textContent = updateCountdown;
+}, 1000);
 
 // ============================================================
 // APP STATE
@@ -1880,6 +2495,8 @@ function updateAllTexts() {
     document.getElementById('validLabel').textContent = t.valid;
     document.getElementById('milestoneLabel').textContent = t.milestone;
     document.getElementById('footerCopyright').textContent = `© 2023 3Alearning Shadowing. ${t.copyright || 'All rights reserved.'}`;
+    document.getElementById('leaderboardTitle').textContent = t.leaderboardTitle || '🏆 المتصدر اليوم';
+    document.getElementById('updateTimerLabel').textContent = t.updateIn || 'تحديث خلال';
 }
 
 // ============================================================
@@ -2208,6 +2825,9 @@ function finishInit() {
             if (supported) currentTranslationLang = langCode;
         } catch (e) { currentTranslationLang = 'ar'; }
     }
+    
+    // Init leaderboard
+    renderPodium();
     
     updateAllTexts();
     updateHeaderUI();
