@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>3Alearning | Shadowing</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -31,6 +31,10 @@
             --shadow: 0 1px 3px rgba(0,0,0,0.02);
             --transition: 0.2s ease;
             --ad-width: 160px;
+            --header-padding: 0 24px;
+            --gold: #f1c40f;
+            --silver: #bdc3c7;
+            --bronze: #e67e22;
         }
 
         body {
@@ -43,6 +47,7 @@
             width: 100%;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
 
         /* Arabic text uses Cairo */
@@ -66,6 +71,7 @@
             align-items: center;
             z-index: 9999;
             transition: opacity 0.5s ease, visibility 0.5s ease;
+            padding: 20px;
         }
         #loadingPage.hidden {
             opacity: 0;
@@ -124,7 +130,7 @@
         .header {
             background: var(--bg-color);
             border-bottom: 1px solid var(--border-light);
-            padding: 0 24px;
+            padding: var(--header-padding);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -173,6 +179,7 @@
             color: var(--text-primary);
             letter-spacing: -0.5px;
             text-decoration: none;
+            white-space: nowrap;
         }
         .logo-text .highlight {
             color: var(--text-primary);
@@ -193,6 +200,7 @@
             border: 1px solid var(--border-color);
             background: var(--bg-color);
             color: var(--text-primary);
+            white-space: nowrap;
         }
         .header-btn:hover {
             background: #f5f5f5;
@@ -247,11 +255,16 @@
             justify-content: center;
             font-weight: 700;
             font-size: 0.85rem;
+            flex-shrink: 0;
         }
         .user-name {
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--text-primary);
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .logout-btn {
             background: none;
@@ -265,17 +278,6 @@
         .logout-btn:hover {
             color: #dc3545;
             background: #fef2f2;
-        }
-
-        /* Mobile menu toggle */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            cursor: pointer;
-            padding: 4px;
-            color: var(--text-primary);
         }
 
         /* ============================================================
@@ -375,7 +377,7 @@
         }
 
         /* ============================================================
-           MAIN LAYOUT - بايدن جانبي للإعلانات
+           MAIN LAYOUT
            ============================================================ */
         .main-layout {
             display: flex;
@@ -389,7 +391,6 @@
             flex: 1;
         }
 
-        /* أعمدة الإعلانات الجانبية */
         .ad-sidebar {
             flex: 0 0 var(--ad-width);
             min-width: var(--ad-width);
@@ -435,7 +436,6 @@
             text-align: center;
         }
 
-        /* العمود المركزي (المحتوى الرئيسي) */
         .main-column {
             flex: 1;
             max-width: 640px;
@@ -457,7 +457,6 @@
             box-shadow: var(--shadow);
         }
 
-        /* English Sentence */
         .sentence-display {
             text-align: center;
             padding: 8px 0 12px;
@@ -472,7 +471,6 @@
             word-break: break-word;
         }
 
-        /* Divider */
         .divider {
             width: 100%;
             height: 1px;
@@ -480,7 +478,6 @@
             margin: 16px 0;
         }
 
-        /* Arabic Translation */
         .translation-display {
             text-align: center;
             padding: 6px 0 12px;
@@ -494,7 +491,6 @@
             font-family: 'Cairo', 'Tajawal', sans-serif;
         }
 
-        /* Audio Control Bar */
         .audio-controls {
             display: flex;
             align-items: center;
@@ -589,7 +585,6 @@
             font-weight: 500;
         }
 
-        /* Text Input */
         .input-area {
             margin-top: 18px;
         }
@@ -624,7 +619,6 @@
             color: #dc3545;
         }
 
-        /* Navigation Buttons */
         .nav-buttons {
             display: flex;
             gap: 12px;
@@ -666,7 +660,6 @@
             color: #dc3545 !important;
         }
 
-        /* Counter */
         .counter-wrapper {
             text-align: center;
             margin-top: 16px;
@@ -692,162 +685,312 @@
         }
 
         /* ============================================================
-           BOTTOM STATS - LEADERBOARD (NEW)
+           BOTTOM STATS - LEADERBOARD (Premium Professional Design)
            ============================================================ */
         .bottom-stats {
-            max-width: 1200px;
-            margin: 16px auto 0;
-            padding: 0 16px 16px;
+            margin: 20px auto 0;
+            padding: 0 4px 16px;
             width: 100%;
         }
         .bottom-stats-container {
-            background: #fafafa;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 16px 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
+            background: #f8f9fa;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 14px 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
         }
+        .bottom-stats-container:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
         .bottom-stats .stats-title {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
             color: var(--text-primary);
+            padding: 6px 16px;
+            background: #ffffff;
+            border: 1.5px solid var(--border-light);
+            border-radius: 40px;
+            white-space: nowrap;
+            transition: var(--transition);
         }
         .bottom-stats .stats-title i {
-            color: #f1c40f;
+            font-size: 1rem;
+            color: var(--gold);
         }
+        .bottom-stats .stats-title:hover {
+            border-color: var(--gold);
+        }
+
         .bottom-stats .leaderboard-podium {
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
             cursor: pointer;
+            flex: 1;
+            min-width: 0;
         }
+
+        /* Podium Item - Professional Minimalist */
         .bottom-stats .podium-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 4px 16px 4px 12px;
-            border-radius: 40px;
-            background: var(--bg-color);
-            border: 2px solid #f1c40f;
-            transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(241, 196, 15, 0.2);
+            gap: 10px;
+            padding: 6px 18px 6px 14px;
+            border-radius: 60px;
+            background: #ffffff;
+            border: 1.5px solid var(--border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-wrap: wrap;
+            min-width: 0;
+            position: relative;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
         }
         .bottom-stats .podium-item:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-color: var(--text-primary);
         }
+        .bottom-stats .podium-item.gold-border {
+            border-color: var(--gold);
+            background: linear-gradient(145deg, #ffffff, #fef9e7);
+            box-shadow: 0 2px 12px rgba(241, 196, 15, 0.08);
+        }
+        .bottom-stats .podium-item.gold-border:hover {
+            border-color: #d4a500;
+            box-shadow: 0 6px 24px rgba(241, 196, 15, 0.18);
+            transform: translateY(-2px);
+        }
+
         .bottom-stats .podium-rank {
-            font-weight: 800;
-            font-size: 0.8rem;
-            color: #f1c40f;
-            min-width: 20px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            min-width: 26px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
-        .bottom-stats .podium-rank.gold { color: #f1c40f; }
+        .bottom-stats .podium-rank.gold { color: var(--gold); }
+        .bottom-stats .podium-rank.silver { color: var(--silver); }
+        .bottom-stats .podium-rank.bronze { color: var(--bronze); }
+
         .bottom-stats .podium-avatar {
-            width: 32px;
-            height: 32px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            background: #2c3e50;
+            background: var(--text-primary);
             color: var(--bg-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 0.8rem;
+            font-weight: 800;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            border: 2px solid transparent;
+            transition: var(--transition);
         }
+        .bottom-stats .podium-item.gold-border .podium-avatar {
+            border-color: var(--gold);
+            background: #2c3e50;
+        }
+
         .bottom-stats .podium-info {
             display: flex;
             flex-direction: column;
             line-height: 1.2;
+            min-width: 0;
         }
         .bottom-stats .podium-name {
             font-weight: 700;
             font-size: 0.85rem;
             color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 130px;
         }
         .bottom-stats .podium-country {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: var(--text-secondary);
+            white-space: nowrap;
+            opacity: 0.8;
         }
+
         .bottom-stats .podium-score {
-            font-weight: 700;
-            font-size: 0.8rem;
+            font-weight: 800;
+            font-size: 0.9rem;
             color: var(--text-primary);
             margin-right: 4px;
+            white-space: nowrap;
+            background: #f0f0f0;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-variant-numeric: tabular-nums;
         }
         .bottom-stats .podium-score small {
             font-weight: 400;
             color: var(--text-secondary);
-            font-size: 0.6rem;
+            font-size: 0.55rem;
         }
+
         .bottom-stats .podium-more {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-secondary);
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 40px;
-            border: 1px dashed var(--border-light);
+            border: 1.5px dashed var(--border-light);
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-weight: 600;
+            background: #ffffff;
         }
         .bottom-stats .podium-more:hover {
             border-color: var(--text-primary);
             color: var(--text-primary);
-            background: #f5f5f5;
+            background: #ffffff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transform: scale(1.04);
         }
+        .bottom-stats .podium-more i {
+            font-size: 0.55rem;
+            transition: transform 0.3s ease;
+        }
+        .bottom-stats .podium-more:hover i {
+            transform: translateY(2px);
+        }
+
         .bottom-stats .update-timer {
             font-size: 0.6rem;
             color: var(--text-secondary);
             white-space: nowrap;
+            flex-shrink: 0;
+            background: #ffffff;
+            padding: 5px 14px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .bottom-stats .update-timer i {
-            margin-left: 4px;
+            color: #27ae60;
+            font-size: 0.75rem;
+        }
+        .bottom-stats .update-timer .countdown-num {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.75rem;
+            min-width: 18px;
+            display: inline-block;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        .bottom-stats .update-timer .pulse-dot {
+            width: 7px;
+            height: 7px;
+            background: #27ae60;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(0.7); }
         }
 
-        /* Full leaderboard modal */
+        /* Full leaderboard modal - Professional Design */
         .leaderboard-modal .modal-card {
-            max-width: 500px;
+            max-width: 560px;
+            padding: 28px 24px;
+            border-radius: var(--radius-lg);
+        }
+        .leaderboard-modal .modal-card h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-light);
+        }
+        .leaderboard-modal .modal-card h2 i {
+            color: var(--gold);
+            font-size: 1.3rem;
         }
         .leaderboard-modal .lb-list {
-            max-height: 400px;
+            max-height: 420px;
             overflow-y: auto;
             text-align: left;
             direction: ltr;
-            margin: 12px 0;
+            margin: 16px 0 12px;
+            scrollbar-width: thin;
+            scrollbar-color: #d0d0d0 transparent;
+        }
+        .leaderboard-modal .lb-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .leaderboard-modal .lb-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .leaderboard-modal .lb-list::-webkit-scrollbar-thumb {
+            background: #d0d0d0;
+            border-radius: 4px;
         }
         .leaderboard-modal .lb-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 8px 12px;
-            border-bottom: 1px solid var(--border-light);
-            transition: var(--transition);
+            padding: 10px 14px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.2s ease;
+            border-radius: var(--radius-sm);
         }
         .leaderboard-modal .lb-item:hover {
-            background: #f5f5f5;
+            background: #f8f9fa;
+        }
+        .leaderboard-modal .lb-item:last-child {
+            border-bottom: none;
         }
         .leaderboard-modal .lb-item .rank {
             font-weight: 700;
             font-size: 0.75rem;
             color: var(--text-secondary);
-            min-width: 28px;
+            min-width: 32px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
         }
-        .leaderboard-modal .lb-item .rank.top1 { color: #f1c40f; }
-        .leaderboard-modal .lb-item .rank.top2 { color: #bdc3c7; }
-        .leaderboard-modal .lb-item .rank.top3 { color: #e67e22; }
+        .leaderboard-modal .lb-item .rank.top1 { 
+            color: var(--gold); 
+            font-size: 1.15rem; 
+            font-weight: 900; 
+        }
+        .leaderboard-modal .lb-item .rank.top2 { 
+            color: var(--silver); 
+            font-size: 1.15rem; 
+            font-weight: 900; 
+        }
+        .leaderboard-modal .lb-item .rank.top3 { 
+            color: var(--bronze); 
+            font-size: 1.15rem; 
+            font-weight: 900; 
+        }
         .leaderboard-modal .lb-item .avatar {
-            width: 28px;
-            height: 28px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             background: var(--text-primary);
             color: var(--bg-color);
@@ -855,37 +998,84 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .leaderboard-modal .lb-item .avatar.gold-avatar { 
+            background: var(--gold); 
+            color: #2c3e50; 
+        }
+        .leaderboard-modal .lb-item .avatar.silver-avatar { 
+            background: var(--silver); 
+            color: #2c3e50; 
+        }
+        .leaderboard-modal .lb-item .avatar.bronze-avatar { 
+            background: var(--bronze); 
+            color: #fff; 
         }
         .leaderboard-modal .lb-item .info {
             flex: 1;
+            min-width: 0;
         }
         .leaderboard-modal .lb-item .info .name {
             font-weight: 600;
             font-size: 0.8rem;
+            color: var(--text-primary);
         }
         .leaderboard-modal .lb-item .info .country {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-secondary);
         }
         .leaderboard-modal .lb-item .score {
             font-weight: 700;
             font-size: 0.8rem;
+            white-space: nowrap;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
         }
         .leaderboard-modal .lb-item .score small {
             font-weight: 400;
             color: var(--text-secondary);
-            font-size: 0.6rem;
+            font-size: 0.55rem;
         }
         .leaderboard-modal .lb-header {
             display: flex;
             justify-content: space-between;
-            padding: 8px 12px;
-            font-size: 0.65rem;
+            padding: 8px 14px;
+            font-size: 0.6rem;
             color: var(--text-secondary);
-            border-bottom: 2px solid var(--border-light);
-            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #f8f9fa;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+        .leaderboard-modal .lb-header span:first-child {
+            min-width: 32px;
+            text-align: center;
+        }
+        .leaderboard-modal .lb-header span:last-child {
+            min-width: 50px;
+            text-align: right;
+        }
+        .leaderboard-modal .subtitle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            padding: 8px 0 4px;
+        }
+        .leaderboard-modal .subtitle .pulse-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #27ae60;
+            border-radius: 50%;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+            vertical-align: middle;
         }
 
         /* ============================================================
@@ -1003,22 +1193,15 @@
             pointer-events: none;
             white-space: nowrap;
             font-family: 'Inter', sans-serif;
+            max-width: 90%;
         }
         .toast.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
-        @media (max-width: 500px) {
-            .toast {
-                white-space: normal;
-                width: 90%;
-                text-align: center;
-                font-size: 0.7rem;
-            }
-        }
 
         /* ============================================================
-           RESPONSIVE - الإعلانات الجانبية تختفي في الشاشات الصغيرة
+           RESPONSIVE
            ============================================================ */
         @media (max-width: 1024px) {
             .ad-sidebar {
@@ -1030,8 +1213,11 @@
             }
         }
 
-        /* الهواتف: إخفاء الإعلانات الجانبية تمامًا */
         @media (max-width: 768px) {
+            :root {
+                --header-padding: 0 16px;
+                --ad-width: 0px;
+            }
             .header {
                 padding: 0 16px;
             }
@@ -1048,9 +1234,6 @@
                 padding: 6px 14px;
                 font-size: 0.75rem;
             }
-            .mobile-menu-btn {
-                display: block;
-            }
             .main-layout {
                 flex-direction: column;
                 align-items: center;
@@ -1065,6 +1248,7 @@
             }
             .learning-card {
                 padding: 20px 16px;
+                border-radius: var(--radius-md);
             }
             .sentence-display .sentence-text {
                 font-size: 1.2rem;
@@ -1097,18 +1281,228 @@
                 flex-direction: column;
                 align-items: stretch;
                 gap: 12px;
+                padding: 14px 16px;
             }
             .bottom-stats .leaderboard-podium {
+                width: 100%;
                 justify-content: center;
             }
             .bottom-stats .podium-item {
                 width: 100%;
                 justify-content: center;
+                padding: 6px 14px;
+            }
+            .bottom-stats .podium-name {
+                max-width: 100px;
+            }
+            .bottom-stats .update-timer {
+                text-align: center;
+                justify-content: center;
+            }
+            .bottom-stats .stats-title {
+                justify-content: center;
+            }
+            .counter-text .sep {
+                display: none;
+            }
+            .counter-text span {
+                display: inline-block;
+            }
+            .leaderboard-modal .modal-card {
+                padding: 20px 16px;
+                max-width: 95%;
+            }
+            .leaderboard-modal .lb-item {
+                padding: 8px 10px;
+                gap: 8px;
+            }
+            .leaderboard-modal .lb-item .info .name {
+                font-size: 0.7rem;
+            }
+            .leaderboard-modal .lb-item .score {
+                font-size: 0.7rem;
+            }
+            .leaderboard-modal .lb-header {
+                font-size: 0.5rem;
+                padding: 6px 10px;
             }
         }
 
         @media (max-width: 480px) {
-            /* لا حاجة للإعلانات الجانبية، تم إخفاؤها بالفعل */
+            :root {
+                --header-padding: 0 8px;
+            }
+            .logo-text {
+                font-size: 15px;
+            }
+            .header-btn {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+            }
+            .header-left {
+                gap: 8px;
+            }
+            .header-container {
+                padding: 6px 0;
+                gap: 4px;
+            }
+            .user-name {
+                max-width: 60px;
+                font-size: 0.65rem;
+            }
+            .user-avatar {
+                width: 26px;
+                height: 26px;
+                font-size: 0.7rem;
+            }
+            .user-info {
+                padding: 2px 8px 2px 2px;
+            }
+            .learning-card {
+                padding: 16px 12px;
+            }
+            .sentence-display .sentence-text {
+                font-size: 1rem;
+            }
+            .translation-display .translation-text {
+                font-size: 0.9rem;
+            }
+            .input-area textarea {
+                height: 48px;
+                font-size: 0.85rem;
+                padding: 10px 14px;
+            }
+            .nav-btn {
+                padding: 10px;
+                font-size: 0.8rem;
+            }
+            .play-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .bottom-stats .podium-name {
+                max-width: 70px;
+                font-size: 0.75rem;
+            }
+            .bottom-stats .podium-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+            .bottom-stats .podium-score {
+                font-size: 0.7rem;
+                padding: 2px 8px;
+            }
+            .bottom-stats .podium-rank {
+                font-size: 1rem;
+                min-width: 22px;
+            }
+            .bottom-stats .podium-more {
+                font-size: 0.6rem;
+                padding: 4px 12px;
+            }
+            .bottom-stats .stats-title {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .counter-text {
+                font-size: 0.65rem;
+                gap: 2px 6px;
+            }
+            .counter-text .count-number {
+                font-size: 0.8rem;
+            }
+            .modal-card {
+                padding: 20px 16px;
+                max-width: 95%;
+            }
+            .modal-card h2 {
+                font-size: 1.2rem;
+            }
+            .toast {
+                font-size: 0.65rem;
+                padding: 8px 16px;
+                bottom: 16px;
+                max-width: 95%;
+                white-space: normal;
+            }
+            .footer {
+                padding: 24px 16px 16px;
+            }
+            .leaderboard-modal .modal-card {
+                padding: 16px 12px;
+            }
+            .leaderboard-modal .lb-list {
+                max-height: 280px;
+            }
+            .leaderboard-modal .lb-item {
+                padding: 6px 8px;
+                gap: 6px;
+            }
+            .leaderboard-modal .lb-item .rank {
+                font-size: 0.6rem;
+                min-width: 20px;
+            }
+            .leaderboard-modal .lb-item .avatar {
+                width: 28px;
+                height: 28px;
+                font-size: 0.6rem;
+            }
+            .leaderboard-modal .lb-item .info .name {
+                font-size: 0.65rem;
+            }
+            .leaderboard-modal .lb-item .score {
+                font-size: 0.65rem;
+            }
+            .leaderboard-modal .lb-header {
+                font-size: 0.45rem;
+                padding: 4px 8px;
+            }
+            .leaderboard-modal .modal-card h2 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .logo-text {
+                font-size: 13px;
+            }
+            .header-btn {
+                padding: 3px 8px;
+                font-size: 0.55rem;
+            }
+            .sentence-display .sentence-text {
+                font-size: 0.85rem;
+            }
+            .translation-display .translation-text {
+                font-size: 0.8rem;
+            }
+            .bottom-stats .podium-name {
+                max-width: 50px;
+                font-size: 0.65rem;
+            }
+            .bottom-stats .podium-avatar {
+                width: 26px;
+                height: 26px;
+                font-size: 0.6rem;
+            }
+            .bottom-stats .podium-score {
+                font-size: 0.6rem;
+                padding: 2px 6px;
+            }
+            .bottom-stats .podium-item {
+                padding: 4px 10px;
+                gap: 6px;
+            }
+            .bottom-stats .podium-rank {
+                font-size: 0.8rem;
+                min-width: 18px;
+            }
+            .bottom-stats .podium-more {
+                font-size: 0.5rem;
+                padding: 2px 8px;
+            }
         }
 
         @media (min-width: 769px) {
@@ -1157,7 +1551,6 @@
             -webkit-touch-callout: none;
         }
 
-        /* Validation message */
         .validation-msg {
             font-size: 0.7rem;
             padding: 2px 12px;
@@ -1175,36 +1568,8 @@
             background: #fef2f2;
         }
 
-        /* Lang selector mini */
-        .lang-selector-mini {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 2px 12px 2px 6px;
-            border-radius: 40px;
-            border: 1px solid var(--border-light);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.75rem;
-            background: var(--bg-color);
-        }
-        .lang-selector-mini:hover {
-            border-color: var(--text-primary);
-        }
-        .lang-selector-mini .flag-icon {
-            font-size: 1rem;
-        }
-        .lang-selector-mini .lang-name {
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-        .lang-selector-mini .arrow-down {
-            font-size: 0.5rem;
-            color: var(--text-secondary);
-        }
-
         /* ============================================================
-           MODALS (Auth, Settings, Milestone)
+           MODALS
            ============================================================ */
         .modal-overlay {
             position: fixed;
@@ -1334,7 +1699,6 @@
             font-size: 0.8rem;
         }
 
-        /* Milestone specific */
         .milestone-card .milestone-icon {
             font-size: 3.6rem;
             margin-bottom: 8px;
@@ -1365,7 +1729,7 @@
         }
 
         /* ============================================================
-           ADS - خاص بالإعلانات الموجودة أسفل وأعلى
+           ADS
            ============================================================ */
         .ad-container {
             text-align: center;
@@ -1411,16 +1775,6 @@
             margin: 0 auto;
             background: transparent;
             text-align: center;
-        }
-        .footer-ad {
-            max-width: 1200px;
-            margin: 0 auto 16px auto;
-            padding: 10px;
-            background: rgba(0,0,0,0.02);
-            border-radius: var(--radius-sm);
-            text-align: center;
-            width: 100%;
-            border: 1px solid var(--border-light);
         }
     </style>
     <script async src="https://muslimadnetwork.com/ads/loader.js"></script>
@@ -1496,7 +1850,6 @@
         <aside class="ad-sidebar" id="leftAdSidebar">
             <div class="ad-box">
                 <div class="ad-label">AD</div>
-                <!-- Google AdSense (يسار) -->
                 <ins class="adsbygoogle"
                      style="display:block;width:160px;height:600px;"
                      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
@@ -1511,22 +1864,18 @@
         <div class="main-column">
             <div class="main-wrapper">
                 <div class="learning-card">
-                    <!-- English Sentence -->
                     <div class="sentence-display no-select">
                         <div class="sentence-text" id="sentenceText">
                             <span style="color: var(--text-secondary); font-size: 1rem;" id="loadingSentencePlaceholder">⏳ جاري التحميل...</span>
                         </div>
                     </div>
 
-                    <!-- Divider -->
                     <div class="divider"></div>
 
-                    <!-- Arabic Translation -->
                     <div class="translation-display no-select">
                         <div class="translation-text" id="translationText">⏳ جاري الترجمة...</div>
                     </div>
 
-                    <!-- Audio Controls -->
                     <div class="audio-controls">
                         <div class="speed-section">
                             <div class="slider-container">
@@ -1547,13 +1896,11 @@
                         </div>
                     </div>
 
-                    <!-- Text Input -->
                     <div class="input-area">
                         <textarea id="userInput" placeholder="Type the sentence as you hear it:" autofocus></textarea>
                         <div id="validationMsg" class="validation-msg" style="display:none;"></div>
                     </div>
 
-                    <!-- Navigation Buttons -->
                     <div class="nav-buttons">
                         <button class="nav-btn" id="nextBtnNav">
                             <span id="nextBtnText">جملة جديدة</span>
@@ -1562,7 +1909,6 @@
                         </button>
                     </div>
 
-                    <!-- Counter -->
                     <div class="counter-wrapper">
                         <span class="counter-text">
                             <i class="fas fa-infinity" style="margin-left:4px;"></i>
@@ -1578,6 +1924,26 @@
                         </span>
                     </div>
                 </div>
+
+                <!-- ============================================================
+                     BOTTOM STATS - LEADERBOARD (Professional Design)
+                     ============================================================ -->
+                <div class="bottom-stats" id="bottomStats">
+                    <div class="bottom-stats-container">
+                        <div class="stats-title">
+                            <i class="fas fa-trophy"></i>
+                            <span id="leaderboardTitle">المتصدر اليوم</span>
+                        </div>
+                        <div class="leaderboard-podium" id="podiumContainer">
+                            <!-- Will be filled by JS -->
+                        </div>
+                        <div class="update-timer">
+                            <span class="pulse-dot"></span>
+                            <span id="updateTimerLabel">تحديث</span>
+                            <span class="countdown-num" id="updateCountdown">45</span><span id="updateSecondsLabel">ث</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1585,7 +1951,6 @@
         <aside class="ad-sidebar" id="rightAdSidebar">
             <div class="ad-box">
                 <div class="ad-label">AD</div>
-                <!-- Google AdSense (يمين) -->
                 <ins class="adsbygoogle"
                      style="display:block;width:160px;height:600px;"
                      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
@@ -1596,26 +1961,6 @@
             </div>
         </aside>
 
-    </div>
-
-    <!-- ============================================================
-         BOTTOM STATS - LEADERBOARD (NEW)
-         ============================================================ -->
-    <div class="bottom-stats" id="bottomStats">
-        <div class="bottom-stats-container">
-            <div class="stats-title">
-                <i class="fas fa-trophy"></i>
-                <span id="leaderboardTitle">المتصدر اليوم</span>
-            </div>
-            <div class="leaderboard-podium" id="podiumContainer">
-                <!-- Will be filled by JS - only top 1 shown -->
-            </div>
-            <div class="update-timer">
-                <i class="fas fa-sync-alt"></i>
-                <span id="updateTimerLabel">تحديث خلال</span>
-                <span id="updateCountdown">45</span><span id="updateSecondsLabel">ث</span>
-            </div>
-        </div>
     </div>
 
     <!-- ADS (أسفل المحتوى) -->
@@ -1675,19 +2020,6 @@
                 </ul>
             </div>
         </div>
-        <div class="footer-ad">
-            <div class="ad-label" id="footerAdLabel">AD</div>
-            <div class="responsive-ad-wrapper">
-                <ins class="adsbygoogle responsive-ad"
-                     style="display:block;width:100%;max-width:468px;min-width:200px;height:auto;min-height:60px;"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                     data-ad-slot="XXXXXXXXXX"
-                     data-ad-format="horizontal"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-        </div>
         <div class="footer-bottom">
             <p id="footerCopyright">© 2023 3Alearning Shadowing. All rights reserved.</p>
         </div>
@@ -1708,7 +2040,7 @@
 // ============================================================
 
 // ============================================================
-// DATA: Supported Languages & Translations (abbreviated)
+// DATA: Supported Languages & Translations
 // ============================================================
 const SUPPORTED_LANGUAGES = [
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
@@ -1766,7 +2098,7 @@ const SITE_TRANSLATIONS = {
         'milestoneStats':'الإنجازات حتى الآن: {count}','milestoneContinue':'متابعة التدريب 🚀',
         'milestoneAdLabel':'إعلان - شكراً لدعمكم',
         'leaderboardTitle':'المتصدر اليوم',
-        'updateIn':'تحديث خلال',
+        'updateIn':'تحديث',
         'fullLeaderboard':'📊 قائمة المتصدرين (30 متسابق)',
         'rank':'الترتيب',
         'name':'الاسم',
@@ -1810,7 +2142,7 @@ const SITE_TRANSLATIONS = {
         'milestoneSubtitle':'Keep up this great level! 🔥','milestoneStats':'Milestones: {count}',
         'milestoneContinue':'Continue Training 🚀','milestoneAdLabel':'Ad - Thank you',
         'leaderboardTitle':'Today\'s Leader',
-        'updateIn':'Update in',
+        'updateIn':'Update',
         'fullLeaderboard':'📊 Leaderboard (30 Players)',
         'rank':'Rank',
         'name':'Name',
@@ -1821,7 +2153,7 @@ const SITE_TRANSLATIONS = {
 };
 
 // ============================================================
-// SMART PATTERNS (12 topics - abbreviated)
+// SMART PATTERNS (12 topics)
 // ============================================================
 const SMART_PATTERNS = [
     { theme:"business", name:"الأعمال والشركات", nameEn:"Business",
@@ -2010,53 +2342,33 @@ const COUNTRIES = [
     { code: 'PL', name: '🇵🇱 Poland' }
 ];
 
-// Global names from around the world
 const GLOBAL_NAMES = [
-    // USA
     'James Anderson', 'Emma Wilson', 'Michael Johnson', 'Sarah Davis', 'William Miller',
-    // UK
     'Oliver Smith', 'Charlotte Brown', 'George Taylor', 'Sophie Williams', 'Harry Jones',
-    // France
     'Jean Dupont', 'Marie Lambert', 'Pierre Martin', 'Sophie Bernard', 'Louis Petit',
-    // Germany
     'Maximilian Schmidt', 'Anna Fischer', 'Lukas Weber', 'Emilia Schneider', 'Felix Meyer',
-    // Italy
     'Marco Rossi', 'Giulia Ricci', 'Luca Moretti', 'Sofia Esposito', 'Alessandro Marino',
-    // Spain
     'Carlos Garcia', 'Lucia Rodriguez', 'Manuel Martinez', 'Isabel Lopez', 'Antonio Sanchez',
-    // Turkey
     'Mehmet Demir', 'Ayse Yilmaz', 'Mustafa Kaya', 'Fatma Ozturk', 'Emre Celik',
-    // India
     'Arjun Patel', 'Priya Sharma', 'Rahul Mehta', 'Neha Gupta', 'Sanjay Singh',
-    // Pakistan
     'Ahmed Khan', 'Fatima Ali', 'Imran Malik', 'Sana Ahmed', 'Bilal Hussain',
-    // Egypt
     'Youssef Hassan', 'Nour Ibrahim', 'Karim Mohamed', 'Layla Ahmed', 'Amr Khalid',
-    // Saudi
     'Abdulrahman Al-Otaibi', 'Noura Al-Saud', 'Fahd Al-Rashid', 'Aisha Al-Qahtani', 'Sultan Al-Ghamdi',
-    // UAE
     'Khalid Al-Maktoum', 'Mona Al-Falasi', 'Saeed Al-Hashimi', 'Hessa Al-Mansouri', 'Rashid Al-Ali',
-    // Indonesia
     'Agus Putra', 'Sari Rahayu', 'Wayan Sudarma', 'Dewi Lestari', 'Budi Santoso',
-    // Malaysia
     'Hassan bin Omar', 'Aisha binti Rahman', 'Iskandar bin Zainal', 'Nurul Huda', 'Amirul Hakim',
-    // Nigeria
     'Chidi Okonkwo', 'Amina Bello', 'Oluwaseun Adeyemi', 'Ngozi Eze', 'Tunde Balogun',
-    // South Africa
     'Sipho Ndlovu', 'Thandi Mbeki', 'Pieter van der Merwe', 'Zanele Dlamini', 'Johan Botha'
 ];
 
-// Get random country
 function getRandomCountry() {
     return COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
 }
 
-// Get random global name
 function getRandomGlobalName() {
     return GLOBAL_NAMES[Math.floor(Math.random() * GLOBAL_NAMES.length)];
 }
 
-// Generate leaderboard players (30 players)
 function generateLeaderboardPlayers() {
     const players = [];
     const totalPlayers = 30;
@@ -2064,7 +2376,6 @@ function generateLeaderboardPlayers() {
     
     for (let i = 0; i < totalPlayers; i++) {
         let name = getRandomGlobalName();
-        // Ensure unique names
         while (usedNames.has(name)) {
             name = getRandomGlobalName();
         }
@@ -2079,7 +2390,6 @@ function generateLeaderboardPlayers() {
             avatar: name.charAt(0).toUpperCase()
         });
     }
-    // Sort by score descending
     players.sort((a, b) => b.score - a.score);
     return players;
 }
@@ -2091,13 +2401,12 @@ function renderPodium() {
     const container = document.getElementById('podiumContainer');
     if (!container) return;
     
-    // Only show the top 1 player
     const top = leaderboardPlayers.slice(0, 1);
     if (top.length === 0) return;
     
     const player = top[0];
     container.innerHTML = `
-        <div class="podium-item" id="leaderboardClickArea">
+        <div class="podium-item gold-border" id="leaderboardClickArea">
             <span class="podium-rank gold">🥇</span>
             <div class="podium-avatar">${player.avatar}</div>
             <div class="podium-info">
@@ -2106,18 +2415,16 @@ function renderPodium() {
             </div>
             <span class="podium-score">${player.score} <small>جملة</small></span>
             <span class="podium-more" id="showFullLeaderboard">
-                <i class="fas fa-chevron-down" style="font-size:0.6rem;"></i>
-                <span style="font-size:0.6rem;">${leaderboardPlayers.length} متسابق</span>
+                <i class="fas fa-chevron-down"></i>
+                <span>${leaderboardPlayers.length}</span>
             </span>
         </div>
     `;
     
-    // Click on the entire podium item or the "more" button shows the full leaderboard
     const clickArea = document.getElementById('leaderboardClickArea');
     const moreBtn = document.getElementById('showFullLeaderboard');
     if (clickArea) {
         clickArea.addEventListener('click', function(e) {
-            // Prevent double trigger if clicking on the more button
             if (e.target.closest('#showFullLeaderboard')) return;
             showFullLeaderboardModal();
         });
@@ -2138,12 +2445,28 @@ function showFullLeaderboardModal() {
     let listHtml = '';
     const topPlayers = leaderboardPlayers.slice(0, 30);
     topPlayers.forEach((player, index) => {
-        const rankClass = index === 0 ? 'top1' : (index === 1 ? 'top2' : (index === 2 ? 'top3' : ''));
-        const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : `#${index+1}`));
+        let rankClass = '';
+        let medal = '';
+        let avatarClass = '';
+        if (index === 0) {
+            rankClass = 'top1';
+            medal = '🥇';
+            avatarClass = 'gold-avatar';
+        } else if (index === 1) {
+            rankClass = 'top2';
+            medal = '🥈';
+            avatarClass = 'silver-avatar';
+        } else if (index === 2) {
+            rankClass = 'top3';
+            medal = '🥉';
+            avatarClass = 'bronze-avatar';
+        } else {
+            medal = `#${index+1}`;
+        }
         listHtml += `
             <div class="lb-item">
                 <span class="rank ${rankClass}">${medal}</span>
-                <div class="avatar" style="background:${index < 3 ? '#2c3e50' : '#7f8c8d'}">${player.avatar}</div>
+                <div class="avatar ${avatarClass}">${player.avatar}</div>
                 <div class="info">
                     <div class="name">${player.name}</div>
                     <div class="country">${player.country.flag} ${player.country.name}</div>
@@ -2154,10 +2477,13 @@ function showFullLeaderboardModal() {
     });
     
     overlay.innerHTML = `
-        <div class="modal-card" style="max-width:520px;">
+        <div class="modal-card" style="max-width:560px;">
             <button class="close-modal" id="closeLbBtn"><i class="fas fa-times"></i></button>
-            <h2 style="font-size:1.2rem;">${t.fullLeaderboard}</h2>
-            <div class="subtitle" style="font-size:0.7rem;margin-bottom:12px;">🔄 ${t.updateIn} ${updateCountdown}ث</div>
+            <h2><i class="fas fa-trophy"></i> ${t.fullLeaderboard}</h2>
+            <div class="subtitle">
+                <span class="pulse-dot"></span>
+                ${t.updateIn} ${updateCountdown}ث
+            </div>
             <div class="lb-header">
                 <span>${t.rank}</span>
                 <span style="flex:1;margin-left:8px;">${t.name}</span>
@@ -2177,12 +2503,10 @@ function showFullLeaderboardModal() {
 }
 
 function updateLeaderboard() {
-    // Simulate score changes
     for (const player of leaderboardPlayers) {
         const change = Math.floor(Math.random() * 7) - 2;
         player.score = Math.max(10, Math.min(100, player.score + change));
     }
-    // Reshuffle a bit
     if (Math.random() > 0.5) {
         const idx1 = Math.floor(Math.random() * leaderboardPlayers.length);
         const idx2 = Math.floor(Math.random() * leaderboardPlayers.length);
@@ -2196,7 +2520,6 @@ function updateLeaderboard() {
     renderPodium();
 }
 
-// Countdown timer
 setInterval(() => {
     updateCountdown--;
     if (updateCountdown <= 0) {
@@ -2495,8 +2818,8 @@ function updateAllTexts() {
     document.getElementById('validLabel').textContent = t.valid;
     document.getElementById('milestoneLabel').textContent = t.milestone;
     document.getElementById('footerCopyright').textContent = `© 2023 3Alearning Shadowing. ${t.copyright || 'All rights reserved.'}`;
-    document.getElementById('leaderboardTitle').textContent = t.leaderboardTitle || '🏆 المتصدر اليوم';
-    document.getElementById('updateTimerLabel').textContent = t.updateIn || 'تحديث خلال';
+    document.getElementById('leaderboardTitle').textContent = t.leaderboardTitle || 'المتصدر اليوم';
+    document.getElementById('updateTimerLabel').textContent = t.updateIn || 'تحديث';
 }
 
 // ============================================================
@@ -2826,7 +3149,6 @@ function finishInit() {
         } catch (e) { currentTranslationLang = 'ar'; }
     }
     
-    // Init leaderboard
     renderPodium();
     
     updateAllTexts();
@@ -2834,7 +3156,6 @@ function finishInit() {
     generateNewSentence();
     updateDisplay();
     
-    // Event listeners
     document.getElementById('userInput').addEventListener('input', validateAndReact);
     document.getElementById('speakBtn').addEventListener('click', speakCurrent);
     document.getElementById('speedSlider').addEventListener('input', function() {
