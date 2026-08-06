@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>3Alearning | Shadowing</title>
+    <title>3Alearning | Shadowing Pro</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -36,6 +36,9 @@
             --silver: #bdc3c7;
             --bronze: #e67e22;
             --primary-accent: #1e2a3a;
+            --level-beginner: #27ae60;
+            --level-intermediate: #f39c12;
+            --level-advanced: #e74c3c;
         }
 
         body {
@@ -104,6 +107,3178 @@
             background: var(--text-primary);
             border-radius: 4px;
             transition: var(--transition);
+        }
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .logo-text .highlight {
+            color: var(--text-primary);
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-btn {
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+        .header-btn:hover {
+            background: #f2f5f9;
+        }
+        .header-btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-color);
+            border-color: var(--text-primary);
+        }
+        .header-btn-primary:hover {
+            background: #2c3e50;
+        }
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 4px 20px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: #fafcff;
+        }
+        .header-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-stats .stat-item i {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+        .header-stats .stat-value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 16px 4px 4px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            background: #fafcff;
+        }
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        .user-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .logout-btn:hover {
+            color: #dc3545;
+            background: #fef2f2;
+        }
+
+        /* ============================================================
+           SIDEBAR (OVERLAY) - Premium
+           ============================================================ */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(2px);
+            z-index: 1002;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s ease;
+        }
+        .sidebar-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            max-width: 85%;
+            height: 100%;
+            background: var(--bg-color);
+            box-shadow: -4px 0 40px rgba(0,0,0,0.04);
+            z-index: 1003;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            direction: rtl;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-light);
+            padding: 24px 20px;
+        }
+        .sidebar-overlay.active .sidebar-menu {
+            right: 0;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .sidebar-header .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 6px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .close-sidebar:hover {
+            background: #f2f5f9;
+        }
+        .sidebar-content {
+            flex: 1;
+            padding-top: 20px;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-bottom: 4px;
+        }
+        .sidebar-item:hover {
+            background: #f2f5f9;
+        }
+        .sidebar-item i {
+            width: 24px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .sidebar-divider {
+            height: 1px;
+            background: var(--border-light);
+            margin: 16px 0;
+        }
+
+        /* ============================================================
+           MAIN LAYOUT
+           ============================================================ */
+        .main-layout {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 16px 0;
+            width: 100%;
+            flex: 1;
+        }
+
+        .ad-sidebar {
+            flex: 0 0 var(--ad-width);
+            min-width: var(--ad-width);
+            position: sticky;
+            top: 90px;
+            align-self: flex-start;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 8px 0;
+        }
+        .ad-sidebar .ad-box {
+            background: #fafcff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 12px 8px;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .ad-sidebar .ad-box:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .ad-sidebar .ad-label {
+            font-size: 0.55rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            opacity: 0.5;
+        }
+
+        .main-column {
+            flex: 1;
+            max-width: 680px;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .main-wrapper {
+            padding: 0;
+            width: 100%;
+        }
+
+        /* Learning Card - Premium */
+        .learning-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .learning-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.04);
+        }
+
+        /* Level Badge */
+        .level-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #f2f5f9;
+            color: var(--text-secondary);
+        }
+        .level-badge.beginner { background: #e8f5e9; color: #2e7d32; }
+        .level-badge.intermediate { background: #fff3e0; color: #e65100; }
+        .level-badge.advanced { background: #fce4ec; color: #c62828; }
+
+        .sentence-display {
+            text-align: center;
+            padding: 8px 0 12px;
+        }
+        .sentence-display .sentence-text {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.6;
+            direction: ltr;
+            letter-spacing: -0.2px;
+            word-break: break-word;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: var(--border-light);
+            margin: 18px 0;
+        }
+
+        .translation-display {
+            text-align: center;
+            padding: 6px 0 14px;
+        }
+        .translation-display .translation-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.6;
+            direction: rtl;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            opacity: 0.9;
+        }
+
+        /* ===== AUDIO CONTROLS: Speed + Play side by side ===== */
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0 8px;
+            flex-wrap: nowrap;
+        }
+        .audio-controls .speed-section {
+            flex: 1;
+            min-width: 140px;
+        }
+        .speed-section .slider-container {
+            position: relative;
+            width: 100%;
+            padding: 4px 0;
+        }
+        .speed-section input[type="range"] {
+            width: 100%;
+            height: 3px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--text-primary);
+            border-radius: 4px;
+            outline: none;
+            transition: var(--transition);
+            opacity: 0.6;
+        }
+        .speed-section input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .speed-section input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            cursor: pointer;
+            border: 2px solid white;
+        }
+        .speed-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            padding: 2px 4px 0;
+            font-weight: 500;
+        }
+        .speed-labels .active-speed {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* Play button - compact, side by side with speed */
+        .audio-controls .play-section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .play-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .play-btn:hover {
+            background: #f2f5f9;
+            transform: scale(1.02);
+        }
+        .play-btn.playing {
+            background: var(--text-primary);
+            color: var(--bg-color);
+        }
+        .play-btn .fa-pause {
+            display: none;
+        }
+        .play-btn.playing .fa-play {
+            display: none;
+        }
+        .play-btn.playing .fa-pause {
+            display: inline-block;
+        }
+        .play-label {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .input-area {
+            margin-top: 20px;
+        }
+        .input-area textarea {
+            width: 100%;
+            height: 60px;
+            padding: 14px 20px;
+            font-size: 0.95rem;
+            font-family: 'Inter', 'SF Pro Display', sans-serif;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border-light);
+            background: var(--bg-color);
+            color: var(--text-primary);
+            resize: none;
+            transition: var(--transition);
+            outline: none;
+            line-height: 1.5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+        }
+        .input-area textarea::placeholder {
+            color: #b0bcc9;
+            font-weight: 400;
+        }
+        .input-area textarea:focus {
+            border-color: var(--text-primary);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        .input-area textarea.error-mode {
+            border-color: #dc3545;
+            background: #fef8f8;
+        }
+        .input-area textarea.text-error {
+            color: #dc3545;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .nav-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #f2f5f9;
+        }
+        .nav-btn:active {
+            transform: scale(0.98);
+        }
+        .nav-btn-success {
+            background: var(--text-primary) !important;
+            color: var(--bg-color) !important;
+            border-color: var(--text-primary) !important;
+        }
+        .nav-btn-success i {
+            display: inline-block !important;
+        }
+        .nav-btn-error {
+            border-color: #dc3545 !important;
+            color: #dc3545 !important;
+        }
+
+        .counter-wrapper {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-light);
+        }
+        .counter-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px 12px;
+        }
+        .counter-text strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        .counter-text .count-number {
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+           BOTTOM STATS - LEADERBOARD (Premium Professional)
+           ============================================================ */
+        .bottom-stats {
+            margin: 12px auto 0;
+            padding: 0 8px 20px;
+            width: 100%;
+        }
+        .bottom-stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            border-radius: var(--radius-lg);
+            padding: 8px 16px;
+            background: #fafcff;
+            border: 1px solid var(--border-light);
+            backdrop-filter: blur(4px);
+        }
+        .bottom-stats .stats-title {
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            padding: 6px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .bottom-stats .stats-title i {
+            color: var(--gold);
+        }
+        .bottom-stats .stats-title:hover {
+            border-color: var(--gold);
+        }
+
+        .bottom-stats .leaderboard-podium {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            cursor: pointer;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .bottom-stats .podium-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 14px 4px 10px;
+            border-radius: 40px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-wrap: wrap;
+            min-width: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+        }
+        .bottom-stats .podium-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            border-color: var(--text-primary);
+        }
+        .bottom-stats .podium-item.gold-border {
+            border-color: #d4af37;
+            background: linear-gradient(145deg, #ffffff, #fdf8ed);
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.08);
+        }
+        .bottom-stats .podium-item.gold-border:hover {
+            border-color: #b8960c;
+            box-shadow: 0 8px 28px rgba(212, 175, 55, 0.15);
+        }
+
+        .bottom-stats .podium-rank {
+            font-weight: 900;
+            font-size: 1.1rem;
+            min-width: 26px;
+        }
+        .bottom-stats .podium-rank.gold { color: #b8960c; }
+        .bottom-stats .podium-rank.silver { color: var(--silver); }
+        .bottom-stats .podium-rank.bronze { color: var(--bronze); }
+
+        .bottom-stats .podium-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        .bottom-stats .podium-item.gold-border .podium-avatar {
+            border-color: var(--gold);
+            background: #1e2a3a;
+        }
+
+        .bottom-stats .podium-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            min-width: 0;
+        }
+        .bottom-stats .podium-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 130px;
+        }
+        .bottom-stats .podium-country {
+            font-size: 0.55rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            opacity: 0.7;
+        }
+
+        .bottom-stats .podium-score {
+            font-weight: 800;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            background: #f2f5f9;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-variant-numeric: tabular-nums;
+        }
+        .bottom-stats .podium-score small {
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-size: 0.55rem;
+        }
+
+        .bottom-stats .podium-more {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            padding: 5px 16px;
+            border-radius: 40px;
+            border: 1px dashed var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-weight: 600;
+            background: #ffffff;
+        }
+        .bottom-stats .podium-more:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            transform: scale(1.04);
+        }
+        .bottom-stats .podium-more i {
+            font-size: 0.55rem;
+            transition: transform 0.3s ease;
+        }
+        .bottom-stats .podium-more:hover i {
+            transform: translateY(2px);
+        }
+
+        .bottom-stats .update-timer {
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            flex-shrink: 0;
+            background: #ffffff;
+            padding: 5px 16px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bottom-stats .update-timer .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #27ae60;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dot 1.8s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(0.6); }
+        }
+
+        /* Leaderboard Modal - Professional */
+        .leaderboard-modal .modal-card {
+            max-width: 560px;
+            padding: 32px 28px;
+            border-radius: var(--radius-lg);
+        }
+        .leaderboard-modal .modal-card h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-light);
+        }
+        .leaderboard-modal .modal-card h2 i {
+            color: var(--gold);
+            font-size: 1.3rem;
+        }
+        .leaderboard-modal .lb-list {
+            max-height: 420px;
+            overflow-y: auto;
+            text-align: left;
+            direction: ltr;
+            margin: 16px 0 12px;
+            scrollbar-width: thin;
+            scrollbar-color: #d0d0d0 transparent;
+        }
+        .leaderboard-modal .lb-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .leaderboard-modal .lb-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .leaderboard-modal .lb-list::-webkit-scrollbar-thumb {
+            background: #d0d0d0;
+            border-radius: 4px;
+        }
+        .leaderboard-modal .lb-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-bottom: 1px solid #f0f4f8;
+            transition: all 0.2s ease;
+            border-radius: var(--radius-sm);
+        }
+        .leaderboard-modal .lb-item:hover {
+            background: #f8fafc;
+        }
+        .leaderboard-modal .lb-item .rank {
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            min-width: 32px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        .leaderboard-modal .lb-item .rank.top1 { color: var(--gold); font-size: 1.2rem; font-weight: 900; }
+        .leaderboard-modal .lb-item .rank.top2 { color: var(--silver); font-size: 1.2rem; font-weight: 900; }
+        .leaderboard-modal .lb-item .rank.top3 { color: var(--bronze); font-size: 1.2rem; font-weight: 900; }
+        .leaderboard-modal .lb-item .avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .leaderboard-modal .lb-item .avatar.gold-avatar { background: var(--gold); color: #1e2a3a; }
+        .leaderboard-modal .lb-item .avatar.silver-avatar { background: var(--silver); color: #1e2a3a; }
+        .leaderboard-modal .lb-item .avatar.bronze-avatar { background: var(--bronze); color: #fff; }
+        .leaderboard-modal .lb-item .info { flex: 1; min-width: 0; }
+        .leaderboard-modal .lb-item .info .name { font-weight: 600; font-size: 0.8rem; color: var(--text-primary); }
+        .leaderboard-modal .lb-item .info .country { font-size: 0.6rem; color: var(--text-secondary); }
+        .leaderboard-modal .lb-item .score { font-weight: 700; font-size: 0.8rem; white-space: nowrap; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+        .leaderboard-modal .lb-item .score small { font-weight: 400; color: var(--text-secondary); font-size: 0.55rem; }
+        .leaderboard-modal .lb-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 14px;
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #f8fafc;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+        .leaderboard-modal .lb-header span:first-child { min-width: 32px; text-align: center; }
+        .leaderboard-modal .lb-header span:last-child { min-width: 50px; text-align: right; }
+        .leaderboard-modal .subtitle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            padding: 8px 0 4px;
+        }
+        .leaderboard-modal .subtitle .pulse-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #27ae60;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s ease-in-out infinite;
+        }
+
+        /* ============================================================
+           FOOTER - Premium
+           ============================================================ */
+        .footer {
+            background: #fafcff;
+            border-top: 1px solid var(--border-light);
+            padding: 48px 24px 24px;
+            margin-top: 30px;
+            width: 100%;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 32px;
+        }
+        .footer-section {
+            flex: 1;
+            min-width: 140px;
+        }
+        .footer-section h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        .footer-section ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .footer-section ul li a:hover {
+            color: var(--text-primary);
+        }
+        .footer-section .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+        }
+        .footer-section .footer-brand .wave {
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .footer-section .footer-brand .wave i {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .social-icons a {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .social-icons a:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            background: #f2f5f9;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================================
+           TOAST
+           ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: var(--bg-color);
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 1100;
+            opacity: 0;
+            transition: 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            max-width: 90%;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .ad-sidebar {
+                flex: 0 0 140px;
+                min-width: 140px;
+            }
+            .ad-sidebar .ad-box {
+                min-height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-padding: 0 16px;
+                --ad-width: 0px;
+            }
+            .header {
+                padding: 0 16px;
+            }
+            .header-container {
+                padding: 10px 0;
+            }
+            .logo-text {
+                font-size: 18px;
+            }
+            .header-stats {
+                display: none !important;
+            }
+            .header-right .header-btn {
+                padding: 6px 16px;
+                font-size: 0.75rem;
+            }
+            .main-layout {
+                flex-direction: column;
+                align-items: center;
+                padding: 12px 12px 0;
+                gap: 12px;
+            }
+            .ad-sidebar {
+                display: none !important;
+            }
+            .main-column {
+                max-width: 100%;
+            }
+            .learning-card {
+                padding: 24px 18px;
+                border-radius: var(--radius-md);
+            }
+            .sentence-display .sentence-text {
+                font-size: 1.3rem;
+            }
+            .translation-display .translation-text {
+                font-size: 1rem;
+            }
+            .audio-controls {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .audio-controls .speed-section {
+                min-width: 120px;
+                flex: 2;
+            }
+            .audio-controls .play-section {
+                flex: 0 0 auto;
+            }
+            .nav-buttons {
+                flex-direction: column;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .footer-section .social-icons {
+                justify-content: center;
+            }
+            .bottom-stats-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                padding: 16px;
+            }
+            .bottom-stats .leaderboard-podium {
+                width: 100%;
+                justify-content: center;
+            }
+            .bottom-stats .podium-item {
+                width: 100%;
+                justify-content: center;
+                padding: 6px 14px;
+            }
+            .bottom-stats .podium-name {
+                max-width: 100px;
+            }
+            .bottom-stats .update-timer {
+                text-align: center;
+                justify-content: center;
+            }
+            .bottom-stats .stats-title {
+                justify-content: center;
+            }
+            .counter-text {
+                gap: 4px 8px;
+                font-size: 0.7rem;
+            }
+            .leaderboard-modal .modal-card {
+                padding: 20px 16px;
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 15px;
+            }
+            .header-btn {
+                padding: 4px 12px;
+                font-size: 0.65rem;
+            }
+            .header-left {
+                gap: 8px;
+            }
+            .header-container {
+                padding: 6px 0;
+                gap: 4px;
+            }
+            .user-name {
+                max-width: 60px;
+                font-size: 0.65rem;
+            }
+            .user-avatar {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+            .user-info {
+                padding: 2px 10px 2px 2px;
+            }
+            .learning-card {
+                padding: 16px 12px;
+            }
+            .sentence-display .sentence-text {
+                font-size: 1rem;
+            }
+            .translation-display .translation-text {
+                font-size: 0.85rem;
+            }
+            .input-area textarea {
+                height: 48px;
+                font-size: 0.85rem;
+                padding: 10px 14px;
+            }
+            .nav-btn {
+                padding: 10px;
+                font-size: 0.8rem;
+            }
+            .play-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .bottom-stats .podium-name {
+                max-width: 70px;
+                font-size: 0.75rem;
+            }
+            .bottom-stats .podium-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+            .bottom-stats .podium-score {
+                font-size: 0.7rem;
+                padding: 2px 10px;
+            }
+            .bottom-stats .podium-rank {
+                font-size: 1rem;
+                min-width: 22px;
+            }
+            .bottom-stats .podium-more {
+                font-size: 0.6rem;
+                padding: 4px 12px;
+            }
+            .bottom-stats .stats-title {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .counter-text {
+                font-size: 0.6rem;
+            }
+            .modal-card {
+                padding: 20px 16px;
+                max-width: 95%;
+            }
+            .toast {
+                font-size: 0.65rem;
+                padding: 8px 16px;
+                bottom: 16px;
+                max-width: 95%;
+                white-space: normal;
+            }
+            .footer {
+                padding: 24px 16px 16px;
+            }
+            .audio-controls .speed-section {
+                min-width: 100px;
+            }
+            .play-label {
+                font-size: 0.55rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .logo-text {
+                font-size: 13px;
+            }
+            .header-btn {
+                padding: 2px 8px;
+                font-size: 0.55rem;
+            }
+            .sentence-display .sentence-text {
+                font-size: 0.85rem;
+            }
+            .translation-display .translation-text {
+                font-size: 0.75rem;
+            }
+            .bottom-stats .podium-name {
+                max-width: 50px;
+                font-size: 0.65rem;
+            }
+            .bottom-stats .podium-avatar {
+                width: 26px;
+                height: 26px;
+                font-size: 0.6rem;
+            }
+            .bottom-stats .podium-score {
+                font-size: 0.6rem;
+                padding: 2px 6px;
+            }
+            .bottom-stats .podium-item {
+                padding: 4px 10px;
+                gap: 4px;
+            }
+            .bottom-stats .podium-rank {
+                font-size: 0.8rem;
+                min-width: 18px;
+            }
+            .audio-controls .speed-section {
+                min-width: 80px;
+            }
+            .play-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        /* ============================================================
+           UTILITIES
+           ============================================================ */
+        .hidden-content { opacity: 0; pointer-events: none; }
+        .visible-content { opacity: 1; pointer-events: auto; transition: opacity 0.4s ease; }
+        .no-select { user-select: none; }
+        .sentence-text, .translation-text { user-select: none; }
+        textarea { user-select: text !important; }
+        body { user-select: none; }
+        * { -webkit-touch-callout: none; }
+
+        .validation-msg {
+            font-size: 0.7rem;
+            padding: 4px 16px;
+            margin-top: 6px;
+            border-radius: 40px;
+            display: inline-block;
+            font-weight: 500;
+        }
+        .validation-msg.valid { color: #27ae60; background: #f0fdf4; }
+        .validation-msg.invalid { color: #dc3545; background: #fef2f2; }
+
+        /* ============================================================
+           MODALS
+           ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(6px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            padding: 20px;
+            animation: fadeIn 0.25s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-card {
+            background: var(--bg-color);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            position: relative;
+            max-height: 95vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+        .modal-card .close-modal {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f2f5f9;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .modal-card .close-modal:hover {
+            background: #e5e9f0;
+        }
+        .modal-card h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .modal-card .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        .modal-card .input-group {
+            margin-bottom: 14px;
+            text-align: right;
+        }
+        .modal-card .input-group input,
+        .modal-card .input-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            transition: var(--transition);
+            outline: none;
+        }
+        .modal-card .input-group input:focus,
+        .modal-card .input-group select:focus {
+            border-color: var(--text-primary);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        .modal-card .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            text-align: right;
+        }
+        .modal-card .btn-modal {
+            width: 100%;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            background: var(--text-primary);
+            color: var(--bg-color);
+        }
+        .modal-card .btn-modal:hover {
+            background: #2c3e50;
+        }
+        .modal-card .auth-footer {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .modal-card .auth-footer a {
+            color: var(--text-primary);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .modal-card .error-box {
+            background: #fef2f2;
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            display: none;
+            color: #dc3545;
+            font-size: 0.8rem;
+        }
+
+        .milestone-card .milestone-icon {
+            font-size: 3.6rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .milestone-card .milestone-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        .milestone-card .milestone-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .milestone-card .milestone-stats {
+            background: #f2f5f9;
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        /* ============================================================
+           ADS
+           ============================================================ */
+        .ad-container {
+            text-align: center;
+            margin: 12px auto;
+            overflow: hidden;
+            background: #fafcff;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            padding: 12px;
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .ad-label {
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+        }
+        .responsive-ad-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .responsive-ad {
+            display: inline-block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            min-height: 60px;
+        }
+    </style>
+    <script async src="https://muslimadnetwork.com/ads/loader.js"></script>
+</head>
+<body>
+
+<!-- ============================================================
+     APP CONTENT
+     ============================================================ -->
+<div id="appContent" class="visible-content">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-btn" id="menuBtn" aria-label="القائمة">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a href="#" class="logo-text">3A<span class="highlight">learning</span></a>
+            </div>
+            <div class="header-stats" id="headerStats" style="display:none;">
+                <span class="stat-item"><i class="far fa-calendar-alt"></i> <span class="stat-value" id="headerStatDays">0</span> <span id="statDaysLabel">يوم</span></span>
+                <span class="stat-item"><i class="far fa-check-circle"></i> <span class="stat-value" id="headerStatSentences">0</span> <span id="statSentencesLabel">جملة</span></span>
+                <span class="stat-item"><i class="far fa-clock"></i> <span class="stat-value" id="headerStatMinutes">0</span> <span id="statMinutesLabel">دقيقة</span></span>
+            </div>
+            <div class="header-right" id="headerButtons">
+                <button class="header-btn" id="headerLoginBtn"><span id="loginBtnText">الدخول</span></button>
+                <button class="header-btn header-btn-primary" id="headerSignupBtn"><span id="signupBtnText">إبدا الآن</span></button>
+            </div>
+            <div id="userInfoHeader" class="user-info" style="display:none;">
+                <div class="user-avatar" id="userAvatar">?</div>
+                <span class="user-name" id="userNameDisplay"></span>
+                <button class="logout-btn" id="logoutBtnHeader"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay">
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <span class="logo">3A<span style="font-weight:300;">learning</span></span>
+                <button class="close-sidebar" id="closeSidebarBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="sidebar-content" id="sidebarContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN LAYOUT: Side Ads Left + Center Content + Side Ads Right -->
+    <div class="main-layout">
+
+        <!-- ====== LEFT AD SIDEBAR ====== -->
+        <aside class="ad-sidebar" id="leftAdSidebar">
+            <div class="ad-box">
+                <div class="ad-label">AD</div>
+                <ins class="adsbygoogle"
+                     style="display:block;width:160px;height:600px;"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </aside>
+
+        <!-- ====== CENTER COLUMN ====== -->
+        <div class="main-column">
+            <div class="main-wrapper">
+                <div class="learning-card">
+                    
+                    <!-- Level Badge -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                        <div class="level-badge" id="levelBadge">🌟 المستوى: مبتدئ</div>
+                        <button class="header-btn" id="changeLevelBtn" style="padding: 4px 12px; font-size: 0.7rem;">تغيير المستوى</button>
+                    </div>
+
+                    <div class="sentence-display no-select">
+                        <div class="sentence-text" id="sentenceText">
+                            <span style="color: var(--text-secondary); font-size: 1rem;" id="loadingSentencePlaceholder">⏳ جاري التحميل...</span>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="translation-display no-select">
+                        <div class="translation-text" id="translationText">⏳ جاري الترجمة...</div>
+                    </div>
+
+                    <!-- ===== AUDIO CONTROLS: Speed + Play side by side ===== -->
+                    <div class="audio-controls">
+                        <div class="speed-section">
+                            <div class="slider-container">
+                                <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.1" value="0.9">
+                            </div>
+                            <div class="speed-labels">
+                                <span>0.5x</span>
+                                <span class="active-speed" id="speedLabel">0.9x</span>
+                                <span>1.5x</span>
+                            </div>
+                        </div>
+                        <div class="play-section">
+                            <button class="play-btn" id="speakBtn" aria-label="تشغيل">
+                                <i class="fas fa-play" id="playIcon"></i>
+                                <i class="fas fa-pause" id="pauseIcon"></i>
+                            </button>
+                            <span class="play-label" id="playLabel">Start / Stop</span>
+                        </div>
+                    </div>
+
+                    <div class="input-area">
+                        <textarea id="userInput" placeholder="Type the sentence as you hear it:" autofocus></textarea>
+                        <div id="validationMsg" class="validation-msg" style="display:none;"></div>
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button class="nav-btn" id="nextBtnNav">
+                            <span id="nextBtnText">جملة جديدة</span>
+                            <i class="fas fa-chevron-left"></i>
+                            <i class="fas fa-check-circle" style="display:none; margin-right:4px;"></i>
+                        </button>
+                    </div>
+
+                    <div class="counter-wrapper">
+                        <span class="counter-text">
+                            <i class="fas fa-infinity" style="margin-left:4px;"></i>
+                            <span id="sentenceCountLabel">جمل غير محدودة:</span>
+                            <strong><span class="count-number" id="sentenceCount">∞</span></strong>
+                            <span class="sep">|</span>
+                            <span id="combinationsLabel">تركيبات:</span>
+                            <span id="totalCombos">0</span>
+                            <span class="sep">|</span>
+                            <span>✅ <span id="validCount">0</span> <span id="validLabel">صحيحة</span></span>
+                            <span class="sep">|</span>
+                            <span>🏆 <span id="milestoneCount">0</span> <span id="milestoneLabel">إنجاز</span></span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                     BOTTOM STATS - LEADERBOARD (Professional Design)
+                     ============================================================ -->
+                <div class="bottom-stats" id="bottomStats">
+                    <div class="bottom-stats-container">
+                        <div class="stats-title">
+                            <i class="fas fa-trophy"></i>
+                            <span id="leaderboardTitle">المتصدر اليوم</span>
+                        </div>
+                        <div class="leaderboard-podium" id="podiumContainer">
+                            <!-- Will be filled by JS -->
+                        </div>
+                        <div class="update-timer">
+                            <span class="pulse-dot"></span>
+                            <span id="updateTimerLabel">تحديث</span>
+                            <span class="countdown-num" id="updateCountdown">45</span><span id="updateSecondsLabel">ث</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== RIGHT AD SIDEBAR ====== -->
+        <aside class="ad-sidebar" id="rightAdSidebar">
+            <div class="ad-box">
+                <div class="ad-label">AD</div>
+                <ins class="adsbygoogle"
+                     style="display:block;width:160px;height:600px;"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- ADS (أسفل المحتوى) -->
+    <div class="ad-container">
+        <div class="ad-label" id="adLabelTop">AD</div>
+        <div class="responsive-ad-wrapper">
+            <ins class="adsbygoogle responsive-ad"
+                 style="display:block;width:100%;max-width:728px;min-width:250px;height:auto;min-height:90px;"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    3A<span style="font-weight:300;">learning</span>
+                    <span class="wave"><i class="fas fa-wave-square"></i></span>
+                </div>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Learn More</h4>
+                <ul>
+                    <li><a href="#">Shadowing Method</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#" id="statsLinkFooter">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p id="footerCopyright">© 2023 3Alearning Shadowing. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
+
+<!-- ============================================================
+     TOAST
+     ============================================================ -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     JAVASCRIPT - FULL APPLICATION (Professional)
+     ============================================================ -->
+<script>
+// ============================================================
+// 3Alearning - Full Application (UI Blueprint)
+// ============================================================
+
+// ============================================================
+// DATA: Supported Languages & Translations
+// ============================================================
+const SUPPORTED_LANGUAGES = [
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'pt', name: 'Português', flag: '🇵🇹' },
+    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+    { code: 'ja', name: '日本語', flag: '🇯🇵' },
+    { code: 'ko', name: '한국어', flag: '🇰🇷' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+    { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+    { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+    { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
+    { code: 'sv', name: 'Svenska', flag: '🇸🇪' },
+    { code: 'pl', name: 'Polski', flag: '🇵🇱' }
+];
+
+const SITE_TRANSLATIONS = {
+    'ar': {
+        'login':'الدخول','signup':'إبدا الآن','days':'يوم','sentences':'جملة','minutes':'دقيقة',
+        'logout':'خروج','loadingDesc':'محرك جمل شامل - 1,000,000+ جملة منطقية',
+        'loadingSentences':'🚀 12 موضوع - تغطية شاملة','loadingPlaceholder':'⏳ جاري التحميل...',
+        'infoBar':'استمع، ثم اكتب النص كما سمعته','infiniteBadge':'1M+','statsBadge':'شامل',
+        'category':'التصنيف:','tensePresent':'المضارع','tensePast':'الماضي',
+        'structure':'الفاعل + الفعل + المفعول + السبب','grammarValid':'✅ صحيح لغوياً','grammarInvalid':'⚠️ يحتاج مراجعة',
+        'grammarWords':'كلمات','grammarScore':'نقاط','speed':'السرعة','writeHere':'اكتب الجملة هنا',
+        'focusActive':'نشط - جاهز للكتابة','focusInactive':'غير نشط - اضغط للكتابة',
+        'newSentence':'جملة جديدة','sentencesUnlimited':'جمل غير محدودة:','combinations':'تركيبات:','valid':'صحيحة','milestone':'إنجاز',
+        'welcomeBack':'مرحباً بك في منصة تدريب الظل الذكي','joinNow':'انضم الآن','createAccount':'أنشئ حسابك وابدأ رحلة التعلم',
+        'or':'أو','fullName':'الاسم الكامل','email':'البريد الإلكتروني','password':'كلمة المرور',
+        'preferredLang':'لغة الترجمة المفضلة','createAccountBtn':'إنشاء حساب','haveAccount':'لديك حساب؟',
+        'noAccount':'ليس لديك حساب؟','freeAccount':'إنشاء حساب مجاني','emailPlaceholder':'البريد الإلكتروني',
+        'passwordPlaceholder':'كلمة المرور','loginBtn':'تسجيل الدخول','allFieldsRequired':'املأ جميع الحقول',
+        'emailExists':'البريد مسجل مسبقاً','invalidCredentials':'البريد أو كلمة المرور غير صحيحة',
+        'pleaseLoginToContinue':'الرجاء تسجيل الدخول للمتابعة','lastTrial':'تنبيه: هذه آخر جملة تجريبية، سجل لتواصل التدريب',
+        'trialSentence':'جملة تجريبية','writeCorrectly':'يرجى كتابة الجملة بشكل صحيح قبل التالي',
+        'logoutSuccess':'تم تسجيل الخروج بنجاح','welcomeUser':'مرحباً',
+        'languageChanged':'تم تغيير لغة الترجمة إلى','browserNotSupportSpeech':'المتصفح لا يدعم النطق',
+        'error':'حدث خطأ','autoLangDetected':'تم تحديد لغة الترجمة تلقائياً:',
+        'statsRequireLogin':'الرجاء تسجيل الدخول لعرض الإحصائيات','settingsSaved':'تم حفظ الإعدادات',
+        'footerDesc':'منصة متخصصة في تدريب الظل الذكي (Shadowing) لتعلم اللغة الإنجليزية بطلاقة.',
+        'quickLinks':'روابط سريعة','home':'الرئيسية','shadowLessons':'دروس الظل','stats':'الإحصائيات',
+        'support':'الدعم','helpCenter':'مركز المساعدة','privacy':'سياسة الخصوصية','contact':'اتصل بنا',
+        'copyright':'جميع الحقوق محفوظة','ad':'إعلان','ads':'إعلانات','chooseTranslationLang':'اختر لغة الترجمة',
+        'chooseLangSubtitle':'اختر اللغة التي تريد ترجمة الجمل إليها','applyChange':'تطبيق التغيير',
+        'langWillBeSaved':'سيتم حفظ تفضيل اللغة في حسابك','learningStats':'إحصائيات التعلم','totalDays':'إجمالي الأيام',
+        'todaySentences':'الجمل اليوم','todayMinutes':'الدقائق اليوم','settingsTitle':'الإعدادات',
+        'settingsSubtitle':'اختر لغة الترجمة المفضلة لديك','currentLanguage':'اللغة الحالية',
+        'translationTo':'الترجمة إلى','translating':'⏳ جاري الترجمة...','translationError':'⚠️ خطأ في الترجمة',
+        'noSentence':'⚠️ لا توجد جملة','milestoneCongrats':'🎉 رائع!',
+        'milestoneTitle':'أكملت {count} جملة بنجاح!','milestoneSubtitle':'استمر بهذا المستوى الرائع! 🔥',
+        'milestoneStats':'الإنجازات حتى الآن: {count}','milestoneContinue':'متابعة التدريب 🚀',
+        'milestoneAdLabel':'إعلان - شكراً لدعمكم',
+        'leaderboardTitle':'المتصدر اليوم',
+        'updateIn':'تحديث',
+        'fullLeaderboard':'📊 قائمة المتصدرين (30 متسابق)',
+        'rank':'الترتيب',
+        'name':'الاسم',
+        'country':'الدولة',
+        'score':'النقاط',
+        'close':'إغلاق',
+        'chooseLevel':'اختر مستواك',
+        'levelBeginner':'مبتدئ - جمل قصيرة يومية',
+        'levelIntermediate':'متوسط - جمل متنوعة',
+        'levelAdvanced':'متقدم - جمل مركبة'
+    },
+    'en': {
+        'login':'Login','signup':'Start Now','days':'Days','sentences':'Sentences','minutes':'Minutes',
+        'logout':'Logout','loadingDesc':'Comprehensive Sentence Engine - 1M+ Logical Sentences',
+        'loadingSentences':'🚀 12 Topics - Complete Coverage','loadingPlaceholder':'⏳ Loading...',
+        'infoBar':'Listen, then type the text as you heard it','infiniteBadge':'1M+','statsBadge':'Comprehensive',
+        'category':'Category:','tensePresent':'Present','tensePast':'Past',
+        'structure':'Subject + Verb + Object + Reason','grammarValid':'✅ Grammatically correct',
+        'grammarInvalid':'⚠️ Needs review','grammarWords':'words','grammarScore':'Score','speed':'Speed',
+        'writeHere':'Type the sentence here','focusActive':'Active - Ready to type','focusInactive':'Inactive - Click to type',
+        'newSentence':'New Sentence','sentencesUnlimited':'Unlimited Sentences:','combinations':'Combinations:',
+        'valid':'Valid','milestone':'Milestone','welcomeBack':'Welcome to Smart Shadowing Platform',
+        'joinNow':'Join Now','createAccount':'Create your account and start learning','or':'or',
+        'fullName':'Full Name','email':'Email','password':'Password','preferredLang':'Preferred Translation Language',
+        'createAccountBtn':'Create Account','haveAccount':'Already have an account?','noAccount':'No account?',
+        'freeAccount':'Create Free Account','emailPlaceholder':'Email','passwordPlaceholder':'Password',
+        'loginBtn':'Login','allFieldsRequired':'Please fill all fields','emailExists':'Email already registered',
+        'invalidCredentials':'Invalid email or password','pleaseLoginToContinue':'Please login to continue',
+        'lastTrial':'Warning: This is your last trial sentence, sign up to continue',
+        'trialSentence':'Trial Sentence','writeCorrectly':'Please write correctly before proceeding',
+        'logoutSuccess':'Logged out','welcomeUser':'Welcome','languageChanged':'Language changed to',
+        'browserNotSupportSpeech':'Browser does not support speech','error':'An error occurred',
+        'autoLangDetected':'Translation language auto-detected:','statsRequireLogin':'Please login to view stats',
+        'settingsSaved':'Settings saved','footerDesc':'Smart Shadowing platform for English fluency.',
+        'quickLinks':'Quick Links','home':'Home','shadowLessons':'Shadow Lessons','stats':'Statistics',
+        'support':'Support','helpCenter':'Help Center','privacy':'Privacy Policy','contact':'Contact Us',
+        'copyright':'All Rights Reserved','ad':'Ad','ads':'Ads','chooseTranslationLang':'Choose Translation Language',
+        'chooseLangSubtitle':'Choose the language for translations','applyChange':'Apply Change',
+        'langWillBeSaved':'Language preference will be saved','learningStats':'Learning Statistics',
+        'totalDays':'Total Days','todaySentences':'Today\'s Sentences','todayMinutes':'Today\'s Minutes',
+        'settingsTitle':'Settings','settingsSubtitle':'Choose your preferred translation language',
+        'currentLanguage':'Current Language','translationTo':'Translation to','translating':'⏳ Translating...',
+        'translationError':'⚠️ Translation error','noSentence':'⚠️ No sentence',
+        'milestoneCongrats':'🎉 Amazing!','milestoneTitle':'You completed {count} sentences!',
+        'milestoneSubtitle':'Keep up this great level! 🔥','milestoneStats':'Milestones: {count}',
+        'milestoneContinue':'Continue Training 🚀','milestoneAdLabel':'Ad - Thank you',
+        'leaderboardTitle':'Today\'s Leader',
+        'updateIn':'Update',
+        'fullLeaderboard':'📊 Leaderboard (30 Players)',
+        'rank':'Rank',
+        'name':'Name',
+        'country':'Country',
+        'score':'Score',
+        'close':'Close',
+        'chooseLevel':'Choose Your Level',
+        'levelBeginner':'Beginner - Short daily sentences',
+        'levelIntermediate':'Intermediate - Varied sentences',
+        'levelAdvanced':'Advanced - Complex sentences'
+    }
+};
+
+// ============================================================
+// SMART PATTERNS - محدثة بحيث تكون جمل قصيرة ومفهومة وعملية
+// ============================================================
+const SMART_PATTERNS = [
+    { 
+        theme:"home", 
+        name:"المنزل", 
+        nameEn:"Home",
+        level: "beginner",
+        subjects:["I","My mother","My father","My sister","My brother","The family","My son","My daughter","The dog","The cat","My neighbor","My wife","My husband","The children","The baby"],
+        actions:[
+            {verb:"am", targets:["cooking dinner","cleaning the room","reading a book","watching TV","making tea","washing the dishes","listening to music","talking to my mother"]},
+            {verb:"is", targets:["sleeping","working","playing","studying","eating","drinking water","reading the newspaper","praying"]},
+            {verb:"are", targets:["playing in the garden","watching a movie","eating lunch","studying together","sleeping","talking","singing","dancing"]}
+        ],
+        reasons:["at home.","in the kitchen.","in the living room.","in the garden.","after school.","before bed.","in the morning.","in the evening."]
+    },
+    { 
+        theme:"school", 
+        name:"المدرسة", 
+        nameEn:"School",
+        level: "beginner",
+        subjects:["I","My teacher","My classmate","The student","The principal","My friend","My colleague","The professor","The school","The librarian"],
+        actions:[
+            {verb:"am", targets:["studying English","reading a book","writing a story","learning math","listening to the teacher","preparing for the exam","solving a problem"]},
+            {verb:"is", targets:["teaching the class","explaining the lesson","checking the homework","giving a test","helping the students","speaking to the class","grading papers"]},
+            {verb:"are", targets:["studying in the library","playing in the yard","listening carefully","writing notes","asking questions","preparing for the test","reading together"]}
+        ],
+        reasons:["at school.","in the classroom.","in the library.","during the break.","after the lesson.","before the exam.","with my friends."]
+    },
+    { 
+        theme:"work", 
+        name:"العمل", 
+        nameEn:"Work",
+        level: "intermediate",
+        subjects:["I","My manager","My colleague","The team","The client","The CEO","My assistant","The engineer","The designer","The accountant"],
+        actions:[
+            {verb:"am", targets:["working on a project","preparing a report","attending a meeting","answering emails","calling the client","writing a proposal","checking the documents","reviewing the budget"]},
+            {verb:"is", targets:["leading the team","giving a presentation","analyzing the data","fixing the problem","approving the plan","contacting the customer","completing the task"]},
+            {verb:"are", targets:["working together","discussing the plan","creating a strategy","preparing the documents","testing the system","solving a problem","interviewing candidates"]}
+        ],
+        reasons:["at the office.","during the meeting.","for the new project.","with the team.","before the deadline.","to improve sales.","for the client.","on the new software."]
+    },
+    { 
+        theme:"daily_routine", 
+        name:"الروتين اليومي", 
+        nameEn:"Daily Routine",
+        level: "beginner",
+        subjects:["I","My mother","My father","My sister","My brother","The family","My son","My daughter","The children","The baby"],
+        actions:[
+            {verb:"am", targets:["waking up early","eating breakfast","going to work","taking a shower","brushing my teeth","having coffee","reading a book","walking the dog"]},
+            {verb:"is", targets:["cooking breakfast","driving to work","taking the children to school","doing the laundry","buying groceries","cleaning the house","fixing the car"]},
+            {verb:"are", targets:["getting ready for school","eating dinner together","watching TV","playing in the park","studying","sleeping","having a family dinner"]}
+        ],
+        reasons:["every morning.","after waking up.","before going to work.","in the evening.","on weekends.","during the day.","before bed.","after school."]
+    },
+    { 
+        theme:"travel", 
+        name:"السفر", 
+        nameEn:"Travel",
+        level: "intermediate",
+        subjects:["I","My family","The tourist","The guide","My friend","My wife","The traveler","The group"],
+        actions:[
+            {verb:"am", targets:["traveling to London","visiting Paris","staying in a hotel","exploring the city","taking a flight","packing my bags","booking a room","buying a ticket"]},
+            {verb:"is", targets:["visiting the museum","taking a photo","talking to the guide","buying souvenirs","enjoying the view","going to the beach","climbing the mountain"]},
+            {verb:"are", targets:["traveling together","visiting the city","staying in a hotel","eating local food","taking pictures","going on a tour","enjoying the vacation"]}
+        ],
+        reasons:["for vacation.","with my family.","during the summer.","to enjoy the view.","for business.","to relax.","for a new experience.","with my friends."]
+    },
+    { 
+        theme:"shopping", 
+        name:"التسوق", 
+        nameEn:"Shopping",
+        level: "beginner",
+        subjects:["I","My mother","My sister","My brother","The customer","My friend","The seller","The shopper"],
+        actions:[
+            {verb:"am", targets:["buying groceries","shopping for clothes","looking for a gift","paying the bill","choosing the shoes","trying the dress","using a credit card"]},
+            {verb:"is", targets:["selling the product","helping the customer","showing the item","giving a discount","wrapping the gift","checking the price"]},
+            {verb:"are", targets:["shopping together","looking for a good price","buying food","choosing a gift","trying new clothes","paying for the items","going to the mall"]}
+        ],
+        reasons:["at the supermarket.","in the mall.","for the party.","for the weekend.","for the children.","for the new house.","for the holiday."]
+    },
+    { 
+        theme:"health", 
+        name:"الصحة", 
+        nameEn:"Health",
+        level: "intermediate",
+        subjects:["I","My doctor","The patient","My mother","The nurse","My friend","The pharmacist","The athlete"],
+        actions:[
+            {verb:"am", targets:["exercising regularly","eating healthy food","taking medicine","going to the doctor","checking my weight","feeling better","drinking water"]},
+            {verb:"is", targets:["prescribing medicine","checking the patient","advising exercise","recommending a diet","monitoring the progress","giving a treatment"]},
+            {verb:"are", targets:["exercising together","eating healthy","going to the gym","taking vitamins","visiting the doctor","following the diet"]}
+        ],
+        reasons:["to stay healthy.","for better health.","after the illness.","to feel better.","for fitness.","to lose weight.","for muscle building."]
+    },
+    { 
+        theme:"technology", 
+        name:"التكنولوجيا", 
+        nameEn:"Technology",
+        level: "advanced",
+        subjects:["I","The developer","The engineer","The designer","The analyst","The team","The company","The inventor"],
+        actions:[
+            {verb:"am", targets:["coding a new app","testing the software","designing a website","installing an update","troubleshooting the system","configuring the network","developing a feature"]},
+            {verb:"is", targets:["debugging the code","designing the interface","writing the documentation","managing the server","optimizing the database","leading the project"]},
+            {verb:"are", targets:["deploying the system","testing the new version","working on the project","designing the next update","solving technical issues","integrating the systems"]}
+        ],
+        reasons:["for the new product.","to improve performance.","for better security.","to meet the requirements.","for the user experience.","to fix a bug.","for the next release."]
+    },
+    { 
+        theme:"education", 
+        name:"التعليم", 
+        nameEn:"Education",
+        level: "intermediate",
+        subjects:["I","The teacher","The student","The professor","The class","The university","The researcher","The scholar"],
+        actions:[
+            {verb:"am", targets:["learning new skills","studying English","reading an article","writing an essay","solving problems","preparing for the exam","researching a topic"]},
+            {verb:"is", targets:["teaching the class","giving a lecture","grading the tests","explaining the theory","helping the students","leading a discussion"]},
+            {verb:"are", targets:["studying together","discussing the topic","working on a project","preparing a presentation","researching in the library","learning a new subject"]}
+        ],
+        reasons:["for the exam.","to get a degree.","for knowledge.","to improve skills.","for the future.","for the research.","to learn new things."]
+    },
+    { 
+        theme:"social", 
+        name:"العلاقات الاجتماعية", 
+        nameEn:"Social",
+        level: "beginner",
+        subjects:["I","My friend","My family","My colleague","The group","My neighbor","My partner","The community"],
+        actions:[
+            {verb:"am", targets:["talking to my friend","visiting my family","chatting online","meeting the group","helping a neighbor","going to a party","calling my mother"]},
+            {verb:"is", targets:["organizing a meeting","hosting a party","celebrating a birthday","supporting the community","planning an event","leading the discussion"]},
+            {verb:"are", targets:["visiting together","having a conversation","celebrating the holiday","playing a game","watching a movie","talking about the news"]}
+        ],
+        reasons:["with my friends.","at the party.","during the celebration.","for the social event.","with the community.","for fun.","to catch up."]
+    },
+    { 
+        theme:"family", 
+        name:"العائلة", 
+        nameEn:"Family",
+        level: "beginner",
+        subjects:["My mother","My father","My sister","My brother","The family","My aunt","My uncle","My cousin","My grandmother","My grandfather"],
+        actions:[
+            {verb:"is", targets:["cooking a meal","reading a book","watching the TV","talking on the phone","working in the garden","driving the car","teaching the children"]},
+            {verb:"are", targets:["having breakfast","eating lunch","playing together","visiting the grandparents","watching a movie","cleaning the house","celebrating a birthday"]}
+        ],
+        reasons:["at home.","in the garden.","for dinner.","with the family.","for the celebration.","on the weekend.","before work."]
+    },
+    { 
+        theme:"business", 
+        name:"الأعمال", 
+        nameEn:"Business",
+        level: "advanced",
+        subjects:["The CEO","The manager","The team","The analyst","The director","The partner","The entrepreneur","The investor"],
+        actions:[
+            {verb:"is", targets:["leading the project","negotiating the contract","analyzing the market","approving the budget","presenting the strategy","managing the team"]},
+            {verb:"are", targets:["discussing the plan","working on the proposal","developing the product","marketing the service","reviewing the performance","evaluating the results"]}
+        ],
+        reasons:["for the company.","to increase profits.","for business growth.","to meet the targets.","for the stakeholders.","to improve efficiency."]
+    }
+];
+
+// ============================================================
+// CLASSES
+// ============================================================
+class SmartSentenceGenerator {
+    constructor(patterns) {
+        this.patterns = patterns;
+        this.totalThemes = patterns.length;
+        this.recentHistory = [];
+        this.maxHistory = 50;
+        this.totalCombinations = this.calculateTotalCombinations();
+        this.generatedCount = 0;
+        this.currentLevel = 'beginner';
+    }
+    
+    calculateTotalCombinations() {
+        let total = 0;
+        for (const pattern of this.patterns) {
+            let actionTargetCombos = 0;
+            for (const action of pattern.actions) {
+                actionTargetCombos += action.targets.length;
+            }
+            total += pattern.subjects.length * actionTargetCombos * pattern.reasons.length;
+        }
+        return total * 3; // ضرب 3 لتعويض اختلافات المستويات
+    }
+    
+    setLevel(level) {
+        this.currentLevel = level;
+    }
+    
+    generateInfiniteSmartSentence() {
+        let attempts = 0;
+        let sentence = null;
+        // اختيار الأنماط حسب المستوى
+        let availablePatterns = this.patterns;
+        if (this.currentLevel === 'beginner') {
+            availablePatterns = this.patterns.filter(p => p.level === 'beginner' || p.level === 'intermediate');
+        } else if (this.currentLevel === 'intermediate') {
+            availablePatterns = this.patterns.filter(p => p.level === 'beginner' || p.level === 'intermediate' || p.level === 'advanced');
+        }
+        // إذا لم يكن هناك أنماط، استخدم الكل
+        if (availablePatterns.length === 0) availablePatterns = this.patterns;
+        
+        while (attempts < 100) {
+            attempts++;
+            const theme = availablePatterns[Math.floor(Math.random() * availablePatterns.length)];
+            const subject = theme.subjects[Math.floor(Math.random() * theme.subjects.length)];
+            const actionIndex = Math.floor(Math.random() * theme.actions.length);
+            const actionObj = theme.actions[actionIndex];
+            const target = actionObj.targets[Math.floor(Math.random() * actionObj.targets.length)];
+            const reason = theme.reasons[Math.floor(Math.random() * theme.reasons.length)];
+            
+            let fullSentence;
+            // استخدام الفعل الصحيح مع الفاعل (I + am, He/She/It + is, They/We/You/Plural + are)
+            if (subject === 'I') {
+                fullSentence = `${subject} ${actionObj.verb.replace(/^is$|^are$/, 'am')} ${target} ${reason}`;
+            } else if (['My mother','My father','My sister','My brother','The family','My son','My daughter','The dog','The cat','My neighbor','My wife','My husband','The baby','The teacher','My teacher','The principal','The student','The professor','The doctor','My doctor','The patient','The nurse','The pharmacist','The CEO','The manager','The team','The client','The engineer','The designer','The accountant','The guide','The tourist','The customer','The seller','The developer','The analyst','The company','The inventor','The researcher','The scholar','The class','The university','The group','The community','The athlete','The entrepreneur','The investor','The director','The partner','The children','The children','The family','The group','The team'].includes(subject) && !['I','You','We','They'].includes(subject)) {
+                // مفرد غير المتكلم
+                fullSentence = `${subject} ${actionObj.verb.replace(/^am$/, 'is').replace(/^are$/, 'is')} ${target} ${reason}`;
+            } else if (['My friends','My classmates','The students','The children','The group','The team','The family','We','They'].includes(subject) || subject.includes('children') || subject.includes('people')) {
+                fullSentence = `${subject} ${actionObj.verb.replace(/^am$/, 'are').replace(/^is$/, 'are')} ${target} ${reason}`;
+            } else {
+                fullSentence = `${subject} ${actionObj.verb} ${target} ${reason}`;
+            }
+            
+            const key = fullSentence.toLowerCase().trim();
+            if (!this.recentHistory.includes(key)) {
+                sentence = { english: fullSentence, theme: theme.theme, themeName: theme.name, themeNameEn: theme.nameEn, subject, action: actionObj.verb, target, reason, uniqueKey: key, level: theme.level || 'beginner' };
+                break;
+            }
+        }
+        if (!sentence) {
+            const theme = availablePatterns[Math.floor(Math.random() * availablePatterns.length)];
+            const subject = theme.subjects[Math.floor(Math.random() * theme.subjects.length)];
+            const actionIndex = Math.floor(Math.random() * theme.actions.length);
+            const actionObj = theme.actions[actionIndex];
+            const target = actionObj.targets[Math.floor(Math.random() * actionObj.targets.length)];
+            const reason = theme.reasons[Math.floor(Math.random() * theme.reasons.length)];
+            let fullSentence = `${subject} ${actionObj.verb} ${target} ${reason}`;
+            sentence = { english: fullSentence, theme: theme.theme, themeName: theme.name, themeNameEn: theme.nameEn, subject, action: actionObj.verb, target, reason, uniqueKey: fullSentence.toLowerCase().trim(), level: theme.level || 'beginner' };
+        }
+        this.recentHistory.push(sentence.uniqueKey);
+        if (this.recentHistory.length > this.maxHistory) this.recentHistory.shift();
+        this.generatedCount++;
+        return sentence;
+    }
+    getTotalCombinations() { return this.totalCombinations; }
+}
+
+class UltraLinguisticValidator {
+    validate(sentence) {
+        const checks = [];
+        let isValid = true;
+        const details = [];
+        const checkCapital = /^[A-Z]/.test(sentence);
+        checks.push({name:'capitalization', passed:checkCapital, msg:'يجب أن تبدأ الجملة بحرف كبير'});
+        if (!checkCapital) { isValid = false; details.push('ابدأ بحرف كبير'); }
+        const checkPunctuation = /\.$/.test(sentence);
+        checks.push({name:'punctuation', passed:checkPunctuation, msg:'يجب أن تنتهي الجملة بنقطة'});
+        if (!checkPunctuation) { isValid = false; details.push('أنهِ بنقطة'); }
+        const verbPattern = /\b(am|is|are|was|were|has|have|does|do|works|manages|leads|coordinates|develops|implements|evaluates|presents|analyzes|reviews|prepares|trains|stretches|lifts|runs|practices|competes|recovers|coaches|motivates|codes|debugs|tests|deploys|designs|optimizes|configures|upgrades|maintains|cooks|reads|texts|shops|listens|watches|cleans|organizes|visits|shares|travels|navigates|books|explores|drives|flies|packs|plans|guides|teaches|studies|researches|writes|discusses|collaborates|experiments|lectures|grades|reviewed|prepared|analyzed|developed|implemented|evaluated|presented|managed|led|coordinated|trained|stretched|lifted|ran|practiced|competed|recovered|warmed|coached|motivated|coded|debugged|tested|deployed|designed|optimized|configured|upgraded|maintained|cooked|read|texted|shopped|listened|watched|cleaned|organized|visited|shared|traveled|navigated|booked|explored|drove|flew|checked|packed|planned|guided|taught|learned|researched|studied|wrote|discussed|collaborated|experimented|lectured|graded|sprinted|hydrated|meditated|strategized|rehabilitated|scripted|analyzed\s+data|integrated\s+APIs|monitored\s+systems|documented|negotiated|consulted|supervised|sightseeing|photographed|relaxed|dined|exercised|journaled|gardened|volunteered|approved|completed|participating|recommended|invited|monitoring|started|achieved|launching|researching|adopted|visited|published|advocating|exhibited|won|prescribed|promoted|emphasizing|encouraging|building|improved|creating|writing|helping)\b/i;
+        const hasVerb = verbPattern.test(sentence);
+        checks.push({name:'has_verb', passed:hasVerb, msg:'الجملة تفتقر إلى فعل رئيسي'});
+        if (!hasVerb) { isValid = false; details.push('أضف فعلًا رئيسيًا'); }
+        const subjectPattern = /\b(The\s+\w+|My\s+\w+|Our\s+\w+|He|She|It|They|We|I|You)\b/i;
+        const hasSubject = subjectPattern.test(sentence);
+        checks.push({name:'has_subject', passed:hasSubject, msg:'الجملة تفتقر إلى فاعل'});
+        if (!hasSubject) { isValid = false; details.push('أضف فاعلاً'); }
+        const objectPattern = /\b(the\s+\w+|a\s+\w+|an\s+\w+|it|them|us|me|him|her|this|that|these|those|for\s+the|for\s+a|of\s+the|of\s+a|to\s+the|to\s+a)\b/i;
+        checks.push({name:'has_object', passed:objectPattern.test(sentence), msg:'يفضل وجود مفعول به'});
+        const words = sentence.split(/\s+/);
+        const wordCount = words.length;
+        const checkWordCount = wordCount >= 4 && wordCount <= 25;
+        checks.push({name:'word_count', passed:checkWordCount, msg:`عدد الكلمات: ${wordCount} (يجب 4-25)`});
+        if (!checkWordCount) { isValid = false; details.push(`تعديل عدد الكلمات (${wordCount})`); }
+        const checkSpaces = !/\s{2,}/.test(sentence);
+        checks.push({name:'no_double_spaces', passed:checkSpaces, msg:'لا توجد مسافات مزدوجة'});
+        if (!checkSpaces) { isValid = false; details.push('إزالة المسافات المزدوجة'); }
+        const checkConsecutiveVerbs = !/(\b(is|are|was|were)\s+(is|are|was|were|has|have|does|do)\b)/i.test(sentence);
+        checks.push({name:'no_consecutive_verbs', passed:checkConsecutiveVerbs, msg:'لا توجد أفعال متتالية'});
+        return { isValid, checks, details: details.length > 0 ? details : ['✅ جميع القواعد صحيحة'], wordCount, score: checks.filter(c=>c.passed).length/checks.length*100 };
+    }
+    getGrammarStatus(sentence) {
+        const result = this.validate(sentence);
+        const score = Math.round(result.score);
+        let status = 'valid';
+        let message = '✅ صحيح لغوياً';
+        if (!result.isValid) { status = 'invalid'; message = '⚠️ يحتاج مراجعة'; }
+        return { status, message, details: result.details, score, wordCount: result.wordCount, checks: result.checks };
+    }
+}
+
+// ============================================================
+// LEADERBOARD SYSTEM (FAKE COMPETITION)
+// ============================================================
+const COUNTRIES = [
+    { code: 'US', name: '🇺🇸 USA' },
+    { code: 'GB', name: '🇬🇧 UK' },
+    { code: 'SA', name: '🇸🇦 Saudi' },
+    { code: 'EG', name: '🇪🇬 Egypt' },
+    { code: 'AE', name: '🇦🇪 UAE' },
+    { code: 'JO', name: '🇯🇴 Jordan' },
+    { code: 'FR', name: '🇫🇷 France' },
+    { code: 'DE', name: '🇩🇪 Germany' },
+    { code: 'IT', name: '🇮🇹 Italy' },
+    { code: 'ES', name: '🇪🇸 Spain' },
+    { code: 'TR', name: '🇹🇷 Turkey' },
+    { code: 'IN', name: '🇮🇳 India' },
+    { code: 'PK', name: '🇵🇰 Pakistan' },
+    { code: 'BD', name: '🇧🇩 Bangladesh' },
+    { code: 'MY', name: '🇲🇾 Malaysia' },
+    { code: 'ID', name: '🇮🇩 Indonesia' },
+    { code: 'CA', name: '🇨🇦 Canada' },
+    { code: 'AU', name: '🇦🇺 Australia' },
+    { code: 'BR', name: '🇧🇷 Brazil' },
+    { code: 'MX', name: '🇲🇽 Mexico' },
+    { code: 'NG', name: '🇳🇬 Nigeria' },
+    { code: 'ZA', name: '🇿🇦 South Africa' },
+    { code: 'JP', name: '🇯🇵 Japan' },
+    { code: 'KR', name: '🇰🇷 Korea' },
+    { code: 'CN', name: '🇨🇳 China' },
+    { code: 'RU', name: '🇷🇺 Russia' },
+    { code: 'NL', name: '🇳🇱 Netherlands' },
+    { code: 'SE', name: '🇸🇪 Sweden' },
+    { code: 'PL', name: '🇵🇱 Poland' }
+];
+
+const GLOBAL_NAMES = [
+    'James Anderson', 'Emma Wilson', 'Michael Johnson', 'Sarah Davis', 'William Miller',
+    'Oliver Smith', 'Charlotte Brown', 'George Taylor', 'Sophie Williams', 'Harry Jones',
+    'Jean Dupont', 'Marie Lambert', 'Pierre Martin', 'Sophie Bernard', 'Louis Petit',
+    'Maximilian Schmidt', 'Anna Fischer', 'Lukas Weber', 'Emilia Schneider', 'Felix Meyer',
+    'Marco Rossi', 'Giulia Ricci', 'Luca Moretti', 'Sofia Esposito', 'Alessandro Marino',
+    'Carlos Garcia', 'Lucia Rodriguez', 'Manuel Martinez', 'Isabel Lopez', 'Antonio Sanchez',
+    'Mehmet Demir', 'Ayse Yilmaz', 'Mustafa Kaya', 'Fatma Ozturk', 'Emre Celik',
+    'Arjun Patel', 'Priya Sharma', 'Rahul Mehta', 'Neha Gupta', 'Sanjay Singh',
+    'Ahmed Khan', 'Fatima Ali', 'Imran Malik', 'Sana Ahmed', 'Bilal Hussain',
+    'Youssef Hassan', 'Nour Ibrahim', 'Karim Mohamed', 'Layla Ahmed', 'Amr Khalid',
+    'Abdulrahman Al-Otaibi', 'Noura Al-Saud', 'Fahd Al-Rashid', 'Aisha Al-Qahtani', 'Sultan Al-Ghamdi',
+    'Khalid Al-Maktoum', 'Mona Al-Falasi', 'Saeed Al-Hashimi', 'Hessa Al-Mansouri', 'Rashid Al-Ali',
+    'Agus Putra', 'Sari Rahayu', 'Wayan Sudarma', 'Dewi Lestari', 'Budi Santoso',
+    'Hassan bin Omar', 'Aisha binti Rahman', 'Iskandar bin Zainal', 'Nurul Huda', 'Amirul Hakim',
+    'Chidi Okonkwo', 'Amina Bello', 'Oluwaseun Adeyemi', 'Ngozi Eze', 'Tunde Balogun',
+    'Sipho Ndlovu', 'Thandi Mbeki', 'Pieter van der Merwe', 'Zanele Dlamini', 'Johan Botha'
+];
+
+function getRandomCountry() {
+    return COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+}
+
+function getRandomGlobalName() {
+    return GLOBAL_NAMES[Math.floor(Math.random() * GLOBAL_NAMES.length)];
+}
+
+function generateLeaderboardPlayers() {
+    const players = [];
+    const totalPlayers = 30;
+    const usedNames = new Set();
+    
+    for (let i = 0; i < totalPlayers; i++) {
+        let name = getRandomGlobalName();
+        while (usedNames.has(name)) {
+            name = getRandomGlobalName();
+        }
+        usedNames.add(name);
+        const country = getRandomCountry();
+        const score = Math.floor(Math.random() * 85) + 15;
+        players.push({
+            id: `player_${i+1}`,
+            name: name,
+            country: country,
+            score: score,
+            avatar: name.charAt(0).toUpperCase()
+        });
+    }
+    players.sort((a, b) => b.score - a.score);
+    return players;
+}
+
+let leaderboardPlayers = generateLeaderboardPlayers();
+let updateCountdown = 45;
+
+function renderPodium() {
+    const container = document.getElementById('podiumContainer');
+    if (!container) return;
+    
+    const top = leaderboardPlayers.slice(0, 1);
+    if (top.length === 0) return;
+    
+    const player = top[0];
+    container.innerHTML = `
+        <div class="podium-item gold-border" id="leaderboardClickArea">
+            <span class="podium-rank gold">🥇</span>
+            <div class="podium-avatar">${player.avatar}</div>
+            <div class="podium-info">
+                <span class="podium-name">${player.name}</span>
+                <span class="podium-country">${player.country.flag} ${player.country.name}</span>
+            </div>
+            <span class="podium-score">${player.score} <small>جملة</small></span>
+            <span class="podium-more" id="showFullLeaderboard">
+                <i class="fas fa-chevron-down"></i>
+                <span>${leaderboardPlayers.length}</span>
+            </span>
+        </div>
+    `;
+    
+    const clickArea = document.getElementById('leaderboardClickArea');
+    const moreBtn = document.getElementById('showFullLeaderboard');
+    if (clickArea) {
+        clickArea.addEventListener('click', function(e) {
+            if (e.target.closest('#showFullLeaderboard')) return;
+            showFullLeaderboardModal();
+        });
+    }
+    if (moreBtn) {
+        moreBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showFullLeaderboardModal();
+        });
+    }
+}
+
+function showFullLeaderboardModal() {
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay leaderboard-modal';
+    
+    let listHtml = '';
+    const topPlayers = leaderboardPlayers.slice(0, 30);
+    topPlayers.forEach((player, index) => {
+        let rankClass = '';
+        let medal = '';
+        let avatarClass = '';
+        if (index === 0) {
+            rankClass = 'top1';
+            medal = '🥇';
+            avatarClass = 'gold-avatar';
+        } else if (index === 1) {
+            rankClass = 'top2';
+            medal = '🥈';
+            avatarClass = 'silver-avatar';
+        } else if (index === 2) {
+            rankClass = 'top3';
+            medal = '🥉';
+            avatarClass = 'bronze-avatar';
+        } else {
+            medal = `#${index+1}`;
+        }
+        listHtml += `
+            <div class="lb-item">
+                <span class="rank ${rankClass}">${medal}</span>
+                <div class="avatar ${avatarClass}">${player.avatar}</div>
+                <div class="info">
+                    <div class="name">${player.name}</div>
+                    <div class="country">${player.country.flag} ${player.country.name}</div>
+                </div>
+                <div class="score">${player.score} <small>جملة</small></div>
+            </div>
+        `;
+    });
+    
+    overlay.innerHTML = `
+        <div class="modal-card" style="max-width:560px;">
+            <button class="close-modal" id="closeLbBtn"><i class="fas fa-times"></i></button>
+            <h2><i class="fas fa-trophy"></i> ${t.fullLeaderboard}</h2>
+            <div class="subtitle">
+                <span class="pulse-dot"></span>
+                ${t.updateIn} ${updateCountdown}ث
+            </div>
+            <div class="lb-header">
+                <span>${t.rank}</span>
+                <span style="flex:1;margin-left:8px;">${t.name}</span>
+                <span>${t.score}</span>
+            </div>
+            <div class="lb-list">
+                ${listHtml}
+            </div>
+            <button class="btn-modal" id="closeLbBtn2" style="margin-top:8px;">${t.close}</button>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    document.getElementById('closeLbBtn').onclick = () => closeModal(overlay);
+    document.getElementById('closeLbBtn2').onclick = () => closeModal(overlay);
+    overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay); };
+}
+
+function updateLeaderboard() {
+    for (const player of leaderboardPlayers) {
+        const change = Math.floor(Math.random() * 7) - 2;
+        player.score = Math.max(10, Math.min(100, player.score + change));
+    }
+    if (Math.random() > 0.5) {
+        const idx1 = Math.floor(Math.random() * leaderboardPlayers.length);
+        const idx2 = Math.floor(Math.random() * leaderboardPlayers.length);
+        if (idx1 !== idx2) {
+            const temp = leaderboardPlayers[idx1];
+            leaderboardPlayers[idx1] = leaderboardPlayers[idx2];
+            leaderboardPlayers[idx2] = temp;
+        }
+    }
+    leaderboardPlayers.sort((a, b) => b.score - a.score);
+    renderPodium();
+}
+
+setInterval(() => {
+    updateCountdown--;
+    if (updateCountdown <= 0) {
+        updateCountdown = 45;
+        updateLeaderboard();
+    }
+    const timerEl = document.getElementById('updateCountdown');
+    if (timerEl) timerEl.textContent = updateCountdown;
+}, 1000);
+
+// ============================================================
+// APP STATE
+// ============================================================
+let smartGenerator = new SmartSentenceGenerator(SMART_PATTERNS);
+let currentSentence = null;
+let currentTranslationLang = 'ar';
+let currentUser = null;
+let users = JSON.parse(localStorage.getItem('3alearning_users')) || [];
+let currentSpeed = 0.9;
+let trialCount = 0;
+const MAX_TRIAL = 2;
+let sessionStartTime = Date.now();
+let timeInterval = null;
+let lastState = null;
+let errTimeout = null;
+let isAppReady = false;
+let translationCache = {};
+let completedSentencesCount = 0;
+let milestonesAchieved = 0;
+const MILESTONE_INTERVAL = 15;
+let currentLevel = 'beginner';
+
+// ============================================================
+// TRANSLATION
+// ============================================================
+async function translateText(text, targetLang = 'ar') {
+    if (!text || text.trim().length === 0) {
+        const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+        return t.noSentence || '⚠️ لا توجد جملة';
+    }
+    const cacheKey = text.trim() + '_' + targetLang;
+    if (translationCache[cacheKey]) return translationCache[cacheKey];
+    try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+        const response = await fetch(url, { headers: { 'Accept': 'application/json', 'User-Agent': 'Mozilla/5.0' } });
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        if (data && data[0] && data[0].length > 0) {
+            let fullTranslation = '';
+            for (let i = 0; i < data[0].length; i++) {
+                if (data[0][i] && data[0][i][0]) fullTranslation += data[0][i][0];
+            }
+            if (fullTranslation && fullTranslation.length > 0) {
+                fullTranslation = fullTranslation.replace(/\s+/g,' ').trim();
+                if (!fullTranslation.endsWith('.')) fullTranslation += '.';
+                translationCache[cacheKey] = fullTranslation;
+                return fullTranslation;
+            }
+        }
+        const fallback = `[Translation] ${text}`;
+        translationCache[cacheKey] = fallback;
+        return fallback;
+    } catch (error) {
+        console.error('Translation error:', error);
+        const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+        const fallback = t.translationError || '⚠️ خطأ في الترجمة';
+        translationCache[cacheKey] = fallback;
+        return fallback;
+    }
+}
+
+async function translateAndDisplaySentence(sentence) {
+    const translationDisplay = document.getElementById('translationText');
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    if (!sentence || sentence.trim().length === 0) {
+        translationDisplay.textContent = t.noSentence || '⚠️ لا توجد جملة';
+        translationDisplay.className = 'translation-text';
+        return;
+    }
+    try {
+        translationDisplay.textContent = t.translating || '⏳ جاري الترجمة...';
+        translationDisplay.className = 'translation-text';
+        const translation = await translateText(sentence, currentTranslationLang);
+        if (translation && (translation.includes('Translation error') || translation.startsWith('⚠️'))) {
+            translationDisplay.textContent = translation;
+        } else {
+            translationDisplay.textContent = translation;
+        }
+    } catch (error) {
+        translationDisplay.textContent = t.translationError || '⚠️ خطأ في الترجمة';
+        console.error('Translation error:', error);
+    }
+}
+
+// ============================================================
+// USER MANAGEMENT
+// ============================================================
+function saveUsers() { localStorage.setItem('3alearning_users', JSON.stringify(users)); }
+function saveCurrentUser() { if (currentUser) localStorage.setItem('3alearning_currentUser', JSON.stringify(currentUser)); else localStorage.removeItem('3alearning_currentUser'); }
+function loadUserStats() {
+    if (!currentUser) return null;
+    const statsKey = `3alearning_stats_${currentUser.id}`;
+    let stats = localStorage.getItem(statsKey);
+    if (stats) return JSON.parse(stats);
+    return { firstDay: getTodayKey(), dailyStats: {}, totalCompletedSentences: 0, preferredLang: currentTranslationLang, milestones: 0, level: 'beginner' };
+}
+function saveUserStats(stats) { if (!currentUser) return; localStorage.setItem(`3alearning_stats_${currentUser.id}`, JSON.stringify(stats)); }
+function addCompletedSentence() {
+    if (!currentUser) return;
+    const stats = loadUserStats();
+    const today = getTodayKey();
+    if (!stats.dailyStats[today]) stats.dailyStats[today] = { minutes: 0, sentences: 0 };
+    stats.dailyStats[today].sentences++;
+    stats.totalCompletedSentences++;
+    saveUserStats(stats);
+    updateStatsDisplay();
+}
+function calculateTotalDays() { if (!currentUser) return 0; const stats = loadUserStats(); return Object.keys(stats.dailyStats).length; }
+function getTodaySentences() { if (!currentUser) return 0; const stats = loadUserStats(); const today = getTodayKey(); return stats.dailyStats[today] ? stats.dailyStats[today].sentences : 0; }
+function getTodayMinutes() { if (!currentUser) return 0; const stats = loadUserStats(); const today = getTodayKey(); return stats.dailyStats[today] ? stats.dailyStats[today].minutes : 0; }
+function updateDailyTime() {
+    if (!currentUser) return;
+    const stats = loadUserStats();
+    const today = getTodayKey();
+    if (!stats.dailyStats[today]) stats.dailyStats[today] = { minutes: 0, sentences: 0 };
+    const elapsedMinutes = Math.floor((Date.now() - sessionStartTime) / 60000);
+    stats.dailyStats[today].minutes = elapsedMinutes;
+    saveUserStats(stats);
+    updateStatsDisplay();
+}
+function startTimeTracking() { if (timeInterval) clearInterval(timeInterval); sessionStartTime = Date.now(); timeInterval = setInterval(() => { if (currentUser) updateDailyTime(); }, 60000); }
+
+// ============================================================
+// MILESTONE
+// ============================================================
+function showMilestoneModal() {
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.innerHTML = `
+        <div class="modal-card milestone-card">
+            <button class="close-modal" id="closeMilestoneBtn"><i class="fas fa-times"></i></button>
+            <span class="milestone-icon">🎉</span>
+            <div class="milestone-title">${t.milestoneCongrats || '🎉 رائع!'}</div>
+            <div class="milestone-subtitle">${(t.milestoneTitle || 'أكملت {count} جملة بنجاح!').replace('{count}', completedSentencesCount)}</div>
+            <div class="milestone-stats"><span>${(t.milestoneStats || 'الإنجازات حتى الآن: {count}').replace('{count}', milestonesAchieved)}</span></div>
+            <button class="btn-modal" id="continueMilestoneBtn">${t.milestoneContinue || 'متابعة التدريب 🚀'}</button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    document.getElementById('closeMilestoneBtn').onclick = () => { if (overlay && overlay.remove) overlay.remove(); generateNewSentence(); updateDisplay(); };
+    document.getElementById('continueMilestoneBtn').onclick = () => { if (overlay && overlay.remove) overlay.remove(); generateNewSentence(); updateDisplay(); };
+    overlay.onclick = (e) => { if (e.target === overlay && overlay.remove) overlay.remove(); generateNewSentence(); updateDisplay(); };
+}
+function checkMilestone() {
+    if (completedSentencesCount > 0 && completedSentencesCount % MILESTONE_INTERVAL === 0) {
+        milestonesAchieved = Math.floor(completedSentencesCount / MILESTONE_INTERVAL);
+        if (currentUser) { const stats = loadUserStats(); stats.milestones = milestonesAchieved; saveUserStats(stats); }
+        document.getElementById('milestoneCount').textContent = milestonesAchieved;
+        setTimeout(() => showMilestoneModal(), 300);
+        return true;
+    }
+    return false;
+}
+
+// ============================================================
+// UI UPDATES
+// ============================================================
+function updateStatsDisplay() {
+    if (!currentUser) { document.getElementById('headerStats').style.display = 'none'; return; }
+    document.getElementById('headerStats').style.display = 'flex';
+    document.getElementById('headerStatDays').innerText = calculateTotalDays();
+    document.getElementById('headerStatSentences').innerText = getTodaySentences();
+    document.getElementById('headerStatMinutes').innerText = getTodayMinutes();
+}
+function updateSidebarContent() {
+    const sidebarContent = document.getElementById('sidebarContent');
+    if (!sidebarContent) return;
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    if (currentUser) {
+        sidebarContent.innerHTML = `
+            <div style="padding:12px;border:1px solid var(--border-light);border-radius:var(--radius-sm);margin-bottom:12px;">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                    <div style="width:40px;height:40px;border-radius:50%;background:var(--text-primary);color:var(--bg-color);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">${currentUser.name.charAt(0).toUpperCase()}</div>
+                    <div><div style="font-weight:700;">${currentUser.name}</div><div style="font-size:0.7rem;color:var(--text-secondary);direction:ltr;text-align:left;">${currentUser.email}</div></div>
+                </div>
+                <button class="sidebar-item" id="sidebarLogoutBtn" style="width:100%;justify-content:center;border:1px solid var(--border-light);"><i class="fas fa-sign-out-alt"></i> ${t.logout}</button>
+            </div>
+            <div style="background:#f8fafc;border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;">
+                <div style="font-size:0.7rem;color:var(--text-secondary);margin-bottom:8px;">${t.learningStats}</div>
+                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.8rem;"><span>${t.totalDays}</span><span style="font-weight:700;">${calculateTotalDays()}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.8rem;"><span>${t.todaySentences}</span><span style="font-weight:700;">${getTodaySentences()}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.8rem;"><span>${t.todayMinutes}</span><span style="font-weight:700;">${getTodayMinutes()}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.8rem;"><span>🏆 ${t.milestone}</span><span style="font-weight:700;">${milestonesAchieved}</span></div>
+            </div>
+            <div class="sidebar-item" id="sidebarSettingsBtn"><i class="fas fa-cog"></i> ${t.settings}</div>
+        `;
+        document.getElementById('sidebarLogoutBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); logout(); });
+        document.getElementById('sidebarSettingsBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showSettingsModal(); });
+    } else {
+        sidebarContent.innerHTML = `
+            <div style="display:flex;flex-direction:column;gap:8px;">
+                <button class="sidebar-item" id="sidebarLoginBtn" style="justify-content:center;border:1px solid var(--border-light);"><i class="fas fa-sign-in-alt"></i> ${t.login}</button>
+                <button class="sidebar-item" id="sidebarSignupBtn" style="justify-content:center;border:1px solid var(--border-light);"><i class="fas fa-user-plus"></i> ${t.signup}</button>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-item" id="sidebarLangBtn"><i class="fas fa-language"></i> ${t.changeLanguage}</div>
+        `;
+        document.getElementById('sidebarLoginBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showAuthModal('login'); });
+        document.getElementById('sidebarSignupBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showAuthModal('signup'); });
+        document.getElementById('sidebarLangBtn')?.addEventListener('click', (e) => { e.preventDefault(); closeSidebar(); showLanguageSelector(); });
+    }
+}
+function updateHeaderUI() {
+    const headerButtons = document.getElementById('headerButtons');
+    const userInfo = document.getElementById('userInfoHeader');
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    if (currentUser) {
+        if (headerButtons) headerButtons.style.display = 'none';
+        if (userInfo) {
+            userInfo.style.display = 'flex';
+            const avatar = document.getElementById('userAvatar');
+            const nameDisplay = document.getElementById('userNameDisplay');
+            if (avatar) avatar.textContent = currentUser.name.charAt(0).toUpperCase();
+            if (nameDisplay) nameDisplay.textContent = currentUser.name;
+        }
+        const stats = loadUserStats();
+        if (stats && stats.preferredLang) { 
+            if (stats.preferredLang !== currentTranslationLang) {
+                currentTranslationLang = stats.preferredLang;
+                updateAllTexts();
+                if (currentSentence) translateAndDisplaySentence(currentSentence.english);
+            }
+        }
+        if (stats && stats.milestones) { milestonesAchieved = stats.milestones; document.getElementById('milestoneCount').textContent = milestonesAchieved; }
+        if (stats && stats.level) {
+            currentLevel = stats.level;
+            smartGenerator.setLevel(currentLevel);
+            updateLevelBadge();
+        }
+        updateStatsDisplay();
+        startTimeTracking();
+    } else {
+        if (headerButtons) headerButtons.style.display = 'flex';
+        if (userInfo) userInfo.style.display = 'none';
+        document.getElementById('headerStats').style.display = 'none';
+        if (timeInterval) clearInterval(timeInterval);
+    }
+    updateSidebarContent();
+    updateAllTexts();
+}
+function updateNextButtonStatus(match) {
+    const nextButton = document.getElementById('nextBtnNav');
+    const checkIcon = nextButton?.querySelector('.fa-check-circle');
+    if (!nextButton) return;
+    nextButton.classList.remove('nav-btn-success','nav-btn-error');
+    if (match === true) { nextButton.classList.add('nav-btn-success'); if (checkIcon) checkIcon.style.display = 'inline-block'; }
+    else if (match === false) { nextButton.classList.add('nav-btn-error'); if (checkIcon) checkIcon.style.display = 'none'; }
+    else { if (checkIcon) checkIcon.style.display = 'none'; }
+}
+
+function updateLevelBadge() {
+    const badge = document.getElementById('levelBadge');
+    if (!badge) return;
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const levelNames = {
+        'beginner': t.levelBeginner || 'مبتدئ - جمل قصيرة يومية',
+        'intermediate': t.levelIntermediate || 'متوسط - جمل متنوعة',
+        'advanced': t.levelAdvanced || 'متقدم - جمل مركبة'
+    };
+    const levelClasses = {
+        'beginner': 'beginner',
+        'intermediate': 'intermediate',
+        'advanced': 'advanced'
+    };
+    badge.className = `level-badge ${levelClasses[currentLevel] || ''}`;
+    const levelName = levelNames[currentLevel] || currentLevel;
+    badge.innerHTML = `🌟 المستوى: ${levelName}`;
+}
+
+// ============================================================
+// DISPLAY FUNCTIONS
+// ============================================================
+function getCurrentCorrectTextClean() { return currentSentence ? removePunctuation(currentSentence.english) : ''; }
+function generateNewSentence() {
+    try {
+        const smartSentence = smartGenerator.generateInfiniteSmartSentence();
+        const grammarStatus = new UltraLinguisticValidator().getGrammarStatus(smartSentence.english);
+        currentSentence = { ...smartSentence, grammar: grammarStatus, isValid: grammarStatus.status === 'valid', arabic: smartSentence.english };
+        return currentSentence;
+    } catch (error) {
+        console.error('Error generating sentence:', error);
+        const fallback = smartGenerator.generateInfiniteSmartSentence();
+        const grammarStatus = new UltraLinguisticValidator().getGrammarStatus(fallback.english);
+        currentSentence = { ...fallback, grammar: grammarStatus, isValid: grammarStatus.status === 'valid', arabic: fallback.english };
+        return currentSentence;
+    }
+}
+function updateDisplay() {
+    if (!currentSentence) generateNewSentence();
+    const sentence = currentSentence.english;
+    document.getElementById('sentenceText').textContent = sentence;
+    translateAndDisplaySentence(sentence);
+    document.getElementById('totalCombos').textContent = smartGenerator.getTotalCombinations().toLocaleString();
+    document.getElementById('validCount').textContent = smartGenerator.generatedCount.toLocaleString();
+    document.getElementById('milestoneCount').textContent = milestonesAchieved;
+    updateLevelBadge();
+    const inp = document.getElementById('userInput');
+    if (inp) { inp.value = ''; inp.classList.remove('error-mode','text-error'); inp.style.borderColor = '#e9edf2'; setTimeout(() => { if (document.hasFocus()) { inp.focus(); } }, 50); }
+    lastState = null; updateNextButtonStatus(null); autoSpeak();
+}
+function updateAllTexts() {
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    document.getElementById('loginBtnText').textContent = t.login;
+    document.getElementById('signupBtnText').textContent = t.signup;
+    document.getElementById('statDaysLabel').textContent = t.days;
+    document.getElementById('statSentencesLabel').textContent = t.sentences;
+    document.getElementById('statMinutesLabel').textContent = t.minutes;
+    document.getElementById('nextBtnText').textContent = t.newSentence;
+    document.getElementById('sentenceCountLabel').textContent = t.sentencesUnlimited;
+    document.getElementById('combinationsLabel').textContent = t.combinations;
+    document.getElementById('validLabel').textContent = t.valid;
+    document.getElementById('milestoneLabel').textContent = t.milestone;
+    document.getElementById('footerCopyright').textContent = `© 2023 3Alearning Shadowing. ${t.copyright || 'All rights reserved.'}`;
+    document.getElementById('leaderboardTitle').textContent = t.leaderboardTitle || 'المتصدر اليوم';
+    document.getElementById('updateTimerLabel').textContent = t.updateIn || 'تحديث';
+    updateLevelBadge();
+}
+
+// ============================================================
+// AUDIO
+// ============================================================
+function autoSpeak() {
+    if (!isAppReady) return;
+    setTimeout(() => {
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const btn = document.getElementById('speakBtn');
+            if (btn && !btn.classList.contains('playing')) {
+                const utterance = new SpeechSynthesisUtterance(getCurrentCorrectTextClean());
+                utterance.lang = 'en-US';
+                utterance.rate = currentSpeed;
+                utterance.onstart = () => { btn.classList.add('playing'); };
+                utterance.onend = () => { btn.classList.remove('playing'); };
+                utterance.onerror = () => { btn.classList.remove('playing'); };
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+    }, 100);
+}
+function speakCurrent() {
+    const btn = document.getElementById('speakBtn');
+    if (btn.classList.contains('playing')) {
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            btn.classList.remove('playing');
+        }
+        return;
+    }
+    if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        btn.classList.add('playing');
+        const utterance = new SpeechSynthesisUtterance(getCurrentCorrectTextClean());
+        utterance.lang = 'en-US';
+        utterance.rate = currentSpeed;
+        utterance.onend = () => btn.classList.remove('playing');
+        utterance.onerror = () => { btn.classList.remove('playing'); showMsg('حدث خطأ في النطق', true); };
+        window.speechSynthesis.speak(utterance);
+        setTimeout(() => { if (btn.classList.contains('playing')) btn.classList.remove('playing'); }, 4000);
+    } else { showMsg('المتصفح لا يدعم النطق', true); }
+}
+function playCorrectSound() { try { const a = new (window.AudioContext||window.webkitAudioContext)(); const o = a.createOscillator(); const g = a.createGain(); o.connect(g); g.connect(a.destination); o.frequency.value=880; g.gain.value=0.1; o.type='sine'; o.start(); g.gain.exponentialRampToValueAtTime(0.00001,a.currentTime+0.3); o.stop(a.currentTime+0.3); } catch(e){} }
+function playErrorSound() { try { const a = new (window.AudioContext||window.webkitAudioContext)(); const o = a.createOscillator(); const g = a.createGain(); o.connect(g); g.connect(a.destination); o.frequency.value=440; g.gain.value=0.1; o.type='sawtooth'; o.start(); g.gain.exponentialRampToValueAtTime(0.00001,a.currentTime+0.3); o.stop(a.currentTime+0.3); } catch(e){} }
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function validateAndReact() {
+    if (!isAppReady || !currentSentence) return;
+    const inp = document.getElementById('userInput');
+    const userText = inp.value.trim();
+    const correctText = getCurrentCorrectTextClean();
+    const exact = (removePunctuation(userText) === correctText);
+    const validationMsg = document.getElementById('validationMsg');
+    updateNextButtonStatus(exact);
+    if (exact) {
+        if (lastState !== true) { playCorrectSound(); inp.classList.remove('error-mode','text-error'); inp.style.borderColor = '#e9edf2'; lastState=true; if(errTimeout) clearTimeout(errTimeout); }
+        inp.classList.remove('error-mode','text-error');
+        validationMsg.style.display = 'none';
+    } else {
+        const userClean = removePunctuation(userText).toLowerCase();
+        const correctClean = correctText.toLowerCase();
+        const prefix = correctClean.startsWith(userClean) && userClean.length > 0;
+        if (userClean.length > 0 && !prefix) {
+            inp.classList.add('error-mode','text-error'); inp.style.borderColor = '#dc3545';
+            if (lastState !== false) { playErrorSound(); lastState = false; }
+            updateNextButtonStatus(false);
+            validationMsg.style.display = 'inline-block';
+            validationMsg.className = 'validation-msg invalid';
+            validationMsg.textContent = '⚠️ الجملة غير صحيحة';
+            if (errTimeout) clearTimeout(errTimeout);
+            errTimeout = setTimeout(() => { if (inp && document.activeElement === inp) { inp.classList.remove('error-mode'); inp.style.borderColor = '#e9edf2'; } }, 600);
+        } else if (prefix && !exact && userClean.length > 0) {
+            inp.classList.remove('error-mode','text-error'); inp.style.borderColor = '#e9edf2';
+            if (lastState === false) playCorrectSound();
+            lastState = null; updateNextButtonStatus(null);
+            validationMsg.style.display = 'none';
+        } else if (userClean.length === 0) {
+            inp.classList.remove('error-mode','text-error'); inp.style.borderColor = '#e9edf2';
+            lastState = null; updateNextButtonStatus(null); if (errTimeout) clearTimeout(errTimeout);
+            validationMsg.style.display = 'none';
+        } else {
+            inp.classList.add('error-mode','text-error'); inp.style.borderColor = '#dc3545';
+            if (lastState !== false) { playErrorSound(); lastState = false; }
+            updateNextButtonStatus(false);
+            validationMsg.style.display = 'inline-block';
+            validationMsg.className = 'validation-msg invalid';
+            validationMsg.textContent = '⚠️ الجملة غير صحيحة';
+        }
+    }
+}
+function nextSentence() {
+    if (!isAppReady) return;
+    const inp = document.getElementById('userInput');
+    const curText = inp.value.trim();
+    const correctText = getCurrentCorrectTextClean();
+    const isCorrect = (removePunctuation(curText) === correctText);
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    if (!isCorrect) {
+        inp.classList.add('error-mode','text-error'); inp.style.borderColor = '#dc3545'; playErrorSound(); updateNextButtonStatus(false);
+        if (curText.length === 0) showMsg('الرجاء كتابة الجملة أولاً', true);
+        else showMsg(t.writeCorrectly, true);
+        if (errTimeout) clearTimeout(errTimeout);
+        errTimeout = setTimeout(() => { if (inp && document.activeElement === inp) { inp.classList.remove('error-mode'); inp.style.borderColor = '#e9edf2'; } }, 500);
+        return;
+    }
+    inp.classList.remove('error-mode','text-error'); inp.style.borderColor = '#e9edf2';
+    if (!currentUser) {
+        if (trialCount >= MAX_TRIAL) { showMsg(t.pleaseLoginToContinue, true); showAuthModal(); return; }
+        trialCount++;
+        if (trialCount === MAX_TRIAL) showMsg(t.lastTrial, true);
+        else showMsg(`${t.trialSentence} ${trialCount}/${MAX_TRIAL}`);
+    }
+    completedSentencesCount++;
+    document.getElementById('milestoneCount').textContent = Math.floor(completedSentencesCount / MILESTONE_INTERVAL);
+    if (currentUser) {
+        addCompletedSentence();
+        const stats = loadUserStats();
+        stats.totalCompletedSentences = completedSentencesCount;
+        stats.milestones = Math.floor(completedSentencesCount / MILESTONE_INTERVAL);
+        saveUserStats(stats);
+    }
+    const milestoneTriggered = checkMilestone();
+    if (!milestoneTriggered) { generateNewSentence(); updateDisplay(); }
+}
+
+// ============================================================
+// LOGOUT
+// ============================================================
+function logout() {
+    if (timeInterval) clearInterval(timeInterval);
+    currentUser = null;
+    saveCurrentUser();
+    trialCount = 0;
+    updateHeaderUI();
+    generateNewSentence();
+    updateDisplay();
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    showMsg(t.logoutSuccess);
+}
+
+// ============================================================
+// SIDEBAR
+// ============================================================
+function closeSidebar() { document.getElementById('sidebarOverlay').classList.remove('active'); }
+function openSidebar() { document.getElementById('sidebarOverlay').classList.add('active'); }
+
+// ============================================================
+// MODALS
+// ============================================================
+function closeModal(el) { if (el && el.remove) el.remove(); }
+function showAuthModal(type='login') {
+    let existing = document.querySelector('.modal-overlay');
+    if (existing) existing.remove();
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    let langOptions = '';
+    SUPPORTED_LANGUAGES.forEach(lang => { const selected = lang.code === currentTranslationLang ? 'selected' : ''; langOptions += `<option value="${lang.code}" ${selected}>${lang.flag} ${lang.name}</option>`; });
+    
+    let countryOptions = '';
+    COUNTRIES.forEach(country => { countryOptions += `<option value="${country.code}">${country.flag} ${country.name}</option>`; });
+
+    if (type === 'login') {
+        overlay.innerHTML = `
+            <div class="modal-card">
+                <button class="close-modal" id="closeAuthBtn"><i class="fas fa-times"></i></button>
+                <h2>3A<span style="font-weight:300;">learning</span></h2>
+                <div class="subtitle">${t.welcomeBack}</div>
+                <div class="error-box" id="authError"></div>
+                <div class="input-group"><input type="email" id="loginEmail" placeholder="${t.email}" autocomplete="email"></div>
+                <div class="input-group"><input type="password" id="loginPassword" placeholder="${t.password}" autocomplete="current-password"></div>
+                <button class="btn-modal" id="doLoginBtn">${t.loginBtn}</button>
+                <div class="auth-footer">${t.noAccount} <a id="showSignupFromLoginBtn">${t.freeAccount}</a></div>
+            </div>
+        `;
+    } else {
+        overlay.innerHTML = `
+            <div class="modal-card">
+                <button class="close-modal" id="closeAuthBtn"><i class="fas fa-times"></i></button>
+                <h2>3A<span style="font-weight:300;">learning</span></h2>
+                <div class="subtitle">${t.createAccount}</div>
+                <div class="error-box" id="authError"></div>
+                <div class="input-group"><input type="text" id="signupName" placeholder="${t.fullName}" autocomplete="name"></div>
+                <div class="input-group"><input type="email" id="signupEmail" placeholder="${t.email}" autocomplete="email"></div>
+                <div class="input-group"><input type="password" id="signupPassword" placeholder="${t.password}" autocomplete="new-password"></div>
+                <div class="input-group">
+                    <label>${t.preferredLang}</label>
+                    <select id="signupLangSelect">${langOptions}</select>
+                </div>
+                <div class="input-group">
+                    <label>الدولة</label>
+                    <select id="signupCountrySelect">${countryOptions}</select>
+                </div>
+                <button class="btn-modal" id="doSignupBtn">${t.createAccountBtn}</button>
+                <div class="auth-footer">${t.haveAccount} <a id="showLoginFromSignupBtn">${t.login}</a></div>
+            </div>
+        `;
+    }
+    document.body.appendChild(overlay);
+    document.getElementById('closeAuthBtn').onclick = () => closeModal(overlay);
+    overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay); };
+    
+    if (type === 'login') {
+        document.getElementById('doLoginBtn').onclick = () => {
+            const email = document.getElementById('loginEmail').value.trim();
+            const pwd = document.getElementById('loginPassword').value;
+            const err = document.getElementById('authError');
+            if (!email || !pwd) { err.style.display='block'; err.innerText=t.allFieldsRequired; return; }
+            const u = users.find(u => u.email === email && u.password === pwd);
+            if (u) { currentUser = u; saveCurrentUser(); updateHeaderUI(); closeModal(overlay); const t2 = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en']; showMsg(`${t2.welcomeUser} ${u.name}`); generateNewSentence(); updateDisplay(); }
+            else { err.style.display='block'; err.innerText=t.invalidCredentials; }
+        };
+        document.getElementById('showSignupFromLoginBtn').onclick = () => { closeModal(overlay); showAuthModal('signup'); };
+    } else {
+        document.getElementById('doSignupBtn').onclick = () => {
+            const n = document.getElementById('signupName').value.trim();
+            const e = document.getElementById('signupEmail').value.trim();
+            const p = document.getElementById('signupPassword').value;
+            const errDiv = document.getElementById('authError');
+            const selectedLang = document.getElementById('signupLangSelect')?.value || currentTranslationLang;
+            const selectedCountry = document.getElementById('signupCountrySelect')?.value || 'US';
+            if (!n || !e || !p) { errDiv.style.display='block'; errDiv.innerText=t.allFieldsRequired; return; }
+            const countryObj = COUNTRIES.find(c => c.code === selectedCountry);
+            const nu = { id: Date.now()+Math.floor(Math.random()*1000), userId: '3A'+Math.floor(10000000+Math.random()*90000000), name: n, email: e, password: p, provider: 'email', preferredLang: selectedLang, country: countryObj || { code: 'US', name: '🇺🇸 USA' } };
+            users.push(nu); saveUsers(); currentUser = nu; saveCurrentUser(); currentTranslationLang = selectedLang; updateHeaderUI(); closeModal(overlay);
+            const t2 = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en']; showMsg(`${t2.welcomeUser} ${n}!`); generateNewSentence(); updateDisplay();
+        };
+        document.getElementById('showLoginFromSignupBtn').onclick = () => { closeModal(overlay); showAuthModal('login'); };
+    }
+}
+function showLanguageSelector() {
+    let existing = document.querySelector('.modal-overlay');
+    if (existing) existing.remove();
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    let langOptions = '';
+    SUPPORTED_LANGUAGES.forEach(lang => { const selected = lang.code === currentTranslationLang ? 'selected' : ''; langOptions += `<option value="${lang.code}" ${selected}>${lang.flag} ${lang.name}</option>`; });
+    overlay.innerHTML = `
+        <div class="modal-card">
+            <button class="close-modal" id="closeLangBtn"><i class="fas fa-times"></i></button>
+            <h2>3A<span style="font-weight:300;">learning</span></h2>
+            <div class="subtitle">${t.chooseTranslationLang}</div>
+            <div class="input-group"><label>${t.preferredLang}</label><select id="langSelect">${langOptions}</select></div>
+            <button class="btn-modal" id="applyLangBtn">${t.applyChange}</button>
+            <div style="margin-top:12px;font-size:0.75rem;color:var(--text-secondary);"><i class="fas fa-info-circle"></i> ${t.langWillBeSaved}</div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    document.getElementById('closeLangBtn').onclick = () => closeModal(overlay);
+    overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay); };
+    document.getElementById('applyLangBtn').onclick = () => {
+        const selectedLang = document.getElementById('langSelect').value;
+        if (selectedLang) {
+            currentTranslationLang = selectedLang;
+            if (currentUser) { const stats = loadUserStats(); stats.preferredLang = selectedLang; saveUserStats(stats); }
+            updateHeaderUI(); updateAllTexts(); closeModal(overlay);
+            const t2 = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en']; showMsg(`${t2.languageChanged} ${getLangName(selectedLang)}`);
+            if (currentSentence) translateAndDisplaySentence(currentSentence.english);
+        }
+    };
+}
+
+function showLevelModal() {
+    let existing = document.querySelector('.modal-overlay');
+    if (existing) existing.remove();
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    
+    const levels = [
+        { value: 'beginner', label: t.levelBeginner || 'مبتدئ - جمل قصيرة يومية', icon: '🌱' },
+        { value: 'intermediate', label: t.levelIntermediate || 'متوسط - جمل متنوعة', icon: '🌟' },
+        { value: 'advanced', label: t.levelAdvanced || 'متقدم - جمل مركبة', icon: '🔥' }
+    ];
+    
+    let levelOptions = '';
+    levels.forEach(level => {
+        const selected = level.value === currentLevel ? 'selected' : '';
+        levelOptions += `<option value="${level.value}" ${selected}>${level.icon} ${level.label}</option>`;
+    });
+    
+    overlay.innerHTML = `
+        <div class="modal-card">
+            <button class="close-modal" id="closeLevelBtn"><i class="fas fa-times"></i></button>
+            <h2>🎯 ${t.chooseLevel || 'اختر مستواك'}</h2>
+            <div class="subtitle">${t.settingsSubtitle || 'اختر المستوى المناسب لمهاراتك'}</div>
+            <div class="input-group"><label>${t.preferredLang || 'المستوى'}</label><select id="levelSelect">${levelOptions}</select></div>
+            <button class="btn-modal" id="applyLevelBtn">${t.applyChange || 'تطبيق'}</button>
+            <div style="margin-top:12px;font-size:0.75rem;color:var(--text-secondary);"><i class="fas fa-info-circle"></i> سيتم حفظ المستوى في حسابك</div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    document.getElementById('closeLevelBtn').onclick = () => closeModal(overlay);
+    overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay); };
+    document.getElementById('applyLevelBtn').onclick = () => {
+        const selectedLevel = document.getElementById('levelSelect').value;
+        if (selectedLevel && selectedLevel !== currentLevel) {
+            currentLevel = selectedLevel;
+            smartGenerator.setLevel(currentLevel);
+            if (currentUser) { 
+                const stats = loadUserStats(); 
+                stats.level = selectedLevel; 
+                saveUserStats(stats); 
+            }
+            updateLevelBadge();
+            closeModal(overlay);
+            const t2 = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en']; 
+            const levelNames = {
+                'beginner': t2.levelBeginner || 'مبتدئ',
+                'intermediate': t2.levelIntermediate || 'متوسط',
+                'advanced': t2.levelAdvanced || 'متقدم'
+            };
+            showMsg(`تم تغيير المستوى إلى: ${levelNames[selectedLevel]}`);
+            generateNewSentence();
+            updateDisplay();
+        } else {
+            closeModal(overlay);
+        }
+    };
+}
+
+function showSettingsModal() {
+    let existing = document.querySelector('.modal-overlay');
+    if (existing) existing.remove();
+    const t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    let langOptions = '';
+    SUPPORTED_LANGUAGES.forEach(lang => { const selected = lang.code === currentTranslationLang ? 'selected' : ''; langOptions += `<option value="${lang.code}" ${selected}>${lang.flag} ${lang.name}</option>`; });
+    overlay.innerHTML = `
+        <div class="modal-card">
+            <button class="close-modal" id="closeSettingsBtn"><i class="fas fa-times"></i></button>
+            <h2><i class="fas fa-cog" style="font-size:1.2rem;"></i> ${t.settingsTitle}</h2>
+            <div class="subtitle">${t.settingsSubtitle}</div>
+            <div style="background:#f8fafc;border-radius:40px;padding:8px 16px;margin-bottom:16px;">${t.currentLanguage}: <strong>${getLangFlag(currentTranslationLang)} ${getLangName(currentTranslationLang)}</strong></div>
+            <div class="input-group"><label>${t.preferredLang}</label><select id="settingsLangSelect">${langOptions}</select></div>
+            <div class="input-group"><label>🎯 المستوى</label>
+                <select id="settingsLevelSelect">
+                    <option value="beginner" ${currentLevel === 'beginner' ? 'selected' : ''}>🌱 ${t.levelBeginner || 'مبتدئ'}</option>
+                    <option value="intermediate" ${currentLevel === 'intermediate' ? 'selected' : ''}>🌟 ${t.levelIntermediate || 'متوسط'}</option>
+                    <option value="advanced" ${currentLevel === 'advanced' ? 'selected' : ''}>🔥 ${t.levelAdvanced || 'متقدم'}</option>
+                </select>
+            </div>
+            <button class="btn-modal" id="applySettingsBtn">${t.applyChange}</button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    document.getElementById('closeSettingsBtn').onclick = () => closeModal(overlay);
+    overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay); };
+    document.getElementById('applySettingsBtn').onclick = () => {
+        const selectedLang = document.getElementById('settingsLangSelect').value;
+        const selectedLevel = document.getElementById('settingsLevelSelect').value;
+        let changed = false;
+        if (selectedLang && selectedLang !== currentTranslationLang) {
+            currentTranslationLang = selectedLang;
+            if (currentUser) { const stats = loadUserStats(); stats.preferredLang = selectedLang; saveUserStats(stats); }
+            changed = true;
+        }
+        if (selectedLevel && selectedLevel !== currentLevel) {
+            currentLevel = selectedLevel;
+            smartGenerator.setLevel(currentLevel);
+            if (currentUser) { const stats = loadUserStats(); stats.level = selectedLevel; saveUserStats(stats); }
+            updateLevelBadge();
+            generateNewSentence();
+            updateDisplay();
+            changed = true;
+        }
+        updateHeaderUI(); updateAllTexts(); closeModal(overlay);
+        if (changed) {
+            const t2 = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en']; 
+            showMsg(`${t2.settingsSaved || 'تم حفظ الإعدادات'}`);
+            if (currentSentence) translateAndDisplaySentence(currentSentence.english);
+        } else {
+            closeModal(overlay);
+        }
+    };
+}
+
+// ============================================================
+// UTILITY FUNCTIONS
+// ============================================================
+function getLangName(code) { const lang = SUPPORTED_LANGUAGES.find(l => l.code === code); return lang ? lang.name : code; }
+function getLangFlag(code) { const lang = SUPPORTED_LANGUAGES.find(l => l.code === code); return lang ? lang.flag : '🌐'; }
+function removePunctuation(text) { return text.replace(/[^\w\s']/g,'').replace(/\s+/g,' ').trim(); }
+function getTodayKey() { return new Date().toLocaleDateString('en-CA'); }
+function showMsg(text, isError=false) {
+    const toast = document.getElementById('toast');
+    const icon = isError ? 'fa-exclamation-triangle' : 'fa-check-circle';
+    toast.innerHTML = `<i class="fas ${icon}"></i> ${text}`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// ============================================================
+// FINISH INIT
+// ============================================================
+function finishInit() {
+    const totalCombos = smartGenerator.getTotalCombinations();
+    console.log(`🚀 إجمالي التركيبات الممكنة: ${totalCombos.toLocaleString()}`);
+    document.getElementById('totalCombos').textContent = totalCombos.toLocaleString();
+    document.getElementById('sentenceCount').textContent = '∞';
+    
+    var saved = localStorage.getItem('3alearning_currentUser');
+    if (saved) {
+        var u = JSON.parse(saved);
+        if (users.find(function(x) { return x.id === u.id; })) {
+            currentUser = u;
+            if (currentUser.preferredLang) currentTranslationLang = currentUser.preferredLang;
+            const stats = loadUserStats();
+            if (stats && stats.milestones) { milestonesAchieved = stats.milestones; document.getElementById('milestoneCount').textContent = milestonesAchieved; }
+            if (stats && stats.level) {
+                currentLevel = stats.level;
+                smartGenerator.setLevel(currentLevel);
+            }
+        }
+    } else {
+        try {
+            var browserLang = navigator.language || navigator.languages?.[0] || 'ar';
+            var langCode = browserLang.split('-')[0].toLowerCase();
+            var supported = SUPPORTED_LANGUAGES.find(function(l) { return l.code === langCode; });
+            if (supported) currentTranslationLang = langCode;
+        } catch (e) { currentTranslationLang = 'ar'; }
+    }
+    
+    renderPodium();
+    updateLevelBadge();
+    
+    updateAllTexts();
+    updateHeaderUI();
+    generateNewSentence();
+    updateDisplay();
+    
+    document.getElementById('userInput').addEventListener('input', validateAndReact);
+    document.getElementById('speakBtn').addEventListener('click', speakCurrent);
+    document.getElementById('speedSlider').addEventListener('input', function() {
+        currentSpeed = parseFloat(this.value);
+        document.getElementById('speedLabel').textContent = currentSpeed.toFixed(1) + 'x';
+    });
+    document.getElementById('nextBtnNav').addEventListener('click', nextSentence);
+    document.getElementById('headerLoginBtn').addEventListener('click', () => showAuthModal('login'));
+    document.getElementById('headerSignupBtn').addEventListener('click', () => showAuthModal('signup'));
+    document.getElementById('logoutBtnHeader').addEventListener('click', logout);
+    document.getElementById('menuBtn').addEventListener('click', openSidebar);
+    document.getElementById('closeSidebarBtn').addEventListener('click', closeSidebar);
+    document.getElementById('sidebarOverlay').addEventListener('click', function(e) { if (e.target === this) closeSidebar(); });
+    document.getElementById('statsLinkFooter').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!currentUser) { showMsg('الرجاء تسجيل الدخول لعرض الإحصائيات', true); showAuthModal('login'); }
+    });
+    document.getElementById('changeLevelBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        showLevelModal();
+    });
+    
+    document.getElementById('speedLabel').textContent = '0.9x';
+    isAppReady = true;
+    
+    setTimeout(() => { const input = document.getElementById('userInput'); if (input && document.hasFocus()) { input.focus(); } }, 200);
+    
+    setTimeout(function() {
+        var langName = getLangName(currentTranslationLang);
+        var t = SITE_TRANSLATIONS[currentTranslationLang] || SITE_TRANSLATIONS['en'];
+        showMsg(t.autoLangDetected + " " + langName);
+    }, 1200);
+    
+    console.log(`✅ تم إنشاء محرك جمل شامل بـ ${totalCombos.toLocaleString()} تركيبة`);
+}
+
+// ============================================================
+// PREVENT COPYING
+// ============================================================
+document.addEventListener('copy', function(e) { const target = e.target; if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') { e.preventDefault(); showMsg('🚫 النسخ غير مسموح', true); return false; } });
+document.addEventListener('contextmenu', function(e) { const target = e.target; if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') { e.preventDefault(); showMsg('🚫 القائمة المنبثقة غير مسموحة', true); return false; } });
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) {
+        const target = e.target;
+        if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') { e.preventDefault(); showMsg('🚫 غير مسموح', true); return false; }
+    }
+});
+
+// ============================================================
+// START
+// ============================================================
+setTimeout(function() { finishInit(); }, 200);
+</script>
+</body>
+</html>            transition: var(--transition);
         }
         .logo-text {
             font-size: 22px;
